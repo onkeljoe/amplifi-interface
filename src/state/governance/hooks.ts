@@ -19,8 +19,8 @@ import { useSingleCallResult } from '../multicall/hooks'
 import { useActiveWeb3React } from '../../hooks'
 import { useTransactionAdder } from '../transactions/hooks'
 import { isAddress, calculateGasMargin } from '../../utils'
-import { useSubgraphClient } from '../application/hooks'
-import { fetchProposals, enumerateProposalState } from '../../data/governance'
+import { useSubgraphClient, useSubgraphClientSnapshot } from '../application/hooks'
+import { fetchProposals, enumerateProposalState, fetchProposalsSnapshot } from '../../data/governance'
 import { ALL_VOTERS, DELEGATE_INFO } from '../../apollo/queries'
 import { deserializeToken } from '../user/hooks'
 import { useIsEOA } from '../../hooks/useIsEOA'
@@ -213,6 +213,7 @@ export function useAllProposals(): { [id: string]: ProposalData } | undefined {
 
   // get subgraph client for active protocol
   const govClient = useSubgraphClient()
+  const govClientSnapshot = useSubgraphClientSnapshot()
   const govToken = useGovernanceToken()
   const [activeProtocol] = useActiveProtocol()
 
@@ -224,7 +225,7 @@ export function useAllProposals(): { [id: string]: ProposalData } | undefined {
   useEffect(() => {
     async function fetchData() {
       try {
-        if (govToken && activeProtocol) {
+        if (govToken && activeProtocol && govClient) {
           fetchProposals(govClient, govToken.address, activeProtocol.id).then((data: ProposalData[] | null) => {
             if (data) {
               const proposalMap = data.reduce<{ [id: string]: ProposalData }>((accum, proposal: ProposalData) => {
@@ -235,6 +236,19 @@ export function useAllProposals(): { [id: string]: ProposalData } | undefined {
             }
           })
         }
+        if (govClientSnapshot) {
+          fetchProposalsSnapshot(govClientSnapshot).then((data: ProposalData[] | null) => {
+            if (data) {
+              console.log(data)
+              const proposalMap = data.reduce<{ [id: string]: ProposalData }>((accum, proposal: ProposalData) => {
+                accum[proposal.id] = proposal
+                return accum
+              }, {})
+              setProposals(proposalMap)
+            }
+          }) 
+        }
+        //todo(jonathanng) - had snapshot fetchproposalssnapshot here
       } catch (e) {
         console.log(e)
       }
@@ -394,7 +408,7 @@ export function useAllVotersForProposal(
     }[]
   | undefined {
   const subgraphClient = useSubgraphClient()
-
+    //todo(jonathanng)
   const [voters, setVoters] = useState<
     | {
         votes: string

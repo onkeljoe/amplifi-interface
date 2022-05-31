@@ -12,6 +12,7 @@ import {
   RADICLE_GOVERNANCE,
   NOUNS_GOVERNANCE,
   ENS_GOVERNANCE,
+  CRE8R_GOVERNANCE,
 } from '../governance/reducer'
 import {
   uniswapClient,
@@ -21,6 +22,7 @@ import {
   radicleClient,
   nounsClient,
   ensClient,
+  snapshotClient,
 } from '../../apollo/client'
 
 export function useBlockNumber(): number | undefined {
@@ -126,6 +128,13 @@ export function useSubgraphClient() {
   if (activeProtocol?.id === ENS_GOVERNANCE.id) {
     return ensClient
   }
+  return undefined
+}
 
+export function useSubgraphClientSnapshot() {
+  const [activeProtocol] = useActiveProtocol()
+  if (activeProtocol?.hasSnapshot) {
+    return snapshotClient
+  }
   return undefined
 }

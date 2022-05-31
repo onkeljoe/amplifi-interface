@@ -97,6 +97,51 @@ export const PROPOSALS = gql`
   }
 `
 
+export const PROPOSALS_SNAPSHOT = gql`
+  query Proposals(
+    $first: Int!
+    $skip: Int!
+    $state: String!
+    $space: String
+    $space_in: [String]
+    $author_in: [String]
+  ) {
+    proposals(
+      first: $first
+      skip: $skip
+      where: {
+        space: $space
+        state: $state
+        space_in: $space_in
+        author_in: $author_in
+      }
+    ) {
+      id
+      ipfs
+      title
+      body
+      start
+      end
+      state
+      author
+      created
+      choices
+      space {
+        id
+        name
+        members
+        avatar
+        symbol
+      }
+      scores_state
+      scores_total
+      scores
+      votes
+      quorum
+      symbol
+    }
+  }
+`;
 export const ALL_VOTERS = gql`
   query voters($proposalID: String!, $support: Boolean!) {
     votes(

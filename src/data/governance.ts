@@ -1,6 +1,6 @@
 import { Identities } from './../state/social/reducer'
 import { Web3Provider } from '@ethersproject/providers'
-import { TOP_DELEGATES, PROPOSALS, GLOBAL_DATA, DELEGATES_FROM_LIST, TOP_DELEGATES_OFFSET } from '../apollo/queries'
+import { TOP_DELEGATES, PROPOSALS, GLOBAL_DATA, DELEGATES_FROM_LIST, TOP_DELEGATES_OFFSET, PROPOSALS_SNAPSHOT } from '../apollo/queries'
 import { DelegateData, ProposalData } from '../state/governance/hooks'
 import { ethers } from 'ethers'
 import { fetchProfileData } from './social'
@@ -9,6 +9,8 @@ import { DocumentNode } from 'graphql'
 import { PRELOADED_PROPOSALS } from '../constants'
 import { GlobaData } from '../state/governance/reducer'
 import { AUTONOMOUS_PROPOSAL_BYTECODE } from '../constants/proposals'
+import ApolloClient from 'apollo-client'
+import { NormalizedCacheObject } from 'apollo-cache-inmemory'
 
 interface DelegateResponse {
   data: {
@@ -206,6 +208,36 @@ interface ProposalResponse {
   }
 }
 
+interface ProposalResponseSnapshot {
+  data: {
+    proposals: {
+      id: string
+      ipfs: string
+      title: string
+      body: string
+      start: number
+      end: number
+      state: string
+      author: string
+      created: number
+      choices: string[]
+      space: {
+        id: string
+        name: string
+        members: string[]
+        avatar: string
+        symbol: string
+      }
+      scores_state: string
+      scores_total: number
+      scores: number[]
+      votes: number
+      quorum: number
+      symbol: string
+    }[]
+  }
+}
+
 export const enumerateProposalState = (state: number) => {
   const proposalStates = ['pending', 'active', 'canceled', 'defeated', 'succeeded', 'queued', 'expired', 'executed']
   return proposalStates[state]
@@ -273,4 +305,80 @@ export async function fetchProposals(client: any, key: string, govId: string): P
       })).catch(() => {
     return Promise.reject('Error fetching proposals from subgraph')
   })
+}
+
+export async function fetchProposalsSnapshot(client: any): Promise<ProposalData[] | null> {
+  //todo(jonathanng)
+  return client
+  .query({
+    query: PROPOSALS_SNAPSHOT,
+    variables: {
+      first: 6, 
+      skip: 0, 
+      space: "cre8r.eth", 
+      state: "all", 
+      author_in: []
+    },
+    fetchPolicy: 'cache-first',
+  })
+  .then(async (res: ProposalResponseSnapshot) => {
+    if (res) {
+      return res.data.proposals.map((p, i) => {
+        // let description = PRELOADED_PROPOSALS[govId]?.[res.data.proposals.length - i - 1] || p.body
+        //console.log(p.startBlock)
+        // if (p.startBlock === '13551293') {
+        //   description = description.replace(/  /g, '\n').replace(/\d\. /g, '\n$&')
+        // }
+
+        return {
+          id: p.id,
+          title: p.title,
+          description: p.body || 'No description.',
+          proposer: p.author,
+          status: p.state, //undefined, // initialize as 0
+          forCount: undefined, // initialize as 0 //TODO(jonomnom)
+          againstCount: undefined, // initialize as 0
+          startBlock: p.start,
+          endBlock: p.end,
+          forVotes: [{support: true,
+            votes: "jon",
+            voter: {
+              id: "id-string-here"
+            }}], //p.forVotes,
+          againstVotes: [{support: true,
+            votes: "jon",
+            voter: {
+              id: "id-string-here"
+            }}], //p.againstVotes,
+          details: [],
+          // p.targets.map((t, i) => {
+          //   let name = '',
+          //     types = '',
+          //     callData = ''
+          //   const signature = p.signatures[i]
+          //   if (signature) {
+          //     const sigSplit = signature.substr(0, signature.length - 1).split('(')
+          //     name = sigSplit[0]
+          //     types = sigSplit[1]
+          //   }
+
+          //   const calldata = p.calldatas[i]
+          //   if (calldata && types) {
+          //     const decoded = ethers.utils.defaultAbiCoder.decode(types.split(','), calldata)
+          //     callData = decoded.toString()
+          //   }
+
+          //   return {
+          //     target: p.targets[i],
+          //     functionSig: name,
+          //     callData,
+          //   }
+          // }),
+        }
+      })
+    }
+    return null
+  }).catch(() => {
+    return Promise.reject('Error fetching proposals from subgraph')
+    })
 }

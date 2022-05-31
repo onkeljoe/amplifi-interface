@@ -44,7 +44,8 @@ export interface GovernanceInfo {
   campaignBudget?: string
   video?: string
   description?: string
-  featuredImage?: string
+  featuredImage?: string,
+  hasSnapshot?: boolean
 }
 
 // protocol wide data
@@ -246,12 +247,13 @@ export const CRE8R_GOVERNANCE: GovernanceInfo = {
   description: `Share CRE8R AmpliFi with your friends and earn $CRE8R tokens. Just copy your unique link below and share anywhere (responsibly). You will be rewarded with CRE8R tokens in several different ways over time.
 
   Based on:
-  The number of people you refer, and the KPI goals that are hit on other campaigns in AmpliFi that can be attributed to your unique link. More info will be released on this as the system develops.`
+  The number of people you refer, and the KPI goals that are hit on other campaigns in AmpliFi that can be attributed to your unique link. More info will be released on this as the system develops.`,
+  hasSnapshot: true
 }
 
 // mapping for routing
 export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
-  // compound: COMPOUND_GOVERNANCE,
+  compound: COMPOUND_GOVERNANCE,
 
   // pool: POOL_TOGETHER_GOVERNANCE,
   // radicle: RADICLE_GOVERNANCE,

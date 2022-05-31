@@ -57,3 +57,12 @@ export const ensClient = new ApolloClient({
   cache: new InMemoryCache(),
   shouldBatch: true,
 })
+
+
+export const snapshotClient = new ApolloClient({
+  link: new HttpLink({
+    uri: 'https://hub.snapshot.org/graphql', //note: testnet - https://testnet.snapshot.org
+  }),
+  cache: new InMemoryCache(),
+  shouldBatch: true,
+})
