@@ -45,7 +45,8 @@ export interface GovernanceInfo {
   video?: string
   description?: string
   featuredImage?: string,
-  hasSnapshot?: boolean
+  hasSnapshot?: boolean,
+  spaceSnapshot?: string,
 }
 
 // protocol wide data
@@ -119,7 +120,9 @@ export const HND_GOVERNANCE: GovernanceInfo = {
   campaignBudget: '10,000 USD in $CRE8R & 30,000',
   video: 'https://www.youtube.com/embed/ccPUXuS4_Is', // ['https://www.youtube.com/embed/ccPUXuS4_Is','https://www.youtube.com/embed/BDQlJNiDav8'],
   description: `<b>In phase one of the campaign only wallets that have used Hundred Finance will be eligible for AmpliFi payouts.</b> Share Hundred Finance with your friends using your unique tracking link below and earn HND + CRE8R 
-  You will be rewarded based on onchain data that can be tracked back to your unique link using AmpliFi`
+  You will be rewarded based on onchain data that can be tracked back to your unique link using AmpliFi`,
+  hasSnapshot: true,
+  spaceSnapshot: 'hundredfinance.eth'
 }
 export const AAVE_GOVERNANCE_ADDRESS = '0xEC568fffba86c094cf06b22134B23074DFE2252c'
 export const AAVE_ADDRESS = '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9'
@@ -248,7 +251,8 @@ export const CRE8R_GOVERNANCE: GovernanceInfo = {
 
   Based on:
   The number of people you refer, and the KPI goals that are hit on other campaigns in AmpliFi that can be attributed to your unique link. More info will be released on this as the system develops.`,
-  hasSnapshot: true
+  hasSnapshot: true,
+  spaceSnapshot: 'cre8r.eth'
 }
 
 // mapping for routing

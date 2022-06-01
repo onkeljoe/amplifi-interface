@@ -307,15 +307,15 @@ export async function fetchProposals(client: any, key: string, govId: string): P
   })
 }
 
-export async function fetchProposalsSnapshot(client: any): Promise<ProposalData[] | null> {
+export async function fetchProposalsSnapshot(client: any, space: string): Promise<ProposalData[] | null> {
   //todo(jonathanng)
   return client
   .query({
     query: PROPOSALS_SNAPSHOT,
     variables: {
-      first: 6, 
+      first: 100, 
       skip: 0, 
-      space: "cre8r.eth", 
+      space, 
       state: "all", 
       author_in: []
     },
@@ -331,7 +331,7 @@ export async function fetchProposalsSnapshot(client: any): Promise<ProposalData[
         // }
 
         return {
-          id: p.id,
+          id: i, //note: for snapshot, p.id is an address
           title: p.title,
           description: p.body || 'No description.',
           proposer: p.author,

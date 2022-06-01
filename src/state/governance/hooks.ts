@@ -213,7 +213,7 @@ export function useAllProposals(): { [id: string]: ProposalData } | undefined {
 
   // get subgraph client for active protocol
   const govClient = useSubgraphClient()
-  const govClientSnapshot = useSubgraphClientSnapshot()
+  const {snapshotClient, spaceSnapshot} = useSubgraphClientSnapshot()
   const govToken = useGovernanceToken()
   const [activeProtocol] = useActiveProtocol()
 
@@ -236,8 +236,8 @@ export function useAllProposals(): { [id: string]: ProposalData } | undefined {
             }
           })
         }
-        if (govClientSnapshot) {
-          fetchProposalsSnapshot(govClientSnapshot).then((data: ProposalData[] | null) => {
+        if (snapshotClient && spaceSnapshot) {
+          fetchProposalsSnapshot(snapshotClient, spaceSnapshot).then((data: ProposalData[] | null) => {
             if (data) {
               console.log(data)
               const proposalMap = data.reduce<{ [id: string]: ProposalData }>((accum, proposal: ProposalData) => {
