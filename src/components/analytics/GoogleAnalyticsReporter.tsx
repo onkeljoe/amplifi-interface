@@ -9,3 +9,5 @@ export default function GoogleAnalyticsReporter({ location: { pathname, search }
   }, [pathname, search])
   return null
 }
+
+// @todo check how this works in analytics -dunks
