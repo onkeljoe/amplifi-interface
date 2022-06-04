@@ -75,12 +75,13 @@ export default function VoteContent() {
 
   // used for displaying names
   const [allIdentities] = useAllIdentities()
+// starting to thinking about making a copy of this file but for showing earnings... Obv need to keep showing voting delegation etc
 
   return (
     <AutoColumn gap="16px">
       <WhiteCard border={`1px solid ${theme.bg3}`} style={{ zIndex: 2 }} padding="1rem">
         <RowBetween>
-          <TYPE.black color={theme.text1}>Wallet Votes</TYPE.black>
+          <TYPE.black color={theme.text1}> Estimated ${activeProtocol?.token.symbol} Earnings</TYPE.black>  {/* changed from votes to earnings for demo/dummy  */}
           <TYPE.main color={activeProtocol?.primaryColor}>
             {walletVotes ? walletVotes.toFixed(0) : account ? <Loader /> : '-'}
           </TYPE.main>
@@ -145,7 +146,7 @@ export default function VoteContent() {
         style={{ zIndex: 3 }}
       >
         <RowBetween>
-          <TYPE.black color={theme.text1}>Received votes</TYPE.black>
+          <TYPE.black color={theme.text1}>${activeProtocol?.token.symbol} Received </TYPE.black>  {/* Was  Recieved Votes */}
           <TYPE.main color={activeProtocol?.primaryColor}>
             {receivedVotes ? receivedVotes.toFixed(0) : account ? <Loader /> : '-'}
           </TYPE.main>
@@ -172,7 +173,7 @@ export default function VoteContent() {
           'You are delegating all your voting power'
         ) : (
           <RowBetween style={{ color: activeProtocol?.primaryColor, fontWeight: 600 }}>
-            <span>Total votes</span>
+            <span>Total ${activeProtocol?.token.symbol}</span> {/* Was Total Votes */}
             <span>{totalVotes ? totalVotes.toFixed(0) : account ? <Loader /> : '-'}</span>
           </RowBetween>
         )}

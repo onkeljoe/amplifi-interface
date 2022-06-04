@@ -8,7 +8,7 @@ import {
   UNISWAP_GOVERNANCE,
   COMPOUND_GOVERNANCE,
   AAVE_GOVERNANCE,
-  POOL_TOGETHER_GOVERNANCE,
+  FUJI_GOVERNANCE,
   RADICLE_GOVERNANCE,
   NOUNS_GOVERNANCE,
   ENS_GOVERNANCE,
@@ -113,7 +113,7 @@ export function useSubgraphClient() {
     return aaveClient
   }
 
-  if (activeProtocol?.id === POOL_TOGETHER_GOVERNANCE.id) {
+  if (activeProtocol?.id === FUJI_GOVERNANCE.id) {
     return poolClient
   }
 

@@ -16,14 +16,14 @@ import Cre8rLogo from '../../assets/images/cre8r-logo.png'
 import CompLogo from '../../assets/images/compLogo.png'
 import HundredLogo from '../../assets/images/hundred-logo.png'
 import BeanLogo from '../../assets/images/bean-logo.jpg'
-import PoolLogo from '../../assets/images/pooltogether-icon.png'
+import FujiLogo from '../../assets/images/fujidao_logo.png'
 import RadicleLogo from '../../assets/images/radicle-logo.svg'
 import NounsLogo from '../../assets/images/nouns-logo.png'
 import ENSLogo from '../../assets/images/ens.jpeg'
 import AddAccount from '../../assets/images/AddAccount.png'
 //featured images
 import HundredFeatured from '../../assets/images/hundred-featured.png'
-
+import FujiFeatured from '../../assets/images/fuji-short.png'
 
 
 import { serializeToken } from '../user/hooks'
@@ -79,6 +79,30 @@ export const UNISWAP_GOVERNANCE: GovernanceInfo = {
   emoji: '🦄',
   baseUrl: 'https://uniswap.org/?'
 }
+// 0x5006d1a781883652cba00c51a63d76ff21fa688d  apefi comptroller
+// unitroller
+// https://etherscan.io/address/0xcaaa0c316f8b91f25b35e318f83caab4acd327fb#code apetoken helper
+// https://etherscan.io/address/0xde607fe5cb415d83fe4a976afd97e5daeeaedb07#code 
+// https://etherscan.io/address/0xcab90816f91cc25b04251857ed6002891eb0d6fa#readContract ape erc20 delegator holds apecoin
+// export const APEFI_GOVERNANCE_ADDRESS_BRAVO = ''
+// export const APEFI_GOVERNANCE_ADDRESS = ''
+// export const APEFI_ADDRESS = ''
+// const APEFI = new Token(ChainId.MAINNET, APEFI_ADDRESS, 18, 'APEFI', 'APEFI Governance Token')
+// export const APEFI_GOVERNANCE: GovernanceInfo = {
+//   id: 'apefi',
+//   name: 'ApeFi Governance',
+//   logo: ApeFiLogo,
+//   primaryColor: '#08D395',
+//   secondaryColor: '#E1F9F1',
+//   token: serializeToken(APEFI),
+//   governanceAlphaAddresses: [APEFI_GOVERNANCE_ADDRESS],
+//   governanceAddressBravo: APEFI_GOVERNANCE_ADDRESS_BRAVO,
+//   migrationProposalId: 42,
+//   social: '@apefi',
+//   emoji: '🏦'
+//   //baseUrl: 'https://hundred.finance/?'
+// }
+
 
 export const COMP_GOVERNANCE_ADDRESS_BRAVO = '0xc0da02939e1441f497fd74f78ce7decb17b66529'
 export const COMP_GOVERNANCE_ADDRESS = '0xc0dA01a04C3f3E0be433606045bB7017A7323E38'
@@ -105,7 +129,7 @@ export const COMPOUND_GOVERNANCE: GovernanceInfo = {
 const HND = new Token(ChainId.MAINNET, COMP_ADDRESS, 18, 'HND', 'Hundred Governance Token')
 export const HND_GOVERNANCE: GovernanceInfo = {
   id: 'HND',
-  name: 'Hundred Finance',
+  name: 'Hundred1 Finance',
   logo: HundredLogo,
   primaryColor: '#000000',
   secondaryColor: '#E1F9F1',
@@ -151,19 +175,28 @@ export const AAVE_GOVERNANCE: GovernanceInfo = {
 <style type="text/css">.ritz .waffle a { color: inherit; }.ritz .waffle .s1{background-color:#ffffff;text-align:right;color:#000000;font-family:'Inter var';font-size:10pt;vertical-align:bottom;white-space:nowrap;direction:ltr;padding:2px 3px 2px 3px;}.ritz .waffle .s0{background-color:#ffffff;text-align:left;color:#000000;font-family:'Inter var';font-size:10pt;vertical-align:bottom;white-space:normal;overflow:hidden;word-wrap:break-word;direction:ltr;padding:2px 3px 2px 3px;}</style><div class="ritz grid-container" dir="ltr"><table class="waffle" cellspacing="0" cellpadding="0"><thead><tr><th class="row-header freezebar-origin-ltr"></th><th id="305164801C0" style="width:700px;" class="column-headers-background"></th><th id="305164801C1" style="width:700px;" class="column-headers-background"></th></tr></thead><tbody><tr style="height: 20px"><th id="305164801R0" style="height: 20px;" class="row-headers-background"><div class="row-header-wrapper" style="line-height: 20px"</div></th><td class="s0">Max payout </td><td class="s1">500,000 PODS</td></tr><tr style="height: 20px"><th id="305164801R1" style="height: 20px;" class="row-headers-background"><div class="row-header-wrapper" style="line-height: 20px"></div></th><td class="s0" dir="ltr">Min amount raised from AmpliFi to activate payout</td><td class="s1">$5,000,000 USD</td></tr><tr style="height: 20px"><th id="305164801R2" style="height: 20px;" class="row-headers-background"><div class="row-header-wrapper" style="line-height: 20px"></div></th><td class="s0" dir="ltr">Target for max payout</td><td class="s1">$25,000,000 USD</td></tr><tr style="height: 20px"><th id="305164801R3" style="height: 20px;" class="row-headers-background"><div class="row-header-wrapper" style="line-height: 20px"></div></th><td class="s0" dir="ltr">Payout per million raised via AmpliFi</td><td class="s1">20,000 PODS</td></tr><tr style="height: 20px"><th id="305164801R4" style="height: 20px;" class="row-headers-background"><div class="row-header-wrapper" style="line-height: 20px"></div></th><td class="s0" dir="ltr">Payout per 100k raised via AmpliFi</td><td class="s1">2,000 PODS</td></tr><tr style="height: 20px"><th id="305164801R5" style="height: 20px;" class="row-headers-background"><div class="row-header-wrapper" style="line-height: 20px"></div></th><td class="s0" dir="ltr">Percent cut per amount raised via AmpliFi up to $25,000,000 USD</td><td class="s1" dir="ltr">2.00%</td></tr></tbody></table></div>`
 }
 
-export const POOL_TOGETHER_GOVERNANCE_ADDRESS = '0xB3a87172F555ae2a2AB79Be60B336D2F7D0187f0'
-export const POOL_ADDRESS = '0x0cEC1A9154Ff802e7934Fc916Ed7Ca50bDE6844e'
-const POOL = new Token(ChainId.MAINNET, POOL_ADDRESS, 18, 'POOL', 'PoolTogether')
-export const POOL_TOGETHER_GOVERNANCE: GovernanceInfo = {
-  id: 'pool',
-  name: 'PoolTogether Governance',
-  logo: PoolLogo,
-  primaryColor: '#5c0ef3',
+export const FUJI_GOVERNANCE_ADDRESS = '0xB3a87172F555ae2a2AB79Be60B336D2F7D0187f0'
+export const FUJI_ADDRESS = '0x0cEC1A9154Ff802e7934Fc916Ed7Ca50bDE6844e'
+const FUJI = new Token(ChainId.MAINNET, FUJI_ADDRESS, 18, 'FUJI', 'Fuji Token')
+export const FUJI_GOVERNANCE: GovernanceInfo = {
+  id: 'fuji',
+  name: 'Fuji Expedition',
+  logo: FujiLogo,
+  primaryColor: '#FF007A',
   secondaryColor: '#f2eeff',
-  token: serializeToken(POOL),
-  governanceAlphaAddresses: [POOL_TOGETHER_GOVERNANCE_ADDRESS],
-  social: '@PoolTogether_',
-  emoji: '🏆'
+  token: serializeToken(FUJI),
+  governanceAlphaAddresses: [FUJI_GOVERNANCE_ADDRESS],
+  social: '@FujiDAO',
+  emoji: '🌋',
+  baseUrl: 'https://www.fujidao.org/#/dashboard/init-borrow?',
+  featuredImage: FujiFeatured,
+  campaignBudget:
+    '3000',
+  video: 'https://youtube.com/embed/SmUNtbz35kY', // ['https://www.youtube.com/embed/ccPUXuS4_Is','https://www.youtube.com/embed/BDQlJNiDav8'],
+  description: `<p>AmpliFi Verified Ampbasadors you can now earn a share of Fuji DAO governance through sharing The <strong>Fuji Expedition</strong> with your audience. </p>
+  
+ This process will be several months long beginning June 1st. More details on this AmpliFi campaigns budget & methodology will be released over the coming days.
+`
 }
 
 export const RADICLE_GOVERNANCE_ADDRESS = '0x690e775361AD66D1c4A25d89da9fCd639F5198eD'
@@ -258,11 +291,10 @@ export const CRE8R_GOVERNANCE: GovernanceInfo = {
 // mapping for routing
 export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   compound: COMPOUND_GOVERNANCE,
-
-  // pool: POOL_TOGETHER_GOVERNANCE,
+  fuji: FUJI_GOVERNANCE,
   // radicle: RADICLE_GOVERNANCE,
   CRE8R: CRE8R_GOVERNANCE,
-  HND: HND_GOVERNANCE,
+  HND: HND_GOVERNANCE
  // BEAN: AAVE_GOVERNANCE
   //uniswap: UNISWAP_GOVERNANCE,
   // nouns: NOUNS_GOVERNANCE,

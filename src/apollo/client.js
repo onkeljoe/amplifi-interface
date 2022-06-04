@@ -66,3 +66,11 @@ export const snapshotClient = new ApolloClient({
   cache: new InMemoryCache(),
   shouldBatch: true,
 })
+
+export const cre8rCmsClient = new ApolloClient({
+  link: new HttpLink({
+    uri: 'https://cre8r.vip/graphql', //note: testnet - https://testnet.snapshot.org
+  }),
+  cache: new InMemoryCache(),
+  shouldBatch: true,
+})

@@ -32,12 +32,12 @@ const CopyHelper = (props: { toCopy: string; children?: React.ReactNode }): JSX.
     <CopyIcon onClick={() => setCopied(props.toCopy)}>
       {isCopied ? (
         <TransactionStatusText>
-          <CheckCircle size={'16'} />
+          <CheckCircle size={'35'} />
           <TransactionStatusText>Copied</TransactionStatusText>
         </TransactionStatusText>
       ) : (
         <TransactionStatusText>
-          <Copy size={'16'} />
+          <Copy size={'35'} />
         </TransactionStatusText>
       )}
       {isCopied ? '' : props.children}
