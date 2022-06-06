@@ -47,6 +47,7 @@ export default function Amplifi({
                     </AutoColumn>
                 </MediumHeaderWrapper>
                 <AmplifiCampaignList />
+              
             </AutoColumn>
         </BodyWrapper>
     )

@@ -7,6 +7,14 @@ import { TYPE } from 'theme'
 import parse from 'html-react-parser'
 import { useActiveProtocol, useUtm } from '../../state/governance/hooks'
 import FeaturedImage from 'components/FeaturedImage/FeaturedImage'
+import PostsSearch from 'components/Posts/PostsSearch';
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "react-apollo";
+
+const Scammyclient = new ApolloClient({
+  // Change this to the URL of your WordPress site.
+  uri: "https://cre8r.vip/graphql"
+});
 
 const Wrapper = styled.div<{ backgroundColor?: string }>`
   width: 100%;
@@ -22,39 +30,7 @@ export const Break = styled.div`
 export default function AmplifiCampaignList() {
   const [activeProtocol] = useActiveProtocol()
   const utmLinks = useUtm()
-  // monitor user inputs
-  // const [twitterHandle] = useTwitterAccount()
-  // const [twitterShareURL, setTwitterShareURL] = useState('https://cre8r.vip')
-  // const [tweetContent, setTweetContent] = useState(
-  //     'Hello Guys, This is a testing of twitter share example',
-  // )
 
-  // const campaignHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
-  //     event.preventDefault();
-  //     if (!twitterHandle) {
-  //       console.error('Twitterhandle is undefined')
-  //       // return;
-  //     }
-  //     const button: HTMLButtonElement = event.currentTarget;
-  //     const utmParameters = [];
-  //     utmParameters.push('utm_source=' + encodeURI(twitterHandle || ''));
-  //     utmParameters.push('utm_medium=amplifi');
-  //     const longUrl = 'https://cre8r.vip?' + utmParameters.join('&');
-  //     setTweetContent(longUrl);
-
-  //     const twitterParameters = [];
-  //     if (twitterShareURL)
-  //         twitterParameters.push('url=' + encodeURI(twitterShareURL));
-  //     if (tweetContent)
-  //         twitterParameters.push('text=' + encodeURI(tweetContent));
-  //     if (twitterHandle)
-  //         twitterParameters.push('via=' + encodeURI(twitterHandle));
-  //     const url =
-  //         'https://twitter.com/intent/tweet?'
-  //         + twitterParameters.join('&')
-
-  //     console.log(url)
-  // }
 
   return (
     <Wrapper>
@@ -63,6 +39,9 @@ export default function AmplifiCampaignList() {
           Campaigns are still in testing phase and are subject to change. Please check back soon.
         </TYPE.body>
         <Break />
+        <ApolloProvider client={Scammyclient}>
+        <PostsSearch  />
+        </ApolloProvider>
         {activeProtocol && activeProtocol.featuredImage && (
           <>
             <FeaturedImage image={activeProtocol.featuredImage} />
@@ -72,15 +51,17 @@ export default function AmplifiCampaignList() {
           <>
             <TYPE.body fontSize="14px" fontWeight="600" mb="1rem" mt="1rem">
               <span style={{ fontWeight: 'bolder' }}> Campaign Budget: </span>{' '}
-              <span>{activeProtocol.campaignBudget}</span> {activeProtocol.token.symbol}
+              <span>{activeProtocol.campaignBudget}</span> {activeProtocol.token.symbol}   {/* add token logo(s)  */}
+            
               {/* <WrappedListLogo src={activeProtocol.logo} style={{width: 100, height: 100}}/> */}
             </TYPE.body>
-            <TYPE.body fontSize="14px" fontWeight="300" mb="1rem">
+            <TYPE.body fontSize="14px" fontWeight="301" mb="1rem">
               {console.log(activeProtocol)}
               {parse(activeProtocol.description)}
             </TYPE.body>
           </>
         )}
+      
         {/* {activeProtocol && <TYPE.body fontSize="16px" fontWeight="600" mb="1rem">
                     {activeProtocol.token}
                 </TYPE.body>} */}

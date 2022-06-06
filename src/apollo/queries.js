@@ -1,3 +1,4 @@
+import { hasClientExports } from 'apollo-utilities'
 import gql from 'graphql-tag'
 import { FETCHING_INTERVAL } from '../state/governance/reducer'
 
@@ -11,6 +12,36 @@ export const GLOBAL_DATA = gql`
     }
   }
 `
+export const CASE_STUDY_ACF_FIELDS_CLIPS = gql`
+
+query ClipsFromCasestudies {
+    caseStudies(first: 10, where: {}) {
+      pageInfo {
+        endCursor
+        startCursor
+      }
+      edges {
+        node {
+          title
+        }
+      }
+      nodes {
+        caseStudyAcfFields {
+          clipsRepeater {
+            clipFile {
+              mediaItemUrl
+            }
+            clipImage {
+              id
+            }
+            clipTitle
+          }
+        }
+      }
+    }
+  }`
+
+
 
 // fetch top delegates by votes delegated at current time
 export const TOP_DELEGATES = gql`

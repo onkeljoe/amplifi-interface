@@ -237,3 +237,4 @@ export function ButtonError({ error, ...rest }: { error?: boolean } & ButtonProp
     return <ButtonPrimary {...rest} />
   }
 }
+

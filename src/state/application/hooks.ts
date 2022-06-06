@@ -23,6 +23,7 @@ import {
   nounsClient,
   ensClient,
   snapshotClient,
+  cre8rCmsClient,
 } from '../../apollo/client'
 
 export function useBlockNumber(): number | undefined {
@@ -98,6 +99,7 @@ export function useActivePopups(): AppState['application']['popupList'] {
   return useMemo(() => list.filter((item) => item.show), [list])
 }
 
+
 export function useSubgraphClient() {
   const [activeProtocol] = useActiveProtocol()
 
@@ -138,3 +140,5 @@ export function useSubgraphClientSnapshot() {
   }
   return {snapshotClient: undefined, spaceSnapshot: undefined}
 }
+
+// how are we going to use cre8rCmsClient as well? @Todo
