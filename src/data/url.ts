@@ -1,3 +1,4 @@
+import { useActiveProtocol } from "state/governance/hooks";
 import { GovernanceInfo } from "state/governance/reducer";
 // import { SerializedToken } from "state/user/actions";
 
@@ -18,8 +19,8 @@ export async function getUrl(twitterHandle : string, governanceInfo : Governance
    */
   console.log(token)
   const campaignUrl = baseUrl || 'https://www.google.com/?'
-  const utm_source = 'source'
-  const medium = 'medium'
+  const utm_source = twitterHandle
+  const medium = twitterHandle
   const utm_campaign = token.symbol || 'no_protocol_found'
   const utm_id = 'utm_id'
   const utm_term = twitterHandle

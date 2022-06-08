@@ -17,6 +17,7 @@ query POSTS_SEARCH_QUERY($searchQuery: String!) {
         postId
         title
         date
+        link
         author {
           __typename
         }

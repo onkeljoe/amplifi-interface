@@ -39,9 +39,7 @@ export default function AmplifiCampaignList() {
           Campaigns are still in testing phase and are subject to change. Please check back soon.
         </TYPE.body>
         <Break />
-        <ApolloProvider client={Scammyclient}>
-        <PostsSearch  />
-        </ApolloProvider>
+       
         {activeProtocol && activeProtocol.featuredImage && (
           <>
             <FeaturedImage image={activeProtocol.featuredImage} />
@@ -93,6 +91,9 @@ export default function AmplifiCampaignList() {
           <p>Please connect to Twitter in order to generate your unique referral link.</p>
         )}
         {activeProtocol && activeProtocol.video && <Youtube video={activeProtocol?.video} />}
+        <ApolloProvider client={Scammyclient}>
+        <PostsSearch  />
+        </ApolloProvider>
       </AutoColumn>
     </Wrapper>
   )

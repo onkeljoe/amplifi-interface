@@ -19,19 +19,19 @@ class PostsSearch extends Component {
 
     return (
       <div className="posts-search">
-        <form className="posts-search__form" onSubmit={handleSubmit}>
-          <input
+        <form style={{  padding: '40px' }} className="posts-search__form" onSubmit={handleSubmit}>
+          <input style={{ fontWeight: 'bolder', padding: '20px' }}
             type="text"
             className="posts-search__search-field"
             name="searchQuery"
             value={searchQuery}
             onChange={handleInputChange}
-            placeholder="Search for blog posts…"
+            placeholder="Search For Content"
           />
         </form>
         {searchQuery &&
           <div className="results">
-            <PostsList searchQuery={searchQuery} />
+            <PostsList  searchQuery={searchQuery} />
           </div>
         }
       </div>
