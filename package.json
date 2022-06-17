@@ -140,6 +140,7 @@
     "axios": "^0.20.0",
     "eth-sig-util": "^3.0.0",
     "fetch-tweets": "^0.1.7",
+    "gatsby": "^4.16.0",
     "graphql": "^15.3.0",
     "graphql-tag": "^2.11.0",
     "html-react-parser": "^1.4.11",
