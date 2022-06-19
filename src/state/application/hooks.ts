@@ -142,3 +142,6 @@ export function useSubgraphClientSnapshot() {
 }
 
 // how are we going to use cre8rCmsClient as well? @Todo
+export function useCre8rCmsClient() {
+  return cre8rCmsClient
+}

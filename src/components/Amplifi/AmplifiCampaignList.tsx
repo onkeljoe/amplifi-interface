@@ -1,20 +1,15 @@
 import Copy from 'components/AccountDetails/Copy'
 import { AutoColumn } from 'components/Column'
 import Youtube from 'components/Youtube'
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { TYPE } from 'theme'
 import parse from 'html-react-parser'
 import { useActiveProtocol, useUtm } from '../../state/governance/hooks'
 import FeaturedImage from 'components/FeaturedImage/FeaturedImage'
 import PostsSearch from 'components/Posts/PostsSearch';
-import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
-
-const Scammyclient = new ApolloClient({
-  // Change this to the URL of your WordPress site.
-  uri: "https://cre8r.vip/graphql"
-});
+import { useWPNav, useWPUri } from 'hooks/useWP'
 
 const Wrapper = styled.div<{ backgroundColor?: string }>`
   width: 100%;
@@ -27,13 +22,60 @@ export const Break = styled.div`
   margin: 0;
 `
 
+function TempNavButton ({label, path, setPath, children} : any) {
+  if (path == null) {
+    throw 'path can not be null'
+  }
+  return <>
+    <div>
+      <button style={{marginLeft: 10}} onClick={() => {
+        setPath(path)
+      }}>{label}</button>
+    </div>
+    <div style={{marginLeft: 10}}>
+      {children}
+    </div>
+  </>
+}
+
 export default function AmplifiCampaignList() {
   const [activeProtocol] = useActiveProtocol()
   const utmLinks = useUtm()
-
-
+  const [path, setPath] = useState('/');
+  const nav = useWPNav()
+  const uriRes = useWPUri(path);
   return (
     <Wrapper>
+      {nav && <>
+        <div>{nav.slug}</div>
+        {nav.menuItems.edges.map(({node, __typename} : any) => {
+          if (__typename == 'MenuToMenuItemConnectionEdge') {
+            __typename == node.childItems.edges.__typename
+            const childNavItems = []
+            console.log(node.childItems.__typename)
+            if (node.childItems.__typename == "MenuItemToMenuItemConnection") {
+              for (let i = 0; i < node.childItems.edges.length; i++) {
+                const {label: label1, path: path1} = node.childItems.edges[i].node
+                childNavItems.push(<TempNavButton label={label1} path={path1} setPath={setPath}/>)
+              }
+            }
+            return <TempNavButton label={node.label} path={node.path} setPath={setPath}>
+              {childNavItems}
+            </TempNavButton>
+          }
+          throw `'unsupported typename found' ${__typename}`
+        })}
+      </>}
+      <div>path: {path}</div>
+
+      {
+        uriRes ? <>
+          {!uriRes.errors && uriRes.data.nodeByUri.content ? (<div dangerouslySetInnerHTML={{__html: uriRes.data.nodeByUri.content}} />) : <div>Error loading content</div>}
+        </> : <>
+          <div>loading content</div>
+        </>
+      }
+      <Break style={{marginBottom: 100}}/>
       <AutoColumn gap="0">
         <TYPE.body fontSize="16px" fontWeight="600" mb="1rem">
           Campaigns are still in testing phase and are subject to change. Please check back soon.
@@ -91,9 +133,7 @@ export default function AmplifiCampaignList() {
           <p>Please connect to Twitter in order to generate your unique referral link.</p>
         )}
         {activeProtocol && activeProtocol.video && <Youtube video={activeProtocol?.video} />}
-        <ApolloProvider client={Scammyclient}>
-        <PostsSearch  />
-        </ApolloProvider>
+
       </AutoColumn>
     </Wrapper>
   )
