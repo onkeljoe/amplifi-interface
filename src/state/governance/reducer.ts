@@ -41,6 +41,7 @@ export interface GovernanceInfo {
   social: string
   emoji?: string
   baseUrl?: string // TODO - this should be required
+  //protocolUrl
   campaignBudget?: string
   video?: string
   description?: string

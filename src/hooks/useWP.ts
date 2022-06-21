@@ -12,13 +12,13 @@ query Menus ($slug: String!) {
       databaseId
       name
       menuItems {
-        ...G
+        ...MenuField1
       }
     }
   }
 }
 
-fragment G on MenuToMenuItemConnection {
+fragment MenuField1 on MenuToMenuItemConnection {
   edges {
                 node {
                   id
@@ -26,13 +26,13 @@ fragment G on MenuToMenuItemConnection {
                   parentId
                   path
                   childItems {
-                    ...F
+                    ...MenuField2
                   }
                 }
               }
 }
 
-fragment F on MenuItemToMenuItemConnection {
+fragment MenuField2 on MenuItemToMenuItemConnection {
   edges {
     node {
       id
@@ -40,13 +40,13 @@ fragment F on MenuItemToMenuItemConnection {
       parentId
       path
       childItems {
-        ...MenuFields
+        ...MenuFields3
       }
     }
   }
 }
 
-fragment MenuFields on MenuItemToMenuItemConnection {
+fragment MenuFields3 on MenuItemToMenuItemConnection {
   edges {
     node {
       id
@@ -54,13 +54,13 @@ fragment MenuFields on MenuItemToMenuItemConnection {
       parentId
       path
       childItems {
-        ...MenuFields2
+        ...MenuFields4
       }
     }
   }
 }
 
-fragment MenuFields2 on MenuItemToMenuItemConnection {
+fragment MenuFields4 on MenuItemToMenuItemConnection {
   edges {
     node {
       id
