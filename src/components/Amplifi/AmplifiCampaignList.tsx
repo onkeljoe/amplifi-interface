@@ -10,6 +10,7 @@ import FeaturedImage from 'components/FeaturedImage/FeaturedImage'
 import PostsSearch from 'components/Posts/PostsSearch';
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
+import { useActiveWeb3React } from 'hooks'
 
 const Scammyclient = new ApolloClient({
   // Change this to the URL of your WordPress site.
@@ -30,7 +31,7 @@ export const Break = styled.div`
 export default function AmplifiCampaignList() {
   const [activeProtocol] = useActiveProtocol()
   const utmLinks = useUtm()
-
+  const { account } = useActiveWeb3React()
 
   return (
     <Wrapper>
@@ -77,18 +78,19 @@ export default function AmplifiCampaignList() {
                         </RowFixed>
                     </RowBetween>
                 </CampaignItem> */}
-        {utmLinks && activeProtocol ? (
+        {utmLinks && activeProtocol && account ? (
           <>
           
             <Copy toCopy={'https://' + utmLinks[activeProtocol?.id]}>
               <span style={{ fontSize: '25px', marginLeft: '4px', marginBottom: '30px' }}>
                 {' '}
-                Copy your unique link &amp; start earning{utmLinks[activeProtocol?.id]}
+                Copy your unique link &amp; start earning 
+                {/* {utmLinks[activeProtocol?.id]} */}
               </span>
             </Copy>
           </>
         ) : (
-          <p>Please connect to Twitter in order to generate your unique referral link.</p>
+          <p>Please connect to Twitter in order to generate your unique referral link for rewards.</p>
         )}
         {activeProtocol && activeProtocol.video && <Youtube video={activeProtocol?.video} />}
         <ApolloProvider client={Scammyclient}>

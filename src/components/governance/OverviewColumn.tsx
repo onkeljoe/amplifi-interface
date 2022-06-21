@@ -33,6 +33,15 @@ export default function OverviewColumn() {
         </TYPE.main>
         <TabOption
           as={Link}
+          to={'/amplifi/' + activeProtocol?.id}
+          selected={location.pathname.includes('amplifi')}
+          color={activeProtocol?.primaryColor}
+          color2={activeProtocol?.secondaryColor}
+        >
+          Amplifi Dashboard
+        </TabOption>
+        <TabOption
+          as={Link}
           to={'/delegates/' + activeProtocol?.id}
           selected={location.pathname.includes('delegates')}
           color={activeProtocol?.primaryColor}
@@ -48,15 +57,6 @@ export default function OverviewColumn() {
           color2={activeProtocol?.secondaryColor}
         >
           View Proposals
-        </TabOption>
-        <TabOption
-          as={Link}
-          to={'/amplifi/' + activeProtocol?.id}
-          selected={location.pathname.includes('amplifi')}
-          color={activeProtocol?.primaryColor}
-          color2={activeProtocol?.secondaryColor}
-        >
-          Amplifi Dashboard
         </TabOption>
       </AutoColumn>
     </Wrapper>
