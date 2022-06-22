@@ -17,13 +17,13 @@ export async function getUrl(twitterHandle : string, governanceInfo : Governance
   /**
    * https://hundred.finance/?utm_source=source&utm_medium=medium&utm_campaign=name&utm_id=twitter-ugm
    */
-  console.log(token)
+  //https://support.google.com/analytics/answer/10917952?hl=en#zippy=%2Cin-this-article
   const campaignUrl = baseUrl || 'https://www.google.com/?'
   const utm_source = twitterHandle
   const medium = twitterHandle
-  const utm_campaign = token.symbol || 'no_protocol_found'
-  const utm_id = 'utm_id'
-  const utm_term = twitterHandle
+  const utm_campaign = governanceInfo.id || 'no_protocol_found' //todo- make id campaign specific rather than protocol specific
+  const utm_id = governanceInfo.id
+  //const utm_term = twitterHandle
   const domain = {
     id: '278c3d8b2f6d469e812bdddbf713a079',
     fullName: 'link.cre8r.vip'
@@ -34,7 +34,7 @@ export async function getUrl(twitterHandle : string, governanceInfo : Governance
   campaignUrlComponents.push(`utm_medium=${medium}`)
   campaignUrlComponents.push(`utm_campaign=${utm_campaign}`)
   campaignUrlComponents.push(`utm_id=${utm_id}`)
-  campaignUrlComponents.push(`utm_term=${utm_term}`)
+  //campaignUrlComponents.push(`utm_term=${utm_term}`)
 
   const urlComponents = []
   

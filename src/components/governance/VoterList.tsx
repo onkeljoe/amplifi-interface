@@ -36,7 +36,7 @@ const ProgressWrapper = styled.div`
   position: relative;
 `
 
-const Progress = styled.div<{ status: 'for' | 'against'; percentageString?: string }>`
+const Progress = styled.div<{ status: string | 'for' | 'against'; percentageString?: string }>`
   height: 4px;
   border-radius: 4px;
   background-color: ${({ theme, status }) => (status === 'for' ? theme.green1 : theme.red1)};
@@ -72,13 +72,13 @@ export default function VoterList({
   amount: number | undefined
   percentage: string
   voters: {
-    support: boolean
+    support: boolean | string
     votes: string
     voter: {
       id: string
     }
   }[]
-  support: 'for' | 'against'
+  support: string | 'for' | 'against'
   id: string
 }) {
   const [showAll, setShowAll] = useState(false)
@@ -118,6 +118,7 @@ export default function VoterList({
                 <div />
               </RowBetween>
               {voters.map((p, i) => {
+                console.log(p)
                 return (
                   <RowBetween key={'vote-for-' + i}>
                     <StyledInternalLink to={'/delegates/' + activeProtocol?.id + '/' + p.voter.id}>
