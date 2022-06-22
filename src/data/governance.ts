@@ -258,7 +258,6 @@ export async function fetchProposals(client: any, key: string, govId: string): P
         if (res) {
           return res.data.proposals.map((p, i) => {
             let description = PRELOADED_PROPOSALS[govId]?.[res.data.proposals.length - i - 1] || p.description
-            console.log(p.startBlock)
             if (p.startBlock === '13551293') {
               description = description.replace(/  /g, '\n').replace(/\d\. /g, '\n$&')
             }
@@ -323,13 +322,14 @@ export async function fetchProposalsSnapshot(client: any, space: string): Promis
   })
   .then(async (res: ProposalResponseSnapshot) => {
     if (res) {
+      console.log(res.data.proposals)
       return res.data.proposals.map((p, i) => {
         // let description = PRELOADED_PROPOSALS[govId]?.[res.data.proposals.length - i - 1] || p.body
         //console.log(p.startBlock)
         // if (p.startBlock === '13551293') {
         //   description = description.replace(/  /g, '\n').replace(/\d\. /g, '\n$&')
         // }
-
+        
         return {
           id: i, //note: for snapshot, p.id is an address
           title: p.title,
@@ -340,16 +340,28 @@ export async function fetchProposalsSnapshot(client: any, space: string): Promis
           againstCount: undefined, // initialize as 0
           startBlock: p.start,
           endBlock: p.end,
-          forVotes: [{support: true,
-            votes: "jon",
-            voter: {
-              id: "id-string-here"
-            }}], //p.forVotes,
-          againstVotes: [{support: true,
-            votes: "jon",
-            voter: {
-              id: "id-string-here"
-            }}], //p.againstVotes,
+          snapshot: {
+            choices: p.choices,
+            counts: p.scores
+          },
+          forVotes: [
+            ...p.choices.map((c, j) => {
+              return {
+                support: c,
+                votes: p.scores[j].toString(),
+                voter: {
+                  id: "0x913fbA33D9AACd385D6f743829C6e2009377472c"
+                }
+              }
+            })
+          ], //p.forVotes,
+          againstVotes: [
+            // {support: false,
+            // votes: "jon",
+            // voter: {
+            //   id: "id-string-here"
+            // }}
+          ], //p.againstVotes,
           details: [],
           // p.targets.map((t, i) => {
           //   let name = '',

@@ -11,11 +11,12 @@ import PostsSearch from 'components/Posts/PostsSearch';
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import { useActiveWeb3React } from 'hooks'
+import Card from 'components/Card'
 
-const Scammyclient = new ApolloClient({
-  // Change this to the URL of your WordPress site.
-  uri: "https://cre8r.vip/graphql"
-});
+// const Scammyclient = new ApolloClient({
+//   // Change this to the URL of your WordPress site.
+//   uri: "https://cre8r.vip/graphql"
+// });
 
 const Wrapper = styled.div<{ backgroundColor?: string }>`
   width: 100%;
@@ -26,6 +27,12 @@ export const Break = styled.div`
   background-color: ${({ theme }) => theme.bg3};
   height: 1px;
   margin: 0;
+`
+
+const RoundedLink = styled.div`
+  background: ${({ theme }) => theme.bg3};
+  border-radius: 10px;
+  padding: 10px 30px 10px 30px;
 `
 
 export default function AmplifiCampaignList() {
@@ -40,7 +47,25 @@ export default function AmplifiCampaignList() {
           Campaigns are still in testing phase and are subject to change. Please check back soon.
         </TYPE.body>
         <Break />
-       
+        {utmLinks && activeProtocol && account ? (
+          <Card>
+            <RoundedLink>
+              <Copy toCopy={'https://' + utmLinks[activeProtocol?.id]}>
+                <span style={{paddingLeft: 10}}>
+                  {'  '}
+                  Copy your unique link &amp; start earning 
+                  {/* {utmLinks[activeProtocol?.id]} */}
+                </span>
+              </Copy>
+            </RoundedLink>
+          </ Card>
+        ) : (
+         <Card>
+          <RoundedLink>
+            <p>Please connect to wallet in order to generate your unique referral link for rewards.</p>
+          </RoundedLink>
+         </Card>
+        )}
         {activeProtocol && activeProtocol.featuredImage && (
           <>
             <FeaturedImage image={activeProtocol.featuredImage} />
@@ -78,24 +103,11 @@ export default function AmplifiCampaignList() {
                         </RowFixed>
                     </RowBetween>
                 </CampaignItem> */}
-        {utmLinks && activeProtocol && account ? (
-          <>
-          
-            <Copy toCopy={'https://' + utmLinks[activeProtocol?.id]}>
-              <span style={{ fontSize: '25px', marginLeft: '4px', marginBottom: '30px' }}>
-                {' '}
-                Copy your unique link &amp; start earning 
-                {/* {utmLinks[activeProtocol?.id]} */}
-              </span>
-            </Copy>
-          </>
-        ) : (
-          <p>Please connect to Twitter in order to generate your unique referral link for rewards.</p>
-        )}
-        {activeProtocol && activeProtocol.video && <Youtube video={activeProtocol?.video} />}
-        <ApolloProvider client={Scammyclient}>
+        
+        {activeProtocol && activeProtocol.video && <Youtube src={activeProtocol.video} />}
+        {/* <ApolloProvider client={Scammyclient}>
         <PostsSearch  />
-        </ApolloProvider>
+        </ApolloProvider> */}
       </AutoColumn>
     </Wrapper>
   )

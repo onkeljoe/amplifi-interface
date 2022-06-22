@@ -49,6 +49,15 @@ export interface GovernanceInfo {
   spaceSnapshot?: string,
 }
 
+export interface CampaignInfo {
+  emoji?: string
+  baseUrl?: string // TODO - this should be required
+  campaignBudget?: string
+  video?: string
+  description?: string
+  featuredImage?: string,
+}
+
 // protocol wide data
 export interface GlobaData {
   id: string

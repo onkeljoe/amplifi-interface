@@ -166,8 +166,12 @@ export interface ProposalData {
   startBlock: number
   endBlock: number
   details: ProposalDetail[]
-  forVotes: {
-    support: boolean
+  snapshot?: { 
+    choices?: string[]
+    counts?: number[]
+  } 
+  forVotes: { // if snapshot proposal exists (when snapshot != null), forVotes will have all of the snapshot.choices, meaning againstVotes will be an empty [] 
+    support: boolean | string
     votes: string
     voter: {
       id: string
@@ -239,7 +243,6 @@ export function useAllProposals(): { [id: string]: ProposalData } | undefined {
         if (snapshotClient && spaceSnapshot) {
           fetchProposalsSnapshot(snapshotClient, spaceSnapshot).then((data: ProposalData[] | null) => {
             if (data) {
-              console.log(data)
               const proposalMap = data.reduce<{ [id: string]: ProposalData }>((accum, proposal: ProposalData) => {
                 accum[proposal.id] = proposal
                 return accum
