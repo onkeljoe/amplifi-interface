@@ -148,7 +148,7 @@ export const HND_GOVERNANCE: GovernanceInfo = {
   migrationProposalId: 42,
   social: '@HundredFinance',
   emoji: '💯',
-  baseUrl: 'https://hundred.finance/?',
+  baseUrl: 'https://amplifi.cre8r.vip/#/amplifi/HND?',
   featuredImage: HundredFeatured,
   campaignBudget: '10,000 USD in $CRE8R & 30,000',
   video: 'https://www.youtube.com/embed/ccPUXuS4_Is', // ['https://www.youtube.com/embed/ccPUXuS4_Is','https://www.youtube.com/embed/BDQlJNiDav8'],
@@ -186,7 +186,7 @@ export const AAVE_GOVERNANCE: GovernanceInfo = {
 
 export const FUJI_GOVERNANCE_ADDRESS = '0xB3a87172F555ae2a2AB79Be60B336D2F7D0187f0'
 export const FUJI_ADDRESS = '0x0cEC1A9154Ff802e7934Fc916Ed7Ca50bDE6844e'
-const FUJI = new Token(ChainId.MAINNET, FUJI_ADDRESS, 18, 'FUJI', 'Fuji Token')
+const FUJI = new Token(ChainId.MAINNET, FUJI_ADDRESS, 18, 'FUJI Pre Token Bonds', 'FUJI Pre-Token Bonds')
 export const FUJI_GOVERNANCE: GovernanceInfo = {
   id: 'fuji',
   name: 'Fuji Expedition',
@@ -200,12 +200,12 @@ export const FUJI_GOVERNANCE: GovernanceInfo = {
   baseUrl: 'https://www.fujidao.org/#/dashboard/init-borrow?',
   featuredImage: FujiFeatured,
   campaignBudget:
-    '3000',
+    '~20k USD',
   video: 'https://youtube.com/embed/SmUNtbz35kY', // ['https://www.youtube.com/embed/ccPUXuS4_Is','https://www.youtube.com/embed/BDQlJNiDav8'],
   description: `<p>AmpliFi Verified Ampbasadors you can now earn a share of Fuji DAO governance through sharing The <strong>Fuji Expedition</strong> with your audience. </p>
-  
- This process will be several months long beginning June 1st. More details on this AmpliFi campaigns budget & methodology will be released over the coming days.
-`
+  <p>
+ Learn more about Fuji Pre-Token bonds here: <a href="https://cre8r.vip/wp-content/uploads/2022/06/Pre-Token_bonds-2.pdf">Fuji Pre token bonds PDF Download</a>
+  </p>`
 }
 
 export const RADICLE_GOVERNANCE_ADDRESS = '0x690e775361AD66D1c4A25d89da9fCd639F5198eD'
