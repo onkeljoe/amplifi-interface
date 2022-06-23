@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useCre8rCmsClient } from "state/application/hooks";
 
 const NAVIGATION_QUERY = gql`
@@ -106,18 +106,21 @@ export const useWPNav = () => {
 }
 
 type WPUriType = {data?: any, errors?: any, loading: boolean} | undefined
-export const useWPUri : (path: any) => WPUriType = (path :any) => {
+export const useWPUri : (path: any) => {data: WPUriType, queryUriToContent: any } = (path :any) => {
   const cmsClient = useCre8rCmsClient();
   const [data, setData] = useState<WPUriType>();
-  useEffect(() => {
-    setData({loading: true})
-    cmsClient?.query({
+  const queryUriToContent = useCallback((path) => {
+    return cmsClient?.query({
       query: URI_QUERY,
       variables: {
        uri: path
       },
       fetchPolicy: 'cache-first',
-    }).then((res) => {
+    })
+  }, [cmsClient])
+  useEffect(() => {
+    setData({loading: true})
+    queryUriToContent(path).then((res) => {
       setData({
         data: res.data,
         errors: res?.data && res?.data.nodeByUri == null && `path of ${path} was not found.`,
@@ -125,5 +128,5 @@ export const useWPUri : (path: any) => WPUriType = (path :any) => {
       })
     });
   }, [cmsClient, path])
-  return data
+  return {data, queryUriToContent}
 }

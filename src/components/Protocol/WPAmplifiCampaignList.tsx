@@ -59,7 +59,7 @@ export default function WPAmplifiCampaignList() {
   const utmLinks = useUtm()
   const [path, setPath] = useState(location && location.pathname || '/');
   const nav = useWPNav()
-  const uriRes = useWPUri(path);
+  const {data: uriRes, queryUriToContent} = useWPUri(path);
   const { account } = useActiveWeb3React()
   console.log(location)
 
@@ -68,6 +68,7 @@ export default function WPAmplifiCampaignList() {
     console.log(nav)
     const items = []
     for (let i = 0; i < nav.length; i++) {
+      queryUriToContent(nav[i].uri) // fetching for cache
       items.push(
         <TempNavButton label={nav[i].label} path={nav[i].uri} setPath={setPath}>
           {generateNavMenu(nav[i].children)}
