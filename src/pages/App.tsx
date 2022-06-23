@@ -23,6 +23,7 @@ import OverviewColumn from '../components/governance/OverviewColumn'
 import { useLocation } from 'react-router-dom'
 import { identityOnlyPath } from '../state/governance/reducer'
 import Amplifi from './Amplifi'
+import WPAmplifiCampaignList from 'components/Amplifi/WPAmplifiCampaignList'
 
 const SiteWrapper = styled.div`
   height: 100vh;
@@ -91,6 +92,7 @@ export default function App() {
                 <Route exact strict path="/proposals/:protocolID" component={Proposals} />
                 <Route exact strict path="/proposals/:protocolID/:proposalID" component={ProposalDetails} />
                 <Route exact strict path="/delegates/:protocolID/:delegateAddress" component={DelegateInfo} />
+                <Route strict path="/:uri" component={WPAmplifiCampaignList} />
                 <Route path="/" component={RedirectWithUpdatedGovernance} />
               </Switch>
             </Web3ReactManager>
