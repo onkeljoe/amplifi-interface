@@ -131,7 +131,7 @@ export default function SideMenu(): JSX.Element {
             <Break />
           </div>
           {Object.values(SUPPORTED_PROTOCOLS).map((p) => (
-            <BlankInternalLink key={p.id + '-image-id'} to={'/amplifi/' + p.id}>
+            <BlankInternalLink key={p.id + '-image-id'} to={'/protocol/' + p.id}>
               <HoverRow
                 onClick={(e) => {
                   e.stopPropagation()

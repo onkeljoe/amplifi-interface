@@ -29,21 +29,6 @@ export const Break = styled.div`
   margin: 0;
 `
 
-function TempNavButton ({label, path, setPath, children} : any) {
-  if (path == null) {
-    throw 'path can not be null'
-  }
-  return <>
-    <div>
-      <button style={{marginLeft: 10}} onClick={() => {
-        setPath(path)
-      }}>{label}</button>
-    </div>
-    <div style={{marginLeft: 10}}>
-      {children}
-    </div>
-  </>
-}
 const RoundedLink = styled.div`
   background: ${({ theme }) => theme.bg3};
   border-radius: 10px;
@@ -58,38 +43,8 @@ export default function AmplifiCampaignList() {
   const uriRes = useWPUri(path);
   const { account } = useActiveWeb3React()
 
-
-  const generateNavMenu = (nav : Array<MenuTreeItem> | undefined) => {
-    if (!nav) return;
-    console.log(nav)
-    const items = []
-    for (let i = 0; i < nav.length; i++) {
-      items.push(
-        <TempNavButton label={nav[i].label} path={nav[i].uri} setPath={setPath}>
-          {generateNavMenu(nav[i].children)}
-        </TempNavButton>
-      )
-    }
-    return items
-    throw 'Menu not found'
-  } 
-
   return (
     <Wrapper>
-      {nav && generateNavMenu(nav)}
-
-      <div>path: {path}</div>
-      {
-        uriRes && uriRes.loading && <div>loading content</div>
-      }
-
-      {
-        uriRes && !uriRes.loading && uriRes.data && uriRes.data.nodeByUri && uriRes.data.nodeByUri.content ? (<div dangerouslySetInnerHTML={{__html: uriRes.data.nodeByUri.content}} />) : <>
-          {uriRes && !uriRes.loading && <div>Content is not found</div>}
-        </>
-      }
-      
-      <Break style={{marginBottom: 1000}}/>
       <AutoColumn gap="0">
         <TYPE.body fontSize="16px" fontWeight="600" mb="1rem">
           Campaigns are still in testing phase and are subject to change. Please check back soon.

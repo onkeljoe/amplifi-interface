@@ -33,6 +33,15 @@ export default function OverviewColumn() {
         </TYPE.main>
         <TabOption
           as={Link}
+          to={'/protocol/' + activeProtocol?.id}
+          selected={location.pathname.includes('protocol')}
+          color={activeProtocol?.primaryColor}
+          color2={activeProtocol?.secondaryColor}
+        >
+          Amplifi Campaigns
+        </TabOption>
+        <TabOption
+          as={Link}
           to={'/amplifi/' + activeProtocol?.id}
           selected={location.pathname.includes('amplifi')}
           color={activeProtocol?.primaryColor}

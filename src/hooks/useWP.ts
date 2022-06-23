@@ -42,10 +42,12 @@ query getNodeByUri ($uri: String!) {
 }
 
 fragment PageFields on Page {
+  title
   content
 }
 
 fragment AmpliFiCampaignFields on AmpliFiCampaign {
+  title
   content
 }
 `

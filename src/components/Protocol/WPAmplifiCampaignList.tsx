@@ -13,6 +13,7 @@ import { MenuTreeItem, useWPNav, useWPUri } from 'hooks/useWP'
 import { useActiveWeb3React } from 'hooks'
 import Card from 'components/Card'
 import { useLocation } from 'react-router-dom'
+import Loader from 'components/Loader'
 
 // const Scammyclient = new ApolloClient({
 //   // Change this to the URL of your WordPress site.
@@ -74,20 +75,30 @@ export default function WPAmplifiCampaignList() {
       )
     }
     return items
-    throw 'Menu not found'
   } 
 
+  if (!nav) {
+    return <Loader />
+  }
   return (
     <Wrapper>
-      {nav && generateNavMenu(nav)}
-
+      {nav && generateNavMenu(nav.filter(v =>  {
+        console.log(v.uri.toLowerCase())
+        console.log(`/protocol/${activeProtocol?.id}/`.toLowerCase())
+        return v.uri.toLowerCase() == `/protocol/${activeProtocol?.id}/`.toLowerCase()
+      }))}
+      {/* {nav && generateNavMenu(nav)} */}
       <div>path: {path}</div>
       {
         uriRes && uriRes.loading && <div>loading content</div>
       }
 
       {
-        uriRes && !uriRes.loading && uriRes.data && uriRes.data.nodeByUri && uriRes.data.nodeByUri.content ? (<div dangerouslySetInnerHTML={{__html: uriRes.data.nodeByUri.content}} />) : <>
+        uriRes && !uriRes.loading && uriRes.data && uriRes.data.nodeByUri && uriRes.data.nodeByUri.content ? (<>
+          <h1>{uriRes.data.nodeByUri.title}</h1>
+          <Break />
+          <div dangerouslySetInnerHTML={{__html: uriRes.data.nodeByUri.content}} />
+        </>) : <>
           {uriRes && !uriRes.loading && <div>Content is not found</div>}
         </>
       }
