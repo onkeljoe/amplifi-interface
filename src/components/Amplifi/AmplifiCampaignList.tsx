@@ -9,7 +9,7 @@ import { useActiveProtocol, useUtm } from '../../state/governance/hooks'
 import FeaturedImage from 'components/FeaturedImage/FeaturedImage'
 import PostsSearch from 'components/Posts/PostsSearch';
 import { ApolloProvider } from "react-apollo";
-import { useWPNav, useWPUri } from 'hooks/useWP'
+import { MenuTreeItem, useWPNav, useWPUri } from 'hooks/useWP'
 import { useActiveWeb3React } from 'hooks'
 import Card from 'components/Card'
 
@@ -58,38 +58,38 @@ export default function AmplifiCampaignList() {
   const uriRes = useWPUri(path);
   const { account } = useActiveWeb3React()
 
+
+  const generateNavMenu = (nav : Array<MenuTreeItem> | undefined) => {
+    if (!nav) return;
+    console.log(nav)
+    const items = []
+    for (let i = 0; i < nav.length; i++) {
+      items.push(
+        <TempNavButton label={nav[i].label} path={nav[i].uri} setPath={setPath}>
+          {generateNavMenu(nav[i].children)}
+        </TempNavButton>
+      )
+    }
+    return items
+    throw 'Menu not found'
+  } 
+
   return (
     <Wrapper>
-      {nav && <>
-        <div>{nav.slug}</div>
-        {nav.menuItems.edges.map(({node, __typename} : any) => {
-          if (__typename == 'MenuToMenuItemConnectionEdge') {
-            __typename == node.childItems.edges.__typename
-            const childNavItems = []
-            console.log(node.childItems.__typename)
-            if (node.childItems.__typename == "MenuItemToMenuItemConnection") {
-              for (let i = 0; i < node.childItems.edges.length; i++) {
-                const {label: label1, path: path1} = node.childItems.edges[i].node
-                childNavItems.push(<TempNavButton label={label1} path={path1} setPath={setPath}/>)
-              }
-            }
-            return <TempNavButton label={node.label} path={node.path} setPath={setPath}>
-              {childNavItems}
-            </TempNavButton>
-          }
-          throw `'unsupported typename found' ${__typename}`
-        })}
-      </>}
+      {nav && generateNavMenu(nav)}
+
       <div>path: {path}</div>
+      {
+        uriRes && uriRes.loading && <div>loading content</div>
+      }
 
       {
-        uriRes ? <>
-          {!uriRes.errors && uriRes.data.nodeByUri.content ? (<div dangerouslySetInnerHTML={{__html: uriRes.data.nodeByUri.content}} />) : <div>Error loading content</div>}
-        </> : <>
-          <div>loading content</div>
+        uriRes && !uriRes.loading && uriRes.data && uriRes.data.nodeByUri && uriRes.data.nodeByUri.content ? (<div dangerouslySetInnerHTML={{__html: uriRes.data.nodeByUri.content}} />) : <>
+          {uriRes && !uriRes.loading && <div>Content is not found</div>}
         </>
       }
-      <Break style={{marginBottom: 100}}/>
+      
+      <Break style={{marginBottom: 1000}}/>
       <AutoColumn gap="0">
         <TYPE.body fontSize="16px" fontWeight="600" mb="1rem">
           Campaigns are still in testing phase and are subject to change. Please check back soon.
