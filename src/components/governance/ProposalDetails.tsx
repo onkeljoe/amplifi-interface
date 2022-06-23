@@ -200,7 +200,7 @@ function ProposalDetails({
             </RowBetween>
           </AutoColumn>
           <CardWrapper>
-            {proposalData && (
+            {proposalData && !proposalData.snapshot ? (
               <>
                 <VoterList
                   title="For"
@@ -221,6 +221,44 @@ function ProposalDetails({
                   support={'against'}
                   id={proposalData?.id}
                 />
+              </>
+            ) : (
+              <>
+                {proposalData && 
+                proposalData.snapshot && 
+                proposalData.snapshot.choices && 
+                proposalData?.snapshot?.choices.map((c) => {
+                  if (!(proposalData && 
+                    proposalData.snapshot && 
+                    proposalData.snapshot.counts)) return;
+                    const votersC = proposalData.forVotes.filter((v) => {
+                      return v.support == c
+                    });
+                    console.log(votersC)
+                  let amount = 0;
+                  let total = 0;
+                  for (let i = 0; i < proposalData.snapshot.counts.length; i++) {
+                    total += proposalData.snapshot.counts[i]
+                  }
+                  for (let i = 0; i < votersC.length; i++) {
+                    amount += parseFloat(votersC[i].votes)
+                  }
+                  console.log(proposalData?.againstCount)
+                  return (
+                    <VoterList
+                      key={c}
+                      title={c}
+                      amount={amount}
+                      percentage={(amount/total * 100).toPrecision(3) + "%"}
+                      voters={votersC.slice(
+                        0,
+                        Math.min(10, Object.keys(votersC)?.length)
+                      )}
+                      support={'for'}
+                      id={proposalData?.id}
+                    />
+                  )
+                })}
               </>
             )}
             {showVotingButtons && (
