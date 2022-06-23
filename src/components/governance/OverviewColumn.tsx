@@ -56,7 +56,7 @@ export default function OverviewColumn() {
           color={activeProtocol?.primaryColor}
           color2={activeProtocol?.secondaryColor}
         >
-          Ambassadors
+          Delegates
         </TabOption> 
         <TabOption
           as={Link}

@@ -38,17 +38,30 @@ query getNodeByUri ($uri: String!) {
     ... on AmpliFiCampaign {
       ...AmpliFiCampaignFields
     }
+    ... on Protocol {
+      ...ProtocolFields
+    }
   }
+}
+fragment ProtocolFields on Protocol {
+  title
+  content
+  id
+  uri
 }
 
 fragment PageFields on Page {
   title
   content
+  id
+  uri
 }
 
 fragment AmpliFiCampaignFields on AmpliFiCampaign {
   title
   content
+  id
+  uri
 }
 `
 
@@ -64,10 +77,10 @@ const flatListToHierarchical = (
   data = [],
   {idKey='id',parentKey='parentId',childrenKey='children'} = {}
 ) => {
+  console.log('ff')
   const tree : Array<MenuTreeItem> = [];
   const childrenOf : any = {};
   data.forEach((item : MenuTreeItem) => {
-    console.log(childrenKey)
       const newItem = {...item};
       // @ts-ignore
       const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;
@@ -83,9 +96,20 @@ const flatListToHierarchical = (
   return tree;
 };
 
+interface PageData {
+  __typename: string;
+  title: string;
+  content: string;
+  id: string;
+  uri: string;
+  label: string;
+  parentId: string | null;
+}
 export const useWPNav = () => {
   const cmsClient = useCre8rCmsClient();
   const [nav, setNav] = useState<Array<MenuTreeItem>>();
+  const [posts, setPosts] = useState<Array<PageData>>();
+  const {queryUriToContent} = useWPUri('/');
   useEffect(() => {
     cmsClient?.query({
       query: NAVIGATION_QUERY,
@@ -95,14 +119,24 @@ export const useWPNav = () => {
       fetchPolicy: 'cache-first',
     }).then(({data}) => {
       const navigationData = flatListToHierarchical(data.menus.nodes[0].menuItems.nodes);
-      
-      console.log(navigationData)
+      Promise.allSettled(data.menus.nodes[0].menuItems.nodes.map(async (res : any) => {
+        return await queryUriToContent(res.uri)
+      })).then(async (res : any) => {
+        const _posts = res.map((f:any) => {
+          if (f.status == 'fulfilled') {
+            return {...data.menus.nodes[0].menuItems.nodes.filter((v:any) => f.value.data.nodeByUri.uri == v.uri)[0], ...f.value.data.nodeByUri, id: data.menus.nodes[0].menuItems.nodes.filter((v:any) => f.value.data.nodeByUri.uri == v.uri)[0].id}; //need id of menu for hierachy 
+          }
+          throw 'something is wrong status is ' + f.status
+        })
+        console.log(_posts)
+        setPosts(_posts)
+      })
       setNav(navigationData)
     })
   },[cmsClient])
 
   
-  return nav
+  return {nav, posts}
 }
 
 type WPUriType = {data?: any, errors?: any, loading: boolean} | undefined
