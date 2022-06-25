@@ -234,7 +234,6 @@ function ProposalDetails({
                     const votersC = proposalData.forVotes.filter((v) => {
                       return v.support == c
                     });
-                    console.log(votersC)
                   let amount = 0;
                   let total = 0;
                   for (let i = 0; i < proposalData.snapshot.counts.length; i++) {
@@ -243,7 +242,6 @@ function ProposalDetails({
                   for (let i = 0; i < votersC.length; i++) {
                     amount += parseFloat(votersC[i].votes)
                   }
-                  console.log(proposalData?.againstCount)
                   return (
                     <VoterList
                       key={c}

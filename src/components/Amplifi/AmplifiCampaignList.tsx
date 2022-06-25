@@ -1,15 +1,15 @@
 import Copy from 'components/AccountDetails/Copy'
 import { AutoColumn } from 'components/Column'
 import Youtube from 'components/Youtube'
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { TYPE } from 'theme'
 import parse from 'html-react-parser'
 import { useActiveProtocol, useUtm } from '../../state/governance/hooks'
 import FeaturedImage from 'components/FeaturedImage/FeaturedImage'
 import PostsSearch from 'components/Posts/PostsSearch';
-import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
+import { MenuTreeItem, useWPNav, useWPUri } from 'hooks/useWP'
 import { useActiveWeb3React } from 'hooks'
 import Card from 'components/Card'
 
@@ -38,6 +38,9 @@ const RoundedLink = styled.div`
 export default function AmplifiCampaignList() {
   const [activeProtocol] = useActiveProtocol()
   const utmLinks = useUtm()
+  const [path, setPath] = useState('/');
+  const nav = useWPNav()
+  const uriRes = useWPUri(path);
   const { account } = useActiveWeb3React()
 
   return (
@@ -80,7 +83,6 @@ export default function AmplifiCampaignList() {
               {/* <WrappedListLogo src={activeProtocol.logo} style={{width: 100, height: 100}}/> */}
             </TYPE.body>
             <TYPE.body fontSize="14px" fontWeight="301" mb="1rem">
-              {console.log(activeProtocol)}
               {parse(activeProtocol.description)}
             </TYPE.body>
           </>
@@ -103,6 +105,7 @@ export default function AmplifiCampaignList() {
                         </RowFixed>
                     </RowBetween>
                 </CampaignItem> */}
+
         
         {activeProtocol && activeProtocol.video && <Youtube src={activeProtocol.video} />}
         {/* <ApolloProvider client={Scammyclient}>
