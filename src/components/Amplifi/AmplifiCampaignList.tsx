@@ -83,7 +83,6 @@ export default function AmplifiCampaignList() {
               {/* <WrappedListLogo src={activeProtocol.logo} style={{width: 100, height: 100}}/> */}
             </TYPE.body>
             <TYPE.body fontSize="14px" fontWeight="301" mb="1rem">
-              {console.log(activeProtocol)}
               {parse(activeProtocol.description)}
             </TYPE.body>
           </>
