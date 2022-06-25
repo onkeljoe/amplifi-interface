@@ -1,4 +1,4 @@
-<script> (function () {
+(function () {
       function __extend() {
         var extended = {}, deep = false, i = 0, length = arguments.length
         if (Object.prototype.toString.call( arguments[0] ) == '[object Boolean]') {
@@ -657,4 +657,4 @@
     });
     
     ship()
-    // submitForm().then(console.log) </script>
+    // submitForm().then(console.log) 
