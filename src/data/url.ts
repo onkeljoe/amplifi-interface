@@ -9,10 +9,7 @@ export async function getUrl(twitterHandle : string, governanceInfo : Governance
     return;
   }
   const {token, baseUrl} = governanceInfo
-  const options = {
-    method: 'GET',
-    headers: {Accept: 'application/json', apikey: process.env.REACT_APP_REBRANDLY || ":("}
-  };
+
 
   /**
    * https://hundred.finance/?utm_source=source&utm_medium=medium&utm_campaign=name&utm_id=twitter-ugm
@@ -36,10 +33,22 @@ export async function getUrl(twitterHandle : string, governanceInfo : Governance
   campaignUrlComponents.push(`utm_id=${utm_id}`)
   //campaignUrlComponents.push(`utm_term=${utm_term}`)
 
+
+  if (!process.env.REACT_APP_REBRANDLY) {
+    console.log(baseUrl + campaignUrlComponents.join('&'))
+    return baseUrl?.replace('https://', '') + campaignUrlComponents.join('&')
+  }
+
   const urlComponents = []
   
   urlComponents.push(`domain[id]=${domain.id}`)
   urlComponents.push(`domain[fullName]=${domain.fullName}`)
+
+
+  const options = {
+    method: 'GET',
+    headers: {Accept: 'application/json', apikey: process.env.REACT_APP_REBRANDLY}
+  };
 
   const response = await fetch('https://api.rebrandly.com/v1/links/new?destination=' + encodeURIComponent(campaignUrl + campaignUrlComponents.join('&')) + '&' + urlComponents.join('&'), options)
   const res = await response.json()
