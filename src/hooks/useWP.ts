@@ -139,7 +139,7 @@ export const useWPNav = () => {
 }
 
 type WPUriType = {data?: any, errors?: any, loading: boolean} | undefined
-export const useWPUri : (path: any) => {data: WPUriType, queryUriToContent: any } = (path :any) => {
+export const useWPUri : (path: string) => {data: WPUriType, queryUriToContent: any } = (path :any) => {
   const cmsClient = useCre8rCmsClient();
   const [data, setData] = useState<WPUriType>();
   const queryUriToContent = useCallback((path) => {

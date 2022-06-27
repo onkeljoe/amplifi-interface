@@ -16,6 +16,7 @@ import { Link, useLocation } from 'react-router-dom'
 import Loader from 'components/Loader'
 import { RowBetween, RowFixed } from 'components/Row'
 
+import Tabs from 'components/Tabs'
 // const Scammyclient = new ApolloClient({
 //   // Change this to the URL of your WordPress site.
 //   uri: "https://cre8r.vip/graphql"
@@ -49,6 +50,7 @@ export const Break = styled.div`
   height: 1px;
   margin: 0;
 `
+const debug = false
 
 function TempNavButton ({label, path, setPath, children} : any) {
   if (path == null) {
@@ -79,8 +81,9 @@ export default function WPAmplifiCampaignList() {
   const [activeProtocol] = useActiveProtocol()
   const location = useLocation();
   const utmLinks = useUtm()
-  const [path, setPath] = useState(location && location.pathname || '/');
-  console.log(path)
+  const [campaignPath, setCampaignPath] = useState(location && location.pathname || '/');
+  const [path, setPath] = useState<string>(location && location.pathname || '/');
+  const [protocolPath] = useState(location && location.pathname || '/')
   const {nav, posts} = useWPNav()
   const {data: uriRes, queryUriToContent} = useWPUri(path);
   const { account } = useActiveWeb3React()
@@ -89,15 +92,6 @@ export default function WPAmplifiCampaignList() {
     if (!nav) return;
     const items = []
     for (let i = 0; i < nav.length; i++) {
-      // queryUriToContent(nav[i].uri).then((res: any) => {
-      //   if (!res.data) return;
-      //   setCampaignInfo({
-      //     ...campaignInfo,
-      //     [res.data.nodeByUri.uri]: {
-      //       ...res.data.nodeByUri
-      //     }
-      //   })
-      // })
       items.push(
         <TempNavButton label={nav[i].label} path={nav[i].uri} setPath={setPath}>
           {generateNavMenu(nav[i].children)}
@@ -106,36 +100,33 @@ export default function WPAmplifiCampaignList() {
     }
     return items
   } 
-  useEffect(() => {
-    console.log(campaignInfo)
-  }, [campaignInfo])
+
   if (!nav) {
     return <Loader />
   }
   return (
     <Wrapper>
-      {nav && generateNavMenu(nav.filter(v =>  {
+      {/* correct implement menu */}
+      {debug && nav && generateNavMenu(nav.filter(v =>  {
         return v.uri.toLowerCase() == `/protocol/${activeProtocol?.id}/`.toLowerCase()
       }))}
       {/* {nav && generateNavMenu(nav)} */}
-      <div>path: {path}</div>
+      {debug && <div>path: {path}</div>}
       {
         uriRes && uriRes.loading && <div>loading content</div>
       }
       {
         activeProtocol && posts && posts.filter((p) => {
           const protocol = posts.filter(q => q.label.toLowerCase() == activeProtocol.id.toLowerCase())[0]
-          console.log(protocol)
-          console.log(p)
           if (!protocol) return;
           return p.__typename == "AmpliFiCampaign" && p.parentId == protocol.id
         }).map((v) => {
-          console.log(v)
           return (
             <>
               <ProposalItem onClick= {() => {
-               setPath(v.uri)
-               window.location.href = "#" + v.uri
+                setCampaignPath(v.uri)
+                setPath(v.uri)
+                window.location.href = "#" + v.uri
               }}>
                 <RowBetween>
                   <RowFixed>
@@ -152,9 +143,26 @@ export default function WPAmplifiCampaignList() {
           )
         })
       }
-      <div>Tabs</div>
+      {/* Nice Tabs */}
+      {activeProtocol && posts && (
+        <Tabs setPath={setPath} data={[ {tab: "overiew", content: "", uri:campaignPath},...posts.filter(p => {
+          const selectedCampaign = posts.filter(q => q.uri == campaignPath)[0] 
+          if (!selectedCampaign) return false;
+          return p.__typename == "Page" && p.parentId == selectedCampaign.id
+        }).map(p => {
+          return {
+            tab: p.label || "no label",
+            content: "",
+            uri: p.uri
+          }
+        })]} value={path} onChange={(value) => {
+          // console.log(value)
+          // setTab(value)
+        }}/>
+      )}
+      {/* correct logic tabs */}
       {
-        activeProtocol && posts && posts.filter(p => {
+        debug && activeProtocol && posts && posts.filter(p => {
           const selectedCampaign = posts.filter(q => q.uri == path)[0] 
           if (!selectedCampaign) return;
           return p.__typename == "Page" && p.parentId == selectedCampaign.id
@@ -162,8 +170,9 @@ export default function WPAmplifiCampaignList() {
           <TempNavButton label={p.label} path={p.uri} setPath={setPath}/>
         </>))
       }
+      {/* Content */}
       {
-        uriRes && !uriRes.loading && uriRes.data && uriRes.data.nodeByUri && uriRes.data.nodeByUri.content ? (<>
+        path && uriRes && !uriRes.loading && uriRes.data && uriRes.data.nodeByUri && uriRes.data.nodeByUri.content ? (<>
           <h1>{uriRes.data.nodeByUri.title}</h1>
           <Break />
           <div dangerouslySetInnerHTML={{__html: uriRes.data.nodeByUri.content}} />
