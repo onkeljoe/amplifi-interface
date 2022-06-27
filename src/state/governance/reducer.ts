@@ -287,7 +287,7 @@ export const CRE8R_GOVERNANCE: GovernanceInfo = {
   governanceAlphaAddresses: [RADICLE_GOVERNANCE_ADDRESS],
   social: '@cre8rAmpliFi',
   emoji: '🧱',
-  baseUrl: 'https://amplifi.cre8r.vip/?',
+  baseUrl: 'https://amplifi.cre8r.vip/#/amplifi/CRE8R?',
   campaignBudget: '50,000',
   video: 'https://www.youtube.com/embed/KwNfwxGmhxY',
   description: `Share CRE8R AmpliFi with your friends and earn $CRE8R tokens. Just copy your unique link below and share anywhere (responsibly). You will be rewarded with CRE8R tokens in several different ways over time.

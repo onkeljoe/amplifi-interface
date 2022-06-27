@@ -134,45 +134,6 @@ export const useWPNav = () => {
       setNav(navigationData)
     })
   },[cmsClient])
-
-  useEffect(() => {
-    console.log('HIHIHIHI')
-    cmsClient?.mutate({
-      mutation: gql`mutation {
-        submitGfForm (
-          input: {
-            id: 5,
-            fieldValues: [
-            {
-              # Referee - Text field value
-              id: 1
-              value: "FakeAddress"
-            },
-            {
-              # UTM_Source - Text field value
-              id: 3
-              value: "Fuji"
-            },
-            {
-              # UTM_Term - Text field value
-              id: 5
-              value: "0xjonomnom"
-            }
-          ]
-          }
-          
-        ) {
-          errors {
-            message
-          }
-        }
-      }`,
-      variables: {
-        slug: "amplifi"
-      },
-      // fetchPolicy: 'cache-first',
-    }).then((res:any) => console.log(res))
-  }, [cmsClient])
   
   return {nav, posts}
 }
