@@ -1,17 +1,14 @@
-import React from "react";
+import React from 'react'
 import Copy from "components/AccountDetails/Copy";
 import Card from "components/Card";
 import { AutoColumn } from "components/Column";
 import FeaturedImage from "components/FeaturedImage/FeaturedImage";
 import Youtube from "components/Youtube";
 import { useActiveWeb3React } from "hooks";
-import { useWPNav, useWPUri } from "hooks/useWP";
 import parse from "html-react-parser";
-import { useState } from "react";
 import styled from "styled-components";
 import { TYPE } from "theme";
 import { useActiveProtocol, useUtm } from "../../state/governance/hooks";
-
 // const Scammyclient = new ApolloClient({
 //   // Change this to the URL of your WordPress site.
 //   uri: "https://cre8r.vip/graphql"

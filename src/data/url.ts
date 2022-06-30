@@ -1,4 +1,3 @@
-import { useActiveProtocol } from "state/governance/hooks";
 import { GovernanceInfo } from "state/governance/reducer";
 // import { SerializedToken } from "state/user/actions";
 
@@ -10,7 +9,7 @@ export async function getUrl(
     console.error("need governanace info");
     return;
   }
-  const { token, baseUrl } = governanceInfo;
+  const { baseUrl } = governanceInfo;
 
   /**
    * https://hundred.finance/?utm_source=source&utm_medium=medium&utm_campaign=name&utm_id=twitter-ugm
