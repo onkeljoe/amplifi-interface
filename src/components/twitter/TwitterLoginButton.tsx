@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
-import { RowBetween } from '../Row'
-import { TYPE } from '../../theme'
-import TwitterIcon from '../../assets/images/Twitter_Logo_Blue.png'
+import React from "react";
+import styled from "styled-components";
+import { RowBetween } from "../Row";
+import { TYPE } from "../../theme";
+import TwitterIcon from "../../assets/images/Twitter_Logo_Blue.png";
 
 export const VerifyButton = styled.a`
   background-color: ${({ theme }) => theme.blue1};
@@ -16,12 +16,12 @@ export const VerifyButton = styled.a`
     cursor: pointer;
     opacity: 0.8;
   }
-`
+`;
 
 const TwitterLogo = styled.img`
   height: 20px;
   width: 20px;
-`
+`;
 
 export default function TwitterLoginButton({ text }: { text: string }) {
   return (
@@ -31,5 +31,5 @@ export default function TwitterLoginButton({ text }: { text: string }) {
         <TwitterLogo src={TwitterIcon} />
       </RowBetween>
     </VerifyButton>
-  )
+  );
 }

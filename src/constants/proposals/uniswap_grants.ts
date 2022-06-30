@@ -57,4 +57,4 @@ In keeping with the fast pace of the UNI ecosystem, we organize time in epochs, 
 **If this proposal is successfully approved, UGP will start accepting applications on a rolling basis beginning at the start of 2021.** With the phases and priorities laid out above, UGP will aim to make a significant impact by catalyzing growth and innovation in the UNI ecosystem.
 **This program is meant to be the simplest possible MVP of a Uniswap Ecosystem Grants initiative.** While the multi-sig committee comes with trust assumptions about the members, our hope is the community will approve this limited engagement to get the ball rolling in an efficient structure. **After the first epoch (2 fiscal quarters) the burden of proof will be on UGP to show empirical evidence that the program is worth continuing in its existing form and will submit to governance to renew treasury funding.**
 If this program proves successful, we hope it will inspire others to follow suit and create their own funding committees for allocating treasury capital—ideally with different specializations.
-`
+`;

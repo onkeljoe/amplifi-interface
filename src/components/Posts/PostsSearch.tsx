@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import PostsList from './PostsList';
+import React, { Component } from "react";
+import PostsList from "./PostsList";
 
 class PostsSearch extends Component {
   state = {
-    searchQuery: ''
-  }
+    searchQuery: "",
+  };
 
-  handleSubmit = (event:any) => event.preventDefault();
+  handleSubmit = (event: any) => event.preventDefault();
 
-  handleInputChange = (event:any) => {
+  handleInputChange = (event: any) => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
@@ -19,8 +19,13 @@ class PostsSearch extends Component {
 
     return (
       <div className="posts-search">
-        <form style={{  padding: '40px' }} className="posts-search__form" onSubmit={handleSubmit}>
-          <input style={{ fontWeight: 'bolder', padding: '20px' }}
+        <form
+          style={{ padding: "40px" }}
+          className="posts-search__form"
+          onSubmit={handleSubmit}
+        >
+          <input
+            style={{ fontWeight: "bolder", padding: "20px" }}
             type="text"
             className="posts-search__search-field"
             name="searchQuery"
@@ -29,11 +34,11 @@ class PostsSearch extends Component {
             placeholder="Search For Content"
           />
         </form>
-        {searchQuery &&
+        {searchQuery && (
           <div className="results">
-            <PostsList  searchQuery={searchQuery} />
+            <PostsList searchQuery={searchQuery} />
           </div>
-        }
+        )}
       </div>
     );
   }

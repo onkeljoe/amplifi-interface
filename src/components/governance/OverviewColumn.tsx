@@ -1,10 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useActiveProtocol } from '../../state/governance/hooks'
-import { AutoColumn } from '../Column'
-import { TYPE } from '../../theme'
-import { TabOption } from '../governance/Tabs'
-import { Link, useLocation } from 'react-router-dom'
+import React from "react";
+import styled from "styled-components";
+import { useActiveProtocol } from "../../state/governance/hooks";
+import { AutoColumn } from "../Column";
+import { TYPE } from "../../theme";
+import { TabOption } from "../governance/Tabs";
+import { Link, useLocation } from "react-router-dom";
 
 const Wrapper = styled.div<{ backgroundColor?: string }>`
   margin-left: 70px;
@@ -14,11 +14,11 @@ const Wrapper = styled.div<{ backgroundColor?: string }>`
   ${({ theme }) => theme.mediaWidth.upToLarge`
     display: none;
   `};
-`
+`;
 
 export default function OverviewColumn() {
-  const [activeProtocol] = useActiveProtocol()
-  const location = useLocation()
+  const [activeProtocol] = useActiveProtocol();
+  const location = useLocation();
 
   return (
     <Wrapper backgroundColor={activeProtocol?.secondaryColor}>
@@ -27,14 +27,14 @@ export default function OverviewColumn() {
           fontSize="24px"
           fontWeight="700"
           color={activeProtocol?.primaryColor}
-          style={{ marginBottom: '1rem' }}
+          style={{ marginBottom: "1rem" }}
         >
           {activeProtocol?.name}
         </TYPE.main>
         <TabOption
           as={Link}
-          to={'/protocol/' + activeProtocol?.id}
-          selected={location.pathname.includes('protocol')}
+          to={"/protocol/" + activeProtocol?.id}
+          selected={location.pathname.includes("protocol")}
           color={activeProtocol?.primaryColor}
           color2={activeProtocol?.secondaryColor}
         >
@@ -42,8 +42,8 @@ export default function OverviewColumn() {
         </TabOption>
         <TabOption
           as={Link}
-          to={'/amplifi/' + activeProtocol?.id}
-          selected={location.pathname.includes('amplifi')}
+          to={"/amplifi/" + activeProtocol?.id}
+          selected={location.pathname.includes("amplifi")}
           color={activeProtocol?.primaryColor}
           color2={activeProtocol?.secondaryColor}
         >
@@ -51,17 +51,17 @@ export default function OverviewColumn() {
         </TabOption>
         <TabOption
           as={Link}
-          to={'/delegates/' + activeProtocol?.id}
-          selected={location.pathname.includes('delegates')}
+          to={"/delegates/" + activeProtocol?.id}
+          selected={location.pathname.includes("delegates")}
           color={activeProtocol?.primaryColor}
           color2={activeProtocol?.secondaryColor}
         >
           Delegates
-        </TabOption> 
+        </TabOption>
         <TabOption
           as={Link}
-          to={'/proposals/' + activeProtocol?.id}
-          selected={location.pathname.includes('proposals')}
+          to={"/proposals/" + activeProtocol?.id}
+          selected={location.pathname.includes("proposals")}
           color={activeProtocol?.primaryColor}
           color2={activeProtocol?.secondaryColor}
         >
@@ -69,5 +69,5 @@ export default function OverviewColumn() {
         </TabOption>
       </AutoColumn>
     </Wrapper>
-  )
+  );
 }

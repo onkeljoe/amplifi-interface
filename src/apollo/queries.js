@@ -1,6 +1,5 @@
-import { hasClientExports } from 'apollo-utilities'
-import gql from 'graphql-tag'
-import { FETCHING_INTERVAL } from '../state/governance/reducer'
+import gql from "graphql-tag";
+import { FETCHING_INTERVAL } from "../state/governance/reducer";
 
 export const GLOBAL_DATA = gql`
   query governance {
@@ -11,10 +10,9 @@ export const GLOBAL_DATA = gql`
       totalDelegates
     }
   }
-`
+`;
 export const CASE_STUDY_ACF_FIELDS_CLIPS = gql`
-
-query ClipsFromCasestudies {
+  query ClipsFromCasestudies {
     caseStudies(first: 10, where: {}) {
       pageInfo {
         endCursor
@@ -39,9 +37,8 @@ query ClipsFromCasestudies {
         }
       }
     }
-  }`
-
-
+  }
+`;
 
 // fetch top delegates by votes delegated at current time
 export const TOP_DELEGATES = gql`
@@ -58,7 +55,7 @@ export const TOP_DELEGATES = gql`
       }
     }
   }
-`
+`;
 
 // fetch top delegates by votes delegated at current time
 export const TOP_DELEGATES_OFFSET = gql`
@@ -75,12 +72,17 @@ export const TOP_DELEGATES_OFFSET = gql`
       }
     }
   }
-`
+`;
 
 // fetch top delegates by votes delegated at current time
 export const DELEGATES_FROM_LIST = gql`
   query delegates($list: [Bytes!]) {
-    delegates(first: 500, orderBy: delegatedVotes, orderDirection: desc, where: { id_in: $list }) {
+    delegates(
+      first: 500
+      orderBy: delegatedVotes
+      orderDirection: desc
+      where: { id_in: $list }
+    ) {
       id
       delegatedVotes
       delegatedVotesRaw
@@ -92,7 +94,7 @@ export const DELEGATES_FROM_LIST = gql`
       }
     }
   }
-`
+`;
 
 // all proposals
 export const PROPOSALS = gql`
@@ -110,14 +112,24 @@ export const PROPOSALS = gql`
       proposer {
         id
       }
-      forVotes: votes(first: 1000, orderBy: votesRaw, orderDirection: desc, where: { support: true }) {
+      forVotes: votes(
+        first: 1000
+        orderBy: votesRaw
+        orderDirection: desc
+        where: { support: true }
+      ) {
         support
         votes
         voter {
           id
         }
       }
-      againstVotes: votes(first: 1000, orderBy: votesRaw, orderDirection: desc, where: { support: false }) {
+      againstVotes: votes(
+        first: 1000
+        orderBy: votesRaw
+        orderDirection: desc
+        where: { support: false }
+      ) {
         support
         votes
         voter {
@@ -126,7 +138,7 @@ export const PROPOSALS = gql`
       }
     }
   }
-`
+`;
 
 export const PROPOSALS_SNAPSHOT = gql`
   query Proposals(
@@ -187,7 +199,7 @@ export const ALL_VOTERS = gql`
       votes
     }
   }
-`
+`;
 
 export const DELEGATE_INFO = gql`
   query delegates($address: Bytes!) {
@@ -205,4 +217,4 @@ export const DELEGATE_INFO = gql`
       }
     }
   }
-`
+`;
