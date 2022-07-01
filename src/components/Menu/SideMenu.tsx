@@ -139,7 +139,7 @@ export default function SideMenu(): JSX.Element {
           {Object.values(SUPPORTED_PROTOCOLS).map((p) => (
             <BlankInternalLink
               key={p.id + "-image-id"}
-              to={"/protocol/" + p.id}
+              to={"/campaigns/" + p.id}
             >
               <HoverRow
                 onClick={(e) => {

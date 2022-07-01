@@ -14,7 +14,7 @@ export interface TabsProps {
   value: string;
   onChange: (selection: string) => void;
   data: TabsData[];
-  onClick: (uri : string) => void;
+  onClick: (uri: string) => void;
 }
 
 export default function Tabs({

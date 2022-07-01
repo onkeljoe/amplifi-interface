@@ -11,7 +11,7 @@ const NAVIGATION_QUERY = gql`
         id
         databaseId
         name
-        menuItems (first: 100000) {
+        menuItems(first: 100000) {
           __typename
           nodes {
             title
@@ -125,7 +125,7 @@ export const useWPNav = () => {
             return f;
           })
         ).then(async (res: any) => {
-          console.log(res)
+          console.log(res);
           const _posts = res.map((f: any) => {
             if (f.status == "fulfilled") {
               return {
@@ -149,7 +149,9 @@ export const useWPNav = () => {
   return { nav, posts };
 };
 
-export type WPUriType = { data?: any; errors?: any; loading: boolean } | undefined;
+export type WPUriType =
+  | { data?: any; errors?: any; loading: boolean }
+  | undefined;
 export const useWPUri: (path: string) => {
   data: WPUriType;
   queryUriToContent: any;

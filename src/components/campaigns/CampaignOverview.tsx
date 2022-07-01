@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import Copy from "components/AccountDetails/Copy";
 import Card from "components/Card";
 import { AutoColumn } from "components/Column";

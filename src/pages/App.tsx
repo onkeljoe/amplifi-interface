@@ -23,8 +23,6 @@ import OverviewColumn from "../components/governance/OverviewColumn";
 import { useLocation } from "react-router-dom";
 import { identityOnlyPath } from "../state/governance/reducer";
 import Amplifi from "./Amplifi";
-import Protocol from "./Protocol";
-import CampaignList from "components/campaigns/CampaignList";
 import CampaignDetails from "components/campaigns/CampaignDetails";
 
 const SiteWrapper = styled.div`
@@ -89,12 +87,6 @@ export default function App() {
             <TopLevelModals />
             <Web3ReactManager>
               <Switch>
-                <Route
-                  exact
-                  strict
-                  path="/protocol/:protocolID"
-                  component={Protocol}
-                />
                 <Route
                   exact
                   strict

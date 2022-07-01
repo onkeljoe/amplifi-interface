@@ -1,16 +1,17 @@
-import React, {useEffect} from "react";
-import Loader from "components/Loader";
+import React, { useEffect } from "react";
+import Loader, { LoadingRows } from "components/Loader";
 import { RowBetween, RowFixed } from "components/Row";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import { OnlyAboveSmall, TYPE } from "theme";
 
-import { useCampaign, useCampaignMaps } from "hooks/useCampaign";
+import { AutoColumn } from "components/Column";
+import { EmptyWrapper } from "components/governance/styled";
+import { useCampaign } from "hooks/useCampaign";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "state";
 import { useActiveProtocol } from "state/governance/hooks";
 import { SUPPORTED_PROTOCOLS } from "state/governance/reducer";
-
 
 const Wrapper = styled.div<{ backgroundColor?: string }>`
   width: 100%;
@@ -41,21 +42,13 @@ export const Break = styled.div`
   margin: 0;
 `;
 
-interface CampaignInfo {
-  [uri: string]: any;
-}
-
 function CampaignList({
   match: {
     params: { protocolID },
   },
 }: RouteComponentProps<{ protocolID: string }>) {
-
   // const [activeProtocol, setActiveProtocol] = useActiveProtocol();
-  const {
-    amplifiCampaigns,
-    uriToRouteMap
-  } = useCampaign(protocolID);
+  const { amplifiCampaigns, uriToRouteMap } = useCampaign(protocolID);
 
   // if valid protocol id passed in, update global active protocol
   const dispatch = useDispatch<AppDispatch>();
@@ -66,37 +59,64 @@ function CampaignList({
     }
   }, [dispatch, protocolID, setActiveProtocol]);
 
-  if (amplifiCampaigns === null) {
-    return <Loader />;
-  }
   return (
     <Wrapper>
-      {/* todo(jono) - add title */}
-      {amplifiCampaigns.map((v) => {
-            return (
-              <div key={v.id}>
-                <ProposalItem
-                  as={Link}
-                  to={uriToRouteMap[v.uri]}
-                >
-                  <RowBetween>
-                    <RowFixed>
-                      <OnlyAboveSmall>
-                        <TYPE.darkGray mr="8px">{v.id + "."}</TYPE.darkGray>
-                      </OnlyAboveSmall>
-                      <ResponsiveText mr="10px">{v.title}</ResponsiveText>
-                    </RowFixed>
-                    <Loader />
-                  </RowBetween>
-                </ProposalItem>
-                <Break />
-              </ div>
-            );
-          })}
-        {/* todo(jono) - add loading campaigns (like what is in the proposals) */}
+      {amplifiCampaigns && amplifiCampaigns.length === 0 ? (
+        <EmptyWrapper>
+          <TYPE.body style={{ marginBottom: "8px" }}>
+            No campaigns found.
+          </TYPE.body>
+          <TYPE.subHeader>
+            <i>Please contact CRE8RDAO if you have any inquiries</i>
+          </TYPE.subHeader>
+        </EmptyWrapper>
+      ) : (
+        <AutoColumn gap="0">
+          <TYPE.body fontSize="16px" fontWeight="600" mb="1rem">
+            Campaigns
+          </TYPE.body>
+          <Break />
+          {amplifiCampaigns ? (
+            amplifiCampaigns.map((v) => {
+              return (
+                <div key={v.id}>
+                  <ProposalItem as={Link} to={uriToRouteMap[v.uri]}>
+                    <RowBetween>
+                      <RowFixed>
+                        <OnlyAboveSmall>
+                          <TYPE.darkGray mr="8px">{v.id + "."}</TYPE.darkGray>
+                        </OnlyAboveSmall>
+                        <ResponsiveText mr="10px">{v.title}</ResponsiveText>
+                      </RowFixed>
+                      <Loader />
+                    </RowBetween>
+                  </ProposalItem>
+                  <Break />
+                </div>
+              );
+            })
+          ) : (
+            <LoadingRows>
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+            </LoadingRows>
+          )}
+        </AutoColumn>
+      )}
 
+      {/* todo(jono) - add loading campaigns (like what is in the proposals) */}
     </Wrapper>
   );
 }
 
-export default withRouter(CampaignList)
+export default withRouter(CampaignList);
