@@ -23,8 +23,9 @@ import OverviewColumn from "../components/governance/OverviewColumn";
 import { useLocation } from "react-router-dom";
 import { identityOnlyPath } from "../state/governance/reducer";
 import Amplifi from "./Amplifi";
-import WPAmplifiCampaignList from "components/Protocol/WPAmplifiCampaignList";
 import Protocol from "./Protocol";
+import CampaignList from "components/campaigns/CampaignList";
+import CampaignDetails from "components/campaigns/CampaignDetails";
 
 const SiteWrapper = styled.div`
   height: 100vh;
@@ -97,8 +98,20 @@ export default function App() {
                 <Route
                   exact
                   strict
-                  path="/amplifi/:protocolID"
-                  component={Amplifi}
+                  path="/campaigns/:protocolID"
+                  component={Amplifi} //amplifi is a shell for CampaignList
+                />
+                <Route
+                  exact
+                  strict
+                  path="/campaigns/:protocolID/:campaignID"
+                  component={CampaignDetails}
+                />
+                <Route
+                  exact
+                  strict
+                  path="/campaigns/:protocolID/:campaignID/:tabID"
+                  component={CampaignDetails}
                 />
                 <Route
                   exact
@@ -124,7 +137,12 @@ export default function App() {
                   path="/delegates/:protocolID/:delegateAddress"
                   component={DelegateInfo}
                 />
-                <Route strict path="/:uri" component={WPAmplifiCampaignList} />
+                <Route
+                  exact
+                  strict
+                  path="/delegates/:protocolID/:delegateAddress"
+                  component={DelegateInfo}
+                />
                 <Route path="/" component={RedirectWithUpdatedGovernance} />
               </Switch>
             </Web3ReactManager>

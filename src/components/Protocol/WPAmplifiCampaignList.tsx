@@ -44,7 +44,7 @@ export const Break = styled.div`
   height: 1px;
   margin: 0;
 `;
-const debug = false;
+const debug = true;
 
 interface CampaignInfo {
   [uri: string]: any;
@@ -125,11 +125,11 @@ export default function WPAmplifiCampaignList() {
             );
           })}
       {/* Nice Tabs */}
-      {activeProtocol && posts && (
+      {/* {activeProtocol && posts && (
         <Tabs
           setPath={setPath}
           data={[
-            { tab: "overiew", content: "", uri: campaignPath },
+            { tab: "overview", content: "", uri: campaignPath },
             ...posts
               .filter((p) => {
                 const selectedCampaign = posts.filter(
@@ -154,7 +154,7 @@ export default function WPAmplifiCampaignList() {
             // setTab(value)
           }}
         />
-      )}
+      )} */}
       {/* correct logic tabs */}
       {debug &&
         activeProtocol &&

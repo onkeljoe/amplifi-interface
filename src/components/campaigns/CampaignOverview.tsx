@@ -31,7 +31,7 @@ const RoundedLink = styled.div`
   padding: 10px 30px 10px 30px;
 `;
 
-export default function AmplifiCampaignList() {
+export default function CampaignOverview() {
   const [activeProtocol] = useActiveProtocol();
   const utmLinks = useUtm();
   const { account } = useActiveWeb3React();
@@ -89,31 +89,9 @@ export default function AmplifiCampaignList() {
               </TYPE.body>
             </>
           )}
-
-        {/* {activeProtocol && <TYPE.body fontSize="16px" fontWeight="600" mb="1rem">
-                    {activeProtocol.token}
-                </TYPE.body>} */}
-        {/* <CampaignItem onClick={campaignHandler}>
-                    <RowBetween>
-                        <RowFixed>
-                            <ResponsiveText mr="10px" ml='10px'>Click here to get referal link (look in console)</ResponsiveText>
-                        </RowFixed>
-                    </RowBetween>
-                </CampaignItem>
-                <CampaignItem>
-                    <RowBetween>
-                        <RowFixed>
-                            <ResponsiveText mr="10px" ml='10px'>{url}</ResponsiveText>
-                        </RowFixed>
-                    </RowBetween>
-                </CampaignItem> */}
-
         {activeProtocol && activeProtocol.video && (
           <Youtube src={activeProtocol.video} />
         )}
-        {/* <ApolloProvider client={Scammyclient}>
-        <PostsSearch  />
-        </ApolloProvider> */}
       </AutoColumn>
     </Wrapper>
   );

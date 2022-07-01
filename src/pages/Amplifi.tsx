@@ -11,7 +11,7 @@ import { WrappedListLogo } from "../components/governance/styled";
 import Dropdown from "../components/governance/Dropdown";
 import Tabs from "../components/governance/Tabs";
 import { TYPE } from "../theme";
-import AmplifiCampaignList from "components/Amplifi/AmplifiCampaignList";
+import CampaignList from "components/campaigns/CampaignList";
 
 export default function Amplifi({
   match: {
@@ -49,7 +49,7 @@ export default function Amplifi({
             <Tabs />
           </AutoColumn>
         </MediumHeaderWrapper>
-        <AmplifiCampaignList />
+        <CampaignList />
       </AutoColumn>
     </BodyWrapper>
   );

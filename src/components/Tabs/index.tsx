@@ -14,14 +14,14 @@ export interface TabsProps {
   value: string;
   onChange: (selection: string) => void;
   data: TabsData[];
-  setPath: any;
+  onClick: (uri : string) => void;
 }
 
 export default function Tabs({
   value,
   onChange,
   data,
-  setPath,
+  onClick,
 }: TabsProps): JSX.Element {
   // useEffect(() => {
   //   setPath(data[0].uri || '/')
@@ -32,10 +32,9 @@ export default function Tabs({
         <MuiTabs
           value={value}
           onChange={(e: any) => {
-            console.log("f");
             onChange(e.target.innerText.toLowerCase());
           }}
-          aria-label="basic tabs example"
+          aria-label="amplifi campaign tabs"
         >
           {data.map((d, i) => (
             <Tab
@@ -44,7 +43,7 @@ export default function Tabs({
               key={i}
               onClick={() => {
                 console.log(d.uri);
-                setPath(d.uri);
+                onClick(d.uri);
               }}
             />
           ))}

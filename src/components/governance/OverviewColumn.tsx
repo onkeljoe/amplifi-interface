@@ -33,8 +33,8 @@ export default function OverviewColumn() {
         </TYPE.main>
         <TabOption
           as={Link}
-          to={"/protocol/" + activeProtocol?.id}
-          selected={location.pathname.includes("protocol")}
+          to={"/campaigns/" + activeProtocol?.id}
+          selected={location.pathname.includes("/campaigns/")}
           color={activeProtocol?.primaryColor}
           color2={activeProtocol?.secondaryColor}
         >
@@ -42,17 +42,8 @@ export default function OverviewColumn() {
         </TabOption>
         <TabOption
           as={Link}
-          to={"/amplifi/" + activeProtocol?.id}
-          selected={location.pathname.includes("amplifi")}
-          color={activeProtocol?.primaryColor}
-          color2={activeProtocol?.secondaryColor}
-        >
-          Amplifi Dashboard
-        </TabOption>
-        <TabOption
-          as={Link}
           to={"/delegates/" + activeProtocol?.id}
-          selected={location.pathname.includes("delegates")}
+          selected={location.pathname.includes("/delegates/")}
           color={activeProtocol?.primaryColor}
           color2={activeProtocol?.secondaryColor}
         >
@@ -61,7 +52,7 @@ export default function OverviewColumn() {
         <TabOption
           as={Link}
           to={"/proposals/" + activeProtocol?.id}
-          selected={location.pathname.includes("proposals")}
+          selected={location.pathname.includes("/proposals/")}
           color={activeProtocol?.primaryColor}
           color2={activeProtocol?.secondaryColor}
         >

@@ -4,14 +4,14 @@ import { useCre8rCmsClient } from "state/application/hooks";
 
 const NAVIGATION_QUERY = gql`
   query Menus($slug: String!) {
-    menus(where: { slug: $slug }) {
+    menus(where: { slug: $slug }, first: 5) {
       __typename
       nodes {
         slug
         id
         databaseId
         name
-        menuItems {
+        menuItems (first: 100000) {
           __typename
           nodes {
             title
@@ -92,7 +92,7 @@ const flatListToHierarchical = (
   return tree;
 };
 
-interface PageData {
+export interface PageData {
   __typename: string;
   title: string;
   content: string;
@@ -125,6 +125,7 @@ export const useWPNav = () => {
             return f;
           })
         ).then(async (res: any) => {
+          console.log(res)
           const _posts = res.map((f: any) => {
             if (f.status == "fulfilled") {
               return {
@@ -148,7 +149,7 @@ export const useWPNav = () => {
   return { nav, posts };
 };
 
-type WPUriType = { data?: any; errors?: any; loading: boolean } | undefined;
+export type WPUriType = { data?: any; errors?: any; loading: boolean } | undefined;
 export const useWPUri: (path: string) => {
   data: WPUriType;
   queryUriToContent: any;
