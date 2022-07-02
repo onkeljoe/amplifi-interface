@@ -21,6 +21,7 @@ import RadicleLogo from "../../assets/images/radicle-logo.svg";
 import NounsLogo from "../../assets/images/nouns-logo.png";
 import ENSLogo from "../../assets/images/ens.jpeg";
 import AddAccount from "../../assets/images/AddAccount.png";
+import AmpliFiLogo from "../../assets/images/cre8ramplifi-final.svg"
 //featured images
 import HundredFeatured from "../../assets/images/hundred-featured.png";
 import FujiFeatured from "../../assets/images/fuji-short.png";
@@ -75,8 +76,8 @@ export const UNI_GOVERNANCE_ADDRESS_ALPHA_V1 =
 export const UNI_GOVERNANCE_ADDRESS_BRAVO =
   "0x408ED6354d4973f66138C91495F2f2FCbd8724C3";
 
-  export const UNISWAP_GOVERNANCE_ADDRESS =
-  "0xa832ce1b31bfb0961e78350320ab4cb7f110e7e2";
+//  export const UNISWAP_GOVERNANCE_ADDRESS =
+//  "0xa832ce1b31bfb0961e78350320ab4cb7f110e7e2";
 export const AMPLIFI_ADDRESS = "0x238d82a35e69d7c10fe69a649134171c63e57522";
 const AMPLIFI = new Token(
   ChainId.MAINNET,
@@ -86,12 +87,12 @@ const AMPLIFI = new Token(
   "AMPLIFI GOVERNANCE TOKEN"
 );  
 
-export const UNI_ADDRESS = "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984";
-//const AMPLIFI = new Token(ChainId.MAINNET, UNI_ADDRESS, 18, "AMPLIFI", "AmpliFi Governance Token");
+// export const UNI_ADDRESS = "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984";
+// const AMPLIFI = new Token(ChainId.MAINNET, UNI_ADDRESS, 18, "AMPLIFI", "AmpliFi Governance Token");
 export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   id: "AMPLIFI",
   name: "AmpliFi",
-  logo: UniLogo,
+  logo: AmpliFiLogo,
   primaryColor: "#FF007A",
   secondaryColor: "#FDEEF5",
   token: serializeToken(AMPLIFI),
@@ -113,7 +114,7 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   </p>`,
 };
 
-export const UNI_ADDRESS = "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984";
+//export const UNI_ADDRESS = "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984";
 //const AMPLIFI = new Token(ChainId.MAINNET, UNI_ADDRESS, 18, "AMPLIFI", "AmpliFi Governance Token");
 export const UNISWAP_GOVERNANCE: GovernanceInfo = {
   id: "uniswap",
@@ -401,7 +402,8 @@ export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   CRE8R: CRE8R_GOVERNANCE,
   HND: HND_GOVERNANCE,
   // BEAN: AAVE_GOVERNANCE
-  AMPLIFI: UNISWAP_GOVERNANCE,
+  AMPLIFI: AMPLIFI_GOVERNANCE,
+  uniswap: UNISWAP_GOVERNANCE,
   // nouns: NOUNS_GOVERNANCE,
   // ens: ENS_GOVERNANCE,
   // connect: CONNECT_CONFIG,
