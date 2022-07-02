@@ -75,15 +75,26 @@ export const UNI_GOVERNANCE_ADDRESS_ALPHA_V1 =
 export const UNI_GOVERNANCE_ADDRESS_BRAVO =
   "0x408ED6354d4973f66138C91495F2f2FCbd8724C3";
 
+  export const UNISWAP_GOVERNANCE_ADDRESS =
+  "0xa832ce1b31bfb0961e78350320ab4cb7f110e7e2";
+export const AMPLIFI_ADDRESS = "0x238d82a35e69d7c10fe69a649134171c63e57522";
+const AMPLIFI = new Token(
+  ChainId.MAINNET,
+  AMPLIFI_ADDRESS,
+  18,
+  "AMPLIFI",
+  "AMPLIFI GOVERNANCE TOKEN"
+);  
+
 export const UNI_ADDRESS = "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984";
-const UNI = new Token(ChainId.MAINNET, UNI_ADDRESS, 18, "UNI", "Uniswap");
-export const UNISWAP_GOVERNANCE: GovernanceInfo = {
-  id: "uniswap",
-  name: "Uniswap Governance",
+//const AMPLIFI = new Token(ChainId.MAINNET, UNI_ADDRESS, 18, "AMPLIFI", "AmpliFi Governance Token");
+export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
+  id: "AMPLIFI",
+  name: "AmpliFi",
   logo: UniLogo,
   primaryColor: "#FF007A",
   secondaryColor: "#FDEEF5",
-  token: serializeToken(UNI),
+  token: serializeToken(AMPLIFI),
   governanceAlphaAddresses: [
     UNI_GOVERNANCE_ADDRESS_ALPHA_V0,
     UNI_GOVERNANCE_ADDRESS_ALPHA_V1,
@@ -91,8 +102,42 @@ export const UNISWAP_GOVERNANCE: GovernanceInfo = {
   governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
   migrationProposalId: 8,
   social: "@Uniswap",
-  emoji: "🦄",
-  baseUrl: "https://uniswap.org/?",
+  emoji: "🔊",
+  baseUrl: "https://amplifi.cre8r.vip?",
+  featuredImage: FujiFeatured,
+  campaignBudget: "~20k USD",
+  video: "https://youtube.com/embed/SmUNtbz35kY", // ['https://www.youtube.com/embed/ccPUXuS4_Is','https://www.youtube.com/embed/BDQlJNiDav8'],
+  description: `<p>AmpliFi Verified Ampbasadors you can now earn a share of Fuji DAO governance through sharing The <strong>Fuji Expedition</strong> with your audience. </p>
+  <p>
+ Learn more about Fuji Pre-Token bonds here: <a href="https://cre8r.vip/wp-content/uploads/2022/06/Pre-Token_bonds-2.pdf">Fuji Pre token bonds PDF Download</a>
+  </p>`,
+};
+
+export const UNI_ADDRESS = "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984";
+//const AMPLIFI = new Token(ChainId.MAINNET, UNI_ADDRESS, 18, "AMPLIFI", "AmpliFi Governance Token");
+export const UNISWAP_GOVERNANCE: GovernanceInfo = {
+  id: "uniswap",
+  name: "Uniswap",
+  logo: UniLogo,
+  primaryColor: "#FF007A",
+  secondaryColor: "#FDEEF5",
+  token: serializeToken(AMPLIFI),
+  governanceAlphaAddresses: [
+    UNI_GOVERNANCE_ADDRESS_ALPHA_V0,
+    UNI_GOVERNANCE_ADDRESS_ALPHA_V1,
+  ],
+  governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
+  migrationProposalId: 8,
+  social: "@Uniswap",
+  emoji: "🔊",
+  baseUrl: "https://amplifi.cre8r.vip?",
+  featuredImage: FujiFeatured,
+  campaignBudget: "~20k USD",
+  video: "https://youtube.com/embed/SmUNtbz35kY", // ['https://www.youtube.com/embed/ccPUXuS4_Is','https://www.youtube.com/embed/BDQlJNiDav8'],
+  description: `<p>AmpliFi Verified Ampbasadors you can now earn a share of Fuji DAO governance through sharing The <strong>Fuji Expedition</strong> with your audience. </p>
+  <p>
+ Learn more about Fuji Pre-Token bonds here: <a href="https://cre8r.vip/wp-content/uploads/2022/06/Pre-Token_bonds-2.pdf">Fuji Pre token bonds PDF Download</a>
+  </p>`,
 };
 // 0x5006d1a781883652cba00c51a63d76ff21fa688d  apefi comptroller
 // unitroller
@@ -356,7 +401,7 @@ export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   CRE8R: CRE8R_GOVERNANCE,
   HND: HND_GOVERNANCE,
   // BEAN: AAVE_GOVERNANCE
-  //uniswap: UNISWAP_GOVERNANCE,
+  AMPLIFI: UNISWAP_GOVERNANCE,
   // nouns: NOUNS_GOVERNANCE,
   // ens: ENS_GOVERNANCE,
   // connect: CONNECT_CONFIG,
