@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const BodyWrapper = styled.div`
   position: relative;
@@ -13,11 +13,11 @@ export const BodyWrapper = styled.div`
     width: 100%;
     margin: 0;
   }
-`
+`;
 
 export const MediumHeaderWrapper = styled.div`
   display: none;
   ${({ theme }) => theme.mediaWidth.upToLarge`
     display: initial;
   `};
-`
+`;

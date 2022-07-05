@@ -1,28 +1,29 @@
-import React, { Suspense } from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
-import styled from 'styled-components'
-import GoogleAnalyticsReporter from '../components/analytics/GoogleAnalyticsReporter'
-import Polling from '../components/Header/Polling'
-import Popups from '../components/Popups'
-import Web3ReactManager from '../components/Web3ReactManager'
-import DarkModeQueryParamReader from '../theme/DarkModeQueryParamReader'
-import Profile from '../components/Profile'
-import { RedirectWithUpdatedGovernance } from './Governance/redirect'
-import SideMenu from '../components/Menu/SideMenu'
-import TwitterAccountQueryParamReader from '../state/social/TwitterAccountQueryParamReader'
-import Web3Status from '../components/Web3Status'
-import Delegates from './Delegates'
-import Proposals from './Proposals'
-import Identities from './Identities'
-import ProposalDetails from '../components/governance/ProposalDetails'
-import DelegateInfo from './DelegateInfo'
-import DelegateModal from '../components/vote/DelegateModal'
-import { useModalOpen, useToggleModal } from '../state/application/hooks'
-import { ApplicationModal } from '../state/application/actions'
-import OverviewColumn from '../components/governance/OverviewColumn'
-import { useLocation } from 'react-router-dom'
-import { identityOnlyPath } from '../state/governance/reducer'
-import Amplifi from './Amplifi'
+import React, { Suspense } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
+import styled from "styled-components";
+import GoogleAnalyticsReporter from "../components/analytics/GoogleAnalyticsReporter";
+import Polling from "../components/Header/Polling";
+import Popups from "../components/Popups";
+import Web3ReactManager from "../components/Web3ReactManager";
+import DarkModeQueryParamReader from "../theme/DarkModeQueryParamReader";
+import Profile from "../components/Profile";
+import { RedirectWithUpdatedGovernance } from "./Governance/redirect";
+import SideMenu from "../components/Menu/SideMenu";
+import TwitterAccountQueryParamReader from "../state/social/TwitterAccountQueryParamReader";
+import Web3Status from "../components/Web3Status";
+import Delegates from "./Delegates";
+import Proposals from "./Proposals";
+import Identities from "./Identities";
+import ProposalDetails from "../components/governance/ProposalDetails";
+import DelegateInfo from "./DelegateInfo";
+import DelegateModal from "../components/vote/DelegateModal";
+import { useModalOpen, useToggleModal } from "../state/application/hooks";
+import { ApplicationModal } from "../state/application/actions";
+import OverviewColumn from "../components/governance/OverviewColumn";
+import { useLocation } from "react-router-dom";
+import { identityOnlyPath } from "../state/governance/reducer";
+import Amplifi from "./Amplifi";
+import CampaignDetails from "components/campaigns/CampaignDetails";
 
 const SiteWrapper = styled.div`
   height: 100vh;
@@ -42,7 +43,7 @@ const SiteWrapper = styled.div`
     overflow-x: hidden;
     grid-gap: 0;
   }
-`
+`;
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -59,16 +60,16 @@ const ContentWrapper = styled.div`
     padding-top: 1rem;
     padding-bottom: 120px;
   }
-`
+`;
 
 function TopLevelModals() {
-  const open = useModalOpen(ApplicationModal.DELEGATE)
-  const toggle = useToggleModal(ApplicationModal.DELEGATE)
-  return <DelegateModal isOpen={open} onDismiss={toggle} title="Delegate" />
+  const open = useModalOpen(ApplicationModal.DELEGATE);
+  const toggle = useToggleModal(ApplicationModal.DELEGATE);
+  return <DelegateModal isOpen={open} onDismiss={toggle} title="Delegate" />;
 }
 
 export default function App() {
-  const identityOnlyFlow = identityOnlyPath(useLocation().pathname)
+  const identityOnlyFlow = identityOnlyPath(useLocation().pathname);
 
   return (
     <Suspense fallback={null}>
@@ -86,11 +87,54 @@ export default function App() {
             <TopLevelModals />
             <Web3ReactManager>
               <Switch>
-                <Route exact strict path="/amplifi/:protocolID" component={Amplifi} />
-                <Route exact strict path="/delegates/:protocolID" component={Delegates} />
-                <Route exact strict path="/proposals/:protocolID" component={Proposals} />
-                <Route exact strict path="/proposals/:protocolID/:proposalID" component={ProposalDetails} />
-                <Route exact strict path="/delegates/:protocolID/:delegateAddress" component={DelegateInfo} />
+                <Route
+                  exact
+                  strict
+                  path="/campaigns/:protocolID"
+                  component={Amplifi} //amplifi is a shell for CampaignList
+                />
+                <Route
+                  exact
+                  strict
+                  path="/campaigns/:protocolID/:campaignID"
+                  component={CampaignDetails}
+                />
+                <Route
+                  exact
+                  strict
+                  path="/campaigns/:protocolID/:campaignID/:tabID"
+                  component={CampaignDetails}
+                />
+                <Route
+                  exact
+                  strict
+                  path="/delegates/:protocolID"
+                  component={Delegates}
+                />
+                <Route
+                  exact
+                  strict
+                  path="/proposals/:protocolID"
+                  component={Proposals}
+                />
+                <Route
+                  exact
+                  strict
+                  path="/proposals/:protocolID/:proposalID"
+                  component={ProposalDetails}
+                />
+                <Route
+                  exact
+                  strict
+                  path="/delegates/:protocolID/:delegateAddress"
+                  component={DelegateInfo}
+                />
+                <Route
+                  exact
+                  strict
+                  path="/delegates/:protocolID/:delegateAddress"
+                  component={DelegateInfo}
+                />
                 <Route path="/" component={RedirectWithUpdatedGovernance} />
               </Switch>
             </Web3ReactManager>
@@ -105,11 +149,16 @@ export default function App() {
           <Web3ReactManager>
             <Switch>
               <Route exact strict path="/connect" component={Identities} />
-              <Route exact strict path="/delegates/connect" render={() => <Redirect to="/connect" />} />
+              <Route
+                exact
+                strict
+                path="/delegates/connect"
+                render={() => <Redirect to="/connect" />}
+              />
             </Switch>
           </Web3ReactManager>
         </div>
       )}
     </Suspense>
-  )
+  );
 }

@@ -1,19 +1,10 @@
-import React from 'react'
-
+import React from "react";
 
 const CaseStudy = () => {
+  return <div>CaseStudy</div>;
+};
 
-
-  return (
-    <div>CaseStudy</div>
-  )
-}
-
-export default CaseStudy
-
- 
- 
-
+export default CaseStudy;
 
 // export const fragment = graphql`
 //   fragment Creator on WordPress_Page_Pagesectionfields_Sections_TeamMembers {
