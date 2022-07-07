@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { ButtonBlue } from '../Button'
+import styled from "styled-components";
+import { ButtonBlue } from "../Button";
 
 export const WrappedListLogo = styled.img`
   height: 40px;
@@ -11,7 +11,7 @@ export const WrappedListLogo = styled.img`
     width: 32px;
     margin-right: 8px;
   `};
-`
+`;
 
 export const RoundedProfileImage = styled.div`
   display: flex;
@@ -25,30 +25,30 @@ export const RoundedProfileImage = styled.div`
     width: 100%;
     border-radius: 50%;
   }
-`
+`;
 
 const handleColorType = (status?: any, theme?: any) => {
   switch (status) {
-    case 'pending':
-      return theme.blue1
-    case 'active':
-      return theme.blue1
-    case 'succeeded':
-      return theme.green1
-    case 'defeated':
-      return theme.red1
-    case 'queued':
-      return theme.text3
-    case 'executed':
-      return theme.green1
-    case 'canceled':
-      return theme.text2
-    case 'expired':
-      return theme.text3
+    case "pending":
+      return theme.blue1;
+    case "active":
+      return theme.blue1;
+    case "succeeded":
+      return theme.green1;
+    case "defeated":
+      return theme.red1;
+    case "queued":
+      return theme.text3;
+    case "executed":
+      return theme.green1;
+    case "canceled":
+      return theme.text2;
+    case "expired":
+      return theme.text3;
     default:
-      return theme.text3
+      return theme.text3;
   }
-}
+};
 
 export const EmptyWrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.text4};
@@ -58,7 +58,7 @@ export const EmptyWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
 
 export const ProposalStatus = styled.span<{ status: string }>`
   font-size: 0.825rem;
@@ -70,7 +70,7 @@ export const ProposalStatus = styled.span<{ status: string }>`
   width: fit-content;
   justify-self: flex-end;
   text-transform: uppercase;
-`
+`;
 
 export const ProposalStatusSmall = styled.span<{ status: string }>`
   font-size: 0.625rem;
@@ -82,7 +82,7 @@ export const ProposalStatusSmall = styled.span<{ status: string }>`
   width: fit-content;
   justify-self: flex-end;
   text-transform: uppercase;
-`
+`;
 
 export const DelegateButton = styled(ButtonBlue)<{ disabled: boolean }>`
   @media (max-width: 1080px) {
@@ -92,4 +92,4 @@ export const DelegateButton = styled(ButtonBlue)<{ disabled: boolean }>`
 
   background-color: ${({ disabled, theme }) => disabled && theme.bg3};
   color: ${({ disabled, theme }) => disabled && theme.text2};
-`
+`;

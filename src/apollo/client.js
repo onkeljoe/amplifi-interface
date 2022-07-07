@@ -1,81 +1,78 @@
-import { ApolloClient } from 'apollo-client'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-import { HttpLink } from 'apollo-link-http'
-import { SchemaMetaFieldDef } from 'graphql'
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { ApolloClient } from "apollo-client";
+import { HttpLink } from "apollo-link-http";
+import possibleTypes from "./possibleTypes.json";
 
 export const uniswapClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://api.thegraph.com/subgraphs/name/arr00/uniswap-governance-v2',
+    uri: "https://api.thegraph.com/subgraphs/name/arr00/uniswap-governance-v2",
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
-})
+});
 
 export const compoundClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://api.thegraph.com/subgraphs/name/arr00/compound-governance-2',
+    uri: "https://api.thegraph.com/subgraphs/name/arr00/compound-governance-2",
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
-})
+});
 
 export const aaveClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://api.thegraph.com/subgraphs/name/aave/governance-sybil',
+    uri: "https://api.thegraph.com/subgraphs/name/aave/governance-sybil",
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
-})
+});
 
 export const poolClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://api.thegraph.com/subgraphs/name/pooltogether/pooltogether-governance',
+    uri: "https://api.thegraph.com/subgraphs/name/pooltogether/pooltogether-governance",
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
-})
+});
 
 export const radicleClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://api.thegraph.com/subgraphs/name/radicle-dev/radicle-governance-homestead',
+    uri: "https://api.thegraph.com/subgraphs/name/radicle-dev/radicle-governance-homestead",
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
-})
+});
 
 export const nounsClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://api.thegraph.com/subgraphs/name/nounsdao/nouns-subgraph',
+    uri: "https://api.thegraph.com/subgraphs/name/nounsdao/nouns-subgraph",
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
-})
+});
 
 export const ensClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://api.thegraph.com/subgraphs/name/ianlapham/ens-governance',
+    uri: "https://api.thegraph.com/subgraphs/name/ianlapham/ens-governance",
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
-})
-
+});
 
 export const snapshotClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://hub.snapshot.org/graphql', //note: testnet - https://testnet.snapshot.org
+    uri: "https://hub.snapshot.org/graphql", //note: testnet - https://testnet.snapshot.org
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
-})
+});
 
 export const cre8rCmsClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://cre8r.vip/graphql', 
+    uri: "https://cre8r.vip/graphql",
   }),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    possibleTypes, //this is suppose to remove the heuristic fragment matching error... but it doesn't
+  }),
   shouldBatch: true,
-
-})
-
-
-
+});

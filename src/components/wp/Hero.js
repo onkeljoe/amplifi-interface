@@ -1,10 +1,7 @@
-import { hasClientExports } from 'apollo-utilities'
-import gql from 'graphql-tag'
-
-
+import { hasClientExports } from "apollo-utilities";
+import gql from "graphql-tag";
 
 // import React from 'react';
-
 
 // export const fragment = graphql`
 //   fragment HeroSection on WordPress_Page_Pagesectionfields_Sections_Hero {
