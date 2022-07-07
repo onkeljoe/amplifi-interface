@@ -1,26 +1,32 @@
-import React, { useContext } from 'react'
-import { useActiveWeb3React } from '../../hooks'
+import React, { useContext } from "react";
+import { useActiveWeb3React } from "../../hooks";
 
-import { AutoColumn, ColumnCenter } from '../Column'
-import styled, { ThemeContext } from 'styled-components'
-import { RowBetween } from '../Row'
-import { TYPE, CloseIcon, CustomLightSpinner } from '../../theme'
-import { ArrowUpCircle } from 'react-feather'
+import { AutoColumn, ColumnCenter } from "../Column";
+import styled, { ThemeContext } from "styled-components";
+import { RowBetween } from "../Row";
+import { TYPE, CloseIcon, CustomLightSpinner } from "../../theme";
+import { ArrowUpCircle } from "react-feather";
 
-import Circle from '../../assets/images/blue-loader.svg'
-import { getEtherscanLink } from '../../utils'
-import { ExternalLink } from '../../theme/components'
+import Circle from "../../assets/images/blue-loader.svg";
+import { getEtherscanLink } from "../../utils";
+import { ExternalLink } from "../../theme/components";
 
 const ConfirmOrLoadingWrapper = styled.div`
   width: 100%;
   padding: 2rem;
-`
+`;
 
 const ConfirmedIcon = styled(ColumnCenter)`
   padding: 1rem 0;
-`
+`;
 
-export function LoadingView({ children, onDismiss }: { children: any; onDismiss: () => void }): JSX.Element {
+export function LoadingView({
+  children,
+  onDismiss,
+}: {
+  children: any;
+  onDismiss: () => void;
+}): JSX.Element {
   return (
     <ConfirmOrLoadingWrapper>
       <RowBetween>
@@ -28,14 +34,14 @@ export function LoadingView({ children, onDismiss }: { children: any; onDismiss:
         <CloseIcon onClick={onDismiss} />
       </RowBetween>
       <ConfirmedIcon>
-        <CustomLightSpinner src={Circle} alt="loader" size={'90px'} />
+        <CustomLightSpinner src={Circle} alt="loader" size={"90px"} />
       </ConfirmedIcon>
-      <AutoColumn gap="2rem" justify={'center'}>
+      <AutoColumn gap="2rem" justify={"center"}>
         {children}
         <TYPE.subHeader>Confirm this transaction in your wallet</TYPE.subHeader>
       </AutoColumn>
     </ConfirmOrLoadingWrapper>
-  )
+  );
 }
 
 export function SubmittedView({
@@ -43,12 +49,12 @@ export function SubmittedView({
   onDismiss,
   hash,
 }: {
-  children: any
-  onDismiss: () => void
-  hash: string | undefined
+  children: any;
+  onDismiss: () => void;
+  hash: string | undefined;
 }): JSX.Element {
-  const theme = useContext(ThemeContext)
-  const { chainId } = useActiveWeb3React()
+  const theme = useContext(ThemeContext);
+  const { chainId } = useActiveWeb3React();
 
   return (
     <ConfirmOrLoadingWrapper>
@@ -59,14 +65,17 @@ export function SubmittedView({
       <ConfirmedIcon>
         <ArrowUpCircle strokeWidth={0.5} size={90} color={theme.primary1} />
       </ConfirmedIcon>
-      <AutoColumn gap="2rem" justify={'center'}>
+      <AutoColumn gap="2rem" justify={"center"}>
         {children}
         {chainId && hash && (
-          <ExternalLink href={getEtherscanLink(chainId, hash, 'transaction')} style={{ marginLeft: '4px' }}>
+          <ExternalLink
+            href={getEtherscanLink(chainId, hash, "transaction")}
+            style={{ marginLeft: "4px" }}
+          >
             <TYPE.subHeader>View transaction on Etherscan</TYPE.subHeader>
           </ExternalLink>
         )}
       </AutoColumn>
     </ConfirmOrLoadingWrapper>
-  )
+  );
 }

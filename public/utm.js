@@ -631,7 +631,7 @@
         }
       }
     `)
-    submitForm().then(console.log)
+    submitForm().catch(console.error)
     }
     window.dataLayer = window.dataLayer || [];
     console.log("Inside GTM's custom HTML Ethereum address detector");
