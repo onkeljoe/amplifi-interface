@@ -1,6 +1,7 @@
+import { ApolloQueryResult } from "apollo-client";
 import { TabsData } from "components/Tabs";
-import { useMemo } from "react";
-import { MenuTreeItem, PageData, useWPNav, useWPUri, WPUriType } from "./useWP";
+import { useEffect, useMemo, useState } from "react";
+import { getPostsFromNavItems, MenuTreeItem, PageData, useWPNav, useWPUri, useWPUriQuery, WPUriType } from "./useWP";
 
 /* 
 
@@ -30,22 +31,49 @@ todo(jono) - where is the kpi link going?
 */
 
 /**
- * filters posts that level 1 children based on protocolID to get the amplifiCampaigns for that protocol
+ * converts an unfiltered nav by protocol and returns the children of the nav which should be amplifi campaigns
+ * @param nav 
  * @param protocolID 
- * @param posts 
  * @returns 
  */
-const getAmplifiCampaigns = (protocolID: string, posts?: PageData[]) => {
-  if (!posts || !protocolID) {
+const filterByProtocolID = (nav: MenuTreeItem[], protocolID: string) : MenuTreeItem[] | null => {
+  const protocolArr = nav.filter(
+    (q) => q.uri == protocolIDToUri(protocolID)
+  );
+  if (protocolArr.length == 0) return null;
+  const protocol = protocolArr[0]
+  
+  return protocol.children.filter((n) => {
+    return isAmplifiCampaign(n.uri)
+  });
+} 
+
+const filterByAmplifiCampaign = (filteredByProtocolNav : MenuTreeItem[], campaignUri: string) => {
+  const campaignMenuItems = filteredByProtocolNav.filter(
+    (q) => q.uri == campaignUri
+  )
+    if (campaignMenuItems.length == 0) return null;
+    const campaignItem = campaignMenuItems[0];
+
+    return campaignItem.children
+}
+
+/**
+ * filters posts that level 1 children based on protocolID to get the amplifiCampaigns for that protocol
+ * @param protocolID 
+ * @returns 
+ */
+const getAmplifiCampaigns = async (
+  protocolID: string, 
+  queryUriToContent : (path: any) => Promise<ApolloQueryResult<any>>, 
+  nav?: MenuTreeItem[]
+) : Promise<PageData[] | null> => {
+  if (!nav || !protocolID || !queryUriToContent) {
     return null;
   }
-  return posts.filter((p: any) => {
-    const protocol = posts.filter(
-      (q: any) => q.label.toLowerCase() == protocolID.toLowerCase()
-    )[0];
-    if (!protocol) return;
-    return p.__typename == "AmpliFiCampaign" && p.parentId == protocol.id;
-  });
+  const navItemsToQuery = filterByProtocolID(nav, protocolID)
+  if (!navItemsToQuery) return null;
+  return await getPostsFromNavItems(navItemsToQuery, queryUriToContent)
 };
 
 /**
@@ -54,7 +82,8 @@ const getAmplifiCampaigns = (protocolID: string, posts?: PageData[]) => {
  * @returns 
  */
 const protocolIDToUri = (protocolID: string) => {
-  return "/protocol/" + protocolID.replaceAll("/", "") + "/";
+  const uri = ("/protocol/" + protocolID.replaceAll("/", "") + "/").toLowerCase();
+  return uri;
 };
 
 /**
@@ -67,26 +96,24 @@ const protocolIDToUri = (protocolID: string) => {
 const getAmplifiCampaignTabsData = (
   protocolID: string,
   campaignUri: string,
-  posts?: PageData[]
+  nav: MenuTreeItem[]
 ) => {
-  if (!posts) {
-    return [];
+  const filteredProtocolNav = filterByProtocolID(nav, protocolID);
+  if (!filteredProtocolNav || filteredProtocolNav.length == 0) {
+    return []
+  }
+  const filteredCampaignNav = filterByAmplifiCampaign(filteredProtocolNav, campaignUri);
+  if (!filteredCampaignNav || filteredCampaignNav.length == 0) {
+    return []
   }
   return [
     // { tab: "overview", content: "", uri: campaignUri },
-    ...posts
-      .filter((p: any) => {
-        const selectedCampaign = posts.filter(
-          (q: any) => q.uri == campaignUri
-        )[0];
-        if (!selectedCampaign) return false;
-        return p.__typename == "Page" && p.parentId == selectedCampaign.id;
-      })
-      .map((p) => {
+    ...filteredCampaignNav
+      .map((n) => {
         return {
-          tab: p.label || "no label",
+          tab: n.label || "no label",
           content: "",
-          uri: p.uri,
+          uri: n.uri,
         };
       }),
   ];
@@ -97,15 +124,22 @@ const getAmplifiCampaignTabsData = (
  * @param uriRes 
  * @returns 
  */
-const getDisplayData = (uriRes: WPUriType) => {
-  if (uriRes && !uriRes.loading && uriRes.data && uriRes.data.nodeByUri) {
+const getDisplayData = (data: {nodeByUri : {
+  id: string,
+  title: string,
+  uri: string,
+  __typename: string,
+  content: string
+}}) => {
+  console.log(data && data.nodeByUri)
+  if (data && data.nodeByUri) {
     return {
-      content: uriRes.data.nodeByUri.content || "No content",
-      title: uriRes.data.nodeByUri.title || "",
+      content: data.nodeByUri.content || "No content",
+      title: data.nodeByUri.title || "",
       loading: false,
       error: "",
     };
-  } else if (!uriRes) {
+  } else if (!data) {
     return {
       content: "",
       title: "",
@@ -117,7 +151,7 @@ const getDisplayData = (uriRes: WPUriType) => {
     content: "",
     title: "",
     loading: false,
-    error: uriRes.errors,
+    error: ["Something is wrong"],
   };
 };
 type Route = string;
@@ -147,10 +181,7 @@ const generateWpUriToRouteMap = (protocolID: string, nav?: MenuTreeItem[]) => {
     (n) => n.uri.toLowerCase() == protocolIDToUri(protocolID).toLowerCase()
   )[0];
   subNav.children.forEach((n) => {
-    n.uri.includes(protocolIDToUri(protocolID));
-    n.uri.includes("/amplifi_campaigns/");
-    n.parentId == protocolNav.id;
-    if (n.uri.includes("/amplifi_campaigns/") && n.parentId == protocolNav.id) {
+    if (isAmplifiCampaign(n.uri) && n.parentId == protocolNav.id) {
       const route = `/campaigns/${protocolID}/${n.uri
         .replace("/amplifi_campaigns/", "")
         .replaceAll("/", "")}`;
@@ -163,6 +194,10 @@ const generateWpUriToRouteMap = (protocolID: string, nav?: MenuTreeItem[]) => {
   });
   return map;
 };
+
+const isAmplifiCampaign = (uri: string) => {
+  return uri.includes("/amplifi_campaigns/")
+}
 
 /**
  * route to uri converter
@@ -187,18 +222,24 @@ const generateRouteToWpUriMap = (protocolID: string, nav?: MenuTreeItem[]) => {
  * @returns 
  */
 const useUri = (path: string) => {
-  const { data } = useWPUri(path || "");
-  console.log(data);
+  const uriRes = useWPUri(path);
   const amplifiCampaignsDisplayData = useMemo<{
     title: string;
     content: string;
     loading: boolean;
     error: any;
-  }>(() => getDisplayData(data), [data]);
+  } | undefined>(() => {
+    if (!uriRes) {
+      return;
+    }
+    return getDisplayData(uriRes.data)
+  }, [uriRes]);
+
+
   return {
     amplifiCampaignsDisplayData,
-    useCampaignACFsInstead: !data || data.errors,
-    loading: amplifiCampaignsDisplayData.loading,
+    useCampaignACFsInstead: uriRes && (!uriRes.data || uriRes.errors),
+    loading: !amplifiCampaignsDisplayData,
   };
 };
 
@@ -228,7 +269,6 @@ export const getTabUri = (
   routeToUriMap?: any,
   amplifiCampaignsTabData?: TabsData[]
 ) => {
-  console.log(routeForTab, routeToUriMap, amplifiCampaignsTabData);
   if (
     routeForTab &&
     routeToUriMap &&
@@ -255,11 +295,16 @@ export const useCampaign = (
   routeForTab?: string,
   campaignID?: string
 ) => {
-  const { posts, nav } = useWPNav();
-  const amplifiCampaigns = useMemo<PageData[] | null>(
-    () => getAmplifiCampaigns(protocolID, posts),
-    [posts, protocolID]
-  );
+  const { nav } = useWPNav();
+  const queryUriToContent = useWPUriQuery();
+  const [amplifiCampaigns, setAmplifiCampaigns] = useState<PageData[] | null>();
+  useEffect(() => {
+    setAmplifiCampaigns(undefined) // when you switch campaigns, we don't want to see the old campaigns
+    getAmplifiCampaigns(protocolID, queryUriToContent, nav).then(res => {
+      setAmplifiCampaigns(res)
+    })
+  }, [protocolID, queryUriToContent, nav])
+
   const uriToRouteMap = useMemo<UriToRouteMap>(
     () => generateWpUriToRouteMap(protocolID, nav),
     [protocolID, nav]
@@ -275,8 +320,13 @@ export const useCampaign = (
     routeToUriMap
   );
   const amplifiCampaignsTabData = useMemo<TabsData[]>(
-    () => getAmplifiCampaignTabsData(protocolID, campaignUri, posts),
-    [protocolID, campaignUri, posts]
+    () => {
+      if (!nav) {
+        return [];
+      }
+      return getAmplifiCampaignTabsData(protocolID, campaignUri, nav)
+    },
+    [protocolID, campaignUri, nav]
   ); //todo: Needs to get the tabs for a SPECIFIC CAMPAIGN
   const tabUri = useMemo(
     () => getTabUri(routeForTab, routeToUriMap, amplifiCampaignsTabData),

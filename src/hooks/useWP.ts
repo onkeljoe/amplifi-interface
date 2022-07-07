@@ -1,3 +1,4 @@
+import { ApolloQueryResult } from "apollo-client";
 import gql from "graphql-tag";
 import { useCallback, useEffect, useState } from "react";
 import { useCre8rCmsClient } from "state/application/hooks";
@@ -104,8 +105,6 @@ export interface PageData {
 export const useWPNav = () => {
   const cmsClient = useCre8rCmsClient();
   const [nav, setNav] = useState<Array<MenuTreeItem>>();
-  const [posts, setPosts] = useState<Array<PageData>>();
-  const { queryUriToContent } = useWPUri("/");
   useEffect(() => {
     cmsClient
       ?.query({
@@ -116,50 +115,28 @@ export const useWPNav = () => {
         fetchPolicy: "cache-first",
       })
       .then(({ data }) => {
+        if (data.menus.nodes.length == 0 ) {
+          console.error('missing amplifi menu, make sure that it is set to a location in wordpress')
+          return;
+        }
         const navigationData = flatListToHierarchical(
           data.menus.nodes[0].menuItems.nodes
         );
-        Promise.allSettled(
-          data.menus.nodes[0].menuItems.nodes.map(async (res: any) => {
-            const f = await queryUriToContent(res.uri);
-            return f;
-          })
-        ).then(async (res: any) => {
-          console.log(res);
-          const _posts = res.map((f: any) => {
-            if (f.status == "fulfilled") {
-              return {
-                ...data.menus.nodes[0].menuItems.nodes.filter(
-                  (v: any) => f.value.data.nodeByUri.uri == v.uri
-                )[0],
-                ...f.value.data.nodeByUri,
-                id: data.menus.nodes[0].menuItems.nodes.filter(
-                  (v: any) => f.value.data.nodeByUri.uri == v.uri
-                )[0].id,
-              }; //need id of menu for hierachy
-            }
-            throw "something is wrong status is " + f.status;
-          });
-          setPosts(_posts);
-        });
         setNav(navigationData);
       });
-  }, [cmsClient, queryUriToContent]);
+  }, [cmsClient]);
 
-  return { nav, posts };
+  return { nav };
 };
 
 export type WPUriType =
   | { data?: any; errors?: any; loading: boolean }
   | undefined;
-export const useWPUri: (path: string) => {
-  data: WPUriType;
-  queryUriToContent: any;
-} = (path: any) => {
+
+export const useWPUriQuery = () => {
   const cmsClient = useCre8rCmsClient();
-  const [data, setData] = useState<WPUriType>();
   const queryUriToContent = useCallback(
-    (path) => {
+    (path : string) => {
       return cmsClient?.query({
         query: URI_QUERY,
         variables: {
@@ -170,18 +147,48 @@ export const useWPUri: (path: string) => {
     },
     [cmsClient]
   );
-  useEffect(() => {
-    setData({ loading: true });
-    queryUriToContent(path).then((res) => {
-      setData({
-        data: res.data,
-        errors:
-          res?.data &&
-          res?.data.nodeByUri == null &&
-          `path of ${path} was not found.`,
-        loading: false,
-      });
-    });
-  }, [cmsClient, path, queryUriToContent]);
-  return { data, queryUriToContent };
+  return queryUriToContent;
 };
+
+export const useWPUri = (path: string | null) => {
+  const queryUriToContent = useWPUriQuery();
+  const [res, setRes] = useState<ApolloQueryResult<any> | null>();
+  useEffect(() => {
+    if (!path) {
+      return;
+    }
+    setRes(null)
+    queryUriToContent(path).then(_res => {
+      setRes(_res)
+    })
+    
+  }, [path, queryUriToContent])
+  return res
+}
+
+export const getPostsFromNavItems = async (nav: MenuTreeItem[], queryUriToContent: (path: any) => Promise<ApolloQueryResult<any>>) => {
+  const res_1 = await Promise.allSettled(
+    nav.map(async (res: any) => {
+      const f = await queryUriToContent(res.uri);
+      return f;
+    })
+  );
+  console.log(res_1);
+  const _posts = res_1.map((f_1: any) => {
+    if (f_1.status == "fulfilled") {
+      return {
+        ...nav.filter(
+          (v: any) => f_1.value.data.nodeByUri.uri == v.uri
+        )[0],
+        ...f_1.value.data.nodeByUri,
+        id: nav.filter(
+          (v_1: any) => f_1.value.data.nodeByUri.uri == v_1.uri
+        )[0].id,
+      }; //need id of menu for hierachy
+    }
+    throw "something is wrong status is " + f_1.status;
+  });
+  return await _posts;
+  
+}
+

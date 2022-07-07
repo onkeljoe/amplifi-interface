@@ -87,7 +87,7 @@ function CampaignDetails({
                 <TYPE.body fontWeight="600">Campaigns</TYPE.body>
               </ArrowWrapper>
               <ChevronRight size={16} />
-              <TYPE.body>{"Campaign #" + campaignID}</TYPE.body>
+              <TYPE.body>{campaignID}</TYPE.body>
             </RowFixed>
 
             {true && (
@@ -96,10 +96,10 @@ function CampaignDetails({
           </RowBetween>
           <AutoColumn gap="10px" style={{ width: "100%" }}>
             <TYPE.largeHeader style={{ marginBottom: ".5rem" }}>
-              {data.title ? data.title : ""}
+              {data && data.title ? data.title : ""}
             </TYPE.largeHeader>
             <RowBetween>
-              <TYPE.main>Date here</TYPE.main>
+              {/* <TYPE.main>Date here</TYPE.main> */}
             </RowBetween>
             {amplifiCampaignsTabData.length > 0 && (
               <Tabs
@@ -114,12 +114,12 @@ function CampaignDetails({
               />
             )}
             {/* <Break /> */}
-            {data.loading && !data.content ? (
+            {!data ? (
               <Loader />
             ) : (
               <CampaignContent content={data.content} />
             )}
-            {data.error && <div>Error loading content</div>}
+            {data && data.error && <div>Error loading content</div>}
           </AutoColumn>
           {/* Auto column
           <AutoColumn gap="md">
