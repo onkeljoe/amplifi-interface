@@ -77,14 +77,14 @@ function CampaignList({
           </TYPE.body>
           <Break />
           {amplifiCampaigns ? (
-            amplifiCampaigns.map((v) => {
+            amplifiCampaigns.map((v, i) => {
               return (
                 <div key={v.id}>
                   <ProposalItem as={Link} to={uriToRouteMap[v.uri]}>
                     <RowBetween>
                       <RowFixed>
                         <OnlyAboveSmall>
-                          <TYPE.darkGray mr="8px">{v.id + "."}</TYPE.darkGray>
+                          <TYPE.darkGray mr="8px">{amplifiCampaigns.length - i + "."}</TYPE.darkGray>
                         </OnlyAboveSmall>
                         <ResponsiveText mr="10px">{v.title}</ResponsiveText>
                       </RowFixed>
