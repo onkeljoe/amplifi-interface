@@ -16,6 +16,7 @@ import { AutoColumn } from "../Column";
 import { ProposalStatus } from "../governance/styled";
 import { RowBetween, RowFixed } from "../Row";
 import CampaignContent from "./CampaignContent";
+import CampaignOverview from "./CampaignOverview";
 
 const Wrapper = styled.div<{ backgroundColor?: string }>``;
 
@@ -69,7 +70,7 @@ function CampaignDetails({
   const {
     amplifiCampaignsTabData,
     uriToRouteMap,
-    page: { data, tabUri },
+    page: { data, tabUri, useCampaignACFsInstead },
   } = useCampaign(protocolID, pathname, campaignID);
 
   return (
@@ -113,12 +114,16 @@ function CampaignDetails({
                 }}
               />
             )}
-            {/* <Break /> */}
-            {!data ? (
-              <Loader />
-            ) : (
-              <CampaignContent content={data.content} />
-            )}
+            {
+              useCampaignACFsInstead ? <CampaignOverview /> : <>
+                {/* <Break /> */}
+                {!data ? (
+                  <Loader />
+                ) : (
+                  <CampaignContent content={data.content} />
+                )}
+              </>
+            }
             {data && data.error && <div>Error loading content</div>}
           </AutoColumn>
           {/* Auto column
