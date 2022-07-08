@@ -107,7 +107,7 @@ const getAmplifiCampaignTabsData = (
     return []
   }
   return [
-    // { tab: "overview", content: "", uri: campaignUri },
+    { tab: "overview", content: "", uri: campaignUri },
     ...filteredCampaignNav
       .map((n) => {
         return {
@@ -218,11 +218,11 @@ const generateRouteToWpUriMap = (protocolID: string, nav?: MenuTreeItem[]) => {
 
 /**
  * abstracting away the wp data
- * @param path 
+ * @param uri 
  * @returns 
  */
-const useUri = (path: string) => {
-  const uriRes = useWPUri(path);
+const useUri = (uri: string) => {
+  const uriRes = useWPUri(uri);
   const amplifiCampaignsDisplayData = useMemo<{
     title: string;
     content: string;
@@ -238,7 +238,7 @@ const useUri = (path: string) => {
 
   return {
     amplifiCampaignsDisplayData,
-    useCampaignACFsInstead: uriRes && (!uriRes.data || uriRes.errors),
+    useCampaignACFsInstead: isAmplifiCampaign(uri) || uriRes && (!uriRes.data || uriRes.errors),
     loading: !amplifiCampaignsDisplayData,
   };
 };

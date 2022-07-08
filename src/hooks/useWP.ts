@@ -27,7 +27,7 @@ const NAVIGATION_QUERY = gql`
   }
 `;
 
-///about-2/
+
 const URI_QUERY = gql`
   query getNodeByUri($uri: String!) {
     nodeByUri(uri: $uri) {
@@ -58,10 +58,10 @@ const URI_QUERY = gql`
   }
 
   fragment AmpliFiCampaignFields on AmpliFiCampaign {
-    title
-    content
     id
     uri
+    title
+    content
   }
 `;
 
