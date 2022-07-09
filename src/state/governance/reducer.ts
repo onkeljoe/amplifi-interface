@@ -216,7 +216,7 @@ export const HND_GOVERNANCE: GovernanceInfo = {
   baseUrl: "https://amplifi.cre8r.vip/#/amplifi/HND?",
   featuredImage: HundredFeatured,
   campaignBudget: "10,000 USD in $CRE8R & 30,000",
-  video: "https://www.youtube.com/embed/ccPUXuS4_Is", // ['https://www.youtube.com/embed/ccPUXuS4_Is','https://www.youtube.com/embed/BDQlJNiDav8'],
+  video: "https://www.youtube.com/embed/0aKvJdCbuno", // ['https://www.youtube.com/embed/ccPUXuS4_Is','https://www.youtube.com/embed/BDQlJNiDav8'],
   description: `<b>In phase one of the campaign only wallets that have used Hundred Finance will be eligible for AmpliFi payouts.</b> Share Hundred Finance with your friends using your unique tracking link below and earn HND + CRE8R 
   You will be rewarded based on onchain data that can be tracked back to your unique link using AmpliFi`,
   hasSnapshot: true,
