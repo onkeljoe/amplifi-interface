@@ -105,9 +105,9 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   social: "@Uniswap",
   emoji: "🔊",
   baseUrl: "https://amplifi.cre8r.vip?",
-  featuredImage: FujiFeatured,
+ // featuredImage: AmpliFiLogo,
   campaignBudget: "~20k USD",
-  video: "https://youtube.com/embed/SmUNtbz35kY", // ['https://www.youtube.com/embed/ccPUXuS4_Is','https://www.youtube.com/embed/BDQlJNiDav8'],
+  video: "https://www.youtube.com/embed/0aKvJdCbuno", // ['https://www.youtube.com/embed/ccPUXuS4_Is','https://www.youtube.com/embed/BDQlJNiDav8'],
   description: `<p>AmpliFi Verified Ampbasadors you can now earn a share of Fuji DAO governance through sharing The <strong>Fuji Expedition</strong> with your audience. </p>
   <p>
  Learn more about Fuji Pre-Token bonds here: <a href="https://cre8r.vip/wp-content/uploads/2022/06/Pre-Token_bonds-2.pdf">Fuji Pre token bonds PDF Download</a>
@@ -202,8 +202,8 @@ const HND = new Token(
   "Hundred Governance Token"
 );
 export const HND_GOVERNANCE: GovernanceInfo = {
-  id: "HND",
-  name: "Hundred1 Finance",
+  id: "HND", // Protocol URI should be set to this
+  name: "Hundred Finance",
   logo: HundredLogo,
   primaryColor: "#000000",
   secondaryColor: "#E1F9F1",
@@ -383,9 +383,9 @@ export const CRE8R_GOVERNANCE: GovernanceInfo = {
   governanceAlphaAddresses: [RADICLE_GOVERNANCE_ADDRESS],
   social: "@cre8rAmpliFi",
   emoji: "🧱",
-  baseUrl: "https://amplifi.cre8r.vip/#/amplifi/CRE8R?",
-  campaignBudget: "50,000",
-  video: "https://www.youtube.com/embed/KwNfwxGmhxY",
+  baseUrl: "https://cre8r.vip/client-discover-call-booking-form/?",
+  campaignBudget: "Unlimited: $500 USDC + $500 USD value Paid in AmpliFi Governance Token Per Successful Referral ",
+  video: "https://www.youtube.com/embed/0aKvJdCbuno",
   description: `Share CRE8R AmpliFi with your friends and earn $CRE8R tokens. Just copy your unique link below and share anywhere (responsibly). You will be rewarded with CRE8R tokens in several different ways over time.
 
   Based on:
