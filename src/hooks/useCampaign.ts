@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from "apollo-client";
+import { ApolloQueryResult } from "@apollo/client";
 import { TabsData } from "components/Tabs";
 import { useEffect, useMemo, useState } from "react";
 import { getPostsFromNavItems, MenuTreeItem, PageData, useWPNav, useWPUri, useWPUriQuery, WPUriType } from "./useWP";
@@ -107,7 +107,7 @@ const getAmplifiCampaignTabsData = (
     return []
   }
   return [
-    // { tab: "overview", content: "", uri: campaignUri },
+    { tab: "overview", content: "", uri: campaignUri },
     ...filteredCampaignNav
       .map((n) => {
         return {
@@ -119,39 +119,52 @@ const getAmplifiCampaignTabsData = (
   ];
 };
 
-/**
- * Using the WP nodeByUri query, this gets the html to be displayed on the CampaignDetails.tsx page
- * @param uriRes 
- * @returns 
- */
-const getDisplayData = (data: {nodeByUri : {
+
+interface NodeByUriResponse {
+  nodeByUri : {
   id: string,
   title: string,
   uri: string,
   __typename: string,
   content: string
-}}) => {
-  console.log(data && data.nodeByUri)
+  }
+}
+/**
+ * Using the WP nodeByUri query, this gets the html to be displayed on the CampaignDetails.tsx page
+ * @param uriRes 
+ * @returns 
+ */
+const getDisplayData : (data: NodeByUriResponse) => AmplifiCampaignResponse = (data: NodeByUriResponse) => {
+  console.log('afafaf')
   if (data && data.nodeByUri) {
     return {
-      content: data.nodeByUri.content || "No content",
-      title: data.nodeByUri.title || "",
+      data: {
+        content: data.nodeByUri.content || "No content",
+        title: data.nodeByUri.title || "",
+        isACFPage: false
+      },
       loading: false,
       error: "",
     };
   } else if (!data) {
     return {
-      content: "",
-      title: "",
+      data: {
+        content: "",
+        title: "",
+        isACFPage: false
+      },
       loading: true,
       error: "",
     };
   }
   return {
-    content: "",
-    title: "",
+    data: {
+      content: "",
+      title: "",
+      isACFPage: false
+    },
     loading: false,
-    error: ["Something is wrong"],
+    error: "Something is wrong",
   };
 };
 type Route = string;
@@ -188,7 +201,8 @@ const generateWpUriToRouteMap = (protocolID: string, nav?: MenuTreeItem[]) => {
       map[n.uri] = route;
       n.children.forEach((t) => {
         //tabs in col3
-        map[t.uri] = `${route}/${t.uri.replaceAll("/", "")}`;
+        console.log(t.uri)
+        map[t.uri] = `${route}/${t.uri.replace("/amplifi-pages/","").replaceAll("/", "")}`;
       });
     }
   });
@@ -216,6 +230,59 @@ const generateRouteToWpUriMap = (protocolID: string, nav?: MenuTreeItem[]) => {
   return invertedMap;
 };
 
+
+
+interface WPPage {
+  isACFPage: false;
+  title: string;
+  content: string;
+}
+
+interface ACFPage {
+  isACFPage: true;
+  title: string;
+  content: string;
+  campaignBudget: string;
+  campaignDescription: string;
+  campaignFeaturedImage: {
+    uri: string;
+    title: string;
+    status: string;
+    slug: string;
+  }
+  campaignGoal: string;
+  campaignKpi: string;
+  campaignOverviewVideo: string;
+  campaignSelfHostedVideo: {
+    description: string;
+    uri: string;
+    title: string;
+    slug: string;
+    sourceUrl: string;
+  }
+  campaignStartDate: string;
+  contentForAmplifiSharing: {
+    __typename: string;
+  }[]
+  fieldGroupName: string;
+  isDemo: string;
+  kpiMetric: string;
+  secondaryBudgetAmount: string;
+  secondarybudgetticket: string;
+  utmAddressRepeator: {
+    fieldGroupName: string;
+    referreAddress: string;
+    utmMedium: string;
+    utmSource: string;
+    utmTerm: string;
+  }[]
+}
+
+interface AmplifiCampaignResponse {
+  data: WPPage | ACFPage;
+  loading: boolean;
+  error: any;
+}
 /**
  * abstracting away the wp data
  * @param path 
@@ -223,12 +290,7 @@ const generateRouteToWpUriMap = (protocolID: string, nav?: MenuTreeItem[]) => {
  */
 const useUri = (path: string) => {
   const uriRes = useWPUri(path);
-  const amplifiCampaignsDisplayData = useMemo<{
-    title: string;
-    content: string;
-    loading: boolean;
-    error: any;
-  } | undefined>(() => {
+  const amplifiCampaignsDisplayData = useMemo<AmplifiCampaignResponse | undefined>(() => {
     if (!uriRes) {
       return;
     }

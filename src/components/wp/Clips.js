@@ -1,4 +1,4 @@
-import { hasClientExports } from "apollo-utilities";
+import { hasClientExports } from "@apollo/client";
 import { CASE_STUDY_ACF_FIELDS_CLIPS } from "apollo/queries";
 import { LoadingView } from "components/ModalViews";
 import gql from "graphql-tag";

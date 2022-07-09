@@ -96,7 +96,8 @@ function CampaignDetails({
           </RowBetween>
           <AutoColumn gap="10px" style={{ width: "100%" }}>
             <TYPE.largeHeader style={{ marginBottom: ".5rem" }}>
-              {data && data.title ? data.title : ""}
+              {console.log(data)}
+              {data && data.data.title ? data.data.title : ""}
             </TYPE.largeHeader>
             <RowBetween>
               {/* <TYPE.main>Date here</TYPE.main> */}
@@ -117,7 +118,7 @@ function CampaignDetails({
             {!data ? (
               <Loader />
             ) : (
-              <CampaignContent content={data.content} />
+              <CampaignContent content={data.data.content} />
             )}
             {data && data.error && <div>Error loading content</div>}
           </AutoColumn>

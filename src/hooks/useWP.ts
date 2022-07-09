@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from "apollo-client";
+import { ApolloQueryResult } from "@apollo/client";
 import gql from "graphql-tag";
 import { useCallback, useEffect, useState } from "react";
 import { useCre8rCmsClient } from "state/application/hooks";
@@ -33,35 +33,63 @@ const URI_QUERY = gql`
     nodeByUri(uri: $uri) {
       __typename
       ... on Page {
-        ...PageFields
-      }
-      ... on AmpliFiCampaign {
-        ...AmpliFiCampaignFields
+        title
+        content
+        id
+        uri
       }
       ... on Protocol {
-        ...ProtocolFields
+        title
+        content
+        id
+        uri
       }
+      ... on AmpliFiCampaign {
+        id
+        uri
+        title
+        content
+        date
+        amplifiCampaignFields {
+          baseUrl
+          campaignBudget
+          campaignDescription
+          campaignFeaturedImage {
+            uri
+            title
+            status
+            slug
+          }
+          campaignGoal
+          campaignKpi
+          campaignOverviewVideo
+          campaignSelfHostedVideo {
+            description
+            uri
+            title
+            slug
+            sourceUrl
+          }
+          campaignStartDate
+          contentForAmplifiSharing {
+            __typename
+          }
+          fieldGroupName
+          isDemo
+          kpiMetric
+          secondaryBudgetAmount
+          secondarybudgetticker
+          utmAddressRepeater {
+            fieldGroupName
+            referreAddress
+            utmMedium
+            utmSource
+            utmTerm
+          }
+        }
+      }
+      
     }
-  }
-  fragment ProtocolFields on Protocol {
-    title
-    content
-    id
-    uri
-  }
-
-  fragment PageFields on Page {
-    title
-    content
-    id
-    uri
-  }
-
-  fragment AmpliFiCampaignFields on AmpliFiCampaign {
-    title
-    content
-    id
-    uri
   }
 `;
 
@@ -158,11 +186,16 @@ export const useWPUri = (path: string | null) => {
       return;
     }
     setRes(null)
+    console.log('asdfasdf')
+    queryUriToContent("/fuji-pre-token-bonds/").then(res => {
+      console.log(res)
+    })
     queryUriToContent(path).then(_res => {
       setRes(_res)
     })
     
   }, [path, queryUriToContent])
+  console.log(res)
   return res
 }
 
