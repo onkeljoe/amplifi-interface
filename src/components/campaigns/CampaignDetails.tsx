@@ -16,6 +16,7 @@ import { AutoColumn } from "../Column";
 import { ProposalStatus } from "../governance/styled";
 import { RowBetween, RowFixed } from "../Row";
 import CampaignContent from "./CampaignContent";
+import CampaignOverview from "./CampaignOverview";
 
 const Wrapper = styled.div<{ backgroundColor?: string }>``;
 
@@ -69,9 +70,9 @@ function CampaignDetails({
   const {
     amplifiCampaignsTabData,
     uriToRouteMap,
-    page: { data, tabUri },
+    page: { data, tabUri, useCampaignACFsInstead },
   } = useCampaign(protocolID, pathname, campaignID);
-
+  console.log(data)
   return (
     <BodyWrapper>
       <Wrapper>
@@ -96,7 +97,6 @@ function CampaignDetails({
           </RowBetween>
           <AutoColumn gap="10px" style={{ width: "100%" }}>
             <TYPE.largeHeader style={{ marginBottom: ".5rem" }}>
-              {console.log(data)}
               {data && data.data.title ? data.data.title : ""}
             </TYPE.largeHeader>
             <RowBetween>
@@ -107,7 +107,7 @@ function CampaignDetails({
                 data={amplifiCampaignsTabData}
                 value={tabUri}
                 onChange={(value) => {
-                  console.log(value);
+                  //optional
                 }}
                 onClick={(value: any) => {
                   history.replace(uriToRouteMap[value]);
@@ -115,11 +115,16 @@ function CampaignDetails({
               />
             )}
             {/* <Break /> */}
-            {!data ? (
-              <Loader />
-            ) : (
-              <CampaignContent content={data.data.content} />
-            )}
+            {
+              useCampaignACFsInstead ? <CampaignOverview /> : <>
+                {/* <Break /> */}
+                {!data ? (
+                  <Loader />
+                ) : (
+                  <CampaignContent content={data.data.content} />
+                )}
+              </>
+            }
             {data && data.error && <div>Error loading content</div>}
           </AutoColumn>
           {/* Auto column

@@ -9,6 +9,7 @@ import {
   updateGlobalData,
   updateMaxFetched,
   updateUtm,
+  updateCampaign,
 } from "./actions";
 import { createReducer } from "@reduxjs/toolkit";
 import UniLogo from "../../assets/images/uni-logo.png";
@@ -50,12 +51,11 @@ export interface GovernanceInfo {
 }
 
 export interface CampaignInfo {
-  emoji?: string;
-  baseUrl?: string; // TODO - this should be required
-  campaignBudget?: string;
-  video?: string;
-  description?: string;
-  featuredImage?: string;
+  baseUrl: string; // TODO - this should be required
+  campaignBudget: string;
+  video: string;
+  description: string;
+  featuredImage: string;
 }
 
 // protocol wide data
@@ -433,5 +433,12 @@ export default createReducer(initialState, (builder) =>
     })
     .addCase(updateUtm, (state, action) => {
       state.utm[action.payload.protocolID] = action.payload.utm;
+    })
+    .addCase(updateCampaign, (state, action) => {
+      //@ts-ignore
+      state.activeProtocol = {
+        ...state.activeProtocol,
+        ...action.payload
+      }
     })
 );

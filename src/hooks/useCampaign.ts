@@ -1,6 +1,7 @@
 import { ApolloQueryResult } from "@apollo/client";
 import { TabsData } from "components/Tabs";
 import { useEffect, useMemo, useState } from "react";
+import { useCampaignUpdate } from "state/governance/hooks";
 import { getPostsFromNavItems, MenuTreeItem, PageData, useWPNav, useWPUri, useWPUriQuery, WPUriType } from "./useWP";
 
 /* 
@@ -125,18 +126,29 @@ interface NodeByUriResponse {
   id: string,
   title: string,
   uri: string,
-  __typename: string,
-  content: string
+  // __typename: string,
+  content: string,
+  amplifiCampaignFields?: any
   }
 }
 /**
  * Using the WP nodeByUri query, this gets the html to be displayed on the CampaignDetails.tsx page
- * @param uriRes 
+ * @param data 
  * @returns 
  */
+//@ts-ignore
 const getDisplayData : (data: NodeByUriResponse) => AmplifiCampaignResponse = (data: NodeByUriResponse) => {
-  console.log('afafaf')
-  if (data && data.nodeByUri) {
+  if (data.nodeByUri.amplifiCampaignFields) {
+    return {
+      data: {
+        ...data.nodeByUri,
+        isACFPage: true
+      },
+      loading: false,
+      error: ""
+    }
+  } else if (data && data.nodeByUri) {
+    console.log(data)
     return {
       data: {
         content: data.nodeByUri.content || "No content",
@@ -200,8 +212,6 @@ const generateWpUriToRouteMap = (protocolID: string, nav?: MenuTreeItem[]) => {
         .replaceAll("/", "")}`;
       map[n.uri] = route;
       n.children.forEach((t) => {
-        //tabs in col3
-        console.log(t.uri)
         map[t.uri] = `${route}/${t.uri.replace("/amplifi-pages/","").replaceAll("/", "")}`;
       });
     }
@@ -242,40 +252,43 @@ interface ACFPage {
   isACFPage: true;
   title: string;
   content: string;
-  campaignBudget: string;
-  campaignDescription: string;
-  campaignFeaturedImage: {
-    uri: string;
-    title: string;
-    status: string;
-    slug: string;
-  }
-  campaignGoal: string;
-  campaignKpi: string;
-  campaignOverviewVideo: string;
-  campaignSelfHostedVideo: {
-    description: string;
-    uri: string;
-    title: string;
-    slug: string;
-    sourceUrl: string;
-  }
-  campaignStartDate: string;
-  contentForAmplifiSharing: {
-    __typename: string;
-  }[]
-  fieldGroupName: string;
-  isDemo: string;
-  kpiMetric: string;
-  secondaryBudgetAmount: string;
-  secondarybudgetticket: string;
-  utmAddressRepeator: {
+  amplifiCampaignFields: {
+    baseUrl: string;
+    campaignBudget: string;
+    campaignDescription: string;
+    campaignFeaturedImage: {
+      uri: string;
+      title: string;
+      status: string;
+      slug: string;
+    }
+    campaignGoal: string;
+    campaignKpi: string;
+    campaignOverviewVideo: string;
+    campaignSelfHostedVideo: {
+      description: string;
+      uri: string;
+      title: string;
+      slug: string;
+      sourceUrl: string;
+    }
+    campaignStartDate: string;
+    contentForAmplifiSharing: {
+      __typename: string;
+    }[]
     fieldGroupName: string;
-    referreAddress: string;
-    utmMedium: string;
-    utmSource: string;
-    utmTerm: string;
-  }[]
+    isDemo: string;
+    kpiMetric: string;
+    secondaryBudgetAmount: string;
+    secondarybudgetticket: string;
+    utmAddressRepeator: {
+      fieldGroupName: string;
+      referreAddress: string;
+      utmMedium: string;
+      utmSource: string;
+      utmTerm: string;
+    }[]
+  }
 }
 
 interface AmplifiCampaignResponse {
@@ -285,11 +298,11 @@ interface AmplifiCampaignResponse {
 }
 /**
  * abstracting away the wp data
- * @param path 
+ * @param uri 
  * @returns 
  */
-const useUri = (path: string) => {
-  const uriRes = useWPUri(path);
+const useUri = (uri: string) => {
+  const uriRes = useWPUri(uri);
   const amplifiCampaignsDisplayData = useMemo<AmplifiCampaignResponse | undefined>(() => {
     if (!uriRes) {
       return;
@@ -300,7 +313,7 @@ const useUri = (path: string) => {
 
   return {
     amplifiCampaignsDisplayData,
-    useCampaignACFsInstead: uriRes && (!uriRes.data || uriRes.errors),
+    useCampaignACFsInstead: isAmplifiCampaign(uri) || uriRes && (!uriRes.data || uriRes.errors),
     loading: !amplifiCampaignsDisplayData,
   };
 };
@@ -400,6 +413,13 @@ export const useCampaign = (
     loading: loadingPageData,
   } = useUri(tabUri);
 
+  useCampaignUpdate(data?.data.isACFPage == true && {
+    baseUrl: data.data.amplifiCampaignFields.baseUrl,
+    campaignBudget: data.data.amplifiCampaignFields.campaignBudget || "Not found",
+    video: data.data.amplifiCampaignFields.campaignOverviewVideo || "Not found",
+    description: data.data.amplifiCampaignFields.campaignDescription || "Not found",
+    featuredImage: data.data.amplifiCampaignFields.campaignFeaturedImage && data.data.amplifiCampaignFields.campaignFeaturedImage.uri || "https://www.copahost.com/blog/wp-content/uploads/2016/05/404-page-by-htaccess.jpg"
+  })
   return {
     amplifiCampaigns,
     amplifiCampaignsTabData,

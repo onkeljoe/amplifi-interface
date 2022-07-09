@@ -27,7 +27,7 @@ const NAVIGATION_QUERY = gql`
   }
 `;
 
-///about-2/
+
 const URI_QUERY = gql`
   query getNodeByUri($uri: String!) {
     nodeByUri(uri: $uri) {
@@ -186,16 +186,11 @@ export const useWPUri = (path: string | null) => {
       return;
     }
     setRes(null)
-    console.log('asdfasdf')
-    queryUriToContent("/fuji-pre-token-bonds/").then(res => {
-      console.log(res)
-    })
     queryUriToContent(path).then(_res => {
       setRes(_res)
     })
     
   }, [path, queryUriToContent])
-  console.log(res)
   return res
 }
 
@@ -206,7 +201,6 @@ export const getPostsFromNavItems = async (nav: MenuTreeItem[], queryUriToConten
       return f;
     })
   );
-  console.log(res_1);
   const _posts = res_1.map((f_1: any) => {
     if (f_1.status == "fulfilled") {
       return {
