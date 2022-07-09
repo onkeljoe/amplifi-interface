@@ -93,8 +93,8 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   id: "AMPLIFI",
   name: "AmpliFi",
   logo: AmpliFiLogo,
-  primaryColor: "#FF007A",
-  secondaryColor: "#FDEEF5",
+  primaryColor: "5555FF",
+  secondaryColor: "5555FF",
   token: serializeToken(AMPLIFI),
   governanceAlphaAddresses: [
     UNI_GOVERNANCE_ADDRESS_ALPHA_V0,
@@ -102,7 +102,7 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   ],
   governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
   migrationProposalId: 8,
-  social: "@Uniswap",
+  social: "@CRE8RDAO",
   emoji: "🔊",
   baseUrl: "https://amplifi.cre8r.vip?",
  // featuredImage: AmpliFiLogo,
@@ -168,14 +168,6 @@ export const COMP_GOVERNANCE_ADDRESS_BRAVO =
   "0xc0da02939e1441f497fd74f78ce7decb17b66529";
 export const COMP_GOVERNANCE_ADDRESS =
   "0xc0dA01a04C3f3E0be433606045bB7017A7323E38";
-export const COMP_ADDRESS = "0xc00e94cb662c3520282e6f5717214004a7f26888";
-const COMP = new Token(
-  ChainId.MAINNET,
-  COMP_ADDRESS,
-  18,
-  "COMP",
-  "Compound Governance Token"
-);
 export const COMPOUND_GOVERNANCE: GovernanceInfo = {
   id: "compound",
   name: "Compound Governance",
@@ -250,16 +242,6 @@ export const AAVE_GOVERNANCE: GovernanceInfo = {
 <style type="text/css">.ritz .waffle a { color: inherit; }.ritz .waffle .s1{background-color:#ffffff;text-align:right;color:#000000;font-family:'Inter var';font-size:10pt;vertical-align:bottom;white-space:nowrap;direction:ltr;padding:2px 3px 2px 3px;}.ritz .waffle .s0{background-color:#ffffff;text-align:left;color:#000000;font-family:'Inter var';font-size:10pt;vertical-align:bottom;white-space:normal;overflow:hidden;word-wrap:break-word;direction:ltr;padding:2px 3px 2px 3px;}</style><div class="ritz grid-container" dir="ltr"><table class="waffle" cellspacing="0" cellpadding="0"><thead><tr><th class="row-header freezebar-origin-ltr"></th><th id="305164801C0" style="width:700px;" class="column-headers-background"></th><th id="305164801C1" style="width:700px;" class="column-headers-background"></th></tr></thead><tbody><tr style="height: 20px"><th id="305164801R0" style="height: 20px;" class="row-headers-background"><div class="row-header-wrapper" style="line-height: 20px"</div></th><td class="s0">Max payout </td><td class="s1">500,000 PODS</td></tr><tr style="height: 20px"><th id="305164801R1" style="height: 20px;" class="row-headers-background"><div class="row-header-wrapper" style="line-height: 20px"></div></th><td class="s0" dir="ltr">Min amount raised from AmpliFi to activate payout</td><td class="s1">$5,000,000 USD</td></tr><tr style="height: 20px"><th id="305164801R2" style="height: 20px;" class="row-headers-background"><div class="row-header-wrapper" style="line-height: 20px"></div></th><td class="s0" dir="ltr">Target for max payout</td><td class="s1">$25,000,000 USD</td></tr><tr style="height: 20px"><th id="305164801R3" style="height: 20px;" class="row-headers-background"><div class="row-header-wrapper" style="line-height: 20px"></div></th><td class="s0" dir="ltr">Payout per million raised via AmpliFi</td><td class="s1">20,000 PODS</td></tr><tr style="height: 20px"><th id="305164801R4" style="height: 20px;" class="row-headers-background"><div class="row-header-wrapper" style="line-height: 20px"></div></th><td class="s0" dir="ltr">Payout per 100k raised via AmpliFi</td><td class="s1">2,000 PODS</td></tr><tr style="height: 20px"><th id="305164801R5" style="height: 20px;" class="row-headers-background"><div class="row-header-wrapper" style="line-height: 20px"></div></th><td class="s0" dir="ltr">Percent cut per amount raised via AmpliFi up to $25,000,000 USD</td><td class="s1" dir="ltr">2.00%</td></tr></tbody></table></div>`,
 };
 
-export const FUJI_GOVERNANCE_ADDRESS =
-  "0xB3a87172F555ae2a2AB79Be60B336D2F7D0187f0";
-export const FUJI_ADDRESS = "0x0cEC1A9154Ff802e7934Fc916Ed7Ca50bDE6844e";
-const FUJI = new Token(
-  ChainId.MAINNET,
-  FUJI_ADDRESS,
-  18,
-  "FUJI Pre Token Bonds",
-  "FUJI Pre-Token Bonds"
-);
 export const FUJI_GOVERNANCE: GovernanceInfo = {
   id: "fuji",
   name: "Fuji Expedition",
@@ -280,16 +262,6 @@ export const FUJI_GOVERNANCE: GovernanceInfo = {
   </p>`,
 };
 
-export const RADICLE_GOVERNANCE_ADDRESS =
-  "0x690e775361AD66D1c4A25d89da9fCd639F5198eD";
-export const RADICLE_ADDRESS = "0x31c8EAcBFFdD875c74b94b077895Bd78CF1E64A3";
-const RADICLE = new Token(
-  ChainId.MAINNET,
-  RADICLE_ADDRESS,
-  18,
-  "RAD",
-  "Radicle"
-);
 export const RADICLE_GOVERNANCE: GovernanceInfo = {
   id: "radicle",
   name: "Radicle Governance",
