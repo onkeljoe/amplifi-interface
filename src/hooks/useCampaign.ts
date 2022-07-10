@@ -261,6 +261,7 @@ interface ACFPage {
       title: string;
       status: string;
       slug: string;
+      sourceUrl: string;
     }
     campaignGoal: string;
     campaignKpi: string;
@@ -418,7 +419,7 @@ export const useCampaign = (
     campaignBudget: data.data.amplifiCampaignFields.campaignBudget || "Not found",
     video: data.data.amplifiCampaignFields.campaignOverviewVideo || "Not found",
     description: data.data.amplifiCampaignFields.campaignDescription || "Not found",
-    featuredImage: data.data.amplifiCampaignFields.campaignFeaturedImage && data.data.amplifiCampaignFields.campaignFeaturedImage.uri || "https://www.copahost.com/blog/wp-content/uploads/2016/05/404-page-by-htaccess.jpg"
+    featuredImage: data.data.amplifiCampaignFields.campaignFeaturedImage && data.data.amplifiCampaignFields.campaignFeaturedImage.sourceUrl || "https://www.copahost.com/blog/wp-content/uploads/2016/05/404-page-by-htaccess.jpg"
   })
   return {
     amplifiCampaigns,

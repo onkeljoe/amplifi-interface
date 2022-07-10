@@ -59,6 +59,7 @@ const URI_QUERY = gql`
             title
             status
             slug
+            sourceUrl
           }
           campaignGoal
           campaignKpi
