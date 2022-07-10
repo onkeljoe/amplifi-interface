@@ -277,7 +277,7 @@ export function useAllProposalStates(): number[] | undefined {
   if (
     activeProtocol === COMPOUND_GOVERNANCE ||
     activeProtocol === NOUNS_GOVERNANCE ||
-    activeProtocol === UNISWAP_GOVERNANCE
+    activeProtocol === UNISWAP_GOVERNANCE 
   ) {
     return bravoStates;
   }
