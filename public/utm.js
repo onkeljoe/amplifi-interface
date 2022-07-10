@@ -566,7 +566,6 @@
     
     
     //https://github.com/harness-software/wp-graphql-gravity-forms/blob/develop/docs/submitting-forms.md
-    console.log('graphql here')
     var graph = graphql("https://cre8r.vip/graphql", {
       alwaysAutodeclare: true,
       asJSON: true,

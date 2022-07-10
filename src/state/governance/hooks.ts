@@ -9,9 +9,10 @@ import {
   updateGlobalData,
   updateMaxFetched,
   updateUtm,
+  updateCampaign,
 } from "./actions";
 import { AppDispatch, AppState } from "./../index";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, useStore } from "react-redux";
 import {
   GovernanceInfo,
   GlobaData,
@@ -19,8 +20,9 @@ import {
   NOUNS_GOVERNANCE,
   UNISWAP_GOVERNANCE,
   SUPPORTED_PROTOCOLS,
+  CampaignInfo,
 } from "./reducer";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import {
   useGovernanceContract,
   useGovTokenContract,
@@ -277,7 +279,7 @@ export function useAllProposalStates(): number[] | undefined {
   if (
     activeProtocol === COMPOUND_GOVERNANCE ||
     activeProtocol === NOUNS_GOVERNANCE ||
-    activeProtocol === UNISWAP_GOVERNANCE
+    activeProtocol === UNISWAP_GOVERNANCE 
   ) {
     return bravoStates;
   }
@@ -777,4 +779,17 @@ export function useUtm(): { [id: string]: string } | undefined {
     console.log(protocolUrls);
   }, [verifiedHandleEntry, utms, dispatch]);
   return utm;
+}
+
+//todo: seperate governance logic with campaign logic
+export function useCampaignUpdate(campaignInfo: CampaignInfo | false) {
+  const dispatch = useDispatch<AppDispatch>();
+  const store = useStore();
+  useMemo(() => {
+    if (campaignInfo) {
+      if (campaignInfo.campaignBudget != store.getState().governance.activeProtocol.campaignBudget) {
+        dispatch(updateCampaign(campaignInfo))
+      }
+    } 
+  }, [dispatch, campaignInfo])
 }
