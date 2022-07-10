@@ -1,6 +1,4 @@
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { ApolloClient } from "apollo-client";
-import { HttpLink } from "apollo-link-http";
+import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import possibleTypes from "./possibleTypes.json";
 
 export const uniswapClient = new ApolloClient({
@@ -72,7 +70,7 @@ export const cre8rCmsClient = new ApolloClient({
     uri: "https://cre8r.vip/graphql",
   }),
   cache: new InMemoryCache({
-    possibleTypes, //this is suppose to remove the heuristic fragment matching error... but it doesn't
+    possibleTypes,
   }),
   shouldBatch: true,
 });

@@ -1,5 +1,6 @@
 import React from "react";
-import { Query } from "react-apollo";
+// @ts-ignore
+import { Query } from "@apollo/react-components";
 import gql from "graphql-tag";
 import PostCard from "./PostCard";
 import { Post } from "../../generated/graphql";

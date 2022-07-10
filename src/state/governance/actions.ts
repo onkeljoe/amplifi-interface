@@ -1,4 +1,4 @@
-import { GovernanceInfo, GlobaData } from "./reducer";
+import { GovernanceInfo, GlobaData, CampaignInfo } from "./reducer";
 import { createAction } from "@reduxjs/toolkit";
 import { DelegateData } from "./hooks";
 
@@ -31,3 +31,6 @@ export const updateUtm = createAction<{
   protocolID: string;
   utm: string;
 }>("/governance/utm");
+
+
+export const updateCampaign = createAction<CampaignInfo>("/governance/updateCampaign")
