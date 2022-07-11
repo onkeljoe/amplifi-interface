@@ -93,8 +93,8 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   id: "AMPLIFI",
   name: "AmpliFi",
   logo: AmpliFiLogo,
-  primaryColor: "5555FF",
-  secondaryColor: "5555FF",
+  primaryColor: "#5555FF",
+  secondaryColor: "#5555FF",
   token: serializeToken(AMPLIFI),
   governanceAlphaAddresses: [
     UNI_GOVERNANCE_ADDRESS_ALPHA_V0,
