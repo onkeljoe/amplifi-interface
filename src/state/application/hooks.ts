@@ -136,9 +136,9 @@ export function useSubgraphClient() {
     return aaveClient;
   }
 
-  if (activeProtocol?.id === FUJI_GOVERNANCE.id) {
-    return poolClient;
-  }
+  // if (activeProtocol?.id === FUJI_GOVERNANCE.id) {
+  //   return poolClient;
+  // }
 
   if (activeProtocol?.id === RADICLE_GOVERNANCE.id) {
     return radicleClient;
