@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import GoogleAnalyticsReporter from "../components/analytics/GoogleAnalyticsReporter";
@@ -24,6 +24,9 @@ import { useLocation } from "react-router-dom";
 import { identityOnlyPath } from "../state/governance/reducer";
 import Amplifi from "./Amplifi";
 import CampaignDetails from "components/campaigns/CampaignDetails";
+// import { ToastContainer, toast } from "react-toastify";
+// import 'react-toastify/dist/ReactToastify.css';
+
 
 const SiteWrapper = styled.div`
   height: 100vh;
@@ -70,6 +73,12 @@ function TopLevelModals() {
 
 export default function App() {
   const identityOnlyFlow = identityOnlyPath(useLocation().pathname);
+
+  // useEffect(() => {
+  //   if (toast) {
+  //     toast.info("This is a demo of Amplifi. Campaigns are still in testing phase and are subject to change. Please check back soon.")
+  //   }
+  // }, [toast])
 
   return (
     <Suspense fallback={null}>
@@ -159,6 +168,17 @@ export default function App() {
           </Web3ReactManager>
         </div>
       )}
+      {/* <ToastContainer
+        position="top-center"
+        autoClose={50000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      /> */}
     </Suspense>
   );
 }
