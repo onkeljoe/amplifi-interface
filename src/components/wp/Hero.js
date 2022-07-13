@@ -1,4 +1,4 @@
-import { hasClientExports } from "apollo-utilities";
+import { hasClientExports } from "@apollo/client";
 import gql from "graphql-tag";
 
 // import React from 'react';

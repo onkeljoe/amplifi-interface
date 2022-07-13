@@ -43,7 +43,6 @@ export default function Tabs({
               label={d.tab}
               key={i}
               onClick={() => {
-                console.log(d.uri);
                 onClick(d.uri);
               }}
             />
