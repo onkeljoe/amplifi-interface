@@ -76,9 +76,7 @@ export default function App() {
 
   return (
     <Suspense fallback={null}>
-      <button onClick={() => {
-        if (startTour) startTour()
-      }}> start tour here</button>
+      <button onClick={startTour}> start tour here</button>
       <div className="hero-welcome">asdfasdfasdf</div>
       <Route component={GoogleAnalyticsReporter} />
       <Route component={DarkModeQueryParamReader} />
