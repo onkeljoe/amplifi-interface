@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useContext, useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import GoogleAnalyticsReporter from "../components/analytics/GoogleAnalyticsReporter";
@@ -24,6 +24,8 @@ import { useLocation } from "react-router-dom";
 import { identityOnlyPath } from "../state/governance/reducer";
 import Amplifi from "./Amplifi";
 import CampaignDetails from "components/campaigns/CampaignDetails";
+import useTour from "hooks/useTour";
+
 
 const SiteWrapper = styled.div`
   height: 100vh;
@@ -70,9 +72,14 @@ function TopLevelModals() {
 
 export default function App() {
   const identityOnlyFlow = identityOnlyPath(useLocation().pathname);
+  const {startTour} = useTour();
 
   return (
     <Suspense fallback={null}>
+      <button onClick={() => {
+        if (startTour) startTour()
+      }}> start tour here</button>
+      <div className="hero-welcome">asdfasdfasdf</div>
       <Route component={GoogleAnalyticsReporter} />
       <Route component={DarkModeQueryParamReader} />
       <Route component={TwitterAccountQueryParamReader} />

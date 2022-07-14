@@ -143,6 +143,7 @@
     "graphql-tag": "^2.11.0",
     "html-react-parser": "^1.4.11",
     "moment": "^2.29.1",
+    "react-shepherd": "^4.1.0",
     "react-twitter-auth": "^0.0.13",
     "react-twitter-embed": "^3.0.3",
     "react-twitter-widgets": "^1.9.5",

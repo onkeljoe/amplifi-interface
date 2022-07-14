@@ -18,7 +18,7 @@ import GovernanceUpdater from "./state/governance/updater";
 import SocialUpdater from "./state/social/updater";
 import ThemeProvider, { FixedGlobalStyle, ThemedGlobalStyle } from "./theme";
 import getLibrary from "./utils/getLibrary";
-
+import ShepherdTour from "components/tour";
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName);
 
 if ("ethereum" in window) {
@@ -76,9 +76,11 @@ ReactDOM.render(
           <Updaters />
           <ThemeProvider>
             <ThemedGlobalStyle />
-            <HashRouter>
-              <App />
-            </HashRouter>
+            <ShepherdTour>
+              <HashRouter>
+                <App />
+              </HashRouter>
+            </ShepherdTour>
           </ThemeProvider>
         </Provider>
       </Web3ProviderNetwork>
