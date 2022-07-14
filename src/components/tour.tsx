@@ -3,24 +3,24 @@ import { ShepherdTour, ShepherdTourContext } from 'react-shepherd';
 import 'shepherd.js/dist/css/shepherd.css';
 
 const newSteps : any =  [
+  // step Connect wallet - should advance on click to left side of walletconnect modal
   {
     id: 'welcome',
     text: [
       `
       <p>
-      Shepherd is a JavaScript library for guiding users through your app.
-      It uses <a href="https://popper.js.org/">Popper.js</a>,
-      another open source library, to render dialogs for each tour "step".
-      </p>
+      AmpliFi is an Affiliate marketing & referral program platform for Web3 its flexible enough to handle incentive payouts in any token based on referrers contribution to any onchain or offchain outcome </p>
 
       <p>
-      Among many things, Popper makes sure your steps never end up off screen or
-      cropped by an overflow. (Try resizing your browser to see what we mean.)
+      It only takes a couple of minutes to get verified, check if you are on the publisher airdrop list, check out protocols & their campaigns & grab a unique link & start earning. Lets go!
       </p>
+      <p>Connect Your Wallet to get started</p>
       `
     ],
-    attachTo: { element: '.hero-welcome', on: 'bottom' },
+    attachTo: { element: '.sc-ehmTmK', on: 'left' },
+    advanceOn: { element: '.sc-ehmTmK', event: 'click' },
     classes: 'shepherd shepherd-welcome',
+
     buttons: [
       {
         type: 'cancel',
@@ -33,12 +33,18 @@ const newSteps : any =  [
       }
     ]
   },
+  
+
+  // step 2 we should be at wallet connect modal now - advance on click of any wallet option ie metamask etc
+  
   {
-    id: 'installation',
-    title: 'Installation',
-    text:
-      'Installation is simple, if you are using npm or yarn, just install like any other package.',
-    attachTo: { element: '.install-element', on: 'bottom' },
+    id: 'wallet-connect',
+    title: 'Wallet Connect',
+    text: [
+      `<p> Select your wallet then click "add a public identity"</p>
+      <p> You will be redirected to Twitter. See you back here in a sec!</p>`
+    ],
+    attachTo: { element: '.sc-kgflAQ.ccLhmY.css-613mex', on: 'bottom-left' },
     buttons: [
       {
         type: 'back',
@@ -52,12 +58,29 @@ const newSteps : any =  [
     ]
   },
   {
-    id: 'usage',
-    title: 'Usage',
-    text: [
-      'To use the tour service, simply inject it into your application and use it like this example.'
-    ],
-    attachTo: { element: '.usage-element', on: 'bottom' },
+    id: 'connect',
+    title: 'Connect Wallet',
+    text:
+      'Connect wallet - make sure you are on Ethereum network',
+    attachTo: { element: '.sc-ehmTmK', on: 'bottom' },
+    buttons: [
+      {
+        type: 'back',
+        classes: 'shepherd-button-secondary',
+        text: 'Back'
+      },
+      {
+        type: 'next',
+        text: 'Next'
+      }
+    ]
+  },
+  {
+    id: 'installation',
+    title: 'Installation',
+    text:
+      'Lets get you verified anon. Its the first step to checking your publisher',
+    attachTo: { element: '.sc-bUbCnL', on: 'bottom' },
     buttons: [
       {
         type: 'back',
@@ -114,7 +137,7 @@ const tourOptions = {
       enabled: true
     }
   },
-  useModalOverlay: true
+  useModalOverlay: false
 };
 
 export default function Tour({ children } : any) {

@@ -76,10 +76,12 @@ export default function App() {
 
   return (
     <Suspense fallback={null}>
-      <button onClick={() => {
+      
+      <h5 className="hero-welcome" style={{float: "left", paddingLeft: "30px"}}>AmpliFi is Affiliate Marketing For Web3 with Payouts Based On Onchain KPIs</h5>
+      <button style={{float: "right", padding: "10px 20px", marginRight: "20px"}} onClick={() => {
         if (startTour) startTour()
-      }}> start tour here</button>
-      <div className="hero-welcome">asdfasdfasdf</div>
+      }}> Start Tour</button>
+      
       <Route component={GoogleAnalyticsReporter} />
       <Route component={DarkModeQueryParamReader} />
       <Route component={TwitterAccountQueryParamReader} />

@@ -214,12 +214,14 @@ export default function Profile() {
                     setShowTwitterFlow(true);
                   }}
                 >
-                  <RowBetween>
-                    <TYPE.white fontSize="14px">
+                
+                  <RowBetween className="sc-bUbCnL">
+                    <TYPE.white  fontSize="14px">
                       Add a public identity
                     </TYPE.white>
                     <TwitterLogo src={TwitterIcon} />
                   </RowBetween>
+               
                 </TwitterButton>
               )
             ) : null}
