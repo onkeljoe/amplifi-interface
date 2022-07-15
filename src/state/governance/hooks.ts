@@ -8,8 +8,6 @@ import {
   updateVerifiedDelegates,
   updateGlobalData,
   updateMaxFetched,
-  updateUtm,
-  updateCampaign,
 } from "./actions";
 import { AppDispatch, AppState } from "./../index";
 import { useDispatch, useSelector, useStore } from "react-redux";
@@ -20,7 +18,6 @@ import {
   NOUNS_GOVERNANCE,
   UNISWAP_GOVERNANCE,
   SUPPORTED_PROTOCOLS,
-  CampaignInfo,
 } from "./reducer";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import {
@@ -746,50 +743,4 @@ export interface DelegateData {
   autonomous: boolean | undefined;
   handle: string | undefined; // twitter handle
   imageURL?: string | undefined;
-}
-
-//todo - make this flexible based on the twitter
-export function useUtm(): { [id: string]: string } | undefined {
-  const dispatch = useDispatch<AppDispatch>();
-  const { account } = useActiveWeb3React();
-  const verifiedHandleEntry = useVerifiedHandle(account);
-  const utms = useSelector<AppState, AppState["governance"]["utm"]>(
-    (state) => state.governance.utm
-  );
-  const [utm, setUtm] = useState({});
-  useEffect(() => {
-    if (!verifiedHandleEntry) return;
-    const protocolUrls: { [id: string]: GovernanceInfo } = {};
-    if (utms) {
-      setUtm(utms);
-    }
-    Promise.all(
-      Object.keys(SUPPORTED_PROTOCOLS).map((key) => {
-        if (utms[key]) return;
-        return getUrl(
-          verifiedHandleEntry?.handle || "user_not_known",
-          SUPPORTED_PROTOCOLS[key]
-        ).then((utm) => {
-          protocolUrls[key] = utm;
-          setUtm((u) => ({ ...u, ...protocolUrls }));
-          dispatch(updateUtm({ protocolID: key, utm }));
-        });
-      })
-    );
-    console.log(protocolUrls);
-  }, [verifiedHandleEntry, utms, dispatch]);
-  return utm;
-}
-
-//todo: seperate governance logic with campaign logic
-export function useCampaignUpdate(campaignInfo: CampaignInfo | false) {
-  const dispatch = useDispatch<AppDispatch>();
-  const store = useStore();
-  useMemo(() => {
-    if (campaignInfo) {
-      if (campaignInfo.campaignBudget != store.getState().governance.activeProtocol.campaignBudget) {
-        dispatch(updateCampaign(campaignInfo))
-      }
-    } 
-  }, [dispatch, campaignInfo])
 }

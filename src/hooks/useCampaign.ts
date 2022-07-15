@@ -1,7 +1,7 @@
 import { ApolloQueryResult } from "@apollo/client";
 import { TabsData } from "components/Tabs";
 import { useEffect, useMemo, useState } from "react";
-import { useCampaignUpdate } from "state/governance/hooks";
+import { useActiveCampaign, useCampaignUpdate } from "state/campaigns/hooks";
 import { getPostsFromNavItems, MenuTreeItem, PageData, useWPNav, useWPUri, useWPUriQuery, WPUriType } from "./useWP";
 
 /* 
@@ -414,13 +414,29 @@ export const useCampaign = (
     loading: loadingPageData,
   } = useUri(tabUri);
 
-  useCampaignUpdate(data?.data.isACFPage == true && {
-    baseUrl: data.data.amplifiCampaignFields.baseUrl,
-    campaignBudget: data.data.amplifiCampaignFields.campaignBudget || "Not found",
-    video: data.data.amplifiCampaignFields.campaignOverviewVideo || "Not found",
-    description: data.data.amplifiCampaignFields.campaignDescription || "Not found",
-    featuredImage: data.data.amplifiCampaignFields.campaignFeaturedImage && data.data.amplifiCampaignFields.campaignFeaturedImage.sourceUrl || "https://www.copahost.com/blog/wp-content/uploads/2016/05/404-page-by-htaccess.jpg"
-  })
+  const [,setActiveCampaign] = useActiveCampaign();
+  
+  useEffect(() => {
+    if (!data || !data.data.isACFPage || !campaignID) {
+      return;
+    }
+    const {amplifiCampaignFields} = data.data;
+    setActiveCampaign({
+      id: campaignID,
+      baseUrl: amplifiCampaignFields.baseUrl,
+      budget: [],
+      budgetDescription: amplifiCampaignFields.campaignBudget,
+      description: amplifiCampaignFields.campaignDescription,
+      goal: '',
+      isDemo: false,
+      kpi: '',
+      overviewVideo: amplifiCampaignFields.campaignOverviewVideo,
+      startDate: 'today',
+      whitelist: [],
+      featuredImage: amplifiCampaignFields.campaignFeaturedImage.sourceUrl
+    })
+  }, [protocolID, data, campaignID]);
+
   return {
     amplifiCampaigns,
     amplifiCampaignsTabData,
