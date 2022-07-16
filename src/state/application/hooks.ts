@@ -19,6 +19,8 @@ import {
   RADICLE_GOVERNANCE,
   NOUNS_GOVERNANCE,
   ENS_GOVERNANCE,
+  CRE8R_GOVERNANCE,
+  AMPLIFI_GOVERNANCE
 } from "../governance/reducer";
 import {
   uniswapClient,
@@ -136,9 +138,17 @@ export function useSubgraphClient() {
     return aaveClient;
   }
 
-  // if (activeProtocol?.id === FUJI_GOVERNANCE.id) {
-  //   return poolClient;
-  // }
+
+  if (activeProtocol?.id === FUJI_GOVERNANCE.id) {
+    return poolClient;
+  }
+  if (activeProtocol?.id === CRE8R_GOVERNANCE.id) {
+    return poolClient;
+  }
+  if (activeProtocol?.id === AMPLIFI_GOVERNANCE.id) {
+    return poolClient;
+  }
+
 
   if (activeProtocol?.id === RADICLE_GOVERNANCE.id) {
     return radicleClient;
