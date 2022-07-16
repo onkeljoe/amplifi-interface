@@ -53,25 +53,25 @@ const URI_QUERY = gql`
         amplifiCampaignFields {
           baseUrl
           campaignBudget
-          campaignDescription
-          campaignFeaturedImage {
+          description
+          featuredImage {
             uri
             title
             status
             slug
             sourceUrl
           }
-          campaignGoal
-          campaignKpi
-          campaignOverviewVideo
-          campaignSelfHostedVideo {
+          goal
+          kpi
+          overviewVideo
+          selfHostedVideo {
             description
             uri
             title
             slug
             sourceUrl
           }
-          campaignStartDate
+          startDate
           contentForAmplifiSharing {
             __typename
           }
@@ -80,13 +80,8 @@ const URI_QUERY = gql`
           kpiMetric
           secondaryBudgetAmount
           secondarybudgetticker
-          utmAddressRepeater {
-            fieldGroupName
-            referreAddress
-            utmMedium
-            utmSource
-            utmTerm
-          }
+          snapshotId
+          snapshotProposal
         }
       }
       

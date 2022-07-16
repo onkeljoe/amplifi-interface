@@ -1,54 +1,44 @@
-import { updateLastSelectedProtocolID } from "./../user/actions";
 import { TransactionResponse } from "@ethersproject/providers";
-import { TokenAmount, Token, Percent } from "@uniswap/sdk";
+import { Percent, Token, TokenAmount } from "@uniswap/sdk";
 import {
-  updateActiveProtocol,
-  updateFilterActive,
-  updateTopDelegates,
-  updateVerifiedDelegates,
-  updateGlobalData,
-  updateMaxFetched,
-} from "./actions";
-import { AppDispatch, AppState } from "./../index";
-import { useDispatch, useSelector, useStore } from "react-redux";
+  useGenericAlphaProposalStates,
+  useGenericBravoProposalStates
+} from "data/proposalStates";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ALL_VOTERS, DELEGATE_INFO } from "../../apollo/queries";
+import { AUTONOMOUS_PROPOSAL_BYTECODE } from "../../constants/proposals";
 import {
-  GovernanceInfo,
-  GlobaData,
-  COMPOUND_GOVERNANCE,
-  NOUNS_GOVERNANCE,
-  UNISWAP_GOVERNANCE,
-  SUPPORTED_PROTOCOLS,
-} from "./reducer";
-import { useState, useEffect, useCallback, useMemo } from "react";
+  enumerateProposalState, fetchProposals, fetchProposalsSnapshot
+} from "../../data/governance";
+import { useActiveWeb3React } from "../../hooks";
 import {
   useGovernanceContract,
   useGovTokenContract,
-  useIsAave,
+  useIsAave
 } from "../../hooks/useContract";
-import { useSingleCallResult } from "../multicall/hooks";
-import { useActiveWeb3React } from "../../hooks";
-import { useTransactionAdder } from "../transactions/hooks";
-import { isAddress, calculateGasMargin } from "../../utils";
+import { useIsEOA } from "../../hooks/useIsEOA";
+import usePrevious from "../../hooks/usePrevious";
+import { calculateGasMargin, isAddress } from "../../utils";
 import {
   useSubgraphClient,
-  useSubgraphClientSnapshot,
+  useSubgraphClientSnapshot
 } from "../application/hooks";
-import {
-  fetchProposals,
-  enumerateProposalState,
-  fetchProposalsSnapshot,
-} from "../../data/governance";
-import { ALL_VOTERS, DELEGATE_INFO } from "../../apollo/queries";
+import { useSingleCallResult } from "../multicall/hooks";
+import { useTransactionAdder } from "../transactions/hooks";
 import { deserializeToken } from "../user/hooks";
-import { useIsEOA } from "../../hooks/useIsEOA";
-import { AUTONOMOUS_PROPOSAL_BYTECODE } from "../../constants/proposals";
-import usePrevious from "../../hooks/usePrevious";
+import { AppDispatch, AppState } from "./../index";
+import { updateLastSelectedProtocolID } from "./../user/actions";
 import {
-  useGenericAlphaProposalStates,
-  useGenericBravoProposalStates,
-} from "data/proposalStates";
-import { useVerifiedHandle } from "state/social/hooks";
-import { getUrl } from "data/url";
+  updateActiveProtocol,
+  updateFilterActive, updateGlobalData,
+  updateMaxFetched, updateTopDelegates,
+  updateVerifiedDelegates
+} from "./actions";
+import {
+  COMPOUND_GOVERNANCE, GlobaData, GovernanceInfo, NOUNS_GOVERNANCE,
+  UNISWAP_GOVERNANCE
+} from "./reducer";
 
 export interface DelegateData {
   id: string;

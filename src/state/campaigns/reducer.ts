@@ -21,6 +21,7 @@ type Budget = {
 
 export interface CampaignInfo {
   id: string;
+  protocolId: string;
   baseUrl: string; // TODO - this should be required
   budget: Budget[]
   budgetDescription: string;
@@ -36,6 +37,7 @@ export interface CampaignInfo {
 
 export const AMPLIFI_CAMPAIGN: CampaignInfo = {
   id: '0',
+  protocolId: 'AMPLIFI',
   baseUrl: "https://amplifi.cre8r.vip?",
   budget: [{
     tokenTicker: "USD",
@@ -59,6 +61,7 @@ export const AMPLIFI_CAMPAIGN: CampaignInfo = {
 
 export const HND_CAMPAIGN: CampaignInfo = {
   id: '0', // Protocol URI should be set to this
+  protocolId: 'HND',
   baseUrl: "https://amplifi.cre8r.vip/#/amplifi/HND?",
   featuredImage: HundredFeatured,
   budget: [
@@ -86,6 +89,7 @@ export const HND_CAMPAIGN: CampaignInfo = {
 
 export const FUJI_CAMPAIGN: CampaignInfo = {
   id: '0',
+  protocolId: 'FUJI',
   baseUrl: "https://www.fujidao.org/#/dashboard/init-borrow?",
   featuredImage: FujiFeatured,
   budget: [
@@ -110,6 +114,7 @@ export const FUJI_CAMPAIGN: CampaignInfo = {
 
 export const CRE8R_CAMPAIGN: CampaignInfo = {
   id: '0',
+  protocolId: 'CRE8R',
   baseUrl: "https://cre8r.vip/client-discover-call-booking-form/?",
   budget: [],
   budgetDescription: "Unlimited: $500 USDC + $500 USD value Paid in AmpliFi Governance Token Per Successful Referral ",
@@ -157,7 +162,7 @@ export interface CampaignState {
       [campaignId: string]: {
         utm: string;
         shortUtm: string | undefined  ;
-      }; 
+      }
     };
   };
 }
@@ -183,11 +188,17 @@ export default createReducer(initialState, (builder) =>
         state.utm[action.payload.protocolID][action.payload.campaignID].shortUtm == action.payload.shortUtm) {
         return;
       }
-      state.utm[action.payload.protocolID] = {
-        [action.payload.campaignID]: {
-          utm: action.payload.utm,
-          shortUtm: action.payload.shortUtm,
+      if (!state.utm[action.payload.protocolID]) {
+        state.utm[action.payload.protocolID] = {
+          [action.payload.campaignID]: {
+            utm: action.payload.utm,
+            shortUtm: action.payload.shortUtm,
+          }
         }
-      };
+      }
+      state.utm[action.payload.protocolID][action.payload.campaignID] = {
+        utm: action.payload.utm,
+        shortUtm: action.payload.shortUtm,
+      }
     })
 );

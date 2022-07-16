@@ -2,6 +2,7 @@ import { ApolloQueryResult } from "@apollo/client";
 import { TabsData } from "components/Tabs";
 import { useEffect, useMemo, useState } from "react";
 import { useActiveCampaign, useCampaignUpdate } from "state/campaigns/hooks";
+import { useActiveProtocol } from "state/governance/hooks";
 import { getPostsFromNavItems, MenuTreeItem, PageData, useWPNav, useWPUri, useWPUriQuery, WPUriType } from "./useWP";
 
 /* 
@@ -104,7 +105,7 @@ const getAmplifiCampaignTabsData = (
     return []
   }
   const filteredCampaignNav = filterByAmplifiCampaign(filteredProtocolNav, campaignUri);
-  if (!filteredCampaignNav || filteredCampaignNav.length == 0) {
+  if (!filteredCampaignNav) {
     return []
   }
   return [
@@ -254,26 +255,26 @@ interface ACFPage {
   content: string;
   amplifiCampaignFields: {
     baseUrl: string;
-    campaignBudget: string;
-    campaignDescription: string;
-    campaignFeaturedImage: {
+    budget: string;
+    description: string;
+    featuredImage?: {
       uri: string;
       title: string;
       status: string;
       slug: string;
       sourceUrl: string;
     }
-    campaignGoal: string;
-    campaignKpi: string;
-    campaignOverviewVideo: string;
-    campaignSelfHostedVideo: {
+    goal: string;
+    kpi: string;
+    overviewVideo: string;
+    selfHostedVideo: {
       description: string;
       uri: string;
       title: string;
       slug: string;
       sourceUrl: string;
     }
-    campaignStartDate: string;
+    startDate: string;
     contentForAmplifiSharing: {
       __typename: string;
     }[]
@@ -282,13 +283,8 @@ interface ACFPage {
     kpiMetric: string;
     secondaryBudgetAmount: string;
     secondarybudgetticket: string;
-    utmAddressRepeator: {
-      fieldGroupName: string;
-      referreAddress: string;
-      utmMedium: string;
-      utmSource: string;
-      utmTerm: string;
-    }[]
+    snapshotId: string;
+    snapshotProposal: string;
   }
 }
 
@@ -415,27 +411,28 @@ export const useCampaign = (
   } = useUri(tabUri);
 
   const [,setActiveCampaign] = useActiveCampaign();
-  
+  const [activeProtocol] = useActiveProtocol();
   useEffect(() => {
-    if (!data || !data.data.isACFPage || !campaignID) {
+    if (!data || !data.data.isACFPage || !campaignID || !activeProtocol) {
       return;
     }
     const {amplifiCampaignFields} = data.data;
     setActiveCampaign({
       id: campaignID,
+      protocolId: activeProtocol.id,
       baseUrl: amplifiCampaignFields.baseUrl,
       budget: [],
-      budgetDescription: amplifiCampaignFields.campaignBudget,
-      description: amplifiCampaignFields.campaignDescription,
+      budgetDescription: amplifiCampaignFields.budget,
+      description: amplifiCampaignFields.description,
       goal: '',
       isDemo: false,
       kpi: '',
-      overviewVideo: amplifiCampaignFields.campaignOverviewVideo,
+      overviewVideo: amplifiCampaignFields.overviewVideo,
       startDate: 'today',
       whitelist: [],
-      featuredImage: amplifiCampaignFields.campaignFeaturedImage.sourceUrl
+      featuredImage: amplifiCampaignFields.featuredImage?.sourceUrl
     })
-  }, [protocolID, data, campaignID]);
+  }, [protocolID, data, campaignID, activeProtocol]);
 
   return {
     amplifiCampaigns,

@@ -9,7 +9,9 @@ import parse from "html-react-parser";
 import styled from "styled-components";
 import { TYPE } from "theme";
 import { useActiveProtocol } from "../../state/governance/hooks";
-import { useActiveCampaign, useUtm } from "state/campaigns/hooks";
+import { useActiveCampaign, useReferralLink } from "state/campaigns/hooks";
+import { useVerifiedHandle } from "state/social/hooks";
+import Loader from "components/Loader";
 
 const Wrapper = styled.div<{ backgroundColor?: string }>`
   width: 100%;
@@ -30,8 +32,9 @@ const RoundedLink = styled.div`
 
 export default function CampaignOverview() {
   const [activeProtocol] = useActiveProtocol();
-  const utm = useUtm();
-  const { account } = useActiveWeb3React();
+  const referralLink = useReferralLink();
+  const {account} = useActiveWeb3React();
+  const verifiedHandleEntry = useVerifiedHandle(account);
   const [activeCampaign] = useActiveCampaign();
   return (
     <Wrapper>
@@ -41,10 +44,11 @@ export default function CampaignOverview() {
           check back soon.
         </TYPE.body>
         <Break />
-        {utm && activeProtocol && account ? (
+        { activeProtocol && verifiedHandleEntry ? (
+          referralLink ? <>
           <Card>
             <RoundedLink>
-              <Copy toCopy={"https://" + utm}>
+              <Copy toCopy={"https://" + referralLink}>
                 <span style={{ paddingLeft: 10 }}>
                   {"  "}
                   Copy your unique link &amp; start earning
@@ -53,13 +57,20 @@ export default function CampaignOverview() {
               </Copy>
             </RoundedLink>
           </Card>
+          </>: <>
+           <Loader />
+          </>
         ) : (
           <Card>
             <RoundedLink>
               <p>
-                Please connect to wallet in order to generate your unique
-                referral link for rewards.
+                In order to generate your unique
+                referral link for rewards you must:
               </p>
+              <ul>
+                <li>Connect your wallet {account ? `-Done` : `-Incomplete`}</li> 
+                <li>Connect your Twitter {verifiedHandleEntry ? `-Done` : `-Incomplete`}</li>
+              </ul>
             </RoundedLink>
           </Card>
         )}

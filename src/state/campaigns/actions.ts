@@ -3,7 +3,7 @@ import { CampaignInfo, GlobalData } from "./reducer";
 
 export const updateActiveCampaign = createAction<{
   activeProtocolID: string;
-  campaignInfo: CampaignInfo;
+  campaignInfo: CampaignInfo | undefined;
 }>("/campaigns/updateActiveCampaign");
 
 export const updateMaxFetched = createAction<{

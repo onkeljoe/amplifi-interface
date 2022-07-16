@@ -4,7 +4,10 @@ import { GovernanceInfo } from "state/governance/reducer";
 export async function getUrl(
   twitterHandle: string,
   roughBaseUrl: string,
-  id: string
+  campaignId: string,
+  protocolId: string,
+  previousUrl?: string, //this is for rate limiting, this assumes that the shortened url does work
+  shortenedUrl?: string
 ): Promise<{utm: string, shortUtm: string | undefined} | undefined> {
   /**
    * https://hundred.finance/?utm_source=source&utm_medium=medium&utm_campaign=name&utm_id=twitter-ugm
@@ -13,15 +16,13 @@ export async function getUrl(
   let baseUrl : string = roughBaseUrl;
   if (roughBaseUrl.charAt(roughBaseUrl.length - 1) != '?' && roughBaseUrl.charAt(roughBaseUrl.length - 1) == '/') {
     baseUrl = roughBaseUrl + "?"
-  } else if (roughBaseUrl.charAt(roughBaseUrl.length - 1) != '/'){
-    baseUrl = roughBaseUrl + "/"
+  } else if (roughBaseUrl.charAt(roughBaseUrl.length - 1) != '?' && roughBaseUrl.charAt(roughBaseUrl.length - 1) != '/'){
+    baseUrl = roughBaseUrl + "/?"
   }
   const campaignUrl = baseUrl;
-  const utm_source = twitterHandle;
-  const medium = twitterHandle;
-  const utm_campaign = id; //todo- make id campaign specific rather than protocol specific
-  const utm_id = id;
-  //const utm_term = twitterHandle
+  const utm_content = twitterHandle;
+  const utm_campaign = campaignId; //todo- make id campaign specific rather than protocol specific
+  const utm_source = protocolId;
   const domain = {
     id: "278c3d8b2f6d469e812bdddbf713a079",
     fullName: "link.cre8r.vip",
@@ -29,17 +30,19 @@ export async function getUrl(
 
   
   const campaignUrlComponents : any = [];
-  campaignUrlComponents.push(`utm_source=${utm_source}`);
-  campaignUrlComponents.push(`utm_medium=${medium}`);
+  campaignUrlComponents.push(`utm_content=${utm_content}`);
   campaignUrlComponents.push(`utm_campaign=${utm_campaign}`);
-  campaignUrlComponents.push(`utm_id=${utm_id}`);
-  //campaignUrlComponents.push(`utm_term=${utm_term}`)
+  campaignUrlComponents.push(`utm_source=${utm_source}`);
 
   function getLongLink() {
     return baseUrl?.replace("https://", "") + campaignUrlComponents.join("&");
   }
   if (!process.env.REACT_APP_REBRANDLY) {
     return {utm: getLongLink(), shortUtm: undefined}
+  }
+
+  if (shortenedUrl && getLongLink() == previousUrl) {
+    return {utm: getLongLink(), shortUtm: shortenedUrl}
   }
 
   const urlComponents = [];

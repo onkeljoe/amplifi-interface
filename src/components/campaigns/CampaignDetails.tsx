@@ -17,7 +17,6 @@ import { ProposalStatus } from "../governance/styled";
 import { RowBetween, RowFixed } from "../Row";
 import CampaignContent from "./CampaignContent";
 import CampaignOverview from "./CampaignOverview";
-import { useActiveCampaign } from "state/campaigns/hooks";
 
 const Wrapper = styled.div<{ backgroundColor?: string }>``;
 
