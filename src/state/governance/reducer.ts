@@ -93,8 +93,8 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   id: "AMPLIFI",
   name: "AmpliFi",
   logo: AmpliFiLogo,
-  primaryColor: "#5555FF",
-  secondaryColor: "#5555FF",
+  primaryColor: "#383838",
+  secondaryColor: "#838283",
   token: serializeToken(AMPLIFI),
   governanceAlphaAddresses: [
     UNI_GOVERNANCE_ADDRESS_ALPHA_V0,
@@ -399,10 +399,10 @@ export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   fuji: FUJI_GOVERNANCE,
   // radicle: RADICLE_GOVERNANCE,
   CRE8R: CRE8R_GOVERNANCE,
-  HND: HND_GOVERNANCE,
+ // HND: HND_GOVERNANCE,
   // BEAN: AAVE_GOVERNANCE
   AMPLIFI: AMPLIFI_GOVERNANCE,
-  uniswap: UNISWAP_GOVERNANCE,
+  // uniswap: UNISWAP_GOVERNANCE,
   // nouns: NOUNS_GOVERNANCE,
   // ens: ENS_GOVERNANCE,
   // connect: CONNECT_CONFIG,
