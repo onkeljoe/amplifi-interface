@@ -105,6 +105,8 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   social: "@CRE8RDAO",
   emoji: "🔊",
   baseUrl: "https://amplifi.cre8r.vip?",
+  hasSnapshot: true,
+  spaceSnapshot: "cre8r.eth",
  // featuredImage: AmpliFiLogo,
   campaignBudget: "~20k USD",
   video: "https://www.youtube.com/embed/0aKvJdCbuno", // ['https://www.youtube.com/embed/ccPUXuS4_Is','https://www.youtube.com/embed/BDQlJNiDav8'],
