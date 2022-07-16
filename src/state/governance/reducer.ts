@@ -1,31 +1,23 @@
-import { SerializedToken } from "./../user/actions";
-import { DelegateData } from "./hooks";
-import { ChainId, Token } from "@uniswap/sdk";
-import {
-  updateActiveProtocol,
-  updateFilterActive,
-  updateTopDelegates,
-  updateVerifiedDelegates,
-  updateGlobalData,
-  updateMaxFetched,
-  updateUtm,
-  updateCampaign,
-} from "./actions";
 import { createReducer } from "@reduxjs/toolkit";
-import UniLogo from "../../assets/images/uni-logo.png";
-import Cre8rLogo from "../../assets/images/cre8r-logo.png";
-import CompLogo from "../../assets/images/compLogo.png";
-import HundredLogo from "../../assets/images/hundred-logo.png";
-import BeanLogo from "../../assets/images/bean-logo.jpg";
-import FujiLogo from "../../assets/images/fujidao_logo.png";
-import RadicleLogo from "../../assets/images/radicle-logo.svg";
-import NounsLogo from "../../assets/images/nouns-logo.png";
-import ENSLogo from "../../assets/images/ens.jpeg";
+import { ChainId, Token } from "@uniswap/sdk";
 import AddAccount from "../../assets/images/AddAccount.png";
-import AmpliFiLogo from "../../assets/images/cre8ramplifi-final.svg"
+import BeanLogo from "../../assets/images/bean-logo.jpg";
+import CompLogo from "../../assets/images/compLogo.png";
+import Cre8rLogo from "../../assets/images/cre8r-logo.png";
+import AmpliFiLogo from "../../assets/images/cre8ramplifi-final.svg";
+import ENSLogo from "../../assets/images/ens.jpeg";
+import FujiLogo from "../../assets/images/fujidao_logo.png";
+import HundredLogo from "../../assets/images/hundred-logo.png";
+import NounsLogo from "../../assets/images/nouns-logo.png";
+import RadicleLogo from "../../assets/images/radicle-logo.svg";
+import UniLogo from "../../assets/images/uni-logo.png";
+import { SerializedToken } from "./../user/actions";
+import {
+  updateActiveProtocol, updateFilterActive, updateGlobalData,
+  updateMaxFetched, updateTopDelegates, updateVerifiedDelegates
+} from "./actions";
+import { DelegateData } from "./hooks";
 //featured images
-import HundredFeatured from "../../assets/images/hundred-featured.png";
-import FujiFeatured from "../../assets/images/fuji-short.png";
 
 import { serializeToken } from "../user/hooks";
 
@@ -41,23 +33,11 @@ export interface GovernanceInfo {
   migrationProposalId?: number;
   social: string;
   emoji?: string;
-  baseUrl?: string; // TODO - this should be required
-  //protocolUrl
-  campaignBudget?: string;
-  video?: string;
-  description?: string;
-  featuredImage?: string;
-  hasSnapshot?: boolean;
+  baseUrl?: string;
+  hasSnapshot?:boolean;
   spaceSnapshot?: string;
 }
 
-export interface CampaignInfo {
-  baseUrl: string; // TODO - this should be required
-  campaignBudget: string;
-  video: string;
-  description: string;
-  featuredImage: string;
-}
 
 // protocol wide data
 export interface GlobaData {
@@ -76,53 +56,16 @@ export const UNI_GOVERNANCE_ADDRESS_ALPHA_V1 =
 export const UNI_GOVERNANCE_ADDRESS_BRAVO =
   "0x408ED6354d4973f66138C91495F2f2FCbd8724C3";
 
-//  export const UNISWAP_GOVERNANCE_ADDRESS =
-//  "0xa832ce1b31bfb0961e78350320ab4cb7f110e7e2";
-export const AMPLIFI_ADDRESS = "0x238d82a35e69d7c10fe69a649134171c63e57522";
-const AMPLIFI = new Token(
-  ChainId.MAINNET,
-  AMPLIFI_ADDRESS,
-  18,
-  "AMPLIFI",
-  "AMPLIFI GOVERNANCE TOKEN"
-);  
 
-// export const UNI_ADDRESS = "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984";
-// const AMPLIFI = new Token(ChainId.MAINNET, UNI_ADDRESS, 18, "AMPLIFI", "AmpliFi Governance Token");
-export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
-  id: "AMPLIFI",
-  name: "AmpliFi",
-  logo: AmpliFiLogo,
-  primaryColor: "#5555FF",
-  secondaryColor: "#5555FF",
-  token: serializeToken(AMPLIFI),
-  governanceAlphaAddresses: [
-    UNI_GOVERNANCE_ADDRESS_ALPHA_V0,
-    UNI_GOVERNANCE_ADDRESS_ALPHA_V1,
-  ],
-  governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
-  migrationProposalId: 8,
-  social: "@CRE8RDAO",
-  emoji: "🔊",
-  baseUrl: "https://amplifi.cre8r.vip?",
- // featuredImage: AmpliFiLogo,
-  campaignBudget: "~20k USD",
-  video: "https://www.youtube.com/embed/0aKvJdCbuno", // ['https://www.youtube.com/embed/ccPUXuS4_Is','https://www.youtube.com/embed/BDQlJNiDav8'],
-  description: `<p>AmpliFi Verified Ampbasadors you can now earn a share of Fuji DAO governance through sharing The <strong>Fuji Expedition</strong> with your audience. </p>
-  <p>
- Learn more about Fuji Pre-Token bonds here: <a href="https://cre8r.vip/wp-content/uploads/2022/06/Pre-Token_bonds-2.pdf">Fuji Pre token bonds PDF Download</a>
-  </p>`,
-};
-
-//export const UNI_ADDRESS = "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984";
-//const AMPLIFI = new Token(ChainId.MAINNET, UNI_ADDRESS, 18, "AMPLIFI", "AmpliFi Governance Token");
+export const UNI_ADDRESS = "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984";
+const UNI_TOKEN = new Token(ChainId.MAINNET, UNI_ADDRESS, 18, "UNI", "Uniswap Governance Token");
 export const UNISWAP_GOVERNANCE: GovernanceInfo = {
   id: "uniswap",
   name: "Uniswap",
   logo: UniLogo,
   primaryColor: "#FF007A",
   secondaryColor: "#FDEEF5",
-  token: serializeToken(AMPLIFI),
+  token: serializeToken(UNI_TOKEN),
   governanceAlphaAddresses: [
     UNI_GOVERNANCE_ADDRESS_ALPHA_V0,
     UNI_GOVERNANCE_ADDRESS_ALPHA_V1,
@@ -132,37 +75,34 @@ export const UNISWAP_GOVERNANCE: GovernanceInfo = {
   social: "@Uniswap",
   emoji: "🔊",
   baseUrl: "https://amplifi.cre8r.vip?",
-  featuredImage: FujiFeatured,
-  campaignBudget: "~20k USD",
-  video: "https://youtube.com/embed/SmUNtbz35kY", // ['https://www.youtube.com/embed/ccPUXuS4_Is','https://www.youtube.com/embed/BDQlJNiDav8'],
-  description: `<p>AmpliFi Verified Ampbasadors you can now earn a share of Fuji DAO governance through sharing The <strong>Fuji Expedition</strong> with your audience. </p>
-  <p>
- Learn more about Fuji Pre-Token bonds here: <a href="https://cre8r.vip/wp-content/uploads/2022/06/Pre-Token_bonds-2.pdf">Fuji Pre token bonds PDF Download</a>
-  </p>`,
 };
-// 0x5006d1a781883652cba00c51a63d76ff21fa688d  apefi comptroller
-// unitroller
-// https://etherscan.io/address/0xcaaa0c316f8b91f25b35e318f83caab4acd327fb#code apetoken helper
-// https://etherscan.io/address/0xde607fe5cb415d83fe4a976afd97e5daeeaedb07#code
-// https://etherscan.io/address/0xcab90816f91cc25b04251857ed6002891eb0d6fa#readContract ape erc20 delegator holds apecoin
-// export const APEFI_GOVERNANCE_ADDRESS_BRAVO = ''
-// export const APEFI_GOVERNANCE_ADDRESS = ''
-// export const APEFI_ADDRESS = ''
-// const APEFI = new Token(ChainId.MAINNET, APEFI_ADDRESS, 18, 'APEFI', 'APEFI Governance Token')
-// export const APEFI_GOVERNANCE: GovernanceInfo = {
-//   id: 'apefi',
-//   name: 'ApeFi Governance',
-//   logo: ApeFiLogo,
-//   primaryColor: '#08D395',
-//   secondaryColor: '#E1F9F1',
-//   token: serializeToken(APEFI),
-//   governanceAlphaAddresses: [APEFI_GOVERNANCE_ADDRESS],
-//   governanceAddressBravo: APEFI_GOVERNANCE_ADDRESS_BRAVO,
-//   migrationProposalId: 42,
-//   social: '@apefi',
-//   emoji: '🏦'
-//   //baseUrl: 'https://hundred.finance/?'
-// }
+
+export const AMPLIFI_ADDRESS = "0x238d82a35e69d7c10fe69a649134171c63e57522";
+const AMPLIFI = new Token(
+  ChainId.MAINNET,
+  AMPLIFI_ADDRESS,
+  18,
+  "AMPLIFI",
+  "AMPLIFI GOVERNANCE TOKEN"
+);  
+
+export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
+  id: "AMPLIFI",
+  name: "AmpliFi",
+  logo: AmpliFiLogo,
+  primaryColor: "#5555FF",
+  secondaryColor: "#5555FF",
+  token: serializeToken(AMPLIFI),
+  governanceAlphaAddresses: [
+
+  ],
+  governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
+  migrationProposalId: 8,
+  social: "@CRE8RDAO",
+  emoji: "🔊",
+  baseUrl: "https://amplifi.cre8r.vip?",
+ // featuredImage: AmpliFiLogo,
+};
 
 export const COMP_GOVERNANCE_ADDRESS_BRAVO =
   "0xc0da02939e1441f497fd74f78ce7decb17b66529";
@@ -188,12 +128,8 @@ export const COMPOUND_GOVERNANCE: GovernanceInfo = {
   migrationProposalId: 42,
   social: "@compoundfinance",
   emoji: "🏦",
-  //baseUrl: 'https://hundred.finance/?'
 };
 
-// export const H_GOVERNANCE_ADDRESS_BRAVO = '0xc0da02939e1441f497fd74f78ce7decb17b66529'
-// export const COMP_GOVERNANCE_ADDRESS = '0xc0dA01a04C3f3E0be433606045bB7017A7323E38'
-// export const COMP_ADDRESS = '0xc00e94cb662c3520282e6f5717214004a7f26888'
 const HND = new Token(
   ChainId.MAINNET,
   COMP_ADDRESS,
@@ -208,17 +144,12 @@ export const HND_GOVERNANCE: GovernanceInfo = {
   primaryColor: "#000000",
   secondaryColor: "#E1F9F1",
   token: serializeToken(HND),
-  governanceAlphaAddresses: [COMP_GOVERNANCE_ADDRESS],
+  governanceAlphaAddresses: [],
   governanceAddressBravo: COMP_GOVERNANCE_ADDRESS_BRAVO,
   migrationProposalId: 42,
   social: "@HundredFinance",
   emoji: "💯",
   baseUrl: "https://amplifi.cre8r.vip/#/amplifi/HND?",
-  featuredImage: HundredFeatured,
-  campaignBudget: "10,000 USD in $CRE8R & 30,000",
-  video: "https://www.youtube.com/embed/0aKvJdCbuno", // ['https://www.youtube.com/embed/ccPUXuS4_Is','https://www.youtube.com/embed/BDQlJNiDav8'],
-  description: `<b>In phase one of the campaign only wallets that have used Hundred Finance will be eligible for AmpliFi payouts.</b> Share Hundred Finance with your friends using your unique tracking link below and earn HND + CRE8R 
-  You will be rewarded based on onchain data that can be tracked back to your unique link using AmpliFi`,
   hasSnapshot: true,
   spaceSnapshot: "hundredfinance.eth",
 };
@@ -237,17 +168,6 @@ export const AAVE_GOVERNANCE: GovernanceInfo = {
   social: "@BeanstalkFarms",
   emoji: "🌱",
   baseUrl: "https://amplifi.cre8r.vip/#/amplifi/BEAN?",
-  campaignBudget:
-    "Please note: This campaign is not live yet. Details will be updated ASAP. Phase 1 Budget 20,000 CRE8R",
-  video: "https://www.youtube.com/embed/s6p3TFREmzg", // ['https://www.youtube.com/embed/ccPUXuS4_Is','https://www.youtube.com/embed/BDQlJNiDav8'],
-  description: `<p>In phase one of the campaign the goal is to let people know about how they can help @beanstalkFarms in the build up to the  <a href="https://twitter.com/i/spaces/1BdGYwMyymBxX">Barn Raise</a>.</p>
-  <hr>
-  <b>Phase 2 Budget:</b> 500,000 PODS @ end of Barn Raise line<br>
-  
-  <p>Share explainer content along with your unique link to help Beanstalk Protocol during the Barn Raise!</p>
-  
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link type="text/css" rel="stylesheet" href="resources/sheet.css" >
-<style type="text/css">.ritz .waffle a { color: inherit; }.ritz .waffle .s1{background-color:#ffffff;text-align:right;color:#000000;font-family:'Inter var';font-size:10pt;vertical-align:bottom;white-space:nowrap;direction:ltr;padding:2px 3px 2px 3px;}.ritz .waffle .s0{background-color:#ffffff;text-align:left;color:#000000;font-family:'Inter var';font-size:10pt;vertical-align:bottom;white-space:normal;overflow:hidden;word-wrap:break-word;direction:ltr;padding:2px 3px 2px 3px;}</style><div class="ritz grid-container" dir="ltr"><table class="waffle" cellspacing="0" cellpadding="0"><thead><tr><th class="row-header freezebar-origin-ltr"></th><th id="305164801C0" style="width:700px;" class="column-headers-background"></th><th id="305164801C1" style="width:700px;" class="column-headers-background"></th></tr></thead><tbody><tr style="height: 20px"><th id="305164801R0" style="height: 20px;" class="row-headers-background"><div class="row-header-wrapper" style="line-height: 20px"</div></th><td class="s0">Max payout </td><td class="s1">500,000 PODS</td></tr><tr style="height: 20px"><th id="305164801R1" style="height: 20px;" class="row-headers-background"><div class="row-header-wrapper" style="line-height: 20px"></div></th><td class="s0" dir="ltr">Min amount raised from AmpliFi to activate payout</td><td class="s1">$5,000,000 USD</td></tr><tr style="height: 20px"><th id="305164801R2" style="height: 20px;" class="row-headers-background"><div class="row-header-wrapper" style="line-height: 20px"></div></th><td class="s0" dir="ltr">Target for max payout</td><td class="s1">$25,000,000 USD</td></tr><tr style="height: 20px"><th id="305164801R3" style="height: 20px;" class="row-headers-background"><div class="row-header-wrapper" style="line-height: 20px"></div></th><td class="s0" dir="ltr">Payout per million raised via AmpliFi</td><td class="s1">20,000 PODS</td></tr><tr style="height: 20px"><th id="305164801R4" style="height: 20px;" class="row-headers-background"><div class="row-header-wrapper" style="line-height: 20px"></div></th><td class="s0" dir="ltr">Payout per 100k raised via AmpliFi</td><td class="s1">2,000 PODS</td></tr><tr style="height: 20px"><th id="305164801R5" style="height: 20px;" class="row-headers-background"><div class="row-header-wrapper" style="line-height: 20px"></div></th><td class="s0" dir="ltr">Percent cut per amount raised via AmpliFi up to $25,000,000 USD</td><td class="s1" dir="ltr">2.00%</td></tr></tbody></table></div>`,
 };
 export const FUJI_GOVERNANCE_ADDRESS =
   "0xB3a87172F555ae2a2AB79Be60B336D2F7D0187f0";
@@ -270,13 +190,6 @@ export const FUJI_GOVERNANCE: GovernanceInfo = {
   social: "@FujiDAO",
   emoji: "🌋",
   baseUrl: "https://www.fujidao.org/#/dashboard/init-borrow?",
-  featuredImage: FujiFeatured,
-  campaignBudget: "~20k USD",
-  video: "https://youtube.com/embed/SmUNtbz35kY", // ['https://www.youtube.com/embed/ccPUXuS4_Is','https://www.youtube.com/embed/BDQlJNiDav8'],
-  description: `<p>AmpliFi Verified Ampbasadors you can now earn a share of Fuji DAO governance through sharing The <strong>Fuji Expedition</strong> with your audience. </p>
-  <p>
- Learn more about Fuji Pre-Token bonds here: <a href="https://cre8r.vip/wp-content/uploads/2022/06/Pre-Token_bonds-2.pdf">Fuji Pre token bonds PDF Download</a>
-  </p>`,
 };
 
 export const RADICLE_GOVERNANCE_ADDRESS =
@@ -383,28 +296,15 @@ export const CRE8R_GOVERNANCE: GovernanceInfo = {
   social: "@cre8rAmpliFi",
   emoji: "🧱",
   baseUrl: "https://cre8r.vip/client-discover-call-booking-form/?",
-  campaignBudget: "Unlimited: $500 USDC + $500 USD value Paid in AmpliFi Governance Token Per Successful Referral ",
-  video: "https://www.youtube.com/embed/0aKvJdCbuno",
-  description: `Share CRE8R AmpliFi with your friends and earn $CRE8R tokens. Just copy your unique link below and share anywhere (responsibly). You will be rewarded with CRE8R tokens in several different ways over time.
-
-  Based on:
-  The number of people you refer, and the KPI goals that are hit on other campaigns in AmpliFi that can be attributed to your unique link. More info will be released on this as the system develops.`,
-  hasSnapshot: true,
-  spaceSnapshot: "cre8r.eth",
 };
 
 // mapping for routing
 export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
-//  compound: COMPOUND_GOVERNANCE,
   fuji: FUJI_GOVERNANCE,
-  // radicle: RADICLE_GOVERNANCE,
   CRE8R: CRE8R_GOVERNANCE,
   HND: HND_GOVERNANCE,
-  // BEAN: AAVE_GOVERNANCE
   AMPLIFI: AMPLIFI_GOVERNANCE,
   uniswap: UNISWAP_GOVERNANCE,
-  // nouns: NOUNS_GOVERNANCE,
-  // ens: ENS_GOVERNANCE,
   // connect: CONNECT_CONFIG,
 };
 
@@ -476,15 +376,5 @@ export default createReducer(initialState, (builder) =>
     })
     .addCase(updateMaxFetched, (state, action) => {
       state.maxFetched[action.payload.protocolID] = action.payload.maxFetched;
-    })
-    .addCase(updateUtm, (state, action) => {
-      state.utm[action.payload.protocolID] = action.payload.utm;
-    })
-    .addCase(updateCampaign, (state, action) => {
-      //@ts-ignore
-      state.activeProtocol = {
-        ...state.activeProtocol,
-        ...action.payload
-      }
     })
 );
