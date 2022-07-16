@@ -136,6 +136,7 @@
     "@mui/material": "^5.8.5",
     "@mui/styled-engine-sc": "^5.8.0",
     "@rebass/forms": "^4.0.6",
+    "@types/deep-equal": "^1.0.1",
     "axios": "^0.20.0",
     "eth-sig-util": "^3.0.0",
     "fetch-tweets": "^0.1.7",

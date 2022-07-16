@@ -8,11 +8,10 @@ import { useActiveWeb3React } from "hooks";
 import parse from "html-react-parser";
 import styled from "styled-components";
 import { TYPE } from "theme";
-import { useActiveProtocol, useUtm } from "../../state/governance/hooks";
-// const Scammyclient = new ApolloClient({
-//   // Change this to the URL of your WordPress site.
-//   uri: "https://cre8r.vip/graphql"
-// });
+import { useActiveProtocol } from "../../state/governance/hooks";
+import { useActiveCampaign, useReferralLink } from "state/campaigns/hooks";
+import { useVerifiedHandle } from "state/social/hooks";
+import Loader from "components/Loader";
 
 const Wrapper = styled.div<{ backgroundColor?: string }>`
   width: 100%;
@@ -33,9 +32,10 @@ const RoundedLink = styled.div`
 
 export default function CampaignOverview() {
   const [activeProtocol] = useActiveProtocol();
-  const utmLinks = useUtm();
-  const { account } = useActiveWeb3React();
-
+  const referralLink = useReferralLink();
+  const {account} = useActiveWeb3React();
+  const verifiedHandleEntry = useVerifiedHandle(account);
+  const [activeCampaign] = useActiveCampaign();
   return (
     <Wrapper>
       <AutoColumn gap="0">
@@ -44,10 +44,11 @@ export default function CampaignOverview() {
           check back soon.
         </TYPE.body>
         <Break />
-        {utmLinks && activeProtocol && account ? (
+        { activeProtocol && verifiedHandleEntry ? (
+          referralLink ? <>
           <Card>
             <RoundedLink>
-              <Copy toCopy={"https://" + utmLinks[activeProtocol?.id]}>
+              <Copy toCopy={"https://" + referralLink}>
                 <span style={{ paddingLeft: 10 }}>
                   {"  "}
                   Copy your unique link &amp; start earning
@@ -56,41 +57,46 @@ export default function CampaignOverview() {
               </Copy>
             </RoundedLink>
           </Card>
+          </>: <>
+           <Loader />
+          </>
         ) : (
           <Card>
             <RoundedLink>
               <p>
-                Please connect to wallet in order to generate your unique
-                referral link for rewards.
+                In order to generate your unique
+                referral link for rewards you must:
               </p>
+              <ul>
+                <li>Connect your wallet {account ? `-Done` : `-Incomplete`}</li> 
+                <li>Connect your Twitter {verifiedHandleEntry ? `-Done` : `-Incomplete`}</li>
+              </ul>
             </RoundedLink>
           </Card>
         )}
-        {activeProtocol && activeProtocol.featuredImage && (
+        {activeCampaign && activeCampaign.featuredImage && (
           <>
-            <FeaturedImage image={activeProtocol.featuredImage} />
+            <FeaturedImage image={activeCampaign.featuredImage} />
           </>
         )}
-        {activeProtocol &&
-          activeProtocol.description &&
-          activeProtocol.campaignBudget && (
+        {activeCampaign &&
+          activeCampaign.description &&
+          activeCampaign.budgetDescription && (
             <>
               <TYPE.body fontSize="14px" fontWeight="600" mb="1rem" mt="1rem">
                 <span style={{ fontWeight: "bolder" }}>
                   {" "}
                   Campaign Incentives:{" "}
                 </span>{" "}
-                <span>{activeProtocol.campaignBudget}</span>{" "}
-                {activeProtocol.token.symbol} {/* add token logo(s)  */}
-                {/* <WrappedListLogo src={activeProtocol.logo} style={{width: 100, height: 100}}/> */}
+                <span>{activeCampaign.budgetDescription}</span>{" "}
               </TYPE.body>
               <TYPE.body fontSize="14px" fontWeight="301" mb="1rem">
-                {parse(activeProtocol.description)}
+                {parse(activeCampaign.description)}
               </TYPE.body>
             </>
           )}
-        {activeProtocol && activeProtocol.video && (
-          <Youtube src={activeProtocol.video} />
+        {activeCampaign && activeCampaign.overviewVideo && (
+          <Youtube src={activeCampaign.overviewVideo} />
         )}
       </AutoColumn>
     </Wrapper>
