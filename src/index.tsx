@@ -16,6 +16,8 @@ import TransactionUpdater from "./state/transactions/updater";
 import UserUpdater from "./state/user/updater";
 import GovernanceUpdater from "./state/governance/updater";
 import SocialUpdater from "./state/social/updater";
+import CampaignsUpdater from './state/campaigns/updater';
+
 import ThemeProvider, { FixedGlobalStyle, ThemedGlobalStyle } from "./theme";
 import getLibrary from "./utils/getLibrary";
 
@@ -63,6 +65,7 @@ function Updaters() {
       <TransactionUpdater />
       <MulticallUpdater />
       <SocialUpdater />
+      <CampaignsUpdater />
     </>
   );
 }

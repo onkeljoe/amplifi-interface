@@ -8,8 +8,9 @@ import user from "./user/reducer";
 import transactions from "./transactions/reducer";
 import multicall from "./multicall/reducer";
 import social from "./social/reducer";
+import campaigns from './campaigns/reducer';
 
-const PERSISTED_KEYS: string[] = ["user", "transactions", "governance"];
+const PERSISTED_KEYS: string[] = ["user", "transactions", "governance", "campaigns"];
 
 const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ const store = configureStore({
     multicall,
     governance,
     social,
+    campaigns,
   },
   middleware: [
     ...getDefaultMiddleware({ thunk: false }),

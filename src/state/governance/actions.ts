@@ -1,4 +1,4 @@
-import { GovernanceInfo, GlobaData, CampaignInfo } from "./reducer";
+import { GovernanceInfo, GlobaData } from "./reducer";
 import { createAction } from "@reduxjs/toolkit";
 import { DelegateData } from "./hooks";
 
@@ -26,11 +26,3 @@ export const updateMaxFetched = createAction<{
   protocolID: string;
   maxFetched: number | undefined;
 }>("/governance/updateMaxFetched");
-
-export const updateUtm = createAction<{
-  protocolID: string;
-  utm: string;
-}>("/governance/utm");
-
-
-export const updateCampaign = createAction<CampaignInfo>("/governance/updateCampaign")

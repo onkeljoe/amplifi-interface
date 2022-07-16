@@ -1,57 +1,44 @@
-import { updateLastSelectedProtocolID } from "./../user/actions";
 import { TransactionResponse } from "@ethersproject/providers";
-import { TokenAmount, Token, Percent } from "@uniswap/sdk";
+import { Percent, Token, TokenAmount } from "@uniswap/sdk";
 import {
-  updateActiveProtocol,
-  updateFilterActive,
-  updateTopDelegates,
-  updateVerifiedDelegates,
-  updateGlobalData,
-  updateMaxFetched,
-  updateUtm,
-  updateCampaign,
-} from "./actions";
-import { AppDispatch, AppState } from "./../index";
-import { useDispatch, useSelector, useStore } from "react-redux";
+  useGenericAlphaProposalStates,
+  useGenericBravoProposalStates
+} from "data/proposalStates";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ALL_VOTERS, DELEGATE_INFO } from "../../apollo/queries";
+import { AUTONOMOUS_PROPOSAL_BYTECODE } from "../../constants/proposals";
 import {
-  GovernanceInfo,
-  GlobaData,
-  COMPOUND_GOVERNANCE,
-  NOUNS_GOVERNANCE,
-  UNISWAP_GOVERNANCE,
-  SUPPORTED_PROTOCOLS,
-  CampaignInfo,
-} from "./reducer";
-import { useState, useEffect, useCallback, useMemo } from "react";
+  enumerateProposalState, fetchProposals, fetchProposalsSnapshot
+} from "../../data/governance";
+import { useActiveWeb3React } from "../../hooks";
 import {
   useGovernanceContract,
   useGovTokenContract,
-  useIsAave,
+  useIsAave
 } from "../../hooks/useContract";
-import { useSingleCallResult } from "../multicall/hooks";
-import { useActiveWeb3React } from "../../hooks";
-import { useTransactionAdder } from "../transactions/hooks";
-import { isAddress, calculateGasMargin } from "../../utils";
+import { useIsEOA } from "../../hooks/useIsEOA";
+import usePrevious from "../../hooks/usePrevious";
+import { calculateGasMargin, isAddress } from "../../utils";
 import {
   useSubgraphClient,
-  useSubgraphClientSnapshot,
+  useSubgraphClientSnapshot
 } from "../application/hooks";
-import {
-  fetchProposals,
-  enumerateProposalState,
-  fetchProposalsSnapshot,
-} from "../../data/governance";
-import { ALL_VOTERS, DELEGATE_INFO } from "../../apollo/queries";
+import { useSingleCallResult } from "../multicall/hooks";
+import { useTransactionAdder } from "../transactions/hooks";
 import { deserializeToken } from "../user/hooks";
-import { useIsEOA } from "../../hooks/useIsEOA";
-import { AUTONOMOUS_PROPOSAL_BYTECODE } from "../../constants/proposals";
-import usePrevious from "../../hooks/usePrevious";
+import { AppDispatch, AppState } from "./../index";
+import { updateLastSelectedProtocolID } from "./../user/actions";
 import {
-  useGenericAlphaProposalStates,
-  useGenericBravoProposalStates,
-} from "data/proposalStates";
-import { useVerifiedHandle } from "state/social/hooks";
-import { getUrl } from "data/url";
+  updateActiveProtocol,
+  updateFilterActive, updateGlobalData,
+  updateMaxFetched, updateTopDelegates,
+  updateVerifiedDelegates
+} from "./actions";
+import {
+  COMPOUND_GOVERNANCE, GlobaData, GovernanceInfo, NOUNS_GOVERNANCE,
+  UNISWAP_GOVERNANCE
+} from "./reducer";
 
 export interface DelegateData {
   id: string;
@@ -746,50 +733,4 @@ export interface DelegateData {
   autonomous: boolean | undefined;
   handle: string | undefined; // twitter handle
   imageURL?: string | undefined;
-}
-
-//todo - make this flexible based on the twitter
-export function useUtm(): { [id: string]: string } | undefined {
-  const dispatch = useDispatch<AppDispatch>();
-  const { account } = useActiveWeb3React();
-  const verifiedHandleEntry = useVerifiedHandle(account);
-  const utms = useSelector<AppState, AppState["governance"]["utm"]>(
-    (state) => state.governance.utm
-  );
-  const [utm, setUtm] = useState({});
-  useEffect(() => {
-    if (!verifiedHandleEntry) return;
-    const protocolUrls: { [id: string]: GovernanceInfo } = {};
-    if (utms) {
-      setUtm(utms);
-    }
-    Promise.all(
-      Object.keys(SUPPORTED_PROTOCOLS).map((key) => {
-        if (utms[key]) return;
-        return getUrl(
-          verifiedHandleEntry?.handle || "user_not_known",
-          SUPPORTED_PROTOCOLS[key]
-        ).then((utm) => {
-          protocolUrls[key] = utm;
-          setUtm((u) => ({ ...u, ...protocolUrls }));
-          dispatch(updateUtm({ protocolID: key, utm }));
-        });
-      })
-    );
-    console.log(protocolUrls);
-  }, [verifiedHandleEntry, utms, dispatch]);
-  return utm;
-}
-
-//todo: seperate governance logic with campaign logic
-export function useCampaignUpdate(campaignInfo: CampaignInfo | false) {
-  const dispatch = useDispatch<AppDispatch>();
-  const store = useStore();
-  useMemo(() => {
-    if (campaignInfo) {
-      if (campaignInfo.campaignBudget != store.getState().governance.activeProtocol.campaignBudget) {
-        dispatch(updateCampaign(campaignInfo))
-      }
-    } 
-  }, [dispatch, campaignInfo])
 }

@@ -72,7 +72,7 @@ function CampaignDetails({
     uriToRouteMap,
     page: { data, tabUri, useCampaignACFsInstead },
   } = useCampaign(protocolID, pathname, campaignID);
-  console.log(data)
+  
   return (
     <BodyWrapper>
       <Wrapper>
