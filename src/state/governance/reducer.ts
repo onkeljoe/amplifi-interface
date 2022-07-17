@@ -90,8 +90,8 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   id: "AMPLIFI",
   name: "AmpliFi",
   logo: AmpliFiLogo,
-  primaryColor: "#5555FF",
-  secondaryColor: "#5555FF",
+  primaryColor: "#383838",
+  secondaryColor: "#B0B0B0",
   token: serializeToken(AMPLIFI),
   governanceAlphaAddresses: [
 
@@ -101,6 +101,8 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   social: "@CRE8RDAO",
   emoji: "🔊",
   baseUrl: "https://amplifi.cre8r.vip?",
+  hasSnapshot: true,
+  spaceSnapshot: "cre8r.eth",
  // featuredImage: AmpliFiLogo,
 };
 
@@ -289,8 +291,8 @@ export const CRE8R_GOVERNANCE: GovernanceInfo = {
   id: "CRE8R",
   name: "CRE8R Ampbassadooors",
   logo: Cre8rLogo,
-  primaryColor: "#5555FF",
-  secondaryColor: "#E3E3FF",
+  primaryColor: "#383838",
+  secondaryColor: "#B0B0B0",
   token: serializeToken(CRE8R),
   governanceAlphaAddresses: [RADICLE_GOVERNANCE_ADDRESS],
   social: "@cre8rAmpliFi",
@@ -302,9 +304,7 @@ export const CRE8R_GOVERNANCE: GovernanceInfo = {
 export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   fuji: FUJI_GOVERNANCE,
   CRE8R: CRE8R_GOVERNANCE,
-  HND: HND_GOVERNANCE,
   AMPLIFI: AMPLIFI_GOVERNANCE,
-  uniswap: UNISWAP_GOVERNANCE,
   // connect: CONNECT_CONFIG,
 };
 
