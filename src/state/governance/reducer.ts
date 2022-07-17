@@ -13,8 +13,12 @@ import RadicleLogo from "../../assets/images/radicle-logo.svg";
 import UniLogo from "../../assets/images/uni-logo.png";
 import { SerializedToken } from "./../user/actions";
 import {
-  updateActiveProtocol, updateFilterActive, updateGlobalData,
-  updateMaxFetched, updateTopDelegates, updateVerifiedDelegates
+  updateActiveProtocol,
+  updateFilterActive,
+  updateGlobalData,
+  updateMaxFetched,
+  updateTopDelegates,
+  updateVerifiedDelegates,
 } from "./actions";
 import { DelegateData } from "./hooks";
 //featured images
@@ -34,10 +38,9 @@ export interface GovernanceInfo {
   social: string;
   emoji?: string;
   baseUrl?: string;
-  hasSnapshot?:boolean;
+  hasSnapshot?: boolean;
   spaceSnapshot?: string;
 }
-
 
 // protocol wide data
 export interface GlobaData {
@@ -56,9 +59,14 @@ export const UNI_GOVERNANCE_ADDRESS_ALPHA_V1 =
 export const UNI_GOVERNANCE_ADDRESS_BRAVO =
   "0x408ED6354d4973f66138C91495F2f2FCbd8724C3";
 
-
 export const UNI_ADDRESS = "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984";
-const UNI_TOKEN = new Token(ChainId.MAINNET, UNI_ADDRESS, 18, "UNI", "Uniswap Governance Token");
+const UNI_TOKEN = new Token(
+  ChainId.MAINNET,
+  UNI_ADDRESS,
+  18,
+  "UNI",
+  "Uniswap Governance Token"
+);
 export const UNISWAP_GOVERNANCE: GovernanceInfo = {
   id: "uniswap",
   name: "Uniswap",
@@ -84,7 +92,7 @@ const AMPLIFI = new Token(
   18,
   "AMPLIFI",
   "AMPLIFI GOVERNANCE TOKEN"
-);  
+);
 
 export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   id: "AMPLIFI",
@@ -93,9 +101,7 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   primaryColor: "#383838",
   secondaryColor: "#B0B0B0",
   token: serializeToken(AMPLIFI),
-  governanceAlphaAddresses: [
-
-  ],
+  governanceAlphaAddresses: [],
   governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
   migrationProposalId: 8,
   social: "@CRE8RDAO",
@@ -103,14 +109,14 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   baseUrl: "https://amplifi.cre8r.vip?",
   hasSnapshot: true,
   spaceSnapshot: "cre8r.eth",
- // featuredImage: AmpliFiLogo,
+  // featuredImage: AmpliFiLogo,
 };
 
 export const COMP_GOVERNANCE_ADDRESS_BRAVO =
   "0xc0da02939e1441f497fd74f78ce7decb17b66529";
 export const COMP_GOVERNANCE_ADDRESS =
   "0xc0dA01a04C3f3E0be433606045bB7017A7323E38";
-  export const COMP_ADDRESS = "0xc00e94cb662c3520282e6f5717214004a7f26888";
+export const COMP_ADDRESS = "0xc00e94cb662c3520282e6f5717214004a7f26888";
 const COMP = new Token(
   ChainId.MAINNET,
   COMP_ADDRESS,

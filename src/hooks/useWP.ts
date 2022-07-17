@@ -27,7 +27,6 @@ const NAVIGATION_QUERY = gql`
   }
 `;
 
-
 const URI_QUERY = gql`
   query getNodeByUri($uri: String!) {
     nodeByUri(uri: $uri) {
@@ -72,9 +71,6 @@ const URI_QUERY = gql`
             sourceUrl
           }
           startDate
-          contentForAmplifiSharing {
-            __typename
-          }
           fieldGroupName
           isDemo
           kpiMetric
@@ -84,7 +80,6 @@ const URI_QUERY = gql`
           snapshotProposal
         }
       }
-      
     }
   }
 `;
@@ -139,8 +134,10 @@ export const useWPNav = () => {
         fetchPolicy: "cache-first",
       })
       .then(({ data }) => {
-        if (data.menus.nodes.length == 0 ) {
-          console.error('missing amplifi menu, make sure that it is set to a location in wordpress')
+        if (data.menus.nodes.length == 0) {
+          console.error(
+            "missing amplifi menu, make sure that it is set to a location in wordpress"
+          );
           return;
         }
         const navigationData = flatListToHierarchical(
@@ -160,7 +157,7 @@ export type WPUriType =
 export const useWPUriQuery = () => {
   const cmsClient = useCre8rCmsClient();
   const queryUriToContent = useCallback(
-    (path : string) => {
+    (path: string) => {
       return cmsClient?.query({
         query: URI_QUERY,
         variables: {
@@ -181,16 +178,18 @@ export const useWPUri = (path: string | null) => {
     if (!path) {
       return;
     }
-    setRes(null)
-    queryUriToContent(path).then(_res => {
-      setRes(_res)
-    })
-    
-  }, [path, queryUriToContent])
-  return res
-}
+    setRes(null);
+    queryUriToContent(path).then((_res) => {
+      setRes(_res);
+    });
+  }, [path, queryUriToContent]);
+  return res;
+};
 
-export const getPostsFromNavItems = async (nav: MenuTreeItem[], queryUriToContent: (path: any) => Promise<ApolloQueryResult<any>>) => {
+export const getPostsFromNavItems = async (
+  nav: MenuTreeItem[],
+  queryUriToContent: (path: any) => Promise<ApolloQueryResult<any>>
+) => {
   const res_1 = await Promise.allSettled(
     nav.map(async (res: any) => {
       const f = await queryUriToContent(res.uri);
@@ -200,18 +199,13 @@ export const getPostsFromNavItems = async (nav: MenuTreeItem[], queryUriToConten
   const _posts = res_1.map((f_1: any) => {
     if (f_1.status == "fulfilled") {
       return {
-        ...nav.filter(
-          (v: any) => f_1.value.data.nodeByUri.uri == v.uri
-        )[0],
+        ...nav.filter((v: any) => f_1.value.data.nodeByUri.uri == v.uri)[0],
         ...f_1.value.data.nodeByUri,
-        id: nav.filter(
-          (v_1: any) => f_1.value.data.nodeByUri.uri == v_1.uri
-        )[0].id,
+        id: nav.filter((v_1: any) => f_1.value.data.nodeByUri.uri == v_1.uri)[0]
+          .id,
       }; //need id of menu for hierachy
     }
     throw "something is wrong status is " + f_1.status;
   });
   return await _posts;
-  
-}
-
+};

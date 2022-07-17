@@ -3,7 +3,15 @@ import { TabsData } from "components/Tabs";
 import { useEffect, useMemo, useState } from "react";
 import { useActiveCampaign, useCampaignUpdate } from "state/campaigns/hooks";
 import { useActiveProtocol } from "state/governance/hooks";
-import { getPostsFromNavItems, MenuTreeItem, PageData, useWPNav, useWPUri, useWPUriQuery, WPUriType } from "./useWP";
+import {
+  getPostsFromNavItems,
+  MenuTreeItem,
+  PageData,
+  useWPNav,
+  useWPUri,
+  useWPUriQuery,
+  WPUriType,
+} from "./useWP";
 
 /* 
 
@@ -34,66 +42,74 @@ todo(jono) - where is the kpi link going?
 
 /**
  * converts an unfiltered nav by protocol and returns the children of the nav which should be amplifi campaigns
- * @param nav 
- * @param protocolID 
- * @returns 
+ * @param nav
+ * @param protocolID
+ * @returns
  */
-const filterByProtocolID = (nav: MenuTreeItem[], protocolID: string) : MenuTreeItem[] | null => {
-  const protocolArr = nav.filter(
-    (q) => q.uri == protocolIDToUri(protocolID)
-  );
+const filterByProtocolID = (
+  nav: MenuTreeItem[],
+  protocolID: string
+): MenuTreeItem[] | null => {
+  const protocolArr = nav.filter((q) => q.uri == protocolIDToUri(protocolID));
   if (protocolArr.length == 0) return null;
-  const protocol = protocolArr[0]
-  
-  return protocol.children.filter((n) => {
-    return isAmplifiCampaign(n.uri)
-  });
-} 
+  const protocol = protocolArr[0];
 
-const filterByAmplifiCampaign = (filteredByProtocolNav : MenuTreeItem[], campaignUri: string) => {
+  return protocol.children.filter((n) => {
+    return isAmplifiCampaign(n.uri);
+  });
+};
+
+const filterByAmplifiCampaign = (
+  filteredByProtocolNav: MenuTreeItem[],
+  campaignUri: string
+) => {
   const campaignMenuItems = filteredByProtocolNav.filter(
     (q) => q.uri == campaignUri
-  )
-    if (campaignMenuItems.length == 0) return null;
-    const campaignItem = campaignMenuItems[0];
+  );
+  if (campaignMenuItems.length == 0) return null;
+  const campaignItem = campaignMenuItems[0];
 
-    return campaignItem.children
-}
+  return campaignItem.children;
+};
 
 /**
  * filters posts that level 1 children based on protocolID to get the amplifiCampaigns for that protocol
- * @param protocolID 
- * @returns 
+ * @param protocolID
+ * @returns
  */
 const getAmplifiCampaigns = async (
-  protocolID: string, 
-  queryUriToContent : (path: any) => Promise<ApolloQueryResult<any>>, 
+  protocolID: string,
+  queryUriToContent: (path: any) => Promise<ApolloQueryResult<any>>,
   nav?: MenuTreeItem[]
-) : Promise<PageData[] | null> => {
+): Promise<PageData[] | null> => {
   if (!nav || !protocolID || !queryUriToContent) {
     return null;
   }
-  const navItemsToQuery = filterByProtocolID(nav, protocolID)
+  const navItemsToQuery = filterByProtocolID(nav, protocolID);
   if (!navItemsToQuery) return null;
-  return await getPostsFromNavItems(navItemsToQuery, queryUriToContent)
+  return await getPostsFromNavItems(navItemsToQuery, queryUriToContent);
 };
 
 /**
  * some wp uris have the uri as `/protocol/Cre8r`. This function is used to filter the nav from the wpgraphql Menu query
- * @param protocolID 
- * @returns 
+ * @param protocolID
+ * @returns
  */
 const protocolIDToUri = (protocolID: string) => {
-  const uri = ("/protocol/" + protocolID.replaceAll("/", "") + "/").toLowerCase();
+  const uri = (
+    "/protocol/" +
+    protocolID.replaceAll("/", "") +
+    "/"
+  ).toLowerCase();
   return uri;
 };
 
 /**
  * filters by posts that have a parent of the campaign that matches the campaignUri and returns data that is intended to be used with the MuiTabs
- * @param protocolID 
- * @param campaignUri 
- * @param posts 
- * @returns 
+ * @param protocolID
+ * @param campaignUri
+ * @param posts
+ * @returns
  */
 const getAmplifiCampaignTabsData = (
   protocolID: string,
@@ -102,59 +118,62 @@ const getAmplifiCampaignTabsData = (
 ) => {
   const filteredProtocolNav = filterByProtocolID(nav, protocolID);
   if (!filteredProtocolNav || filteredProtocolNav.length == 0) {
-    return []
+    return [];
   }
-  const filteredCampaignNav = filterByAmplifiCampaign(filteredProtocolNav, campaignUri);
+  const filteredCampaignNav = filterByAmplifiCampaign(
+    filteredProtocolNav,
+    campaignUri
+  );
   if (!filteredCampaignNav) {
-    return []
+    return [];
   }
   return [
     { tab: "overview", content: "", uri: campaignUri },
-    ...filteredCampaignNav
-      .map((n) => {
-        return {
-          tab: n.label || "no label",
-          content: "",
-          uri: n.uri,
-        };
-      }),
+    ...filteredCampaignNav.map((n) => {
+      return {
+        tab: n.label || "no label",
+        content: "",
+        uri: n.uri,
+      };
+    }),
   ];
 };
 
-
 interface NodeByUriResponse {
-  nodeByUri : {
-  id: string,
-  title: string,
-  uri: string,
-  // __typename: string,
-  content: string,
-  amplifiCampaignFields?: any
-  }
+  nodeByUri: {
+    id: string;
+    title: string;
+    uri: string;
+    // __typename: string,
+    content: string;
+    amplifiCampaignFields?: any;
+  };
 }
 /**
  * Using the WP nodeByUri query, this gets the html to be displayed on the CampaignDetails.tsx page
- * @param data 
- * @returns 
+ * @param data
+ * @returns
  */
 //@ts-ignore
-const getDisplayData : (data: NodeByUriResponse) => AmplifiCampaignResponse = (data: NodeByUriResponse) => {
+const getDisplayData: (data: NodeByUriResponse) => AmplifiCampaignResponse = (
+  data: NodeByUriResponse
+) => {
   if (data.nodeByUri.amplifiCampaignFields) {
     return {
       data: {
         ...data.nodeByUri,
-        isACFPage: true
+        isACFPage: true,
       },
       loading: false,
-      error: ""
-    }
+      error: "",
+    };
   } else if (data && data.nodeByUri) {
-    console.log(data)
+    console.log(data);
     return {
       data: {
         content: data.nodeByUri.content || "No content",
         title: data.nodeByUri.title || "",
-        isACFPage: false
+        isACFPage: false,
       },
       loading: false,
       error: "",
@@ -164,7 +183,7 @@ const getDisplayData : (data: NodeByUriResponse) => AmplifiCampaignResponse = (d
       data: {
         content: "",
         title: "",
-        isACFPage: false
+        isACFPage: false,
       },
       loading: true,
       error: "",
@@ -174,7 +193,7 @@ const getDisplayData : (data: NodeByUriResponse) => AmplifiCampaignResponse = (d
     data: {
       content: "",
       title: "",
-      isACFPage: false
+      isACFPage: false,
     },
     loading: false,
     error: "Something is wrong",
@@ -187,9 +206,9 @@ export interface UriToRouteMap {
 
 /**
  * uri to route converter
- * @param protocolID 
- * @param nav 
- * @returns 
+ * @param protocolID
+ * @param nav
+ * @returns
  */
 const generateWpUriToRouteMap = (protocolID: string, nav?: MenuTreeItem[]) => {
   if (!nav || nav.length === 0) {
@@ -213,7 +232,9 @@ const generateWpUriToRouteMap = (protocolID: string, nav?: MenuTreeItem[]) => {
         .replaceAll("/", "")}`;
       map[n.uri] = route;
       n.children.forEach((t) => {
-        map[t.uri] = `${route}/${t.uri.replace("/amplifi-pages/","").replaceAll("/", "")}`;
+        map[t.uri] = `${route}/${t.uri
+          .replace("/amplifi-pages/", "")
+          .replaceAll("/", "")}`;
       });
     }
   });
@@ -221,14 +242,14 @@ const generateWpUriToRouteMap = (protocolID: string, nav?: MenuTreeItem[]) => {
 };
 
 const isAmplifiCampaign = (uri: string) => {
-  return uri.includes("/amplifi_campaigns/")
-}
+  return uri.includes("/amplifi_campaigns/");
+};
 
 /**
  * route to uri converter
- * @param protocolID 
- * @param nav 
- * @returns 
+ * @param protocolID
+ * @param nav
+ * @returns
  */
 const generateRouteToWpUriMap = (protocolID: string, nav?: MenuTreeItem[]) => {
   const map = generateWpUriToRouteMap(protocolID, nav);
@@ -240,8 +261,6 @@ const generateRouteToWpUriMap = (protocolID: string, nav?: MenuTreeItem[]) => {
   }
   return invertedMap;
 };
-
-
 
 interface WPPage {
   isACFPage: false;
@@ -263,7 +282,7 @@ interface ACFPage {
       status: string;
       slug: string;
       sourceUrl: string;
-    }
+    };
     goal: string;
     kpi: string;
     overviewVideo: string;
@@ -273,11 +292,8 @@ interface ACFPage {
       title: string;
       slug: string;
       sourceUrl: string;
-    }
+    };
     startDate: string;
-    contentForAmplifiSharing: {
-      __typename: string;
-    }[]
     fieldGroupName: string;
     isDemo: string;
     kpiMetric: string;
@@ -285,7 +301,7 @@ interface ACFPage {
     secondarybudgetticket: string;
     snapshotId: string;
     snapshotProposal: string;
-  }
+  };
 }
 
 interface AmplifiCampaignResponse {
@@ -295,22 +311,24 @@ interface AmplifiCampaignResponse {
 }
 /**
  * abstracting away the wp data
- * @param uri 
- * @returns 
+ * @param uri
+ * @returns
  */
 const useUri = (uri: string) => {
   const uriRes = useWPUri(uri);
-  const amplifiCampaignsDisplayData = useMemo<AmplifiCampaignResponse | undefined>(() => {
+  const amplifiCampaignsDisplayData = useMemo<
+    AmplifiCampaignResponse | undefined
+  >(() => {
     if (!uriRes) {
       return;
     }
-    return getDisplayData(uriRes.data)
+    return getDisplayData(uriRes.data);
   }, [uriRes]);
-
 
   return {
     amplifiCampaignsDisplayData,
-    useCampaignACFsInstead: isAmplifiCampaign(uri) || uriRes && (!uriRes.data || uriRes.errors),
+    useCampaignACFsInstead:
+      isAmplifiCampaign(uri) || (uriRes && (!uriRes.data || uriRes.errors)),
     loading: !amplifiCampaignsDisplayData,
   };
 };
@@ -356,11 +374,11 @@ export const getTabUri = (
 };
 
 /**
- * This is the root of all of the ampliFi campaign processed data should be 
- * @param protocolID 
- * @param routeForTab 
- * @param campaignID 
- * @returns 
+ * This is the root of all of the ampliFi campaign processed data should be
+ * @param protocolID
+ * @param routeForTab
+ * @param campaignID
+ * @returns
  */
 export const useCampaign = (
   protocolID: string,
@@ -371,11 +389,11 @@ export const useCampaign = (
   const queryUriToContent = useWPUriQuery();
   const [amplifiCampaigns, setAmplifiCampaigns] = useState<PageData[] | null>();
   useEffect(() => {
-    setAmplifiCampaigns(undefined) // when you switch campaigns, we don't want to see the old campaigns
-    getAmplifiCampaigns(protocolID, queryUriToContent, nav).then(res => {
-      setAmplifiCampaigns(res)
-    })
-  }, [protocolID, queryUriToContent, nav])
+    setAmplifiCampaigns(undefined); // when you switch campaigns, we don't want to see the old campaigns
+    getAmplifiCampaigns(protocolID, queryUriToContent, nav).then((res) => {
+      setAmplifiCampaigns(res);
+    });
+  }, [protocolID, queryUriToContent, nav]);
 
   const uriToRouteMap = useMemo<UriToRouteMap>(
     () => generateWpUriToRouteMap(protocolID, nav),
@@ -391,15 +409,12 @@ export const useCampaign = (
     campaignID || "",
     routeToUriMap
   );
-  const amplifiCampaignsTabData = useMemo<TabsData[]>(
-    () => {
-      if (!nav) {
-        return [];
-      }
-      return getAmplifiCampaignTabsData(protocolID, campaignUri, nav)
-    },
-    [protocolID, campaignUri, nav]
-  ); //todo: Needs to get the tabs for a SPECIFIC CAMPAIGN
+  const amplifiCampaignsTabData = useMemo<TabsData[]>(() => {
+    if (!nav) {
+      return [];
+    }
+    return getAmplifiCampaignTabsData(protocolID, campaignUri, nav);
+  }, [protocolID, campaignUri, nav]); //todo: Needs to get the tabs for a SPECIFIC CAMPAIGN
   const tabUri = useMemo(
     () => getTabUri(routeForTab, routeToUriMap, amplifiCampaignsTabData),
     [routeForTab, routeToUriMap, amplifiCampaignsTabData]
@@ -410,13 +425,13 @@ export const useCampaign = (
     loading: loadingPageData,
   } = useUri(tabUri);
 
-  const [,setActiveCampaign] = useActiveCampaign();
+  const [, setActiveCampaign] = useActiveCampaign();
   const [activeProtocol] = useActiveProtocol();
   useEffect(() => {
     if (!data || !data.data.isACFPage || !campaignID || !activeProtocol) {
       return;
     }
-    const {amplifiCampaignFields} = data.data;
+    const { amplifiCampaignFields } = data.data;
     setActiveCampaign({
       id: campaignID,
       protocolId: activeProtocol.id,
@@ -424,14 +439,14 @@ export const useCampaign = (
       budget: [],
       budgetDescription: amplifiCampaignFields.budget,
       description: amplifiCampaignFields.description,
-      goal: '',
+      goal: "",
       isDemo: false,
-      kpi: '',
+      kpi: "",
       overviewVideo: amplifiCampaignFields.overviewVideo,
-      startDate: 'today',
+      startDate: "today",
       whitelist: [],
-      featuredImage: amplifiCampaignFields.featuredImage?.sourceUrl
-    })
+      featuredImage: amplifiCampaignFields.featuredImage?.sourceUrl,
+    });
   }, [protocolID, data, campaignID, activeProtocol]);
 
   return {
