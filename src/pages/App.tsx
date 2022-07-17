@@ -74,12 +74,6 @@ function TopLevelModals() {
 export default function App() {
   const identityOnlyFlow = identityOnlyPath(useLocation().pathname);
 
-  useEffect(() => {
-    if (toast) {
-      toast.info("This is a demo of Amplifi. Campaigns are still in testing phase and are subject to change. Please check back soon.")
-    }
-  }, [toast])
-
   return (
     <Suspense fallback={null}>
       <Route component={GoogleAnalyticsReporter} />

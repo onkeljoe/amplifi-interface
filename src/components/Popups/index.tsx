@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import { useActivePopups } from "../../state/application/hooks";
 import { AutoColumn } from "../Column";
 import PopupItem from "./PopupItem";
 import { useURLWarningVisible } from "../../state/user/hooks";
+import {toast} from 'react-toastify'
+
 
 const MobilePopupWrapper = styled.div<{ height: string | number }>`
   position: relative;
@@ -48,6 +50,13 @@ export default function Popups(): JSX.Element {
   const activePopups = useActivePopups();
 
   const urlWarningActive = useURLWarningVisible();
+
+  //refactor to use other popup system
+  useEffect(() => {
+    if (toast && process.env.REACT_APP_TOAST) {
+      toast.info(process.env.REACT_APP_TOAST)
+    }
+  }, [toast])
 
   return (
     <>

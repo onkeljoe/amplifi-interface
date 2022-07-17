@@ -36,7 +36,7 @@ if (typeof GOOGLE_ANALYTICS_ID === "string") {
       storeGac: false,
     },
   });
-  console.log("ga checker: ", GOOGLE_ANALYTICS_ID);
+  // console.log("ga checker: ", GOOGLE_ANALYTICS_ID);
   ReactGA.set({
     anonymizeIp: true,
     customBrowserType: !isMobile
