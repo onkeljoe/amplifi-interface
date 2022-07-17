@@ -275,9 +275,6 @@ interface ACFPage {
       sourceUrl: string;
     }
     startDate: string;
-    contentForAmplifiSharing: {
-      __typename: string;
-    }[]
     fieldGroupName: string;
     isDemo: string;
     kpiMetric: string;
