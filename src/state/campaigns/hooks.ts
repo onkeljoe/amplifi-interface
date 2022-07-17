@@ -5,25 +5,23 @@ import { useActiveProtocol } from "state/governance/hooks";
 import { useVerifiedHandle } from "state/social/hooks";
 import { useActiveWeb3React } from "../../hooks";
 import { AppDispatch, AppState } from "./../index";
-import {
-  updateActiveCampaign,
-  updateMaxFetched,
-  updateUtm
-} from "./actions";
+import { updateActiveCampaign, updateMaxFetched, updateUtm } from "./actions";
 import { CampaignInfo } from "./reducer";
 
 function useUtm() {
   const utmState = useSelector<AppState, AppState["campaigns"]["utm"]>(
     (state) => {
-      return state.campaigns.utm
+      return state.campaigns.utm;
     }
   );
   const [activeProtocol] = useActiveProtocol();
   const [activeCampaign] = useActiveCampaign();
-  return activeProtocol && 
-      activeCampaign && 
-      utmState[activeProtocol.id] && 
-      utmState[activeProtocol.id][activeCampaign.id] //prefers the shortened link 
+  return (
+    activeProtocol &&
+    activeCampaign &&
+    utmState[activeProtocol.id] &&
+    utmState[activeProtocol.id][activeCampaign.id]
+  ); //prefers the shortened link
 }
 
 //todo - make this flexible based on the twitter
@@ -36,48 +34,61 @@ export function useReferralLink(): string | undefined {
   const links = useUtm();
 
   useEffect(() => {
-    if (!verifiedHandleEntry || !verifiedHandleEntry.handle || !activeCampaign || !activeProtocol) return;
+    if (
+      !verifiedHandleEntry ||
+      !verifiedHandleEntry.handle ||
+      !activeCampaign ||
+      !activeProtocol
+    )
+      return;
     getUrl(
       verifiedHandleEntry.handle,
       activeCampaign.baseUrl,
       activeCampaign.id,
       activeProtocol.id,
       links?.utm, //only pass in the long utm if the short utm exists, shortUtm and utm are coupled
-      links?.shortUtm 
+      links?.shortUtm
     ).then((res) => {
       if (!res) {
         return;
       }
-      const {utm, shortUtm} = res;
+      const { utm, shortUtm } = res;
       if (activeCampaign.protocolId != activeProtocol.id) {
         return;
       }
-      dispatch(updateUtm({
-        protocolID: activeProtocol.id, 
-        campaignID: activeCampaign.id,
-        utm,
-        shortUtm
-      }));
+      dispatch(
+        updateUtm({
+          protocolID: activeProtocol.id,
+          campaignID: activeCampaign.id,
+          utm,
+          shortUtm,
+        })
+      );
     });
   }, [verifiedHandleEntry, dispatch, activeCampaign, activeProtocol]);
-  if (activeProtocol && activeCampaign && activeCampaign.protocolId != activeProtocol.id) {
-    return undefined
+  if (
+    activeProtocol &&
+    activeCampaign &&
+    activeCampaign.protocolId != activeProtocol.id
+  ) {
+    return undefined;
   }
-  return links && (links.shortUtm || links.utm)
+  return links && (links.shortUtm || links.utm);
 }
-
 
 export function useCampaignUpdate(campaignInfo: CampaignInfo | false) {
   const dispatch = useDispatch<AppDispatch>();
   useMemo(() => {
     if (!campaignInfo) {
       return;
-    } 
-    dispatch(updateActiveCampaign({
-      campaignInfo,
-      activeProtocolID: '0', //this doesn't do anything atm
-    }))
-  }, [dispatch, campaignInfo])
+    }
+    dispatch(
+      updateActiveCampaign({
+        campaignInfo,
+        activeProtocolID: "0", //this doesn't do anything atm
+      })
+    );
+  }, [dispatch, campaignInfo]);
 }
 
 export function useActiveCampaign(): [
@@ -101,16 +112,20 @@ export function useActiveCampaign(): [
 
       //This occurs when you have an active campaign and then switch to a new protocol, this will reset the activeCampaign, so that for example, useUtm does not get reset
       if (activeProtocol.id != activeCampaign.protocolId) {
-        dispatch(updateActiveCampaign({
-          activeProtocolID: activeProtocol.id,
-          campaignInfo: undefined
-        }))
+        dispatch(
+          updateActiveCampaign({
+            activeProtocolID: activeProtocol.id,
+            campaignInfo: undefined,
+          })
+        );
         return;
       }
-      dispatch(updateActiveCampaign({
-        activeProtocolID: activeProtocol.id,
-        campaignInfo: activeCampaign,
-      }));
+      dispatch(
+        updateActiveCampaign({
+          activeProtocolID: activeProtocol.id,
+          campaignInfo: activeCampaign,
+        })
+      );
     },
     [dispatch, activeProtocol]
   );
@@ -123,10 +138,9 @@ export function useMaxFetched(): [
 ] {
   const dispatch = useDispatch<AppDispatch>();
   const [activeProtocol] = useActiveProtocol();
-  const maxFetched = useSelector<
-    AppState,
-    AppState["campaigns"]["maxFetched"]
-  >((state) => state.campaigns.maxFetched);
+  const maxFetched = useSelector<AppState, AppState["campaigns"]["maxFetched"]>(
+    (state) => state.campaigns.maxFetched
+  );
   const setMaxFetched = useCallback(
     (maxFetched: number | undefined) => {
       activeProtocol &&
