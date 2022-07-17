@@ -2,27 +2,29 @@ import { TransactionResponse } from "@ethersproject/providers";
 import { Percent, Token, TokenAmount } from "@uniswap/sdk";
 import {
   useGenericAlphaProposalStates,
-  useGenericBravoProposalStates
+  useGenericBravoProposalStates,
 } from "data/proposalStates";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ALL_VOTERS, DELEGATE_INFO } from "../../apollo/queries";
 import { AUTONOMOUS_PROPOSAL_BYTECODE } from "../../constants/proposals";
 import {
-  enumerateProposalState, fetchProposals, fetchProposalsSnapshot
+  enumerateProposalState,
+  fetchProposals,
+  fetchProposalsSnapshot,
 } from "../../data/governance";
 import { useActiveWeb3React } from "../../hooks";
 import {
   useGovernanceContract,
   useGovTokenContract,
-  useIsAave
+  useIsAave,
 } from "../../hooks/useContract";
 import { useIsEOA } from "../../hooks/useIsEOA";
 import usePrevious from "../../hooks/usePrevious";
 import { calculateGasMargin, isAddress } from "../../utils";
 import {
   useSubgraphClient,
-  useSubgraphClientSnapshot
+  useSubgraphClientSnapshot,
 } from "../application/hooks";
 import { useSingleCallResult } from "../multicall/hooks";
 import { useTransactionAdder } from "../transactions/hooks";
@@ -31,13 +33,18 @@ import { AppDispatch, AppState } from "./../index";
 import { updateLastSelectedProtocolID } from "./../user/actions";
 import {
   updateActiveProtocol,
-  updateFilterActive, updateGlobalData,
-  updateMaxFetched, updateTopDelegates,
-  updateVerifiedDelegates
+  updateFilterActive,
+  updateGlobalData,
+  updateMaxFetched,
+  updateTopDelegates,
+  updateVerifiedDelegates,
 } from "./actions";
 import {
-  COMPOUND_GOVERNANCE, GlobaData, GovernanceInfo, NOUNS_GOVERNANCE,
-  UNISWAP_GOVERNANCE
+  COMPOUND_GOVERNANCE,
+  GlobaData,
+  GovernanceInfo,
+  NOUNS_GOVERNANCE,
+  UNISWAP_GOVERNANCE,
 } from "./reducer";
 
 export interface DelegateData {
@@ -266,7 +273,7 @@ export function useAllProposalStates(): number[] | undefined {
   if (
     activeProtocol === COMPOUND_GOVERNANCE ||
     activeProtocol === NOUNS_GOVERNANCE ||
-    activeProtocol === UNISWAP_GOVERNANCE 
+    activeProtocol === UNISWAP_GOVERNANCE
   ) {
     return bravoStates;
   }

@@ -1,18 +1,19 @@
-import { DependencyList, EffectCallback, useEffect } from "react"
+import { DependencyList, EffectCallback, useEffect } from "react";
 
-
-const useAsync = (effect: (isMounted : boolean) => void | (() => void), deps?: DependencyList) => {
+const useAsync = (
+  effect: (isMounted: boolean) => void | (() => void),
+  deps?: DependencyList
+) => {
   useEffect(() => {
     let isMounted = true;
-    const unsubscribe = effect(isMounted)
+    const unsubscribe = effect(isMounted);
     return () => {
       if (unsubscribe) {
-        unsubscribe()
+        unsubscribe();
       }
       isMounted = false;
-    }
-  }, deps)
-}
+    };
+  }, deps);
+};
 
-
-export default useAsync
+export default useAsync;

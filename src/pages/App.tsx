@@ -25,8 +25,7 @@ import { identityOnlyPath } from "../state/governance/reducer";
 import Amplifi from "./Amplifi";
 import CampaignDetails from "components/campaigns/CampaignDetails";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-
+import "react-toastify/dist/ReactToastify.css";
 
 const SiteWrapper = styled.div`
   height: 100vh;

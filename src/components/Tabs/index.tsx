@@ -1,6 +1,6 @@
 import React from "react";
 // replaced with alternative Dunks import TabContext from "@mui/lab/TabContext";
-import { TabContext } from '@mui/lab';
+import { TabContext } from "@mui/lab";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import { Tabs as MuiTabs } from "@mui/material";
