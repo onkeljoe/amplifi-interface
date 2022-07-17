@@ -72,9 +72,6 @@ const URI_QUERY = gql`
             sourceUrl
           }
           startDate
-          contentForAmplifiSharing {
-            __typename
-          }
           fieldGroupName
           isDemo
           kpiMetric
