@@ -85,7 +85,9 @@ function CampaignList({
                     <RowBetween>
                       <RowFixed>
                         <OnlyAboveSmall>
-                          <TYPE.darkGray mr="8px">{amplifiCampaigns.length - i + "."}</TYPE.darkGray>
+                          <TYPE.darkGray mr="8px">
+                            {amplifiCampaigns.length - i + "."}
+                          </TYPE.darkGray>
                         </OnlyAboveSmall>
                         <ResponsiveText mr="10px">{v.title}</ResponsiveText>
                       </RowFixed>
