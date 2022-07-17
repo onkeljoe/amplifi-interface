@@ -72,7 +72,7 @@ function CampaignDetails({
     uriToRouteMap,
     page: { data, tabUri, useCampaignACFsInstead },
   } = useCampaign(protocolID, pathname, campaignID);
-  
+
   return (
     <BodyWrapper>
       <Wrapper>
@@ -99,9 +99,7 @@ function CampaignDetails({
             <TYPE.largeHeader style={{ marginBottom: ".5rem" }}>
               {data && data.data.title ? data.data.title : ""}
             </TYPE.largeHeader>
-            <RowBetween>
-              {/* <TYPE.main>Date here</TYPE.main> */}
-            </RowBetween>
+            <RowBetween>{/* <TYPE.main>Date here</TYPE.main> */}</RowBetween>
             {amplifiCampaignsTabData.length > 0 && (
               <Tabs
                 data={amplifiCampaignsTabData}
@@ -115,8 +113,10 @@ function CampaignDetails({
               />
             )}
             {/* <Break /> */}
-            {
-              useCampaignACFsInstead ? <CampaignOverview /> : <>
+            {useCampaignACFsInstead ? (
+              <CampaignOverview />
+            ) : (
+              <>
                 {/* <Break /> */}
                 {!data ? (
                   <Loader />
@@ -124,7 +124,7 @@ function CampaignDetails({
                   <CampaignContent content={data.data.content} />
                 )}
               </>
-            }
+            )}
             {data && data.error && <div>Error loading content</div>}
           </AutoColumn>
           {/* Auto column

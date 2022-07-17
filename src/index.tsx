@@ -16,7 +16,7 @@ import TransactionUpdater from "./state/transactions/updater";
 import UserUpdater from "./state/user/updater";
 import GovernanceUpdater from "./state/governance/updater";
 import SocialUpdater from "./state/social/updater";
-import CampaignsUpdater from './state/campaigns/updater';
+import CampaignsUpdater from "./state/campaigns/updater";
 
 import ThemeProvider, { FixedGlobalStyle, ThemedGlobalStyle } from "./theme";
 import getLibrary from "./utils/getLibrary";
@@ -36,7 +36,7 @@ if (typeof GOOGLE_ANALYTICS_ID === "string") {
       storeGac: false,
     },
   });
-  console.log("ga checker: ", GOOGLE_ANALYTICS_ID);
+  // console.log("ga checker: ", GOOGLE_ANALYTICS_ID);
   ReactGA.set({
     anonymizeIp: true,
     customBrowserType: !isMobile
