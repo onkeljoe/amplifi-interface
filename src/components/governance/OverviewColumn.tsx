@@ -8,7 +8,7 @@ import { TYPE } from "../../theme";
 import { TabOption } from "../governance/Tabs";
 import { Link, useLocation } from "react-router-dom";
 
-export const OVERVIEW_EXPANSION_WIDTH = 100;
+export const OVERVIEW_EXPANSION_WIDTH = 99;
 
 const Wrapper = styled.div<{ backgroundColor?: string; expanded?: boolean }>`
   margin-left: 70px;
@@ -68,7 +68,12 @@ export default function OverviewColumn({
           <ChevronLeft />
         </IconButton>
       </ButtonContainer>
-      <AutoColumn gap="md">
+      <AutoColumn
+        gap="md"
+        style={{
+          opacity: expanded ? 1 : 0,
+        }}
+      >
         <TYPE.main
           fontSize="24px"
           fontWeight="700"
