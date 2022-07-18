@@ -35,6 +35,7 @@ export default function Tabs({
           onChange={(e: any) => {
             onChange(e.target.innerText.toLowerCase());
           }}
+          variant="scrollable"
           aria-label="amplifi campaign tabs"
         >
           {data.map((d, i) => (
