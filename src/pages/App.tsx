@@ -19,7 +19,9 @@ import DelegateInfo from "./DelegateInfo";
 import DelegateModal from "../components/vote/DelegateModal";
 import { useModalOpen, useToggleModal } from "../state/application/hooks";
 import { ApplicationModal } from "../state/application/actions";
-import OverviewColumn from "../components/governance/OverviewColumn";
+import OverviewColumn, {
+  OVERVIEW_EXPANSION_WIDTH,
+} from "../components/governance/OverviewColumn";
 import { useLocation } from "react-router-dom";
 import { identityOnlyPath } from "../state/governance/reducer";
 import Amplifi from "./Amplifi";
@@ -27,15 +29,23 @@ import CampaignDetails from "components/campaigns/CampaignDetails";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const SiteWrapper = styled.div`
+const FIRST_2_COLS_WIDTH = 320;
+
+const SiteWrapper = styled.div<{ expandedOverview?: boolean }>`
   height: 100vh;
   width: 100%;
   display: grid;
-  grid-template-columns: 320px 1fr 376px;
+  grid-template-columns: ${FIRST_2_COLS_WIDTH - OVERVIEW_EXPANSION_WIDTH}px 1fr 376px;
   overflow: auto;
 
   ${({ theme }) => theme.mediaWidth.upToLarge`
     grid-template-columns: 1fr 376px;
+  `};
+
+  ${({ expandedOverview }) =>
+    expandedOverview &&
+    `
+  grid-template-columns: ${FIRST_2_COLS_WIDTH}px 1fr 376px;
   `};
 
   @media (max-width: 1080px) {
@@ -72,6 +82,7 @@ function TopLevelModals() {
 
 export default function App() {
   const identityOnlyFlow = identityOnlyPath(useLocation().pathname);
+  const [expandedOverview, setExpandedOverview] = React.useState(true);
 
   return (
     <Suspense fallback={null}>
@@ -79,9 +90,12 @@ export default function App() {
       <Route component={DarkModeQueryParamReader} />
       <Route component={TwitterAccountQueryParamReader} />
       {!identityOnlyFlow && (
-        <SiteWrapper>
+        <SiteWrapper expandedOverview={expandedOverview}>
           <SideMenu />
-          <OverviewColumn />
+          <OverviewColumn
+            expanded={expandedOverview}
+            onToggleExpand={() => setExpandedOverview(!expandedOverview)}
+          />
           <ContentWrapper>
             <Web3Status />
             <Popups />

@@ -1,4 +1,6 @@
 import React from "react";
+import { ButtonCustom } from "../Button";
+import { ChevronLeft } from "react-feather";
 import styled from "styled-components";
 import { useActiveProtocol } from "../../state/governance/hooks";
 import { AutoColumn } from "../Column";
@@ -6,22 +8,66 @@ import { TYPE } from "../../theme";
 import { TabOption } from "../governance/Tabs";
 import { Link, useLocation } from "react-router-dom";
 
-const Wrapper = styled.div<{ backgroundColor?: string }>`
+export const OVERVIEW_EXPANSION_WIDTH = 100;
+
+const Wrapper = styled.div<{ backgroundColor?: string; expanded?: boolean }>`
   margin-left: 70px;
   padding: 2rem;
   border-right: 1px solid ${({ backgroundColor }) => backgroundColor};
+  transform: translateX(-${OVERVIEW_EXPANSION_WIDTH}px);
+  transition: transform 0.2s;
 
   ${({ theme }) => theme.mediaWidth.upToLarge`
     display: none;
   `};
+
+  ${({ expanded }) =>
+    expanded &&
+    `
+    transform: translateX(0px);
+  `};
 `;
 
-export default function OverviewColumn() {
+const ButtonContainer = styled.div<{ expanded?: boolean }>`
+  display: flex;
+  justify-content: flex-end;
+  transform: translateX(25px);
+
+  ${({ expanded }) =>
+    expanded &&
+    `
+    transform: translateX(10px);
+  `};
+`;
+
+const IconButton = styled(ButtonCustom)`
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  color: black;
+  width: auto;
+`;
+
+export default function OverviewColumn({
+  expanded,
+  onToggleExpand,
+}: {
+  expanded: boolean;
+  onToggleExpand: () => void;
+}) {
   const [activeProtocol] = useActiveProtocol();
   const location = useLocation();
 
   return (
-    <Wrapper backgroundColor={activeProtocol?.secondaryColor}>
+    <Wrapper
+      backgroundColor={activeProtocol?.secondaryColor}
+      expanded={expanded}
+    >
+      <ButtonContainer expanded={expanded}>
+        <IconButton bgColor="white" onClick={onToggleExpand}>
+          <ChevronLeft />
+        </IconButton>
+      </ButtonContainer>
       <AutoColumn gap="md">
         <TYPE.main
           fontSize="24px"
