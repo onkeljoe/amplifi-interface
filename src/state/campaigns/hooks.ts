@@ -96,7 +96,7 @@ export function useActiveCampaign(): [
   (activeCampaign: CampaignInfo) => void
 ] {
   const dispatch = useDispatch<AppDispatch>();
-  const activeCampaign = useSelector<
+  const activeCampaign : CampaignInfo | undefined = useSelector<
     AppState,
     AppState["campaigns"]["activeCampaign"]
   >((state) => {

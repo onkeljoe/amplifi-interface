@@ -1,5 +1,5 @@
 import React from "react";
-import Loader from "components/Loader";
+import Loader, { LoadingRows } from "components/Loader";
 import Tabs from "components/Tabs";
 import { useCampaign } from "hooks/useCampaign";
 import { useEffect } from "react";
@@ -17,7 +17,8 @@ import { ProposalStatus } from "../governance/styled";
 import { RowBetween, RowFixed } from "../Row";
 import CampaignContent from "./CampaignContent";
 import CampaignOverview from "./CampaignOverview";
-
+import ReferralLinksCard from "components/ReferralLinksCard";
+import { Break } from "./CampaignOverview";
 const Wrapper = styled.div<{ backgroundColor?: string }>``;
 
 const ProposalInfo = styled(AutoColumn)`
@@ -97,8 +98,15 @@ function CampaignDetails({
           </RowBetween>
           <AutoColumn gap="10px" style={{ width: "100%" }}>
             <TYPE.largeHeader style={{ marginBottom: ".5rem" }}>
-              {data && data.data.title ? data.data.title : ""}
+              {data && data.data.title ? data.data.title : <LoadingRows>
+                <div/></LoadingRows>}
             </TYPE.largeHeader>
+            <Break />
+            <TYPE.body fontSize="16px" fontWeight="600" mb="1rem" mt="1rem">
+              Campaigns are still in testing phase and are subject to change. Please
+              check back soon.
+            </TYPE.body>
+            <ReferralLinksCard />
             <RowBetween>{/* <TYPE.main>Date here</TYPE.main> */}</RowBetween>
             {amplifiCampaignsTabData.length > 0 && (
               <Tabs
@@ -119,7 +127,12 @@ function CampaignDetails({
               <>
                 {/* <Break /> */}
                 {!data ? (
-                  <Loader />
+                  <LoadingRows>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                  </LoadingRows>
                 ) : (
                   <CampaignContent content={data.data.content} />
                 )}
