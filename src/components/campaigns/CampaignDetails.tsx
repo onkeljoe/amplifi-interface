@@ -92,7 +92,7 @@ function CampaignDetails({
           </RowFixed>
 
           {true && (
-            <ProposalStatus status={"" ?? ""}>{"Status here"}</ProposalStatus>
+            <ProposalStatus status={"pending" ?? "pending"}>{"Pending"}</ProposalStatus>
           )}
         </RowBetween>
         <AutoColumn gap="10px" style={{ width: "100%" }}>

@@ -29,6 +29,7 @@ export interface CampaignInfo {
   startDate: string;
   isDemo: boolean;
   whitelist: Whitelist[];
+  campaignBudget?: string;
 }
 
 export const AMPLIFI_CAMPAIGN: CampaignInfo = {

@@ -276,6 +276,7 @@ interface ACFPage {
     baseUrl: string;
     budget: string;
     description: string;
+    campaignBudget: string;
     featuredImage?: {
       uri: string;
       title: string;
@@ -436,6 +437,7 @@ export const useCampaign = (
       id: campaignID,
       protocolId: activeProtocol.id,
       baseUrl: amplifiCampaignFields.baseUrl,
+      campaignBudget: amplifiCampaignFields.campaignBudget,
       budget: [],
       budgetDescription: amplifiCampaignFields.budget,
       description: amplifiCampaignFields.description,

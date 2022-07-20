@@ -65,6 +65,7 @@ export default function CampaignOverview() {
         <TYPE.mediumHeader mt={"1rem"}>🚧 Other fields 🚧</TYPE.mediumHeader>
         <p>baseUrl: {activeCampaign.baseUrl}</p>
         <p>budget: {activeCampaign.budget}</p>
+        <p>campaignBudget: {activeCampaign.campaignBudget}</p>
         <p>description: {activeCampaign.description}</p>
         <p>budgetDescription: {activeCampaign.budgetDescription}</p>
         <p>featuredImage: {activeCampaign.featuredImage}</p>
