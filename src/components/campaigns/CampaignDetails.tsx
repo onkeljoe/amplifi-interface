@@ -75,84 +75,82 @@ function CampaignDetails({
   } = useCampaign(protocolID, pathname, campaignID);
 
   return (
-    <BodyWrapper>
-      <Wrapper>
-        <ProposalInfo gap="lg" justify="start">
-          <RowBetween style={{ width: "100%", alignItems: "flex-start" }}>
-            <RowFixed>
-              <ArrowWrapper
-                onClick={() => {
-                  history?.length === 1 ? history.push("/") : history.goBack();
-                }}
-                style={{ alignItems: "flex-start" }}
-              >
-                <TYPE.body fontWeight="600">Campaigns</TYPE.body>
-              </ArrowWrapper>
-              <ChevronRight size={16} />
-              <TYPE.body>{campaignID}</TYPE.body>
-            </RowFixed>
+    <Wrapper>
+      <ProposalInfo gap="lg" justify="start">
+        <RowBetween style={{ width: "100%", alignItems: "flex-start" }}>
+          <RowFixed>
+            <ArrowWrapper
+              onClick={() => {
+                history?.length === 1 ? history.push("/") : history.goBack();
+              }}
+              style={{ alignItems: "flex-start" }}
+            >
+              <TYPE.body fontWeight="600">Campaigns</TYPE.body>
+            </ArrowWrapper>
+            <ChevronRight size={16} />
+            <TYPE.body>{campaignID}</TYPE.body>
+          </RowFixed>
 
-            {true && (
-              <ProposalStatus status={"" ?? ""}>{"Status here"}</ProposalStatus>
-            )}
-          </RowBetween>
-          <AutoColumn gap="10px" style={{ width: "100%" }}>
-            <TYPE.largeHeader style={{ marginBottom: ".5rem" }}>
-              {data && data.data.title ? data.data.title : <LoadingRows>
-                <div/></LoadingRows>}
-            </TYPE.largeHeader>
-            <Break />
-            <TYPE.body fontSize="16px" fontWeight="600" mb="1rem" mt="1rem">
-              Campaigns are still in testing phase and are subject to change. Please
-              check back soon.
-            </TYPE.body>
-            <ReferralLinksCard />
-            <RowBetween>{/* <TYPE.main>Date here</TYPE.main> */}</RowBetween>
-            {amplifiCampaignsTabData.length > 0 && (
-              <Tabs
-                data={amplifiCampaignsTabData}
-                value={tabUri}
-                onChange={(value) => {
-                  //optional
-                }}
-                onClick={(value: any) => {
-                  history.replace(uriToRouteMap[value]);
-                }}
-              />
-            )}
-            {/* <Break /> */}
-            {useCampaignACFsInstead ? (
-              <CampaignOverview />
-            ) : (
-              <>
-                {/* <Break /> */}
-                {!data ? (
-                  <LoadingRows>
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                  </LoadingRows>
-                ) : (
-                  <CampaignContent content={data.data.content} />
-                )}
-              </>
-            )}
-            {data && data.error && <div>Error loading content</div>}
-          </AutoColumn>
-          {/* Auto column
-          <AutoColumn gap="md">
-            Auto column
-          </AutoColumn>
-          <AutoColumn gap="md">
-            Auto column
-          </AutoColumn>
-          <AutoColumn gap="md">
-            Auto column
-          </AutoColumn> */}
-        </ProposalInfo>
-      </Wrapper>
-    </BodyWrapper>
+          {true && (
+            <ProposalStatus status={"" ?? ""}>{"Status here"}</ProposalStatus>
+          )}
+        </RowBetween>
+        <AutoColumn gap="10px" style={{ width: "100%" }}>
+          <TYPE.largeHeader style={{ marginBottom: ".5rem" }}>
+            {data && data.data.title ? data.data.title : <LoadingRows>
+              <div/></LoadingRows>}
+          </TYPE.largeHeader>
+          <Break />
+          <TYPE.body fontSize="16px" fontWeight="600" mb="1rem" mt="1rem">
+            Campaigns are still in testing phase and are subject to change. Please
+            check back soon.
+          </TYPE.body>
+          <ReferralLinksCard />
+          <RowBetween>{/* <TYPE.main>Date here</TYPE.main> */}</RowBetween>
+          {amplifiCampaignsTabData.length > 0 && (
+            <Tabs
+              data={amplifiCampaignsTabData}
+              value={tabUri}
+              onChange={(value) => {
+                //optional
+              }}
+              onClick={(value: any) => {
+                history.replace(uriToRouteMap[value]);
+              }}
+            />
+          )}
+          {/* <Break /> */}
+          {useCampaignACFsInstead ? (
+            <CampaignOverview />
+          ) : (
+            <>
+              {/* <Break /> */}
+              {!data ? (
+                <LoadingRows>
+                  <div/>
+                  <div/>
+                  <div/>
+                  <div/>
+                </LoadingRows>
+              ) : (
+                <CampaignContent content={data.data.content} />
+              )}
+            </>
+          )}
+          {data && data.error && <div>Error loading content</div>}
+        </AutoColumn>
+        {/* Auto column
+        <AutoColumn gap="md">
+          Auto column
+        </AutoColumn>
+        <AutoColumn gap="md">
+          Auto column
+        </AutoColumn>
+        <AutoColumn gap="md">
+          Auto column
+        </AutoColumn> */}
+      </ProposalInfo>
+    </Wrapper>
   );
 }
 

@@ -113,13 +113,13 @@ export default function App() {
                   exact
                   strict
                   path="/campaigns/:protocolID/:campaignID"
-                  component={CampaignDetails}
+                  component={Amplifi}
                 />
                 <Route
                   exact
                   strict
                   path="/campaigns/:protocolID/:campaignID/:tabID"
-                  component={CampaignDetails}
+                  component={Amplifi}
                 />
                 <Route
                   exact
