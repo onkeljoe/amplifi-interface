@@ -8,8 +8,8 @@ import { useActiveWeb3React, useTheme } from "../../hooks";
 import ReactGA from "react-ga";
 import { ApplicationModal } from "../../state/application/actions";
 import Card from "../Card";
-import { RowFixed, RowBetween } from "../Row";
-import { TYPE, BlankInternalLink } from "../../theme";
+import { RowFixed, RowBetween, RowFlat } from "../Row";
+import { TYPE, BlankInternalLink, StyledInternalLink } from "../../theme";
 import { ButtonBasic, ButtonCustom } from "../Button";
 import { shortenAddress } from "../../utils";
 import {
@@ -26,6 +26,7 @@ import LogoText from "../governance/LogoText";
 import { lighten } from "polished";
 import VoteContent from "./VoteContent";
 import WalletSummary from "./WalletSummary";
+import MysteryAmplifiCard from "components/MysteryAmplifiCard";
 
 const SectionWrapper = styled.div`
   width: 100%;
@@ -164,14 +165,6 @@ export default function Profile() {
             : theme.bg2
         }
       >
-        <TYPE.main mb="16px">
-          Your{" "}
-          <span style={{ color: activeProtocol?.primaryColor }}>
-            {" "}
-            {activeProtocol?.name}
-          </span>{" "}
-          profile
-        </TYPE.main>
         {!account ? (
           <Above1080Only>
             <TYPE.body
@@ -199,10 +192,14 @@ export default function Profile() {
           </Above1080Only>
         ) : (
           <AutoColumn gap="16px">
-            <WalletSummary />
+            
             {!verifiedHandleEntry && account ? (
               !twitterAccount ? (
-                <TwitterLoginButton text="Add a public identity" />
+                <RowFlat>
+                  <MysteryAmplifiCard />
+                  <div style={{ width: '5px'}}/>
+                  <TwitterLoginButton text="Add a public identity" />
+                </RowFlat>
               ) : (
                 <TwitterButton
                   onClick={() => {
@@ -225,10 +222,24 @@ export default function Profile() {
             ) : null}
             {!verifiedHandleEntry && account ? (
               <TYPE.blue fontSize="12px">
-                Connecting your Twitter to your address can help people find you
-                and delegate votes to you.
+                Connecting your twitter allows you to check your 
+                {" "}<StyledInternalLink to={"/campaigns/amplifi/amplifi-publisher-airdrop"} style={{
+                  textDecoration: "underline",
+                  color: "#ea00ff"
+
+                }}>publisher airdrop</StyledInternalLink>
+                {" "} &amp; generate your unique referral link
               </TYPE.blue>
             ) : null}
+            <WalletSummary />
+            <TYPE.main mb="16px">
+              Your{" "}
+              <span style={{ color: activeProtocol?.primaryColor }}>
+                {" "}
+                {activeProtocol?.name}
+              </span>{" "}
+              breakdown
+            </TYPE.main>
             <VoteContent />
           </AutoColumn>
         )}

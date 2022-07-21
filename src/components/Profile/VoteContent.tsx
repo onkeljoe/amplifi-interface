@@ -42,7 +42,7 @@ export default function VoteContent() {
   const { account } = useActiveWeb3React();
   const [activeProtocol] = useActiveProtocol();
   const airdropAmount = useAirdrop();
-
+  
   // UI views
   const toggelDelegateModal = useToggleModal(ApplicationModal.DELEGATE);
 
@@ -200,28 +200,6 @@ export default function VoteContent() {
             </RowBetween>
           </OffsetCard>
         )}
-      <WhiteCard
-        border={`1px solid ${theme.bg3}`}
-        padding="16px"
-        opacity={receivedVotes?.greaterThan(BIG_INT_ZERO) ? "1" : "0.5"}
-        style={{ zIndex: 3 }}
-      >
-        <RowBetween>
-          <TYPE.black color={theme.text1}>
-            ${activeProtocol?.token.symbol} Received{" "}
-          </TYPE.black>{" "}
-          {/* Was  Recieved Votes */}
-          <TYPE.main color={activeProtocol?.primaryColor}>
-            {receivedVotes ? (
-              receivedVotes.toFixed(0)
-            ) : account ? (
-              <Loader />
-            ) : (
-              "-"
-            )}
-          </TYPE.main>
-        </RowBetween>
-      </WhiteCard>
       <WhiteCard
         border={`1px solid ${theme.bg3}`}
         padding="16px"

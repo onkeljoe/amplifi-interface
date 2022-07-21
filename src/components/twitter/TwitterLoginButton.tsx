@@ -25,7 +25,11 @@ const TwitterLogo = styled.img`
 
 export default function TwitterLoginButton({ text }: { text: string }) {
   return (
-    <VerifyButton href="https://oauth32.herokuapp.com/api/auth/twitter/authenticate">
+    <VerifyButton href="https://oauth32.herokuapp.com/api/auth/twitter/authenticate" style= {
+      {
+        width: '100%',
+      }
+    }>
       <RowBetween>
         <TYPE.white>{text}</TYPE.white>
         <TwitterLogo src={TwitterIcon} />
