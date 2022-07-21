@@ -24,6 +24,7 @@ import { CloseIcon, StyledInternalLink } from "../../theme/components";
 import { useAllIdentities } from "../../state/social/hooks";
 import { nameOrAddress } from "../../utils/getName";
 import { Break } from "../../pages/DelegateInfo";
+import useAirdrop from "hooks/useAirdrop";
 
 const OffsetCard = styled(Card)<{ bgColor?: string }>`
   background-color: ${({ theme, bgColor }) => bgColor ?? theme.bg1};
@@ -40,6 +41,7 @@ export default function VoteContent() {
   // account details
   const { account } = useActiveWeb3React();
   const [activeProtocol] = useActiveProtocol();
+  const airdropAmount = useAirdrop();
 
   // UI views
   const toggelDelegateModal = useToggleModal(ApplicationModal.DELEGATE);
@@ -86,6 +88,22 @@ export default function VoteContent() {
 
   return (
     <AutoColumn gap="16px">
+      <WhiteCard
+        border={`1px solid ${theme.bg3}`}
+        style={{ zIndex: 2 }}
+        padding="1rem"
+      >
+        <RowBetween>
+          <TYPE.black color={theme.text1}>
+            {" "}
+            Estimated $ACG Potential Rewards:
+          </TYPE.black>{" "}
+          {/* changed from votes to earnings for demo/dummy  */}
+          <TYPE.main color={activeProtocol?.primaryColor}>
+            {airdropAmount ? airdropAmount : account ? <Loader /> : "-"}
+          </TYPE.main>
+        </RowBetween>
+      </WhiteCard>
       <WhiteCard
         border={`1px solid ${theme.bg3}`}
         style={{ zIndex: 2 }}
@@ -182,6 +200,28 @@ export default function VoteContent() {
             </RowBetween>
           </OffsetCard>
         )}
+      <WhiteCard
+        border={`1px solid ${theme.bg3}`}
+        padding="16px"
+        opacity={receivedVotes?.greaterThan(BIG_INT_ZERO) ? "1" : "0.5"}
+        style={{ zIndex: 3 }}
+      >
+        <RowBetween>
+          <TYPE.black color={theme.text1}>
+            ${activeProtocol?.token.symbol} Received{" "}
+          </TYPE.black>{" "}
+          {/* Was  Recieved Votes */}
+          <TYPE.main color={activeProtocol?.primaryColor}>
+            {receivedVotes ? (
+              receivedVotes.toFixed(0)
+            ) : account ? (
+              <Loader />
+            ) : (
+              "-"
+            )}
+          </TYPE.main>
+        </RowBetween>
+      </WhiteCard>
       <WhiteCard
         border={`1px solid ${theme.bg3}`}
         padding="16px"

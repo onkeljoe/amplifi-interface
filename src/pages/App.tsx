@@ -28,6 +28,7 @@ import Amplifi from "./Amplifi";
 import CampaignDetails from "components/campaigns/CampaignDetails";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { fetchList } from "data/list";
 
 const FIRST_2_COLS_WIDTH = 320;
 
