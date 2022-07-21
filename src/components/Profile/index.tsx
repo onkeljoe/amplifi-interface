@@ -195,11 +195,23 @@ export default function Profile() {
             
             {!verifiedHandleEntry && account ? (
               !twitterAccount ? (
-                <RowFlat>
-                  <MysteryAmplifiCard />
-                  <div style={{ width: '5px'}}/>
-                  <TwitterLoginButton text="Add a public identity" />
-                </RowFlat>
+                <div style={{background: 'white', padding: '10px', borderRadius: '12px'}}>
+                  <RowFlat>
+                    <MysteryAmplifiCard />
+                    <div style={{ width: '5px'}}/>
+                    <TwitterLoginButton text="Add a public identity" />
+                  </RowFlat>
+                  <TYPE.blue fontSize="12px" paddingTop={"10px"}>
+                  Connecting your twitter allows you to check your 
+                  {" "}<StyledInternalLink to={"/campaigns/amplifi/amplifi-publisher-airdrop"} style={{
+                    textDecoration: "underline",
+                    color: "black"
+
+                  }}>publisher airdrop</StyledInternalLink>
+                  {" "} &amp; generate your unique referral link
+                </TYPE.blue>
+
+                </div>
               ) : (
                 <TwitterButton
                   onClick={() => {
@@ -220,16 +232,16 @@ export default function Profile() {
                 </TwitterButton>
               )
             ) : null}
-            {!verifiedHandleEntry && account ? (
-              <TYPE.blue fontSize="12px">
-                Connecting your twitter allows you to check your 
-                {" "}<StyledInternalLink to={"/campaigns/amplifi/amplifi-publisher-airdrop"} style={{
-                  textDecoration: "underline",
-                  color: "#ea00ff"
+            {!verifiedHandleEntry && account ? ( null
+              // <TYPE.blue fontSize="12px">
+              //   Connecting your twitter allows you to check your 
+              //   {" "}<StyledInternalLink to={"/campaigns/amplifi/amplifi-publisher-airdrop"} style={{
+              //     textDecoration: "underline",
+              //     color: "#ea00ff"
 
-                }}>publisher airdrop</StyledInternalLink>
-                {" "} &amp; generate your unique referral link
-              </TYPE.blue>
+              //   }}>publisher airdrop</StyledInternalLink>
+              //   {" "} &amp; generate your unique referral link
+              // </TYPE.blue>
             ) : null}
             <WalletSummary />
             <TYPE.main mb="16px">
