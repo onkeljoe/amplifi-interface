@@ -1,7 +1,6 @@
 import React from "react";
 import { ButtonCustom } from "../Button";
 import { ChevronLeft } from "react-feather";
-import { ChevronRight } from "react-feather";
 import styled from "styled-components";
 import { useActiveProtocol } from "../../state/governance/hooks";
 import { AutoColumn } from "../Column";
@@ -9,7 +8,7 @@ import { TYPE } from "../../theme";
 import { TabOption } from "../governance/Tabs";
 import { Link, useLocation } from "react-router-dom";
 
-export const OVERVIEW_EXPANSION_WIDTH = 160;
+export const OVERVIEW_EXPANSION_WIDTH = 99;
 
 const Wrapper = styled.div<{ backgroundColor?: string; expanded?: boolean }>`
   margin-left: 70px;
@@ -60,11 +59,11 @@ export default function OverviewColumn({
   const location = useLocation();
 
   return (
-    <Wrapper style={{minWidth: "140px"}}
+    <Wrapper
       backgroundColor={activeProtocol?.secondaryColor}
       expanded={expanded}
     >
-      <ButtonContainer style={{minWidth: "160px"}}  expanded={expanded}>
+      <ButtonContainer expanded={expanded}>
         <IconButton bgColor="white" onClick={onToggleExpand}>
           <ChevronLeft />
         </IconButton>
