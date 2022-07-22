@@ -105,6 +105,23 @@ const MobileWrapper = styled.div`
   }
 `;
 
+const WhiteCard = styled.div`
+  background: white;
+  padding: 10px;
+  border-radius: 12px;
+`
+
+const AirdropGreyBox = styled.div`
+  min-width: 30%;
+  border-radius: 12px;
+  background: ${({theme}) => theme.bg2};
+  height: 38px;
+  margin-left: 5px;
+  :hover {
+    cursor: help;
+  }
+`
+
 export default function Profile() {
   const theme = useTheme();
 
@@ -150,6 +167,17 @@ export default function Profile() {
   // toggle for mobile view
   const [showProfileModal, setShowProfileModal] = useState(false);
 
+  const ConnectPitch = ({stageText} : {stageText: string}) => (
+    <TYPE.blue fontSize="12px" paddingTop={"10px"}>
+      Connecting your{` ${stageText} `}allows you to check your 
+      {" "}<StyledInternalLink to={"/campaigns/amplifi/amplifi-publisher-airdrop"} style={{
+        textDecoration: "underline",
+        color: "black"
+
+      }}>publisher airdrop</StyledInternalLink>
+      {" "} &amp; generate your unique referral link
+    </TYPE.blue>
+  )
   const ProfileContent = () => (
     <SectionWrapper>
       <BackgroundWrapper
@@ -173,8 +201,7 @@ export default function Profile() {
               color={activeProtocol?.primaryColor}
               mb="1rem"
             >
-              Connect wallet to see voting power and link wallet address to
-              Sybil identity.
+              <ConnectPitch stageText="Wallet and Twitter" />
             </TYPE.body>
             {activeProtocol && (
               <ButtonCustom
@@ -195,23 +222,15 @@ export default function Profile() {
             
             {!verifiedHandleEntry && account ? (
               !twitterAccount ? (
-                <div style={{background: 'white', padding: '10px', borderRadius: '12px'}}>
+                <WhiteCard>
                   <RowFlat>
-                    <MysteryAmplifiCard />
+                    <MysteryAmplifiCard width={'140px'}/>
                     <div style={{ width: '5px'}}/>
                     <TwitterLoginButton text="Add a public identity" />
                   </RowFlat>
-                  <TYPE.blue fontSize="12px" paddingTop={"10px"}>
-                  Connecting your twitter allows you to check your 
-                  {" "}<StyledInternalLink to={"/campaigns/amplifi/amplifi-publisher-airdrop"} style={{
-                    textDecoration: "underline",
-                    color: "black"
+                  <ConnectPitch stageText={'Twitter'}/>
 
-                  }}>publisher airdrop</StyledInternalLink>
-                  {" "} &amp; generate your unique referral link
-                </TYPE.blue>
-
-                </div>
+                </WhiteCard>
               ) : (
                 <TwitterButton
                   onClick={() => {
@@ -232,17 +251,13 @@ export default function Profile() {
                 </TwitterButton>
               )
             ) : null}
-            {!verifiedHandleEntry && account ? ( null
-              // <TYPE.blue fontSize="12px">
-              //   Connecting your twitter allows you to check your 
-              //   {" "}<StyledInternalLink to={"/campaigns/amplifi/amplifi-publisher-airdrop"} style={{
-              //     textDecoration: "underline",
-              //     color: "#ea00ff"
-
-              //   }}>publisher airdrop</StyledInternalLink>
-              //   {" "} &amp; generate your unique referral link
-              // </TYPE.blue>
-            ) : null}
+            {account && verifiedHandleEntry &&<WhiteCard>
+              <RowFlat>
+                <MysteryAmplifiCard />
+                <AirdropGreyBox />
+                <AirdropGreyBox />
+              </RowFlat>
+            </WhiteCard>}
             <WalletSummary />
             <TYPE.main mb="16px">
               Your{" "}
@@ -313,6 +328,7 @@ export default function Profile() {
             {!account ? (
               <ButtonBasic width="fit-content" onClick={toggleWalletModal}>
                 <ButtonText>Connect wallet</ButtonText>
+                <ConnectPitch stageText="Wallet and Twitter" />
               </ButtonBasic>
             ) : (
               <RowFixed>
