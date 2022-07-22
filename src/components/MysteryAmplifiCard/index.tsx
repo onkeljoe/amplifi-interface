@@ -45,7 +45,7 @@ export function MysteryAmplifiCard ({width}: {width?: string}) {
     <ColoredCard width={width} >
       <div>
         <AmplifiLogo style={{marginRight: '5px'}} src={amplifiIcon} /> 
-        <span>{airdropAmount ? nFormatter(100000000, 1) : <span style={{background:'#493991', padding: 3, borderRadius: 5}}>-</span>}{` $AMP`}</span>
+        <span>{airdropAmount ? nFormatter(airdropAmount, 1) : <span style={{background:'#493991', padding: 3, borderRadius: 5}}>-</span>}{` $AMP`}</span>
       </div>
     </ColoredCard>
   )
