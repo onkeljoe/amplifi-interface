@@ -1,18 +1,12 @@
-import React from "react";
-import Copy from "components/AccountDetails/Copy";
-import Card from "components/Card";
+import React from 'react';
 import { AutoColumn } from "components/Column";
 import FeaturedImage from "components/FeaturedImage/FeaturedImage";
+import { LoadingRows } from "components/Loader";
 import Youtube from "components/Youtube";
-import { useActiveWeb3React } from "hooks";
 import parse from "html-react-parser";
+import { useActiveCampaign } from "state/campaigns/hooks";
 import styled from "styled-components";
 import { TYPE } from "theme";
-import { useActiveProtocol } from "../../state/governance/hooks";
-import { useActiveCampaign, useReferralLink } from "state/campaigns/hooks";
-import { useVerifiedHandle } from "state/social/hooks";
-import Loader, { LoadingRows } from "components/Loader";
-import ReferralLinksCard from "components/ReferralLinksCard";
 const Wrapper = styled.div<{ backgroundColor?: string }>`
   width: 100%;
 `;
@@ -22,12 +16,6 @@ export const Break = styled.div`
   background-color: ${({ theme }) => theme.bg3};
   height: 1px;
   margin: 0;
-`;
-
-const RoundedLink = styled.div`
-  background: ${({ theme }) => theme.bg3};
-  border-radius: 10px;
-  padding: 10px 30px 10px 30px;
 `;
 
 export default function CampaignOverview() {

@@ -7,9 +7,6 @@ import { useVerifiedHandle } from "state/social/hooks";
 import styled from "styled-components";
 import { useActiveProtocol } from "../../state/governance/hooks";
 import React from 'react'
-const Wrapper = styled.div<{ backgroundColor?: string }>`
-  width: 100%;
-`;
 
 export const Break = styled.div`
   width: 100%;

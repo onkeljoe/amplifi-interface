@@ -1,34 +1,31 @@
-import React, { Suspense, useEffect } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import React, { Suspense } from "react";
+import { Redirect, Route, Switch, useLocation } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import GoogleAnalyticsReporter from "../components/analytics/GoogleAnalyticsReporter";
-import Polling from "../components/Header/Polling";
-import Popups from "../components/Popups";
-import Web3ReactManager from "../components/Web3ReactManager";
-import DarkModeQueryParamReader from "../theme/DarkModeQueryParamReader";
-import Profile from "../components/Profile";
-import { RedirectWithUpdatedGovernance } from "./Governance/redirect";
-import SideMenu from "../components/Menu/SideMenu";
-import TwitterAccountQueryParamReader from "../state/social/TwitterAccountQueryParamReader";
-import Web3Status from "../components/Web3Status";
-import Delegates from "./Delegates";
-import Proposals from "./Proposals";
-import Identities from "./Identities";
-import ProposalDetails from "../components/governance/ProposalDetails";
-import DelegateInfo from "./DelegateInfo";
-import DelegateModal from "../components/vote/DelegateModal";
-import { useModalOpen, useToggleModal } from "../state/application/hooks";
-import { ApplicationModal } from "../state/application/actions";
 import OverviewColumn, {
-  OVERVIEW_EXPANSION_WIDTH,
+  OVERVIEW_EXPANSION_WIDTH
 } from "../components/governance/OverviewColumn";
-import { useLocation } from "react-router-dom";
+import ProposalDetails from "../components/governance/ProposalDetails";
+import Polling from "../components/Header/Polling";
+import SideMenu from "../components/Menu/SideMenu";
+import Popups from "../components/Popups";
+import Profile from "../components/Profile";
+import DelegateModal from "../components/vote/DelegateModal";
+import Web3ReactManager from "../components/Web3ReactManager";
+import Web3Status from "../components/Web3Status";
+import { ApplicationModal } from "../state/application/actions";
+import { useModalOpen, useToggleModal } from "../state/application/hooks";
 import { identityOnlyPath } from "../state/governance/reducer";
+import TwitterAccountQueryParamReader from "../state/social/TwitterAccountQueryParamReader";
+import DarkModeQueryParamReader from "../theme/DarkModeQueryParamReader";
 import Amplifi from "./Amplifi";
-import CampaignDetails from "components/campaigns/CampaignDetails";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { fetchList } from "data/list";
+import DelegateInfo from "./DelegateInfo";
+import Delegates from "./Delegates";
+import { RedirectWithUpdatedGovernance } from "./Governance/redirect";
+import Identities from "./Identities";
+import Proposals from "./Proposals";
 
 const FIRST_2_COLS_WIDTH = 320;
 

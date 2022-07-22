@@ -65,7 +65,7 @@ export function useReferralLink(): string | undefined {
         })
       );
     });
-  }, [verifiedHandleEntry, dispatch, activeCampaign, activeProtocol]);
+  }, [verifiedHandleEntry, dispatch, activeCampaign, activeProtocol, links?.shortUtm, links?.utm]);
   if (
     activeProtocol &&
     activeCampaign &&

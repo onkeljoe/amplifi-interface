@@ -1,7 +1,7 @@
 import { ApolloQueryResult } from "@apollo/client";
 import { TabsData } from "components/Tabs";
 import { useEffect, useMemo, useState } from "react";
-import { useActiveCampaign, useCampaignUpdate } from "state/campaigns/hooks";
+import { useActiveCampaign } from "state/campaigns/hooks";
 import { useActiveProtocol } from "state/governance/hooks";
 import {
   getPostsFromNavItems,
@@ -9,8 +9,7 @@ import {
   PageData,
   useWPNav,
   useWPUri,
-  useWPUriQuery,
-  WPUriType,
+  useWPUriQuery
 } from "./useWP";
 
 /* 
@@ -449,7 +448,7 @@ export const useCampaign = (
       whitelist: [],
       featuredImage: amplifiCampaignFields.featuredImage?.sourceUrl,
     });
-  }, [protocolID, data, campaignID, activeProtocol]);
+  }, [protocolID, data, campaignID, activeProtocol, setActiveCampaign]);
 
   return {
     amplifiCampaigns,

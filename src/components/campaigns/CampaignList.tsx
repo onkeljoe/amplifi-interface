@@ -12,7 +12,6 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "state";
 import { useActiveProtocol } from "state/governance/hooks";
 import { SUPPORTED_PROTOCOLS } from "state/governance/reducer";
-import { useActiveCampaign } from "state/campaigns/hooks";
 
 const Wrapper = styled.div<{ backgroundColor?: string }>`
   width: 100%;

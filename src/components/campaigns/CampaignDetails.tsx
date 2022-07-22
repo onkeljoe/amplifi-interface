@@ -1,5 +1,5 @@
 import React from "react";
-import Loader, { LoadingRows } from "components/Loader";
+import { LoadingRows } from "components/Loader";
 import Tabs from "components/Tabs";
 import { useCampaign } from "hooks/useCampaign";
 import { useEffect } from "react";
@@ -7,7 +7,6 @@ import { ChevronRight } from "react-feather";
 import { useDispatch } from "react-redux";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import styled from "styled-components";
-import { BodyWrapper } from "../../pages/AppBody";
 import { AppDispatch } from "../../state";
 import { useActiveProtocol } from "../../state/governance/hooks";
 import { SUPPORTED_PROTOCOLS } from "../../state/governance/reducer";
@@ -111,7 +110,7 @@ function CampaignDetails({
             <Tabs
               data={amplifiCampaignsTabData}
               value={tabUri}
-              onChange={(value) => {
+              onChange={() => {
                 //optional
               }}
               onClick={(value: any) => {

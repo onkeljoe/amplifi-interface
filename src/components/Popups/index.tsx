@@ -52,10 +52,10 @@ export default function Popups(): JSX.Element {
 
   //refactor to use other popup system
   useEffect(() => {
-    if (toast && process.env.REACT_APP_TOAST) {
+    if (process.env.REACT_APP_TOAST) {
       toast.info(process.env.REACT_APP_TOAST);
     }
-  }, [toast]);
+  }, []);
 
   return (
     <>
