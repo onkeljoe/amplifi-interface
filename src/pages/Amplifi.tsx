@@ -12,15 +12,15 @@ import Dropdown from "../components/governance/Dropdown";
 import Tabs from "../components/governance/Tabs";
 import { TYPE } from "../theme";
 import CampaignList from "components/campaigns/CampaignList";
+import CampaignDetails from "components/campaigns/CampaignDetails";
 
 export default function Amplifi({
   match: {
-    params: { protocolID },
+    params: { protocolID, campaignID },
   },
-}: RouteComponentProps<{ protocolID?: string }>) {
+}: RouteComponentProps<{ protocolID?: string, campaignID?: string }>) {
   // if valid protocol id passed in, update global active protocol
   useProtocolUpdate(protocolID);
-
   // if on testnet, show warning
   //const { chainId } = useActiveWeb3React()
 
@@ -49,7 +49,7 @@ export default function Amplifi({
             <Tabs />
           </AutoColumn>
         </MediumHeaderWrapper>
-        <CampaignList />
+        {campaignID ? <CampaignDetails /> : <CampaignList />}
       </AutoColumn>
     </BodyWrapper>
   );

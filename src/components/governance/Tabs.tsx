@@ -52,14 +52,25 @@ function Tabs() {
         <AutoRow gap="8px" width="fit-content">
           <TabOption
             as={Link}
+            to={"/campaigns/" + activeProtocol?.id}
+            selected={location.pathname.includes("campaigns")}
+            color={activeProtocol?.primaryColor}
+            color2={activeProtocol?.secondaryColor}
+          >
+            <TYPE.main color={activeProtocol?.primaryColor} fontSize={"16px"}>
+            Amplifi Campaigns
+            </TYPE.main>
+          </TabOption>
+          <TabOption
+            as={Link}
             to={"/delegates/" + activeProtocol?.id}
             selected={location.pathname.includes("delegates")}
             color={activeProtocol?.primaryColor}
             color2={activeProtocol?.secondaryColor}
           >
-            <TYPE.main color={activeProtocol?.primaryColor} fontSize={"16px"}>
-              Ampbassadooors
-            </TYPE.main>
+            <TYPE.black fontSize={"16px"} color={activeProtocol?.primaryColor}>
+              Delegates
+            </TYPE.black>
           </TabOption>
           <TabOption
             as={Link}
@@ -70,17 +81,6 @@ function Tabs() {
           >
             <TYPE.black fontSize={"16px"} color={activeProtocol?.primaryColor}>
               Proposals
-            </TYPE.black>
-          </TabOption>
-          <TabOption
-            as={Link}
-            to={"/amplifi/" + activeProtocol?.id}
-            selected={location.pathname.includes("amplifi")}
-            color={activeProtocol?.primaryColor}
-            color2={activeProtocol?.secondaryColor}
-          >
-            <TYPE.black fontSize={"16px"} color={activeProtocol?.primaryColor}>
-              Amplifi
             </TYPE.black>
           </TabOption>
         </AutoRow>

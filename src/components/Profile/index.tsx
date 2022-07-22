@@ -8,8 +8,8 @@ import { useActiveWeb3React, useTheme } from "../../hooks";
 import ReactGA from "react-ga";
 import { ApplicationModal } from "../../state/application/actions";
 import Card from "../Card";
-import { RowFixed, RowBetween } from "../Row";
-import { TYPE, BlankInternalLink } from "../../theme";
+import { RowFixed, RowBetween, RowFlat } from "../Row";
+import { TYPE, BlankInternalLink, StyledInternalLink } from "../../theme";
 import { ButtonBasic, ButtonCustom } from "../Button";
 import { shortenAddress } from "../../utils";
 import {
@@ -26,6 +26,7 @@ import LogoText from "../governance/LogoText";
 import { lighten } from "polished";
 import VoteContent from "./VoteContent";
 import WalletSummary from "./WalletSummary";
+import MysteryAmplifiCard from "components/MysteryAmplifiCard";
 
 const SectionWrapper = styled.div`
   width: 100%;
@@ -104,6 +105,24 @@ const MobileWrapper = styled.div`
   }
 `;
 
+const WhiteCard = styled.div`
+  background: white;
+  padding: 10px;
+  border-radius: 12px;
+`
+
+const AirdropGreyBox = styled.div`
+  min-width: 25%;
+  // width: 120px;
+  border-radius: 12px;
+  background: ${({theme}) => theme.bg2};
+  height: 38px;
+  margin-left: 5px;
+  :hover {
+    cursor: help;
+  }
+`
+
 export default function Profile() {
   const theme = useTheme();
 
@@ -149,6 +168,17 @@ export default function Profile() {
   // toggle for mobile view
   const [showProfileModal, setShowProfileModal] = useState(false);
 
+  const ConnectPitch = ({stageText} : {stageText: string}) => (
+    <TYPE.blue fontSize="12px" paddingTop={"10px"}>
+      Connecting your{` ${stageText} `}allows you to check your 
+      {" "}<StyledInternalLink to={"/campaigns/amplifi/amplifi-publisher-airdrop"} style={{
+        textDecoration: "underline",
+        color: "black"
+
+      }}>airdrop</StyledInternalLink>
+      {" "} &amp; generate your unique referral link
+    </TYPE.blue>
+  )
   const ProfileContent = () => (
     <SectionWrapper>
       <BackgroundWrapper
@@ -164,14 +194,6 @@ export default function Profile() {
             : theme.bg2
         }
       >
-        <TYPE.main mb="16px">
-          Your{" "}
-          <span style={{ color: activeProtocol?.primaryColor }}>
-            {" "}
-            {activeProtocol?.name}
-          </span>{" "}
-          profile
-        </TYPE.main>
         {!account ? (
           <Above1080Only>
             <TYPE.body
@@ -180,8 +202,7 @@ export default function Profile() {
               color={activeProtocol?.primaryColor}
               mb="1rem"
             >
-              Connect wallet to see voting power and link wallet address to
-              Sybil identity.
+              <ConnectPitch stageText="Wallet and Twitter" />
             </TYPE.body>
             {activeProtocol && (
               <ButtonCustom
@@ -199,10 +220,18 @@ export default function Profile() {
           </Above1080Only>
         ) : (
           <AutoColumn gap="16px">
-            <WalletSummary />
+            
             {!verifiedHandleEntry && account ? (
               !twitterAccount ? (
-                <TwitterLoginButton text="Add a public identity" />
+                <WhiteCard>
+                  <RowFlat>
+                    <MysteryAmplifiCard width={'140px'}/>
+                    <div style={{ width: '5px'}}/>
+                    <TwitterLoginButton text="Add a public identity" />
+                  </RowFlat>
+                  <ConnectPitch stageText={'Twitter'}/>
+
+                </WhiteCard>
               ) : (
                 <TwitterButton
                   onClick={() => {
@@ -223,12 +252,22 @@ export default function Profile() {
                 </TwitterButton>
               )
             ) : null}
-            {!verifiedHandleEntry && account ? (
-              <TYPE.blue fontSize="12px">
-                Connecting your Twitter to your address can help people find you
-                and delegate votes to you.
-              </TYPE.blue>
-            ) : null}
+            {account && verifiedHandleEntry &&<WhiteCard>
+              <RowFlat>
+                <MysteryAmplifiCard />
+                <AirdropGreyBox />
+                <AirdropGreyBox />
+              </RowFlat>
+            </WhiteCard>}
+            <WalletSummary />
+            <TYPE.main mb="16px">
+              Your{" "}
+              <span style={{ color: activeProtocol?.primaryColor }}>
+                {" "}
+                {activeProtocol?.name}
+              </span>{" "}
+              breakdown
+            </TYPE.main>
             <VoteContent />
           </AutoColumn>
         )}
@@ -290,6 +329,7 @@ export default function Profile() {
             {!account ? (
               <ButtonBasic width="fit-content" onClick={toggleWalletModal}>
                 <ButtonText>Connect wallet</ButtonText>
+                <ConnectPitch stageText="Wallet and Twitter" />
               </ButtonBasic>
             ) : (
               <RowFixed>

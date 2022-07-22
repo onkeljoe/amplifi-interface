@@ -65,7 +65,7 @@ export function useReferralLink(): string | undefined {
         })
       );
     });
-  }, [verifiedHandleEntry, dispatch, activeCampaign, activeProtocol]);
+  }, [verifiedHandleEntry, dispatch, activeCampaign, activeProtocol, links?.shortUtm, links?.utm]);
   if (
     activeProtocol &&
     activeCampaign &&
@@ -96,7 +96,7 @@ export function useActiveCampaign(): [
   (activeCampaign: CampaignInfo) => void
 ] {
   const dispatch = useDispatch<AppDispatch>();
-  const activeCampaign = useSelector<
+  const activeCampaign : CampaignInfo | undefined = useSelector<
     AppState,
     AppState["campaigns"]["activeCampaign"]
   >((state) => {

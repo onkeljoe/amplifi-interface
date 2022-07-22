@@ -1,5 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
-import { CampaignInfo, GlobalData } from "./reducer";
+import { CampaignInfo } from "./reducer";
 
 export const updateActiveCampaign = createAction<{
   activeProtocolID: string;

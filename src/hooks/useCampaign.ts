@@ -1,7 +1,7 @@
 import { ApolloQueryResult } from "@apollo/client";
 import { TabsData } from "components/Tabs";
 import { useEffect, useMemo, useState } from "react";
-import { useActiveCampaign, useCampaignUpdate } from "state/campaigns/hooks";
+import { useActiveCampaign } from "state/campaigns/hooks";
 import { useActiveProtocol } from "state/governance/hooks";
 import {
   getPostsFromNavItems,
@@ -9,8 +9,7 @@ import {
   PageData,
   useWPNav,
   useWPUri,
-  useWPUriQuery,
-  WPUriType,
+  useWPUriQuery
 } from "./useWP";
 
 /* 
@@ -276,6 +275,7 @@ interface ACFPage {
     baseUrl: string;
     budget: string;
     description: string;
+    campaignBudget: string;
     featuredImage?: {
       uri: string;
       title: string;
@@ -435,11 +435,13 @@ export const useCampaign = (
     setActiveCampaign({
       id: campaignID,
       protocolId: activeProtocol.id,
+      content: data.data.content,
       baseUrl: amplifiCampaignFields.baseUrl,
+      campaignBudget: amplifiCampaignFields.campaignBudget,
       budget: [],
       budgetDescription: amplifiCampaignFields.budget,
       description: amplifiCampaignFields.description,
-      goal: "",
+      goal: amplifiCampaignFields.goal,
       isDemo: false,
       kpi: "",
       overviewVideo: amplifiCampaignFields.overviewVideo,
@@ -447,7 +449,7 @@ export const useCampaign = (
       whitelist: [],
       featuredImage: amplifiCampaignFields.featuredImage?.sourceUrl,
     });
-  }, [protocolID, data, campaignID, activeProtocol]);
+  }, [protocolID, data, campaignID, activeProtocol, setActiveCampaign]);
 
   return {
     amplifiCampaigns,

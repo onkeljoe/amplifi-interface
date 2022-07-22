@@ -24,6 +24,7 @@ import { CloseIcon, StyledInternalLink } from "../../theme/components";
 import { useAllIdentities } from "../../state/social/hooks";
 import { nameOrAddress } from "../../utils/getName";
 import { Break } from "../../pages/DelegateInfo";
+import useAirdrop from "hooks/useAirdrop";
 
 const OffsetCard = styled(Card)<{ bgColor?: string }>`
   background-color: ${({ theme, bgColor }) => bgColor ?? theme.bg1};
@@ -40,7 +41,8 @@ export default function VoteContent() {
   // account details
   const { account } = useActiveWeb3React();
   const [activeProtocol] = useActiveProtocol();
-
+  const airdropAmount = useAirdrop();
+  
   // UI views
   const toggelDelegateModal = useToggleModal(ApplicationModal.DELEGATE);
 
@@ -94,14 +96,29 @@ export default function VoteContent() {
         <RowBetween>
           <TYPE.black color={theme.text1}>
             {" "}
-            Estimated ${activeProtocol?.token.symbol} Earnings
+            Matching $AMP Rewards:
           </TYPE.black>{" "}
           {/* changed from votes to earnings for demo/dummy  */}
+          <TYPE.main color={activeProtocol?.primaryColor}>
+            {airdropAmount ? airdropAmount : account ? <Loader /> : "-"}
+          </TYPE.main>
+        </RowBetween>
+      </WhiteCard>
+      {/* <WhiteCard
+        border={`1px solid ${theme.bg3}`}
+        style={{ zIndex: 2 }}
+        padding="1rem"
+      >
+        <RowBetween>
+          <TYPE.black color={theme.text1}>
+            {" "}
+            Estimated ${activeProtocol?.token.symbol} Earnings
+          </TYPE.black>{" "}
           <TYPE.main color={activeProtocol?.primaryColor}>
             {walletVotes ? walletVotes.toFixed(0) : account ? <Loader /> : "-"}
           </TYPE.main>
         </RowBetween>
-      </WhiteCard>
+      </WhiteCard> */}
       {userDelegatee && userDelegatee !== ZERO_ADDRESS && (
         <OffsetCard bgColor={activeProtocol?.secondaryColor}>
           {userDelegatee === account ? (

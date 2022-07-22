@@ -126,7 +126,7 @@ export default function ProfileGeneric() {
             <WalletSummary />
             {!verifiedHandleEntry && account ? (
               !twitterAccount ? (
-                <TwitterLoginButton text="Add a public identity" />
+                <TwitterLoginButton text="Add identity" />
               ) : (
                 <TwitterButton
                   onClick={() => {
