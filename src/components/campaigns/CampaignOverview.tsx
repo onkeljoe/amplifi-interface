@@ -1,6 +1,5 @@
 import React from 'react';
 import { AutoColumn } from "components/Column";
-import FeaturedImage from "components/FeaturedImage/FeaturedImage";
 import { LoadingRows } from "components/Loader";
 import Youtube from "components/Youtube";
 import parse from "html-react-parser";
@@ -17,6 +16,25 @@ export const Break = styled.div`
   height: 1px;
   margin: 0;
 `;
+const formatGrid = (cols: number) => {
+  let gridString = '1fr ';
+    for (let i = 0; i < cols - 1; i++) {
+      gridString += '1fr '
+    }
+    return gridString
+}
+const CampaignWrapper = styled.div<{cols: number}>`
+  display: grid;
+  grid-template-columns: ${({cols}) => formatGrid(cols)};
+  gap: 12px;
+  width: 100%;
+
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    grid-template-columns: 1fr;
+    margin: 0;
+    padding: 0;
+  `};
+`;
 
 export default function CampaignOverview() {
   const [activeCampaign] = useActiveCampaign();
@@ -26,33 +44,50 @@ export default function CampaignOverview() {
     </LoadingRows>
   }
   return (
-    <Wrapper>
-      <AutoColumn gap="0">
-        {activeCampaign.featuredImage && (
-          <>
-            <FeaturedImage image={activeCampaign.featuredImage} />
-          </>
-        )}
-        {activeCampaign.description && (
-            <>
-              {activeCampaign.budgetDescription && <TYPE.body fontSize="14px" fontWeight="600" mb="1rem" mt="1rem">
-                <span style={{ fontWeight: "bolder" }}>
-                  {" "}
-                  Campaign Incentives:{" "}
-                </span>{" "}
-                <span>{activeCampaign.budgetDescription}</span>{" "}
-              </TYPE.body>}
-              <TYPE.body fontSize="14px" fontWeight="301" mb="1rem">
-                {parse(activeCampaign.description)}
-              </TYPE.body>
-            </>
-          )}
+    <Wrapper style={{marginTop: 10}}>
+      <CampaignWrapper cols={activeCampaign.overviewVideo ? 2 : 1}>
+        <AutoColumn gap="md">
+          {activeCampaign.content && <>
+            {parse(activeCampaign.content)}
+          </>}
+          {activeCampaign.description && (
+              <>
+                {activeCampaign.budgetDescription && <>
+                  <TYPE.subHeader>Campaign Incentives</TYPE.subHeader>
+                  <TYPE.body>
+                    {activeCampaign.budgetDescription}
+                  </TYPE.body>
+                </>}
+                {activeCampaign.goal && <>
+                  <TYPE.subHeader>Goal</TYPE.subHeader>
+                  <TYPE.body fontSize="14px" fontWeight="301" mb="1rem">
+                    {parse(activeCampaign.goal)}
+                  </TYPE.body>
+                  </>}
+                {activeCampaign.description && <>
+                  <TYPE.subHeader>Description</TYPE.subHeader>
+                  <TYPE.body fontSize="14px" fontWeight="301" mb="1rem">
+                  {parse(activeCampaign.description)}
+                </TYPE.body>
+                </>
+
+              // todo - make video 50% width
+                }
+              </>
+            )}
+        </AutoColumn>
+        <AutoColumn>
         {activeCampaign.overviewVideo && (
-          <Youtube src={activeCampaign.overviewVideo} />
+            <Youtube src={activeCampaign.overviewVideo} />
         )}
+        </AutoColumn>
+      </CampaignWrapper>
+      <AutoColumn>
+      {process.env.NODE_ENV == 'development' && <>
         <TYPE.mediumHeader mt={"1rem"}>🚧 Other fields 🚧</TYPE.mediumHeader>
         <p>baseUrl: {activeCampaign.baseUrl}</p>
         <p>budget: {activeCampaign.budget}</p>
+        <p>content: {activeCampaign.content}</p>
         <p>campaignBudget: {activeCampaign.campaignBudget}</p>
         <p>description: {activeCampaign.description}</p>
         <p>budgetDescription: {activeCampaign.budgetDescription}</p>
@@ -67,6 +102,7 @@ export default function CampaignOverview() {
         <p>whitelist: {activeCampaign.whitelist && activeCampaign.whitelist.length > 0 && activeCampaign.whitelist.map((f,i) => {
           return <p key={i}>{f}</p>
         })}</p>
+      </>}
       </AutoColumn>
     </Wrapper>
   );

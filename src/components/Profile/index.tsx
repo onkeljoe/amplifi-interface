@@ -175,7 +175,7 @@ export default function Profile() {
         textDecoration: "underline",
         color: "black"
 
-      }}>publisher airdrop</StyledInternalLink>
+      }}>airdrop</StyledInternalLink>
       {" "} &amp; generate your unique referral link
     </TYPE.blue>
   )
