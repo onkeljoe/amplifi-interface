@@ -16,17 +16,11 @@ export const Break = styled.div`
   height: 1px;
   margin: 0;
 `;
-const formatGrid = (cols: number) => {
-  let gridString = '1fr ';
-    for (let i = 0; i < cols - 1; i++) {
-      gridString += '1fr '
-    }
-    return gridString
-}
-const CampaignWrapper = styled.div<{cols: number}>`
+
+const CampaignWrapper = styled.div<{gridTemplateColumn?: string}>`
   display: grid;
-  grid-template-columns: ${({cols}) => formatGrid(cols)};
-  gap: 12px;
+  grid-template-columns: ${({gridTemplateColumn}) => gridTemplateColumn ? gridTemplateColumn : '1 fr'};
+  gap: 24px;
   width: 100%;
 
   ${({ theme }) => theme.mediaWidth.upToSmall`
@@ -45,8 +39,8 @@ export default function CampaignOverview() {
   }
   return (
     <Wrapper style={{marginTop: 10}}>
-      <CampaignWrapper cols={activeCampaign.overviewVideo ? 2 : 1}>
-        <AutoColumn gap="md">
+      <CampaignWrapper gridTemplateColumn={activeCampaign.overviewVideo ? '2fr 3fr' : '1fr'}>
+        <AutoColumn>
           {activeCampaign.content && <>
             {parse(activeCampaign.content)}
           </>}
@@ -60,13 +54,13 @@ export default function CampaignOverview() {
                 </>}
                 {activeCampaign.goal && <>
                   <TYPE.subHeader>Goal</TYPE.subHeader>
-                  <TYPE.body fontSize="14px" fontWeight="301" mb="1rem">
+                  <TYPE.body fontSize="14px" fontWeight="301" mb="1rem" marginTop={-14}>
                     {parse(activeCampaign.goal)}
                   </TYPE.body>
                   </>}
                 {activeCampaign.description && <>
                   <TYPE.subHeader>Description</TYPE.subHeader>
-                  <TYPE.body fontSize="14px" fontWeight="301" mb="1rem">
+                  <TYPE.body fontSize="14px" fontWeight="301" mb="1rem" marginTop={-14}>
                   {parse(activeCampaign.description)}
                 </TYPE.body>
                 </>
@@ -78,7 +72,9 @@ export default function CampaignOverview() {
         </AutoColumn>
         <AutoColumn>
         {activeCampaign.overviewVideo && (
-            <Youtube src={activeCampaign.overviewVideo} />
+            <div style={{marginTop: 50}}>
+              <Youtube src={activeCampaign.overviewVideo} />
+            </div>
         )}
         </AutoColumn>
       </CampaignWrapper>
