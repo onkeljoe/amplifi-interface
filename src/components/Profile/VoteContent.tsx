@@ -96,7 +96,7 @@ export default function VoteContent() {
         <RowBetween>
           <TYPE.black color={theme.text1}>
             {" "}
-            Estimated $ACG Potential Rewards:
+            Matching $AMP Rewards:
           </TYPE.black>{" "}
           {/* changed from votes to earnings for demo/dummy  */}
           <TYPE.main color={activeProtocol?.primaryColor}>
@@ -104,7 +104,7 @@ export default function VoteContent() {
           </TYPE.main>
         </RowBetween>
       </WhiteCard>
-      <WhiteCard
+      {/* <WhiteCard
         border={`1px solid ${theme.bg3}`}
         style={{ zIndex: 2 }}
         padding="1rem"
@@ -114,12 +114,11 @@ export default function VoteContent() {
             {" "}
             Estimated ${activeProtocol?.token.symbol} Earnings
           </TYPE.black>{" "}
-          {/* changed from votes to earnings for demo/dummy  */}
           <TYPE.main color={activeProtocol?.primaryColor}>
             {walletVotes ? walletVotes.toFixed(0) : account ? <Loader /> : "-"}
           </TYPE.main>
         </RowBetween>
-      </WhiteCard>
+      </WhiteCard> */}
       {userDelegatee && userDelegatee !== ZERO_ADDRESS && (
         <OffsetCard bgColor={activeProtocol?.secondaryColor}>
           {userDelegatee === account ? (
