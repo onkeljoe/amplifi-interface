@@ -112,7 +112,8 @@ const WhiteCard = styled.div`
 `
 
 const AirdropGreyBox = styled.div`
-  min-width: 30%;
+  min-width: 25%;
+  // width: 120px;
   border-radius: 12px;
   background: ${({theme}) => theme.bg2};
   height: 38px;
