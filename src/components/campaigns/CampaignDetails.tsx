@@ -76,7 +76,7 @@ function CampaignDetails({
   return (
     <Wrapper>
       <ProposalInfo gap="lg" justify="start">
-        <RowBetween style={{ width: "100%", alignItems: "flex-start" }}>
+        {/* <RowBetween style={{ width: "100%", alignItems: "flex-start" }}>
           <RowFixed>
             <ArrowWrapper
               onClick={() => {
@@ -84,26 +84,26 @@ function CampaignDetails({
               }}
               style={{ alignItems: "flex-start" }}
             >
-              <TYPE.body fontWeight="600">Campaigns</TYPE.body>
+              <TYPE.body fontSize="12px" fontWeight="200">Campaigns</TYPE.body>
             </ArrowWrapper>
-            <ChevronRight size={16} />
-            <TYPE.body>{campaignID}</TYPE.body>
+            <ChevronRight size={12} />
+            <TYPE.body fontSize="12px" fontWeight="200">{campaignID}</TYPE.body>
           </RowFixed>
 
           {true && (
             <ProposalStatus status={"pending" ?? "pending"}>{"Pending"}</ProposalStatus>
           )}
-        </RowBetween>
+        </RowBetween> */}
         <AutoColumn gap="10px" style={{ width: "100%" }}>
-          <TYPE.largeHeader style={{ marginBottom: ".5rem" }}>
+          {/* <TYPE.largeHeader style={{ marginBottom: ".5rem" }}>
             {data && data.data.title ? data.data.title : <LoadingRows>
               <div/></LoadingRows>}
-          </TYPE.largeHeader>
-          <Break />
-          <TYPE.body fontSize="16px" fontWeight="600" mb="1rem" mt="1rem">
+          </TYPE.largeHeader> */}
+          {/* <Break /> */}
+          {/* <TYPE.body fontSize="12px" fontWeight="600" mb="1rem" mt="1rem">
             Campaigns are still in testing phase and are subject to change. Please
             check back soon.
-          </TYPE.body>
+          </TYPE.body> */}
           <ReferralLinksCard />
           <RowBetween>{/* <TYPE.main>Date here</TYPE.main> */}</RowBetween>
           {amplifiCampaignsTabData.length > 0 && (

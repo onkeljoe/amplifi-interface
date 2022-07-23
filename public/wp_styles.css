@@ -2,3 +2,602 @@
   width: 100%;
   height: auto;
 }
+
+
+body {
+  overflow: hidden!important; /* Hide scrollbars */
+}
+
+.eLwyMI {
+  width: 100%;
+  border-radius: 20px;
+  padding: 0px;
+}
+
+.css-lijh4z {
+  box-sizing: border-box;
+  margin: 0rem 0px;
+  min-width: 0px;
+  font-weight: 600;
+  font-size: 11px;
+  color: red;
+  background-color: black;
+}
+/* // make link warning box way smaller and remove some padding */
+.gLAoTI {
+  width: 100%;
+  border-radius: 20px;
+  padding: 10px;
+}
+.gLAoTI {
+  width: 100%;
+  border-radius: 20px;
+  padding: 0px!important;
+  font-size: 12px;
+}
+
+/* // heading row gap */
+.fxWeWC { 
+  display: grid;
+  grid-auto-rows: auto;
+  row-gap: 0px;
+  justify-items: start;
+}
+
+/*****************************************************/
+/*****************************************************/
+/************** Light Mode Theme CSS *****************/
+/*****************************************************/
+/*****************************************************/
+
+/* This styles the forms background.*/
+.gform_wrapper {
+  box-shadow: rgb(0 0 0 / 5%) 0px 0px 30px 0px !important;
+  background: #fff !important;
+  border-radius: 20px;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width: 100rem;
+  width: 65%;
+  min-width: 57%;
+}  
+/* This styles all field descriptions.*/
+.gform_wrapper .gfield_label {
+  position: relative !important;
+  margin-top: 10px !important;
+  background: lightgrey !important;
+  padding: 5px !important;
+  border-radius: 8px !important;
+  color: white !important;
+  font-size: 14px !important;
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: inline-block;
+  font-family: proxima-soft-1,proxima-soft-2,proxima-nova-1,proxima-nova-2,Helvetica,Arial,sans-serif !important;
+}
+/* This styles all wrappers/backgrounds for individual fields.*/
+.gfield {
+  box-shadow: rgb(0 0 0 / 5%) 0px 0px 30px 0px;
+  background-color: #fff;
+  padding-bottom: 16px;
+  border-radius: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+/* This styles all large-sized individual field input backgrounds. */
+.gform_wrapper .gfield input.large, .gform_wrapper .gfield select.large {
+  border-radius: 7px !important;
+  color: darkgray;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  backdrop-filter: blur(10px);
+  background-color: aliceblue;
+  border-color: aliceblue;
+  border-width: 1px;
+  border-style: none;
+}
+/* This styles all medium-sized individual field input backgrounds. */
+.gform_wrapper .gfield input.medium, .gform_wrapper .gfield select.medium {
+  border-radius: 7px !important;
+  color: darkgray;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  backdrop-filter: blur(10px);
+  background-color: aliceblue;
+  border-color: aliceblue;
+  border-width: 1px;
+  border-style: none;
+}
+/* This styles all small-sized individual field input backgrounds. */
+.gform_wrapper .gfield input.small, .gform_wrapper .gfield select.small {
+  border-radius: 7px !important;
+  color: darkgray;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  backdrop-filter: blur(10px);
+  background-color: aliceblue;
+  border-color: aliceblue;
+  border-width: 1px;
+  border-style: none;
+}
+/* This styles all field instructions/descriptions appearing underneath field inputs. */
+.gform_wrapper .description, .gform_wrapper .gfield_description, .gform_wrapper .gsection_description, .gform_wrapper .instruction {
+  color: darkgray;
+  font-size: 13px;
+}
+/* This styles all links in form. */
+.gform_wrapper a {
+  color: #1a73e8;
+}  
+/* This styles the submit button. */
+.gform_wrapper input[type=button], .gform_wrapper input[type=submit] {
+  width: 100%;
+  background-color: rgba(227,227,227,0.26);
+  border-radius: 8px !important;
+  color: #000;
+  border-color: rgba(227,227,227,0.26);
+  font-size: 18px !important;
+  font-family: system-ui, sans-serif;
+  line-height: 10px;
+  height: 50px;
+margin-bottom: 20px !important;
+  margin-top: 10px !important;
+  margin-left: 0px;
+}
+/* This styles is for the submit button on hover. */
+.gform_wrapper input[type=button], .gform_wrapper input[type=submit]:hover {
+  border-style: solid;
+  border-width: 1px;
+  color: black !important;
+  border-color: #e3e3e3;
+  background-color: #e3e3e3;
+}
+/* This styles is for the enhanced multi select choices after chosen. */
+.gform_wrapper .chosen-container-multi .chosen-choices li.search-choice {
+  position: relative;
+  margin: 3px 5px 3px 0;
+  max-width: 100%;
+  border-radius: 3px;
+  background-image: none !important;
+  background-size: 100% 19px;
+  background-repeat: repeat-x;
+  background-clip: padding-box;
+  line-height: 13px;
+  cursor: default;
+  background-color: rgba(0,113,227,0.1) !important;
+  color: #0071e3 !important;
+  padding: 5px !important;
+  box-shadow: none !important;
+  border-width: 0px;
+  border-color:#e3e3e3 !important;
+  padding-right: 20px !important;
+  padding-left: 20px !important;
+}
+/* This styles is for the enhanced multi select choices field input background. */
+.gform_wrapper .chosen-container-multi .chosen-choices {
+  border-radius: 7px !important;
+  background: aliceblue;
+  color: #0071e3;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  backdrop-filter: blur(10px);
+  background-color: aliceblue;
+  border:1px solid #e3e3e3;
+}
+/* This styles is for the enhanced multi select drop down .*/
+.gform_wrapper .chosen-container .chosen-drop {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  border-top: 0;
+  background: #fff;
+  box-shadow: 0 4px 5px rgb(0 0 0 / 15%);
+  display: none;
+  background-color: white;
+  z-index: 9999999999;
+  margin-bottom: 30px !important;
+  padding-bottom: 19px;
+  border-radius: 10px;
+  border-width: 0px;
+}
+/* This styles is for the enhanced multi select drop down background. */
+.gform_wrapper .chosen-container .chosen-results li.active-result {
+  background: #fff;
+}
+/* This styles is for the enhanced multi select drop down individual items on hover. */
+.gform_wrapper .chosen-container .chosen-results li.active-result:hover {
+  background: aliceblue !important;
+  border-radius: 4px;
+  cursor: pointer;
+  color: darkgrey;
+}
+/* This styles is for the enhanced radio button background. */
+.gform_wrapper fieldset {
+background-color:#121212 !important;
+}
+/* This styles is for the HTML background. */
+body .gform_wrapper .gform_body .gform_fields .gfield_html {
+  background-color: transparent !important;
+  box-shadow: none;
+  color: darkgray;
+  font-family: proxima-soft-1,proxima-soft-2,proxima-nova-1,proxima-nova-2,Helvetica,Arial,sans-serif;
+  font-size: 16px;
+}
+/* This styles is all links in the form. */
+body .gform_wrapper .gform_body .gform_fields a {
+color: #0071e3;
+}
+/* This styles the heading section of the form. */
+.gform_heading {
+background: white !important;
+  border-radius: 15px;
+  color: darkgray !important;
+  margin-bottom: 12px;
+}
+/* This styles the date pickers background. */
+.gform-theme-datepicker:not(.gform-legacy-datepicker) {
+  background: white;
+  border: 1px solid lightgray;
+}
+/* This fixes the date pickers Z Index. */
+.ui-datepicker:not(.gform-legacy-datepicker)[style] {
+  z-index: 9999999 !important;
+}
+/* This styles the date pickers chosen date. */
+.gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-calendar .ui-datepicker-current-day .ui-state-default {
+  background: rgba(0,113,227,0.1);
+  color: #0071e3;
+  border-color: #0071e3;
+}
+/* This styles the background of the progress bar. */
+.gform_wrapper .gf_progressbar_blue {
+  background: #e3e3e3 !important;
+}
+/* This styles the progress fill and text color of the progress bar. */
+.gform_wrapper .gf_progressbar_percentage.percentbar_blue {
+  background-color: #1a73e8;
+  color: white !important;
+  font-family: proxima-soft-1,proxima-soft-2,proxima-nova-1,proxima-nova-2,Helvetica,Arial,sans-serif;
+}
+/* This styles the progress bar step number text. */
+.gform_wrapper .gf_progressbar_title {
+  color: white;
+}
+/* This styles the paragraph field tinymce. */
+div.mce-toolbar-grp>div {
+  background-color: white;
+  padding: 0px !important;
+}
+div.mce-panel {
+  background: white !important;
+}
+.mce-container, .mce-container *, .mce-widget, .mce-widget * {
+  background: white;
+  color: darkgray;
+}
+.wp-editor-container {
+  border-width:0px !important;
+}
+.tinymce {
+  background-color: white !important;
+  border-color: white !important;
+  color: #0071e3 !important;
+}
+div.mce-statusbar {
+  border-top: 0px !important;
+}
+.mce-toolbar .mce-btn-group .mce-btn.mce-listbox {
+  border: white !important;
+}
+.mce-menu .mce-menu-item.mce-active.mce-menu-item-normal, .mce-menu .mce-menu-item.mce-active.mce-menu-item-preview, .mce-menu .mce-menu-item.mce-selected, .mce-menu .mce-menu-item:focus, .mce-menu .mce-menu-item:hover {
+  background: white !important;
+  color: darkgray !important;
+  border-color: white !important;
+}
+.mce-panel.mce-menu {
+  border: 1px solid white !important;
+}
+.mce-top-part::before {
+  webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+div.mce-toolbar-grp {
+  border-bottom: 0px solid #fff !important;
+}
+/* This styles the text area. */
+.gform_wrapper .gfield textarea.large {
+  background-color: white;
+  border-color: #e3e3e3;
+  border-radius: 8px !important;
+}
+/* This styles the first name field. */
+body .gform_wrapper .gform_body .gform_fields .gfield .name_first input {
+  background-color: aliceblue;
+  color: black;
+  border-color: aliceblue;
+  border-width: 1px;
+  border-style: none;
+  border-radius: 7px !important;
+}
+/* This styles the last name field. */
+body .gform_wrapper .gform_body .gform_fields .gfield .name_last input {
+  background-color: aliceblue;
+  color: black;
+  border-color: aliceblue;
+  border-width: 1px;
+  border-style: none;
+  border-radius: 7px !important;
+}
+/* This styles the section field. */
+.gform_wrapper .gsection {
+  border-bottom: 1px solid #e3e3e3 !important;
+  padding: 1.25rem 0 .5rem!important;
+  background-color: transparent !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+}
+body .gform_wrapper .gform_body .gform_fields .gsection .gsection_title {
+  position: relative !important;
+  margin-top: 10px !important;
+  background: lightgrey !important;
+  padding: 5px !important;
+  border-radius: 6px !important;
+  color: white !important;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+body .gform_wrapper .gform_body .gform_fields .gsection .gsection_description {
+  color: darkgray;
+  font-size: 13px;
+}
+/* This styles the address field. */
+.gform_wrapper .ginput_complex label, .gform_wrapper .ginput_complex legend {
+  color: darkgray !important;
+  font-size: 13px !important;
+}
+.gform_wrapper .ginput_complex input, .gform_wrapper .ginput_complex select {
+  width: 100%;
+  border-radius: 7px !important;
+  color: darkgray;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  backdrop-filter: blur(10px);
+  background-color: aliceblue;
+  border-color: aliceblue;
+  border-width: 1px;
+  border-style: none;
+  box-shadow: none !important;
+}
+.gform_wrapper .ginput_complex input, .gform_wrapper .ginput_complex select:focus {
+  box-shadow:none;
+  border-color:#e3e3e3;
+  border-style:solid;
+  border-width:1px;
+}
+.gform_wrapper input[type=email]:focus, .gform_wrapper input[type=number]:focus, .gform_wrapper input[type=password]:focus, .gform_wrapper input[type=tel]:focus, .gform_wrapper input[type=text]:focus, .gform_wrapper input[type=url]:focus, .gform_wrapper textarea:focus {
+  border: 1px solid #e3e3e3 !important;
+}
+.gform_wrapper fieldset {
+  background-color: white !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  padding-bottom:20px !important;
+  padding-top: 25px !important;
+  box-shadow: rgb(0 0 0 / 5%) 0px 0px 30px 0px;
+}
+.gform_wrapper fieldset, .gform_wrapper legend {
+  top: 25px;
+}
+/* This styles the list field input background. */
+.gform_wrapper input[type=email], .gform_wrapper input[type=number], .gform_wrapper input[type=password], .gform_wrapper input[type=tel], .gform_wrapper input[type=text], .gform_wrapper input[type=url] {
+  background-color: aliceblue;
+  border-color: aliceblue;
+  border-radius: 7px !important;
+}
+/* This styles the AM/PM background. */
+.gform_wrapper .ginput_container_time {
+  min-width: 86px;
+}
+/* This styles the select field input background. */
+.gform_wrapper .gfield_chainedselect.horizontal select {
+  background-color: aliceblue;
+  border-width: 0px !important;
+  border-radius: 8px !important;
+  color: #0071e3;
+  min-width: 120px;
+}
+/* This styles the consent field. */
+.gfield_consent_label {
+  color: #0071e3;
+  box-shadow: none;
+}
+.gform_wrapper .field_description_below .gfield_consent_description, .gform_wrapper .gfield_consent_description {
+  border: transparent;
+}
+/* This styles the next button. */
+.gform_wrapper .gform_next_button.button, .gform_wrapper .gform_save_link.button {
+  background-color: aliceblue !important;
+  border-radius: 8px !important;
+  color: black;
+  border-color: aliceblue;
+  font-size: 18px !important;
+  font-family: system-ui, sans-serif;
+  line-height: 10px;
+  height: 50px;
+margin-bottom: 20px !important;
+  margin-top:20px !important;
+}
+.gform_wrapper .gform_next_button.button, .gform_wrapper .gform_save_link.button:hover {
+  background: aliceblue !important;
+  border-radius: 8px !important;
+  color: black !important;
+  border-color: aliceblue;
+  font-size: 18px !important;
+  font-family: system-ui, sans-serif;
+  height: 50px;
+margin-bottom: 20px !important;
+margin-top:20px !important;
+}
+/* This styles the previous button. */
+.gform_wrapper .gform_previous_button.button, .gform_wrapper .gform_save_link.button {
+  background-color: #e3e3e3;
+  border-radius: 8px !important;
+  color: black !important;
+  border-color: #e3e3e3;
+  font-size: 18px !important;
+  font-family: system-ui, sans-serif;
+  line-height: 10px;
+  height: 50px;
+margin-bottom: 20px !important;
+  margin-top:20px !important;
+}
+.gform_wrapper .gform_previous_button.button, .gform_wrapper .gform_save_link.button:hover {
+  background-color: #e3e3e3 !important;
+  border-radius: 8px !important;
+  color: black !important;
+  border-color: #e3e3e3;
+  font-size: 18px !important;
+  font-family: system-ui, sans-serif;
+  height: 50px;
+margin-bottom: 20px !important;
+margin-top:20px !important;
+}
+/* This styles all drop downs. */
+body .gform_wrapper .gform_body .gform_fields .gfield select {
+border-style:solid !important;
+border-width:1px !important;
+  border-color: #e3e3e3 !important;
+  min-width: 100px;
+}
+/* This styles horizontal selects. */
+.gform_wrapper .gfield_chainedselect.horizontal select {
+  min-width: 150px !important;
+  background-color: aliceblue;
+}
+/* This styles the survey field. */
+table.gsurvey-likert th.gsurvey-likert-choice-label {
+  background-color: transparent;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.2;
+  border-top: 1px solid transparent;
+  border-right: 1px solid #ccc;
+  color: #0071e3;
+  font-weight: normal;
+}
+table.gsurvey-likert td.gsurvey-likert-choice.gsurvey-likert-selected {
+  background-image: url(../images/active1.svg);
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: aliceblue;
+}
+table.gsurvey-likert tr:nth-child(odd) .gsurvey-likert-row-label {
+  background-color: transparent !important;
+  color: black !important;
+  border-color: transparent !important;
+}
+table.gsurvey-likert .gsurvey-likert-row-label {
+  font-weight: 700;
+  background-color: aliceblue !important;
+  padding-left: 0;
+}
+table.gsurvey-likert .gsurvey-likert-choice, table.gsurvey-likert .gsurvey-likert-row-label {
+  border-top: 1px solid aliceblue !important;
+}
+table.gsurvey-likert * {
+  border-left: aliceblue !important;
+border-right:aliceblue !important;
+}
+table.gsurvey-likert {
+  border-left: 1px solid aliceblue !important;
+  border-bottom: 1px solid aliceblue !important;
+}
+/* This styles the input fields focus border */
+.gform_wrapper .gfield input.large:focus {
+  box-shadow:none;
+  border-color:#e3e3e3;
+  border-style:solid;
+  border-width:1px;
+}
+.gform_wrapper .gfield input.medium:focus {
+  box-shadow:none;
+  border-color:#e3e3e3; 
+  border-style:solid;
+  border-width:1px;
+}
+.gform_wrapper .gfield input.small:focus {
+  box-shadow:none;
+  border-color:#e3e3e3;
+  border-style:solid;
+  border-width:1px;
+}
+/* This styles the required asterisk */
+.gform_wrapper .gfield_required {
+  color: white;
+}
+/* This is for the uplaod field non multi. */
+::-webkit-file-upload-button {
+background: aliceblue;
+  color: #0071e3;
+border-radius:8px;
+border-style:solid;
+border-color:#e3e3e3;
+border-width:1px;
+padding:4px;
+position:relative;
+cursor: pointer;
+}
+/* This positions the submit button when next and previous buttons are loaded */
+.gform_wrapper.gravity-theme .gform_footer button+input, .gform_wrapper.gravity-theme .gform_footer input+button, .gform_wrapper.gravity-theme .gform_footer input+input, .gform_wrapper.gravity-theme .gform_page_footer button+input, .gform_wrapper.gravity-theme .gform_page_footer input+button, .gform_wrapper.gravity-theme .gform_page_footer input+input {
+  margin-left: 0px;
+}
+/* This styles the form description */
+.gform_description {
+  color: darkgrey;
+  font-size: 15px;
+  font-family: proxima-soft-1,proxima-soft-2,proxima-nova-1,proxima-nova-2,Helvetica,Arial,sans-serif;
+}
+/* This styles the drop down field on Safari */
+Select {
+  -webkit-appearance: none;
+  min-height: 32px;
+}
+
+/*****************************************************/
+/*****************************************************/
+/******************* Mobile CSS **********************/
+/*****************************************************/
+/*****************************************************/
+
+/* This styles the submit, next, and previous button */
+@media only screen and (max-width: 675px) {
+  .gform_wrapper.gravity-theme .gform_footer button, .gform_wrapper.gravity-theme .gform_footer input, .gform_wrapper.gravity-theme .gform_page_footer button, .gform_wrapper.gravity-theme .gform_page_footer input {
+      margin-bottom: 8px;
+      line-height: 0px !important;
+  }
+}
+/* This removes the margin on the top of the form title and description */
+@media (min-width: 700px) {
+  .entry-content h1, .entry-content h2, .entry-content h3 {
+      margin: 6rem auto 3rem;
+      margin-top: 0px;
+  }
+}
+/* This styles the drop down field on Safari */
+@media only screen and (max-width: 675px) {
+  Select {
+      -webkit-appearance: none;
+      min-height: 50px !important;
+  }
+}
+/* This styles the form wrapper */
+@media only screen and (max-width: 675px) {
+  .gform_wrapper {
+      width: calc(100% - 1rem) !important;
+  }
+}

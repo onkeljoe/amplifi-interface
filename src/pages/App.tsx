@@ -27,6 +27,7 @@ import { RedirectWithUpdatedGovernance } from "./Governance/redirect";
 import Identities from "./Identities";
 import Proposals from "./Proposals";
 
+
 const FIRST_2_COLS_WIDTH = 320;
 
 const SiteWrapper = styled.div<{ expandedOverview?: boolean }>`
