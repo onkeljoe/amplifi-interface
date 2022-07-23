@@ -19,6 +19,7 @@ const RoundedLink = styled.div`
   background: ${({ theme }) => theme.bg3};
   border-radius: 10px;
   padding: 5px!important;
+  font-size: 12px!important;
 `;
 const Item = styled.div`
   display: flex;
@@ -44,7 +45,7 @@ export default function ReferralLinksCard() {
           referralLink ? (
             <>
               <Card>
-                <RoundedLink style={{ padding: '5px' }}>
+                <RoundedLink style={{ padding: '5px'f }}>
                   <Copy toCopy={"https://" + referralLink}>
                     <span style={{ paddingLeft: 10 }}>
                       {"  "}
