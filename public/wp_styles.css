@@ -24,16 +24,13 @@ body {
   background-color: black;
 }
 /* // make link warning box way smaller and remove some padding */
+
+
 .gLAoTI {
   width: 100%;
-  border-radius: 20px;
-  padding: 10px;
-}
-.gLAoTI {
-  width: 100%;
-  border-radius: 20px;
-  padding: 0px!important;
-  font-size: 12px;
+  border-radius: 14px;
+  padding: 13px;
+  background-color: #edeef2;
 }
 
 /* // heading row gap */
@@ -42,6 +39,44 @@ body {
   grid-auto-rows: auto;
   row-gap: 0px;
   justify-items: start;
+}
+
+.wp-container-1.is-nowrap.wp-block-group.has-small-font-size {
+  font-size: 13px;
+}
+.wp-container-1.is-content-justification-center.is-nowrap.wp-block-group.has-small-font-size {
+  justify-content: center;
+}
+.icon-container > svg {
+  background-color: rgb(231, 228, 228);
+  border-radius: 12px;
+}
+
+.icon-container > svg {
+  background-color: rgb(231, 228, 228);
+  border-radius: 12px;
+}
+/* // plus icon */
+#root > div.sc-bKhNmF.duKlzc > div.sc-jhfVAM.fChGrX > div.sc-dFdIVH.bmyxaK > div > div.sc-eCOUaW > div > div > div.wp-container-1.is-content-justification-center.is-nowrap.wp-block-group.has-small-font-size > div.wp-block-outermost-icon-block.items-justified-undefined.ampIconandlink > a > svg{
+  background-color: rgb(231, 228, 228);
+  border-radius: 12px;
+  width: 28px;
+}
+.ampNumber{
+  font-size: 22px;
+  font-weight: bold;
+}
+
+ampChart {
+  background-color: red;
+  padding: 10px;
+  border-radius: 12px;
+}
+.wp-container-1.is-nowrap.wp-block-group.has-small-font-size {
+  background-color: #edeef2;
+  border-radius: 17px;
+  padding: 15px;
+  color: #000000d9!important;
 }
 
 /*****************************************************/
