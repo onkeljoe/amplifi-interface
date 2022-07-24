@@ -45,7 +45,7 @@ export default function ReferralLinksCard() {
           referralLink ? (
             <>
               <Card>
-                <RoundedLink style={{ padding: '5px'f }}>
+                <RoundedLink style={{ padding: '5px' }}>
                   <Copy toCopy={"https://" + referralLink}>
                     <span style={{ paddingLeft: 10 }}>
                       {"  "}
@@ -84,3 +84,5 @@ export default function ReferralLinksCard() {
     </>
   )
 }
+
+
