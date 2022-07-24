@@ -62,6 +62,10 @@ body {
   border-radius: 12px;
   width: 28px;
 }
+
+a.icon-container.has-icon-color svg {
+  width: 25px;
+}
 .ampNumber{
   font-size: 22px;
   font-weight: bold;
