@@ -137,6 +137,7 @@
     "@mui/styled-engine-sc": "^5.8.0",
     "@rebass/forms": "^4.0.6",
     "@types/deep-equal": "^1.0.1",
+    "@wordpress/block-library": "^7.10.0",
     "axios": "^0.20.0",
     "babel": "^6.23.0",
     "babel-plugin-styled-components": "^2.0.7",

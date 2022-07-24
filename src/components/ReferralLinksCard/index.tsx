@@ -7,6 +7,15 @@ import { useVerifiedHandle } from "state/social/hooks";
 import styled from "styled-components";
 import { useActiveProtocol } from "../../state/governance/hooks";
 import React from 'react'
+import { useActiveCampaign } from "state/campaigns/hooks";
+import parse from "html-react-parser";
+// gutenberg basic styles
+import "@wordpress/block-library/build-style/common.css"
+import "@wordpress/block-library/build-style/style.css"
+import "@wordpress/block-library/build-style/theme.css"
+
+
+
 
 export const Break = styled.div`
   width: 100%;
@@ -39,8 +48,12 @@ export default function ReferralLinksCard() {
   const referralLink = useReferralLink();
   const { account } = useActiveWeb3React();
   const verifiedHandleEntry = useVerifiedHandle(account);
+  const [activeCampaign] = useActiveCampaign();
   return (
     <>
+    {activeCampaign && activeCampaign.content && <>
+      {parse(activeCampaign.content)}
+    </>}
       {activeProtocol && verifiedHandleEntry ? (
           referralLink ? (
             <>
