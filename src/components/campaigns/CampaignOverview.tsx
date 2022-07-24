@@ -39,11 +39,12 @@ export default function CampaignOverview() {
   }
   return (
     <Wrapper style={{marginTop: 10}}>
+      {/* {activeCampaign.content && <>
+            {parse(activeCampaign.content)}
+          </>} */}
       <CampaignWrapper gridTemplateColumn={activeCampaign.overviewVideo ? '2fr 3fr' : '1fr'}>
         <AutoColumn>
-          {activeCampaign.content && <>
-            {parse(activeCampaign.content)}
-          </>}
+          
           {activeCampaign.description && (
               <>
                 {activeCampaign.budgetDescription && <>
