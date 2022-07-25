@@ -13,6 +13,7 @@ import parse from "html-react-parser";
 import "@wordpress/block-library/build-style/common.css"
 import "@wordpress/block-library/build-style/style.css"
 import "@wordpress/block-library/build-style/theme.css"
+import { AutoColumn } from "../Column";
 
 
 
@@ -51,14 +52,15 @@ export default function ReferralLinksCard() {
   const [activeCampaign] = useActiveCampaign();
   return (
     <>
+    <AutoColumn>
     {activeCampaign && activeCampaign.content && <>
       {parse(activeCampaign.content)}
     </>}
       {activeProtocol && verifiedHandleEntry ? (
           referralLink ? (
             <>
-              <Card>
-                <RoundedLink style={{ padding: '20px' }}>
+              <Card style={{ maxWidth: '800px' }}>
+                <RoundedLink style={{ padding: '20px', maxWidth: '800px!important' }}>
                   <Copy toCopy={"https://" + referralLink}>
                     <span style={{ paddingLeft: 10 }}>
                       {"  "}
@@ -94,6 +96,7 @@ export default function ReferralLinksCard() {
             </RoundedLink>
           </Card>
         )}
+        </AutoColumn>
     </>
   )
 }
