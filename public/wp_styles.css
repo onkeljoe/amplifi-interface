@@ -679,7 +679,7 @@ Select {
 
 /* // this was stretching beyond screen no idea why - was fine yesterday need to figure out why */
 .gLAoTI {
-  max-width: 800px;
+  max-width: 800px!important;
   border-radius: 20px;
   padding: 1.25rem;
 }

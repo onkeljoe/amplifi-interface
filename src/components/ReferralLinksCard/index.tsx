@@ -19,7 +19,7 @@ import { AutoColumn } from "../Column";
 
 
 export const Break = styled.div`
-  width: 100%;
+  width: 800px;
   background-color: ${({ theme }) => theme.bg3};
   height: 1px;
   margin: 0;
