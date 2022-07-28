@@ -1,6 +1,12 @@
 import React from "react";
-export const CampaignContent = ({ content }: { content: string }) => {
-  return <div dangerouslySetInnerHTML={{ __html: content }} />;
+import { useActiveCampaign } from "state/campaigns/hooks";
+export const CampaignContent = ({ content }: { content?: string }) => {
+  const [activeCampaign] = useActiveCampaign();
+  return <>
+    {activeCampaign && activeCampaign?.content && <div dangerouslySetInnerHTML={{ __html: content || activeCampaign?.content }} />}
+  </>
 };
+
+
 
 export default CampaignContent;
