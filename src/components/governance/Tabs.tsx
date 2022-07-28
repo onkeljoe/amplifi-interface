@@ -92,9 +92,7 @@ function Tabs() {
             </RowFixed>
           </AboveSmall>
         )}
-        <AutoRow>
-          <ReferralLinksCard />
-        </AutoRow>
+        <ReferralLinksCard />
       </RowBetween>
     </Card>
   );

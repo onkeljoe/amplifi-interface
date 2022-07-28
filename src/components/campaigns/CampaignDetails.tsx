@@ -106,7 +106,7 @@ function CampaignDetails({
             Campaigns are still in testing phase and are subject to change. Please
             check back soon.
           </TYPE.body> */}
-          <ReferralLinksCard />
+          {/* <ReferralLinksCard /> */}
           <RowBetween>{/* <TYPE.main>Date here</TYPE.main> */}</RowBetween>
           {amplifiCampaignsTabData.length > 0 && (
             <Tabs

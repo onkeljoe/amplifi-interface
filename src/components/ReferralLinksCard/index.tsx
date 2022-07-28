@@ -33,29 +33,27 @@ export const Break = styled.div`
 `;
 
 const RoundedLink = styled.div`
-  background: ${({ theme }) => theme.bg3};
- 
-  padding: 5px!important;
-  font-size: 12px!important;
-  background-color: #edeef2;
-  background-color: #edeef226;
-    border-radius: 0;
-  
-    border: solid #dcd4d4;
-    border-width: 1px 0 1px 0;
+  padding: 5px;
+  font-size: 12px;
+  background-image: ${({ theme }) => theme.special};
+  color: ${({theme}) => theme.white};
+  border-radius: 12px;
+  border: solid #dcd4d4;
+  border-width: 1px;
 `;
 const Item = styled.div`
   display: flex;
   justify-content: center;
-  padding: .3rem;
+  // padding: .3rem;
   
 `;
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 50% 1fr;
-  grid-template-rows: 40px;
-  grid-gap: 5px;
+  // grid-template-columns: 1fr 1fr;
+  grid-template-rows: 10px;
+  // grid-gap: 5px;
+  padding: 0.3rem;
 `;
 const ColumnLabel = styled(TYPE.darkGray)`
   white-space: no-wrap;
@@ -73,7 +71,7 @@ export default function ReferralLinksCard() {
       {activeProtocol && verifiedHandleEntry ? (
           referralLink ? (
             <>
-              <RoundedLink style={{ padding: '20px',  }}>
+              <RoundedLink >
                 <Copy toCopy={"https://" + referralLink}>
                   <span style={{ paddingLeft: 10 }}>
                     {"  "}
@@ -89,7 +87,6 @@ export default function ReferralLinksCard() {
             </>
           )
         ) : (
-          <Row>
             <RoundedLink >
               <Grid>
                 <Item >
@@ -106,8 +103,6 @@ export default function ReferralLinksCard() {
                 </Item>
               </Grid>
             </RoundedLink>
-            
-          </Row>
         )}
         {/* </AutoColumn> */}
     </>
