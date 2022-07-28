@@ -51,7 +51,7 @@ const Item = styled.div`
 const Grid = styled.div`
   display: grid;
   // grid-template-columns: 1fr 1fr;
-  grid-template-rows: 10px;
+  grid-template-rows: 20px;
   // grid-gap: 5px;
   padding: 0.3rem;
 `;
