@@ -24,7 +24,6 @@ function useUtm() {
   ); //prefers the shortened link
 }
 
-//todo - make this flexible based on the twitter
 export function useReferralLink(): string | undefined {
   const dispatch = useDispatch<AppDispatch>();
   const { account } = useActiveWeb3React();

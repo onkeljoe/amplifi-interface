@@ -434,6 +434,7 @@ export const useCampaign = (
     const { amplifiCampaignFields } = data.data;
     setActiveCampaign({
       id: campaignID,
+      title: data.data.title,
       protocolId: activeProtocol.id,
       content: data.data.content,
       baseUrl: amplifiCampaignFields.baseUrl,
