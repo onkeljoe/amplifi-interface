@@ -73,13 +73,13 @@ export default function ReferralLinksCard() {
             <>
               <RoundedLink >
                 <Copy toCopy={"https://" + referralLink}>
-                  <div>
+                  <div style={{padding: 4}}>
                     <div style={{ paddingLeft: 10 }}>
                       {"  "}
                       Copy your unique link &amp; start earning
                       {/* {utmLinks[activeProtocol?.id]} */}
                     </div>
-                    {activeCampaign && <div style={{fontSize: 8, color: 'lightGrey'}}>{activeCampaign.baseUrl.replace("?", "")}</div>}
+                    {activeCampaign && <div style={{fontSize: 8, color: 'lightGrey', padding: 1}}>{activeCampaign.baseUrl.replace("?", "")}</div>}
                   </div>
                 </Copy>
               </RoundedLink>
