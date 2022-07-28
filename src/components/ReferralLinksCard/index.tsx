@@ -69,29 +69,19 @@ export default function ReferralLinksCard() {
   const [activeCampaign] = useActiveCampaign();
   return (
     <>
-    <AutoColumn>
-    {activeCampaign && activeCampaign.content && <>
-      {parse(activeCampaign.content)}
-    </>}
+    {/* <AutoColumn> */}
       {activeProtocol && verifiedHandleEntry ? (
           referralLink ? (
             <>
-                 
-          
-         
-       
-              <Row style={{ maxWidth: '800px' }}>
-              <ColumnLabel>Referral Link</ColumnLabel>
-                <RoundedLink style={{ padding: '20px',  }}>
-                  <Copy toCopy={"https://" + referralLink}>
-                    <span style={{ paddingLeft: 10 }}>
-                      {"  "}
-                      Copy your unique link &amp; start earning
-                      {/* {utmLinks[activeProtocol?.id]} */}
-                    </span>
-                  </Copy>
-                </RoundedLink>
-              </Row>
+              <RoundedLink style={{ padding: '20px',  }}>
+                <Copy toCopy={"https://" + referralLink}>
+                  <span style={{ paddingLeft: 10 }}>
+                    {"  "}
+                    Copy your unique link &amp; start earning
+                    {/* {utmLinks[activeProtocol?.id]} */}
+                  </span>
+                </Copy>
+              </RoundedLink>
             </>
           ) : (
             <>
@@ -119,7 +109,7 @@ export default function ReferralLinksCard() {
             
           </Row>
         )}
-        </AutoColumn>
+        {/* </AutoColumn> */}
     </>
   )
 }

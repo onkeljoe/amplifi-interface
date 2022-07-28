@@ -9,6 +9,7 @@ import Card from "../Card";
 import { TYPE } from "../../theme";
 import { Link, useLocation } from "react-router-dom";
 import Toggle from "../Toggle";
+import ReferralLinksCard from "components/ReferralLinksCard";
 
 export const TabOption = styled.button<{
   selected?: boolean;
@@ -58,7 +59,7 @@ function Tabs() {
             color2={activeProtocol?.secondaryColor}
           >
             <TYPE.main color={activeProtocol?.primaryColor} fontSize={"16px"}>
-            Amplifi Campaigns
+            Campaigns
             </TYPE.main>
           </TabOption>
           <TabOption
@@ -91,6 +92,9 @@ function Tabs() {
             </RowFixed>
           </AboveSmall>
         )}
+        <AutoRow>
+          <ReferralLinksCard />
+        </AutoRow>
       </RowBetween>
     </Card>
   );

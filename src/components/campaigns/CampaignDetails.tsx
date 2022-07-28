@@ -93,7 +93,9 @@ function CampaignDetails({
           {true && (
             <ProposalStatus status={"pending" ?? "pending"}>{"Pending"}</ProposalStatus>
           )}
+          
         </RowBetween> */}
+
         <AutoColumn gap="10px" style={{ width: "100%" }}>
           {/* <TYPE.largeHeader style={{ marginBottom: ".5rem" }}>
             {data && data.data.title ? data.data.title : <LoadingRows>

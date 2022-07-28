@@ -79,28 +79,6 @@ export default function CampaignOverview() {
         )}
         </AutoColumn>
       </CampaignWrapper>
-      <AutoColumn>
-      {process.env.NODE_ENV == 'development' && <>
-        <TYPE.mediumHeader mt={"1rem"}>🚧 Other fields 🚧</TYPE.mediumHeader>
-        <p>baseUrl: {activeCampaign.baseUrl}</p>
-        <p>budget: {activeCampaign.budget}</p>
-        <p>content: {activeCampaign.content}</p>
-        <p>campaignBudget: {activeCampaign.campaignBudget}</p>
-        <p>description: {activeCampaign.description}</p>
-        <p>budgetDescription: {activeCampaign.budgetDescription}</p>
-        <p>featuredImage: {activeCampaign.featuredImage}</p>
-        <p>goal: {activeCampaign.goal}</p>
-        <p>id: {activeCampaign.id}</p>
-        <p>isDemo: {activeCampaign.isDemo}</p>
-        <p>kpi: {activeCampaign.kpi}</p>
-        <p>overviewVideo: {activeCampaign.overviewVideo}</p>
-        <p>protocolId: {activeCampaign.protocolId}</p>
-        <p>startDate: {activeCampaign.startDate}</p>
-        <p>whitelist: {activeCampaign.whitelist && activeCampaign.whitelist.length > 0 && activeCampaign.whitelist.map((f,i) => {
-          return <p key={i}>{f}</p>
-        })}</p>
-      </>}
-      </AutoColumn>
     </Wrapper>
   );
 }
