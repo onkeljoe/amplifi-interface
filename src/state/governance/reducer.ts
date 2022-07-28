@@ -189,7 +189,7 @@ const FUJI = new Token(
 );
 export const FUJI_GOVERNANCE: GovernanceInfo = {
   id: "fuji",
-  name: "Fuji Expedition",
+  name: "Fuji",
   logo: FujiLogo,
   primaryColor: "#FF007A",
   secondaryColor: "#f2eeff",
@@ -295,7 +295,7 @@ const CRE8R = new Token(
 );
 export const CRE8R_GOVERNANCE: GovernanceInfo = {
   id: "CRE8R",
-  name: "CRE8R Ampbassadooors",
+  name: "CRE8R",
   logo: Cre8rLogo,
   primaryColor: "#383838",
   secondaryColor: "#B0B0B0",
