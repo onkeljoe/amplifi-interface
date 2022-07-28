@@ -38,7 +38,7 @@ export default function CampaignOverview() {
     </LoadingRows>
   }
   return (
-    <Wrapper style={{marginTop: 10, maxWidth: '800px'}}>
+    <Wrapper style={{marginTop: 10}}>
       {/* {activeCampaign.content && <>
             {parse(activeCampaign.content)}
           </>} */}

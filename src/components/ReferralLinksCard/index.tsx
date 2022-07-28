@@ -14,7 +14,14 @@ import "@wordpress/block-library/build-style/common.css"
 import "@wordpress/block-library/build-style/style.css"
 import "@wordpress/block-library/build-style/theme.css"
 import { AutoColumn } from "../Column";
-
+import Row, { AutoRow, RowBetween, RowFixed } from "../Row";
+import {
+  TYPE,
+  BlankInternalLink,
+  OnlyAboveExtraSmall,
+  OnlyAboveSmall,
+  OnlyAboveLarge,
+} from "../../theme";
 
 
 
@@ -27,9 +34,15 @@ export const Break = styled.div`
 
 const RoundedLink = styled.div`
   background: ${({ theme }) => theme.bg3};
-  border-radius: 10px;
+ 
   padding: 5px!important;
   font-size: 12px!important;
+  background-color: #edeef2;
+  background-color: #edeef226;
+    border-radius: 0;
+  
+    border: solid #dcd4d4;
+    border-width: 1px 0 1px 0;
 `;
 const Item = styled.div`
   display: flex;
@@ -43,6 +56,10 @@ const Grid = styled.div`
   grid-template-columns: 50% 1fr;
   grid-template-rows: 40px;
   grid-gap: 5px;
+`;
+const ColumnLabel = styled(TYPE.darkGray)`
+  white-space: no-wrap;
+  font-size: 15px;
 `;
 export default function ReferralLinksCard() {
   const [activeProtocol] = useActiveProtocol();
@@ -59,8 +76,13 @@ export default function ReferralLinksCard() {
       {activeProtocol && verifiedHandleEntry ? (
           referralLink ? (
             <>
-              <Card style={{ maxWidth: '800px' }}>
-                <RoundedLink style={{ padding: '20px', maxWidth: '800px!important' }}>
+                 
+          
+         
+       
+              <Row style={{ maxWidth: '800px' }}>
+              <ColumnLabel>Referral Link</ColumnLabel>
+                <RoundedLink style={{ padding: '20px',  }}>
                   <Copy toCopy={"https://" + referralLink}>
                     <span style={{ paddingLeft: 10 }}>
                       {"  "}
@@ -69,7 +91,7 @@ export default function ReferralLinksCard() {
                     </span>
                   </Copy>
                 </RoundedLink>
-              </Card>
+              </Row>
             </>
           ) : (
             <>
@@ -77,7 +99,7 @@ export default function ReferralLinksCard() {
             </>
           )
         ) : (
-          <Card>
+          <Row>
             <RoundedLink >
               <Grid>
                 <Item >
@@ -94,7 +116,8 @@ export default function ReferralLinksCard() {
                 </Item>
               </Grid>
             </RoundedLink>
-          </Card>
+            
+          </Row>
         )}
         </AutoColumn>
     </>

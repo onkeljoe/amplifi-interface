@@ -26,12 +26,7 @@ body {
 /* // make link warning box way smaller and remove some padding */
 
 
-.gLAoTI {
-  width: 100%;
-  border-radius: 14px;
-  padding: 13px;
-  background-color: #edeef2;
-}
+
 
 /* // heading row gap */
 .fxWeWC { 
@@ -40,6 +35,10 @@ body {
   row-gap: 0px;
   justify-items: start;
 }
+.IncentivesAmp {display: flex;gap: 0.5em;flex-wrap: nowrap;align-items: center;}
+.IncentivesAmp > * { margin: 0; }
+
+.wp-container-3 {display: flex;gap: 0.5em;flex-wrap: nowrap;align-items: center;}.wp-container-3 > * { margin: 0; }
 
 .wp-container-1.is-nowrap.wp-block-group.has-small-font-size {
   font-size: 13px;
@@ -57,11 +56,11 @@ body {
   border-radius: 12px;
 }
 /* // plus icon */
-#root > div.sc-bKhNmF.duKlzc > div.sc-jhfVAM.fChGrX > div.sc-dFdIVH.bmyxaK > div > div.sc-eCOUaW > div > div > div.wp-container-1.is-content-justification-center.is-nowrap.wp-block-group.has-small-font-size > div.wp-block-outermost-icon-block.items-justified-undefined.ampIconandlink > a > svg{
+/* #root > div.sc-bKhNmF.duKlzc > div.sc-jhfVAM.fChGrX > div.sc-dFdIVH.bmyxaK > div > div.sc-eCOUaW > div > div > div.wp-container-1.is-content-justification-center.is-nowrap.wp-block-group.has-small-font-size > div.wp-block-outermost-icon-block.items-justified-undefined.ampIconandlink > a > svg{
   background-color: rgb(231, 228, 228);
   border-radius: 12px;
   width: 28px;
-}
+} */
 
 a.icon-container.has-icon-color svg {
   width: 25px;
@@ -71,29 +70,70 @@ a.icon-container.has-icon-color svg {
   font-weight: bold;
 }
 
-ampChart {
-  background-color: red;
-  padding: 5px;
-  border-radius: 12px;
-}
 div#ampBlockColumn {
   margin: 0px;
 }
+
+.wp-container-5.wp-block-columns.alignwide.ampColumns {
+  column-gap: 10px;
+  column-rule: double;
+}
 .wp-container-2.wp-block-group {
   padding: 10px 5px 5px 10px;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   background-color: #edeef2;
+  background-color: #edeef226;
+    border-radius: 0;
+    padding: 10px;
+    border: solid #dcd4d4;
+    border-width: 1px 0 1px 0;
 }
-.wp-container-1.is-nowrap.wp-block-group.has-small-font-size {
+.wp-container-4.wp-block-column {
+  padding: 10px 5px 5px 10px;
+  /* border-radius: 20px; */
+  background-color: #edeef2;
+  background-color: #edeef226;
+    border-radius: 0;
+    padding: 10px;
+    border: solid #dcd4d4;
+    border-width: 1px 0 1px 0;
+
+}
+.wp-container-2.wp-block-column {
+  padding: 10px 5px 5px 10px;
+  /* border-radius: 20px; */
+  background-color: #edeef2;
+  background-color: #edeef226;
+    border-radius: 0;
+    padding: 10px;
+    border: solid #dcd4d4;
+    border-width: 1px 0 1px 0;
+}
+/* .wp-container-1.is-nowrap.wp-block-group.has-small-font-size {
   background-color: #edeef2;
   border-radius: 20px;
   padding: 0px;
   color: #000000d9!important;
-}
+} */
+
+/* .wp-container-1.is-nowrap.wp-block-group.has-small-font-size {
+  background-color: #edeef226;
+    border-radius: 0;
+    padding: 10px;
+    border: solid black;
+    border-width: 1px 0 1px 0;
+} */
+
 
 p.ampLabel.has-text-color {
   display: block;
   margin-left: 15px;
+  box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    font-weight: 500;
+    font-size: 12px;
+    opacity: 0.6;
   
 }
 
@@ -660,22 +700,20 @@ Select {
   }
 }
 
-.wp-container-1 {display: flex;gap: 0.5em;flex-wrap: nowrap;align-items: center;}.wp-container-1 > * { margin: 0; }
 
-.wp-container-3 {display: flex;gap: 0.5em;flex-wrap: nowrap;align-items: center;}.wp-container-3 > * { margin: 0; }
 
-.wp-container-4.wp-block-column {
+/* .wp-container-4.wp-block-column {
   margin-left: 14px;
   background-color: #edeef2;
   border-radius: 20px;
   padding: 10px;
-}
+} */
 
-.wp-container-2.wp-block-column {
+/* .wp-container-2.wp-block-column {
   background-color: #edeef2;
   border-radius: 20px;
   padding: 10px;
-}
+} */
 
 /* // this was stretching beyond screen no idea why - was fine yesterday need to figure out why */
 .gLAoTI {
