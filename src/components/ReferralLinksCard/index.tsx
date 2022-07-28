@@ -79,7 +79,7 @@ export default function ReferralLinksCard() {
                       Copy your unique link &amp; start earning
                       {/* {utmLinks[activeProtocol?.id]} */}
                     </div>
-                    {activeCampaign && <div style={{fontSize: 8}}>{activeCampaign.baseUrl.replace("?", "")}</div>}
+                    {activeCampaign && <div style={{fontSize: 8, color: 'lightGrey'}}>{activeCampaign.baseUrl.replace("?", "")}</div>}
                   </div>
                 </Copy>
               </RoundedLink>
