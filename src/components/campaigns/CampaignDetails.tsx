@@ -70,7 +70,8 @@ function CampaignDetails({
   const {
     amplifiCampaignsTabData,
     uriToRouteMap,
-    page: { data, tabUri, useCampaignACFsInstead },
+    page,
+    tabUri
   } = useCampaign(protocolID, pathname, campaignID);
 
   return (
@@ -119,24 +120,32 @@ function CampaignDetails({
             />
           )}
           {/* <Break /> */}
-          {useCampaignACFsInstead ? (
-            <CampaignOverview />
-          ) : (
-            <>
-              {/* <Break /> */}
-              {!data ? (
-                <LoadingRows>
-                  <div/>
-                  <div/>
-                  <div/>
-                  <div/>
-                </LoadingRows>
-              ) : (
-                <CampaignContent content={data.data.content} />
-              )}
-            </>
-          )}
-          {data && data.error && <div>Error loading content</div>}
+          {page && <>
+            {page.type === 'SubPage' ? <>
+              {(() => {
+                const Component = page.data.component
+                return <Component />
+              })()}
+            </> : page.type === 'WPACFPage' ? (
+              <CampaignOverview />
+            ) : (
+              <>
+                {/* <Break /> */}
+                {!page || !page.data ? (
+                  <LoadingRows>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                  </LoadingRows>
+                ) : (
+                  // WPContentPage
+                  <CampaignContent content={page.data.content} />
+                )}
+              </>
+            )}
+          </>}
+          {page && page.error && <div>Error loading content</div>}
         </AutoColumn>
         {/* Auto column
         <AutoColumn gap="md">

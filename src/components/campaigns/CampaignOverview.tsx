@@ -65,8 +65,6 @@ export default function CampaignOverview() {
                   {parse(activeCampaign.description)}
                 </TYPE.body>
                 </>
-
-              // todo - make video 50% width
                 }
               </>
             )}
@@ -82,13 +80,13 @@ export default function CampaignOverview() {
       <AutoColumn>
       {process.env.NODE_ENV == 'development' && <>
         <TYPE.mediumHeader mt={"1rem"}>🚧 Other fields 🚧</TYPE.mediumHeader>
-        <p>baseUrl: {activeCampaign.baseUrl}</p>
-        <p>budget: {activeCampaign.budget}</p>
-        <p>content: {activeCampaign.content}</p>
-        <p>campaignBudget: {activeCampaign.campaignBudget}</p>
-        <p>description: {activeCampaign.description}</p>
-        <p>budgetDescription: {activeCampaign.budgetDescription}</p>
-        <p>featuredImage: {activeCampaign.featuredImage}</p>
+        <p >baseUrl: {activeCampaign.baseUrl}</p>
+        <p style={{width: 500}}>budget: {activeCampaign.budget}</p>
+        <p style={{width: 500}}>content: {activeCampaign.content}</p>
+        <p style={{width: 500}}>campaignBudget: {activeCampaign.campaignBudget}</p>
+        <p style={{width: 500}}>description: {activeCampaign.description}</p>
+        <p style={{width: 500}}>budgetDescription: {activeCampaign.budgetDescription}</p>
+        <p style={{width: 500}}>featuredImage: {activeCampaign.featuredImage}</p>
         <p>goal: {activeCampaign.goal}</p>
         <p>id: {activeCampaign.id}</p>
         <p>isDemo: {activeCampaign.isDemo}</p>

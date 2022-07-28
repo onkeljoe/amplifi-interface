@@ -1,6 +1,6 @@
 import { getUrl } from "data/url";
 import { useCallback, useEffect, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useActiveProtocol } from "state/governance/hooks";
 import { useVerifiedHandle } from "state/social/hooks";
 import { useActiveWeb3React } from "../../hooks";
@@ -101,7 +101,7 @@ export function useActiveCampaign(): [
     AppState["campaigns"]["activeCampaign"]
   >((state) => {
     return state.campaigns.activeCampaign;
-  });
+  }, shallowEqual);
   const [activeProtocol] = useActiveProtocol();
 
   const setActiveCampaign = useCallback(
