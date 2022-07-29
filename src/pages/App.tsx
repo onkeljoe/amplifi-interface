@@ -34,7 +34,7 @@ const SiteWrapper = styled.div<{ expandedOverview?: boolean }>`
   height: 100vh;
   width: 100%;
   display: grid;
-  grid-template-columns: ${FIRST_2_COLS_WIDTH - OVERVIEW_EXPANSION_WIDTH}px 1fr 376px;
+  grid-template-columns: ${FIRST_2_COLS_WIDTH - OVERVIEW_EXPANSION_WIDTH}px 1fr 200px;
   overflow: auto;
 
   ${({ theme }) => theme.mediaWidth.upToLarge`

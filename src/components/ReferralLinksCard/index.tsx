@@ -13,35 +13,51 @@ import parse from "html-react-parser";
 import "@wordpress/block-library/build-style/common.css"
 import "@wordpress/block-library/build-style/style.css"
 import "@wordpress/block-library/build-style/theme.css"
-
+import { AutoColumn } from "../Column";
+import Row, { AutoRow, RowBetween, RowFixed } from "../Row";
+import {
+  TYPE,
+  BlankInternalLink,
+  OnlyAboveExtraSmall,
+  OnlyAboveSmall,
+  OnlyAboveLarge,
+} from "../../theme";
 
 
 
 export const Break = styled.div`
-  width: 100%;
+  width: 800px;
   background-color: ${({ theme }) => theme.bg3};
   height: 1px;
   margin: 0;
 `;
 
 const RoundedLink = styled.div`
-  background: ${({ theme }) => theme.bg3};
-  border-radius: 10px;
-  padding: 5px!important;
-  font-size: 12px!important;
+  padding: 5px;
+  font-size: 12px;
+  background-image: ${({ theme }) => theme.special};
+  color: ${({theme}) => theme.white};
+  border-radius: 12px;
+  border: solid #dcd4d4;
+  border-width: 1px;
 `;
 const Item = styled.div`
   display: flex;
   justify-content: center;
-  padding: .3rem;
+  // padding: .3rem;
   
 `;
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 50% 1fr;
-  grid-template-rows: 40px;
-  grid-gap: 5px;
+  // grid-template-columns: 1fr 1fr;
+  grid-template-rows: 20px;
+  // grid-gap: 5px;
+  padding: 0.3rem;
+`;
+const ColumnLabel = styled(TYPE.darkGray)`
+  white-space: no-wrap;
+  font-size: 15px;
 `;
 export default function ReferralLinksCard() {
   const [activeProtocol] = useActiveProtocol();
@@ -51,31 +67,29 @@ export default function ReferralLinksCard() {
   const [activeCampaign] = useActiveCampaign();
   return (
     <>
-    {activeCampaign && activeCampaign.content && <>
-      {parse(activeCampaign.content)}
-    </>}
+    {/* <AutoColumn> */}
       {activeProtocol && verifiedHandleEntry ? (
           referralLink ? (
             <>
-              <Card>
-                <RoundedLink style={{ padding: '5px' }}>
-                  <Copy toCopy={"https://" + referralLink}>
-                    <span style={{ paddingLeft: 10 }}>
+              <RoundedLink >
+                <Copy toCopy={"https://" + referralLink}>
+                  <div style={{padding: 4}}>
+                    <div style={{ paddingLeft: 10 }}>
                       {"  "}
                       Copy your unique link &amp; start earning
                       {/* {utmLinks[activeProtocol?.id]} */}
-                    </span>
-                  </Copy>
-                </RoundedLink>
-              </Card>
+                    </div>
+                    {activeCampaign && <div style={{fontSize: 8, color: 'lightGrey', padding: 1}}>{activeCampaign.baseUrl.replace("?", "")}</div>}
+                  </div>
+                </Copy>
+              </RoundedLink>
             </>
           ) : (
             <>
-              <Loader />
+              {/* <Loader /> */}
             </>
           )
         ) : (
-          <Card>
             <RoundedLink >
               <Grid>
                 <Item >
@@ -92,8 +106,8 @@ export default function ReferralLinksCard() {
                 </Item>
               </Grid>
             </RoundedLink>
-          </Card>
         )}
+        {/* </AutoColumn> */}
     </>
   )
 }

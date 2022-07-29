@@ -71,14 +71,12 @@ export default function CampaignOverview() {
         </AutoColumn>
         <AutoColumn>
         {activeCampaign.overviewVideo && (
-            <div style={{marginTop: 50}}>
+            <div style={{marginTop: 0}}>
               <Youtube src={activeCampaign.overviewVideo} />
             </div>
         )}
         </AutoColumn>
       </CampaignWrapper>
-      <AutoColumn>
-      </AutoColumn>
     </Wrapper>
   );
 }

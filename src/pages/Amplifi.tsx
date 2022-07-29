@@ -13,6 +13,7 @@ import Tabs from "../components/governance/Tabs";
 import { TYPE } from "../theme";
 import CampaignList from "components/campaigns/CampaignList";
 import CampaignDetails from "components/campaigns/CampaignDetails";
+import { useActiveCampaign } from "state/campaigns/hooks";
 
 export default function Amplifi({
   match: {
@@ -25,7 +26,7 @@ export default function Amplifi({
   //const { chainId } = useActiveWeb3React()
 
   const [activeProtocol] = useActiveProtocol();
-
+  const [activeCampaign] = useActiveCampaign();
   return (
     <BodyWrapper>
       <AutoColumn gap="1rem">
@@ -34,6 +35,7 @@ export default function Amplifi({
             <Above1080Only>
               <RowFixed>
                 <WrappedListLogo src={activeProtocol?.logo} />
+                <AutoColumn>
                 <TYPE.mediumHeader
                   ml="8px"
                   fontWeight={600}
@@ -41,6 +43,14 @@ export default function Amplifi({
                 >
                   {activeProtocol?.name}
                 </TYPE.mediumHeader>
+                {campaignID && <TYPE.small
+                  ml="8px"
+                  fontWeight={600}
+                  color={activeProtocol?.primaryColor}
+                >
+                  {activeCampaign?.title}
+                </TYPE.small>}
+                </AutoColumn>
               </RowFixed>
             </Above1080Only>
             <Below1080Only>

@@ -94,7 +94,9 @@ function CampaignDetails({
           {true && (
             <ProposalStatus status={"pending" ?? "pending"}>{"Pending"}</ProposalStatus>
           )}
+          
         </RowBetween> */}
+
         <AutoColumn gap="10px" style={{ width: "100%" }}>
           {/* <TYPE.largeHeader style={{ marginBottom: ".5rem" }}>
             {data && data.data.title ? data.data.title : <LoadingRows>
@@ -105,7 +107,8 @@ function CampaignDetails({
             Campaigns are still in testing phase and are subject to change. Please
             check back soon.
           </TYPE.body> */}
-          <ReferralLinksCard />
+          {/* <ReferralLinksCard /> */}
+          <CampaignContent />
           <RowBetween>{/* <TYPE.main>Date here</TYPE.main> */}</RowBetween>
           {amplifiCampaignsTabData.length > 0 && (
             <Tabs
