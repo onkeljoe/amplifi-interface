@@ -75,7 +75,7 @@ function CampaignList({
           <TYPE.body fontSize="16px" fontWeight="600" mb="1rem">
             Campaigns
           </TYPE.body>
-          <Break />
+          <Break style={{}} />
           {amplifiCampaigns ? (
             amplifiCampaigns.map((v, i) => {
               return (
@@ -98,7 +98,7 @@ function CampaignList({
               );
             })
           ) : (
-            <LoadingRows>
+            <LoadingRows style={{paddingTop: 10}}>
               <div />
               <div />
               <div />

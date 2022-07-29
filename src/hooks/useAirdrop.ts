@@ -1,13 +1,15 @@
 import { AirdropList, fetchList } from "data/list";
 import { useActiveWeb3React } from "hooks";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useVerifiedHandle } from "state/social/hooks";
 export function useAirdrop () {
   const { account } = useActiveWeb3React();
   const verifiedHandleEntry = useVerifiedHandle(account);
-  const [airdropList, setAirdropList] = useState<AirdropList>()
+  const [airdropList, setAirdropList] = useState<AirdropList>();
   useEffect(() => {
     if (account && verifiedHandleEntry) {
+      console.log(account)
+      console.log(verifiedHandleEntry)
       fetchList({
         id: "1u8IBLhr3Bk9MUkDquCEq2_q-IE-1KRiVYfo1la4nV_Y", //todo - currently this field is ignored
         source: "excel",
