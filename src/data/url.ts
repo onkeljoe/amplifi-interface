@@ -1,3 +1,4 @@
+import config from "config";
 export async function getUrl(
   twitterHandle: string,
   roughBaseUrl: string,
@@ -27,8 +28,8 @@ export async function getUrl(
   const utm_campaign = campaignId; //todo- make id campaign specific rather than protocol specific
   const utm_source = protocolId;
   const domain = {
-    id: "278c3d8b2f6d469e812bdddbf713a079",
-    fullName: "link.cre8r.vip",
+    id: config.rebrandly.id,
+    // fullName: config.rebrandly.fullName,
   };
 
   const campaignUrlComponents: any = [];
@@ -50,7 +51,7 @@ export async function getUrl(
   const urlComponents = [];
 
   urlComponents.push(`domain[id]=${domain.id}`);
-  urlComponents.push(`domain[fullName]=${domain.fullName}`);
+  // urlComponents.push(`domain[fullName]=${domain.fullName}`);  //consider for deletion 
 
   const options: any = {
     method: "GET",
