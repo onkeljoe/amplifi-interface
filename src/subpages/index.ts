@@ -5,8 +5,9 @@ import BoostCalculator from "./BoostCalculator";
  * key = the end part of the URI
  * value = component to display instead
  */
-const Subpages : {[endUri: string]: () => JSX.Element} = {
-  "boost-calculator": BoostCalculator
+const subpages : {[endUri: string]: () => JSX.Element} = {
+  "boost-calculator": BoostCalculator,
+  "beets-boosted-bribes-snapshot-voting-how-to-get-boost": BoostCalculator
 }
 
-export default Subpages
+export default subpages

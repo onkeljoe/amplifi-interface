@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 
 function BoostCalculator () {
   return (
-    <div>This is boost calculator page</div>
+    <div>This is boost calculator pageff</div>
   )
 }
 

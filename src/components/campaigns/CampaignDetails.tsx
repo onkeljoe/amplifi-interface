@@ -150,16 +150,6 @@ function CampaignDetails({
           </>}
           {page && page.error && <div>Error loading content</div>}
         </AutoColumn>
-        {/* Auto column
-        <AutoColumn gap="md">
-          Auto column
-        </AutoColumn>
-        <AutoColumn gap="md">
-          Auto column
-        </AutoColumn>
-        <AutoColumn gap="md">
-          Auto column
-        </AutoColumn> */}
       </ProposalInfo>
     </Wrapper>
   );

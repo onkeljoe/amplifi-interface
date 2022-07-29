@@ -10,7 +10,7 @@ import {
   useWPNav,
   useWPUriQuery
 } from "./useWP";
-import Subpages from "subpages";
+import subpages from "subpages";
 /* 
 
 # The expected structure of the WP
@@ -307,7 +307,9 @@ interface SubPage extends Page {
 function useSubPage (uri: string) : SubPage | undefined {
   const parts = uri.split('/')
   // not sure how to make this also undefined because if subpage key doesn't exist then Component will not
-  const Component = Subpages[parts[parts.length - 1]]
+  const key = parts[parts.length - 1] || parts[parts.length - 2] 
+  //if uri is /amplifi-pages/boost-calculator/ , then uri.split('/') will be ['amplifi-pages', 'boost-calculator', '']
+  const Component = subpages[key]
   if (Component) {
     return {
       data: {
@@ -345,6 +347,7 @@ function useWPPage (path: string | undefined) : WPACFPage | WPContentPage | unde
  * @returns
  */
 function usePage (uri: string) : Page | undefined {
+  console.log('f')
   const subpage = useSubPage(uri);
   //if subpage exists, skip WP query
   const wppage = useWPPage(subpage ? undefined : uri);
@@ -452,7 +455,7 @@ export const useCampaign = (
     const { amplifiCampaignFields } = page.data;
     setActiveCampaign({
       id: campaignID,
-      title: data.data.title,
+      title: page.data.title,
       protocolId: activeProtocol.id,
       content: page.data.content,
       baseUrl: amplifiCampaignFields.baseUrl,
