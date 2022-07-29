@@ -11,6 +11,8 @@ import HundredLogo from "../../assets/images/hundred-logo.png";
 import NounsLogo from "../../assets/images/nouns-logo.png";
 import RadicleLogo from "../../assets/images/radicle-logo.svg";
 import UniLogo from "../../assets/images/uni-logo.png";
+import DevoLogo from "../../assets/images/devo-logo.png";
+import BilliLogo from "../../assets/images/billilogo.jpg";
 import { SerializedToken } from "./../user/actions";
 import {
   updateActiveProtocol,
@@ -50,6 +52,33 @@ export interface GlobaData {
   delegatedVotes: number;
   delegatedVotesRaw: number;
 }
+
+export const CHEESE_ADDRESS = "0x238d82a35e69d7c10fe69a649134171c63e57522";
+const CHEESE = new Token(
+  ChainId.MAINNET,
+  CHEESE_ADDRESS,
+  18,
+  "Cheese",
+  "CHEESE"
+);
+
+export const BILLI_GOVERNANCE: GovernanceInfo = {
+  id: "BilliDrop",
+  name: "BilliDrop",
+  logo: BilliLogo,
+  primaryColor: "#383838",
+  secondaryColor: "#B0B0B0",
+  token: serializeToken(CHEESE),
+  governanceAlphaAddresses: [],
+  // governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
+  migrationProposalId: 8,
+  social: "@CRE8RDAO",
+  emoji: "🔊",
+  baseUrl: "https://amplifi.cre8r.vip?",
+  hasSnapshot: true,
+  spaceSnapshot: "cre8r.eth",
+  // featuredImage: AmpliFiLogo,
+};
 
 // constant addresses for supported protocols
 export const UNI_GOVERNANCE_ADDRESS_ALPHA_V0 =
@@ -109,6 +138,33 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   baseUrl: "https://amplifi.cre8r.vip?",
   hasSnapshot: true,
   spaceSnapshot: "cre8r.eth",
+  // featuredImage: AmpliFiLogo,
+};
+
+export const DEVO_ADDRESS = "0x238d82a35e69d7c10fe69a649134171c63e57522";
+const DEVO = new Token(
+  ChainId.MAINNET,
+  DEVO_ADDRESS,
+  18,
+  "DEVO",
+  "DEVO GOVERNANCE TOKEN"
+);
+
+export const DEVO_GOVERNANCE: GovernanceInfo = {
+  id: "DEVO",
+  name: "DEVO",
+  logo: DevoLogo,
+  primaryColor: "#383838",
+  secondaryColor: "#B0B0B0",
+  token: serializeToken(DEVO),
+  governanceAlphaAddresses: [],
+  governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
+  migrationProposalId: 8,
+  social: "@DEVO",
+  emoji: "🔊",
+  baseUrl: "https://amplifi.cre8r.vip?",
+  hasSnapshot: true,
+  spaceSnapshot: "devo.eth",
   // featuredImage: AmpliFiLogo,
 };
 
@@ -311,6 +367,8 @@ export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   fuji: FUJI_GOVERNANCE,
   CRE8R: CRE8R_GOVERNANCE,
   AMPLIFI: AMPLIFI_GOVERNANCE,
+  DEVO: DEVO_GOVERNANCE,
+  BilliDrop: BILLI_GOVERNANCE,
   // connect: CONNECT_CONFIG,
 };
 

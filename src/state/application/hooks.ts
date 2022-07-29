@@ -32,6 +32,7 @@ import {
   ensClient,
   snapshotClient,
   cre8rCmsClient,
+  devoClient
 } from "../../apollo/client";
 
 export function useBlockNumber(): number | undefined {
@@ -128,6 +129,9 @@ export function useSubgraphClient() {
 
   if (activeProtocol?.id === UNISWAP_GOVERNANCE.id) {
     return uniswapClient;
+  }
+  if (activeProtocol?.id === UNISWAP_GOVERNANCE.id) {
+    return devoClient;
   }
 
   if (activeProtocol?.id === COMPOUND_GOVERNANCE.id) {
