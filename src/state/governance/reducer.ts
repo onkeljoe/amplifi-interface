@@ -367,8 +367,8 @@ export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   fuji: FUJI_GOVERNANCE,
   CRE8R: CRE8R_GOVERNANCE,
   AMPLIFI: AMPLIFI_GOVERNANCE,
-  DEVO: DEVO_GOVERNANCE,
-  BilliDrop: BILLI_GOVERNANCE,
+  // DEVO: DEVO_GOVERNANCE, //demo
+  // BilliDrop: BILLI_GOVERNANCE, //demo
   // connect: CONNECT_CONFIG,
 };
 
