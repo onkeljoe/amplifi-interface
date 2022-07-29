@@ -7,7 +7,6 @@ import BoostCalculator from "./BoostCalculator";
  */
 const subpages : {[endUri: string]: () => JSX.Element} = {
   "boost-calculator": BoostCalculator,
-  "beets-boosted-bribes-snapshot-voting-how-to-get-boost": BoostCalculator
 }
 
 export default subpages
