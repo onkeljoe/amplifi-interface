@@ -65,8 +65,6 @@ export default function CampaignOverview() {
                   {parse(activeCampaign.description)}
                 </TYPE.body>
                 </>
-
-              // todo - make video 50% width
                 }
               </>
             )}

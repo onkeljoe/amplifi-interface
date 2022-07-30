@@ -8,10 +8,9 @@ import {
   MenuTreeItem,
   PageData,
   useWPNav,
-  useWPUri,
   useWPUriQuery
 } from "./useWP";
-
+import subpages from "subpages";
 /* 
 
 # The expected structure of the WP
@@ -153,50 +152,31 @@ interface NodeByUriResponse {
  * @param data
  * @returns
  */
-//@ts-ignore
-const getDisplayData: (data: NodeByUriResponse) => AmplifiCampaignResponse = (
-  data: NodeByUriResponse
-) => {
-  if (data.nodeByUri.amplifiCampaignFields) {
+
+function getDisplayData (path: string, res: ApolloQueryResult<NodeByUriResponse>) : WPACFPage | WPContentPage | undefined {
+  if (!res || !res.data || res.error) {
+    return undefined
+  } else if (isAmplifiCampaign(path)) {
     return {
+      type: "WPACFPage",
       data: {
-        ...data.nodeByUri,
-        isACFPage: true,
+        amplifiCampaignFields: res.data.nodeByUri.amplifiCampaignFields,
+        content: res.data.nodeByUri.content,
+        title: res.data.nodeByUri.title
       },
       loading: false,
-      error: "",
-    };
-  } else if (data && data.nodeByUri) {
-    console.log(data);
-    return {
-      data: {
-        content: data.nodeByUri.content || "No content",
-        title: data.nodeByUri.title || "",
-        isACFPage: false,
-      },
-      loading: false,
-      error: "",
-    };
-  } else if (!data) {
-    return {
-      data: {
-        content: "",
-        title: "",
-        isACFPage: false,
-      },
-      loading: true,
-      error: "",
+      error: res.error,
     };
   }
   return {
+    type: 'WPContentPage',
     data: {
-      content: "",
-      title: "",
-      isACFPage: false,
+      content: res.data.nodeByUri.content,
+      title: res.data.nodeByUri.title,
     },
     loading: false,
-    error: "Something is wrong",
-  };
+    error: res.error
+  }
 };
 type Route = string;
 export interface UriToRouteMap {
@@ -261,76 +241,117 @@ const generateRouteToWpUriMap = (protocolID: string, nav?: MenuTreeItem[]) => {
   return invertedMap;
 };
 
-interface WPPage {
-  isACFPage: false;
-  title: string;
-  content: string;
-}
-
-interface ACFPage {
-  isACFPage: true;
-  title: string;
-  content: string;
-  amplifiCampaignFields: {
-    baseUrl: string;
-    budget: string;
-    description: string;
-    campaignBudget: string;
-    featuredImage?: {
-      uri: string;
-      title: string;
-      status: string;
-      slug: string;
-      sourceUrl: string;
-    };
-    goal: string;
-    kpi: string;
-    overviewVideo: string;
-    selfHostedVideo: {
-      description: string;
-      uri: string;
-      title: string;
-      slug: string;
-      sourceUrl: string;
-    };
-    startDate: string;
-    fieldGroupName: string;
-    isDemo: string;
-    kpiMetric: string;
-    secondaryBudgetAmount: string;
-    secondarybudgetticket: string;
-    snapshotId: string;
-    snapshotProposal: string;
-  };
-}
-
-interface AmplifiCampaignResponse {
-  data: WPPage | ACFPage;
+type PageTypes = 'WPACFPage' | 'WPContentPage' | 'SubPage' | 'ErrorPage'
+interface Page {
+  type: PageTypes;
+  data: any;
   loading: boolean;
   error: any;
 }
+
+interface WPContentPage extends Page {
+  type: 'WPContentPage';
+  data: {
+    title: string;
+    content: string;
+  }
+}
+
+interface WPACFPage extends Page {
+  type: 'WPACFPage';
+  data: {
+    title: string;
+    content: string;
+    amplifiCampaignFields: {
+      baseUrl: string;
+      budget: string;
+      description: string;
+      campaignBudget: string;
+      featuredImage?: {
+        uri: string;
+        title: string;
+        status: string;
+        slug: string;
+        sourceUrl: string;
+      };
+      goal: string;
+      kpi: string;
+      overviewVideo: string;
+      selfHostedVideo: {
+        description: string;
+        uri: string;
+        title: string;
+        slug: string;
+        sourceUrl: string;
+      };
+      startDate: string;
+      fieldGroupName: string;
+      isDemo: string;
+      kpiMetric: string;
+      secondaryBudgetAmount: string;
+      secondarybudgetticket: string;
+      snapshotId: string;
+      snapshotProposal: string;
+    }
+  }
+}
+
+interface SubPage extends Page {
+  type: 'SubPage';
+  data: {
+    component: () => JSX.Element
+  }
+}
+
+
+function useSubPage (uri: string) : SubPage | undefined {
+  const parts = uri.split('/')
+  // not sure how to make this also undefined because if subpage key doesn't exist then Component will not
+  const key = parts[parts.length - 1] || parts[parts.length - 2] 
+  //if uri is /amplifi-pages/boost-calculator/ , then uri.split('/') will be ['amplifi-pages', 'boost-calculator', '']
+  const Component = subpages[key]
+  if (Component) {
+    return {
+      data: {
+        component: Component
+      },
+      error: false,
+      loading: false,
+      type: 'SubPage'
+    }
+  }
+  return undefined
+}
+
+function useWPPage (path: string | undefined) : WPACFPage | WPContentPage | undefined {
+  const queryUriToContent = useWPUriQuery();
+  const [res, setRes] = useState<ApolloQueryResult<any>>();
+  useEffect(() => {
+    if (!path) {
+      return;
+    }
+    setRes(undefined);
+    queryUriToContent(path).then((_res) => {
+      setRes(_res);
+    });
+  }, [path, queryUriToContent]);
+  if (!path || !res) {
+    return undefined
+  } 
+  return getDisplayData(path, res);
+};
 /**
- * abstracting away the wp data
+ * Aggregates data sources for content
+ * abstracting away the wp data and subpages
  * @param uri
  * @returns
  */
-const useUri = (uri: string) => {
-  const uriRes = useWPUri(uri);
-  const amplifiCampaignsDisplayData = useMemo<
-    AmplifiCampaignResponse | undefined
-  >(() => {
-    if (!uriRes) {
-      return;
-    }
-    return getDisplayData(uriRes.data);
-  }, [uriRes]);
-
-  return {
-    amplifiCampaignsDisplayData,
-    useCampaignACFsInstead:
-      isAmplifiCampaign(uri) || (uriRes && (!uriRes.data || uriRes.errors)),
-    loading: !amplifiCampaignsDisplayData,
-  };
+function usePage (uri: string) : Page | undefined {
+  console.log('f')
+  const subpage = useSubPage(uri);
+  //if subpage exists, skip WP query
+  const wppage = useWPPage(subpage ? undefined : uri);
+  return subpage || wppage;
 };
 
 const getCampaignRoute = (protocolID: string, campaignID: string) => {
@@ -419,24 +440,24 @@ export const useCampaign = (
     () => getTabUri(routeForTab, routeToUriMap, amplifiCampaignsTabData),
     [routeForTab, routeToUriMap, amplifiCampaignsTabData]
   );
-  const {
-    amplifiCampaignsDisplayData: data,
-    useCampaignACFsInstead,
-    loading: loadingPageData,
-  } = useUri(tabUri);
+  const page = usePage(tabUri);
 
-  const [, setActiveCampaign] = useActiveCampaign();
+  const [activeCampaign, setActiveCampaign] = useActiveCampaign();
   const [activeProtocol] = useActiveProtocol();
   useEffect(() => {
-    if (!data || !data.data.isACFPage || !campaignID || !activeProtocol) {
+    if (!page || page.type !== 'WPACFPage' || !campaignID || !activeProtocol) {
       return;
     }
-    const { amplifiCampaignFields } = data.data;
+    //todo : figure out what is causing the render loops when removing this
+    if (campaignID == activeCampaign?.id) {
+      return;
+    }
+    const { amplifiCampaignFields } = page.data;
     setActiveCampaign({
       id: campaignID,
-      title: data.data.title,
+      title: page.data.title,
       protocolId: activeProtocol.id,
-      content: data.data.content,
+      content: page.data.content,
       baseUrl: amplifiCampaignFields.baseUrl,
       campaignBudget: amplifiCampaignFields.campaignBudget,
       budget: [],
@@ -446,11 +467,11 @@ export const useCampaign = (
       isDemo: false,
       kpi: "",
       overviewVideo: amplifiCampaignFields.overviewVideo,
-      startDate: "today",
+      startDate: amplifiCampaignFields.startDate,
       whitelist: [],
       featuredImage: amplifiCampaignFields.featuredImage?.sourceUrl,
     });
-  }, [protocolID, data, campaignID, activeProtocol, setActiveCampaign]);
+  }, [protocolID, page, campaignID, activeProtocol, setActiveCampaign]);
 
   return {
     amplifiCampaigns,
@@ -458,11 +479,7 @@ export const useCampaign = (
     getCampaignRoute,
     uriToRouteMap,
     routeToUriMap,
-    page: {
-      tabUri,
-      useCampaignACFsInstead, //for the overview tab
-      data,
-      loadingPageData,
-    },
+    page,
+    tabUri
   };
 };

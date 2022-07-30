@@ -6,6 +6,7 @@ import {
   toggleURLWarning,
   updateTwitterAccount,
   updateLastSelectedProtocolID,
+  updateAmplifiAirdropList,
 } from "./actions";
 
 const currentTimestamp = () => new Date().getTime();
@@ -23,6 +24,8 @@ export interface UserState {
   URLWarningVisible: boolean;
 
   lastSelectedProtocolID: string | undefined;
+
+  amplifiAirdrop: any;
 }
 
 export const initialState: UserState = {
@@ -31,6 +34,7 @@ export const initialState: UserState = {
   timestamp: currentTimestamp(),
   URLWarningVisible: true,
   lastSelectedProtocolID: undefined,
+  amplifiAirdrop: {}
 };
 
 export default createReducer(initialState, (builder) =>
@@ -56,6 +60,11 @@ export default createReducer(initialState, (builder) =>
       updateLastSelectedProtocolID,
       (state, { payload: { protocolID } }) => {
         state.lastSelectedProtocolID = protocolID;
+      }
+    ).addCase(
+      updateAmplifiAirdropList,
+      (state, {payload: { amplifiAirdrop }}) => {
+        state.amplifiAirdrop = amplifiAirdrop
       }
     )
 );

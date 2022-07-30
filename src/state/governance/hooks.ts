@@ -5,7 +5,7 @@ import {
   useGenericBravoProposalStates,
 } from "data/proposalStates";
 import { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { ALL_VOTERS, DELEGATE_INFO } from "../../apollo/queries";
 import { AUTONOMOUS_PROPOSAL_BYTECODE } from "../../constants/proposals";
 import {
@@ -73,7 +73,7 @@ export function useActiveProtocol(): [
     AppState["governance"]["activeProtocol"]
   >((state) => {
     return state.governance.activeProtocol;
-  });
+  }, shallowEqual);
 
   const setActiveProtocol = useCallback(
     (activeProtocol: GovernanceInfo) => {

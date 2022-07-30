@@ -171,21 +171,6 @@ export const useWPUriQuery = () => {
   return queryUriToContent;
 };
 
-export const useWPUri = (path: string | null) => {
-  const queryUriToContent = useWPUriQuery();
-  const [res, setRes] = useState<ApolloQueryResult<any> | null>();
-  useEffect(() => {
-    if (!path) {
-      return;
-    }
-    setRes(null);
-    queryUriToContent(path).then((_res) => {
-      setRes(_res);
-    });
-  }, [path, queryUriToContent]);
-  return res;
-};
-
 export const getPostsFromNavItems = async (
   nav: MenuTreeItem[],
   queryUriToContent: (path: any) => Promise<ApolloQueryResult<any>>
