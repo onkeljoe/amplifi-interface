@@ -29,7 +29,7 @@ export async function getUrl(
   const utm_source = protocolId;
   const domain = {
     id: config.rebrandly.id,
-    // fullName: config.rebrandly.fullName,
+    fullName: config.rebrandly.fullName,
   };
 
   const campaignUrlComponents: any = [];
@@ -51,7 +51,7 @@ export async function getUrl(
   const urlComponents = [];
 
   urlComponents.push(`domain[id]=${domain.id}`);
-  // urlComponents.push(`domain[fullName]=${domain.fullName}`);  //consider for deletion 
+  urlComponents.push(`domain[fullName]=${domain.fullName}`);  //consider for deletion 
 
   const options: any = {
     method: "GET",

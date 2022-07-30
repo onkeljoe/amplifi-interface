@@ -1,7 +1,7 @@
 const config = {
   rebrandly: {
-    id: "278c3d8b2f6d469e812bdddbf713a079",
-    // fullName: "link.cre8r.vip", // this doesn't seem to have any effect on the short url
+    id: "e8427f17cf1041c39b96babd02efb4dd",
+    fullName: "amplifi.gg", // this purely for cosmetic
   },
   airdrop: {
     excel: {
