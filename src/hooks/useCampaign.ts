@@ -331,7 +331,7 @@ function useWPPage (path: string | undefined) : WPACFPage | WPContentPage | unde
       return;
     }
     setRes(undefined);
-    queryUriToContent(path).then((_res) => {
+    queryUriToContent(path).then((_res : any) => {
       setRes(_res);
     });
   }, [path, queryUriToContent]);
@@ -347,7 +347,6 @@ function useWPPage (path: string | undefined) : WPACFPage | WPContentPage | unde
  * @returns
  */
 function usePage (uri: string) : Page | undefined {
-  console.log('f')
   const subpage = useSubPage(uri);
   //if subpage exists, skip WP query
   const wppage = useWPPage(subpage ? undefined : uri);
@@ -468,6 +467,7 @@ export const useCampaign = (
       kpi: "",
       overviewVideo: amplifiCampaignFields.overviewVideo,
       startDate: amplifiCampaignFields.startDate,
+      tweetIntent: amplifiCampaignFields.tweetintent,
       whitelist: [],
       featuredImage: amplifiCampaignFields.featuredImage?.sourceUrl,
     });

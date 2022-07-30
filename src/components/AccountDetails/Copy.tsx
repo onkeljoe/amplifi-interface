@@ -11,11 +11,11 @@ const CopyIcon = styled(LinkStyledButton)`
   display: flex;
   text-decoration: none;
   font-size: 0.825rem;
-  :hover,
-  :active,
-  :focus {
+  // :active,
+  // :focus,
+  :hover {
     text-decoration: none;
-    color: ${({ theme }) => theme.text1};
+    color: ${({ theme }) => theme.text3};
   }
 `;
 const TransactionStatusText = styled.span`
