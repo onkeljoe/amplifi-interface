@@ -11,6 +11,13 @@ import { nameOrAddress } from 'utils/getName';
 import useBribe, { BLOCKNUMBER, strategiesToUSDConverter } from './hooks/useBribe'
 import { calcChange, formatChange } from './math';
 import { calcLpToGetBasicBoosted, calcBasicBoostedToReceive, calcUSDBoostedBribeToRecieve, calcUSDBoostedBonusToRecieve } from './utils';
+import snapshot from '@snapshot-labs/snapshot.js';
+import { toast } from 'react-toastify';
+
+const hub = 'https://hub.snapshot.org'; // or https://testnet.snapshot.org for testnet
+const client = new snapshot.Client712(hub);
+
+
 
 const lastPayoutUri = "https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-43050170.json"
 
@@ -71,6 +78,7 @@ function BoostCalculator () {
 
   const countdownText = useCountdown("Aug 3, 2022 9:00:00 GMT-07:00", "Vote on Beets Snapshot");
 
+
   useEffect(() => {
     axios.get(lastPayoutUri).then(res => {
       if (res.status === 200) {
@@ -99,9 +107,24 @@ function BoostCalculator () {
     <>
     {/* TODO: Get snapshot query: https://docs.snapshot.org/snapshot.js */}
     <div>This button will unlock when the next beets snapshot comes</div>
-      <VoteButton>
+      <VoteButton onClick={() => {
+        if (!account || !library) return;
+        (client as any).vote((library as any), account, {
+          space: 'amplifidao.eth',
+          proposal: '0x98101f1e0067605c050d621f9a8705495c4378a64604aff4722ce98b6127100e',
+          type: 'weighted',
+          choice: {"45":10},
+          metadata: JSON.stringify({
+            "47": 10
+          })
+        }).then((receipt : any) => {
+          console.log(receipt)
+          toast.success('Vote is successful! Thank you for voting for CRE8R.')
+        }).catch((err : any) => console.log(err));
+      }}>
         {countdownText}
       </VoteButton>
+
       <div>Last Holdings Block Number: {BLOCKNUMBER}</div>
       <div>
         <div>
