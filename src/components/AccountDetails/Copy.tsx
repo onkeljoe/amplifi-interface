@@ -9,14 +9,19 @@ const CopyIcon = styled(LinkStyledButton)`
   color: ${({ theme }) => theme.white};
   flex-shrink: 0;
   display: flex;
-  text-decoration: none;
+  // text-decoration: none;
   font-size: 0.825rem;
-  // :active,
-  // :focus,
+  :focus {
+    text-decoration: none;
+  }
+  :active {
+    text-decoration: none;
+  }
   :hover {
     text-decoration: none;
     color: ${({ theme }) => theme.text3};
   }
+  text-decoration: none;
 `;
 const TransactionStatusText = styled.span`
   margin-left: 0.25rem;

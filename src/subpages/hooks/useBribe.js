@@ -1,23 +1,35 @@
 import { useState, useEffect, useCallback } from "react";
 import snapshot from '@snapshot-labs/snapshot.js';
+import { getBeetsLPCRE8R, getCRE8RPrice, getSpiritLPCRE8R } from "subpages/data";
+
 //todo- refactor this into ts
 const BEETS = 'beets.eth';
 export const BLOCKNUMBER = 43050170;
 const CRE8R = 'cre8r.eth';
 
-const strategies = {
+export const strategiesToUSDConverter = {
+  "BPT-CRE8R-F": getBeetsLPCRE8R,
+  "OLA": () => 1, //legacy
+  "CRE8R": getCRE8RPrice,
+  "reaper": () => 1, //legacy
+  "moo": () => 1, //legacy
+  "beluga": () => 1, //legacy
+  "spiritLPCRE8R": getSpiritLPCRE8R,
+}
+
+export const strategies = {
   [CRE8R]: [
     {
       "name": "masterchef-pool-balance",
       "network": "250",
       "params": {
         "pid": "39",
-        "symbol": "BEETSLP -> SLP",
-        "weight": 202,
+        "symbol": "BPT-CRE8R-F",
+        "weight": 1, //202,
         "tokenIndex": null,
         "chefAddress": "0x8166994d9ebBe5829EC86Bd81258149B87faCfd3",
         "uniPairAddress": null,
-        "weightDecimals": 3
+        "weightDecimals": 1, //3
       }
     },
     { 
@@ -36,7 +48,7 @@ const strategies = {
         "address": "0x2aD402655243203fcfa7dCB62F8A08cc2BA88ae0",  
           "symbol": "CRE8R",
           "decimals": 18,
-          "weight": 9
+          // "weight": 9
     }
     },
     {
@@ -44,7 +56,7 @@ const strategies = {
       "network": "250",
       "params": {
         "symbol": "reaper",
-        "weight": 0.2021571004,
+        // "weight": 0.2021571004,
         "address": "0xd70257272b108677B017A942cA80fD2b8Fc9251A",
         "decimals": 18
       }
@@ -56,7 +68,7 @@ const strategies = {
         "symbol": "moo",
         "address": "0x503FF2102D51ec816C693017d26E31df666Cadf0",
         "decimals": 18,
-        "weight": 2.950783334
+        // "weight": 2.950783334
       }
     },
     {
@@ -146,10 +158,11 @@ const bribeSettings = {
  * @param {*} pollTime 
  * @param {*} blockNumber 
  * @param {*} space 
- * @returns {{cre8rScore: number | undefined, beetsScore: number | undefined}}
+ * @returns {{cre8rScore: number | undefined, beetsScore: number | undefined, cre8rScoreBreakdown: any | undefined}}
  */
 export default function useBribe(provider, address, pollTime = 0, blockNumber = BLOCKNUMBER, space = CRE8R) {
   const [cre8rScore, setCre8rScore] = useState();
+  const [cre8rScoreBreakdown, setCre8rScoreBreakdown] = useState();
   const [beetsScore, setBeetsScore] = useState();
 
   // used to know how much an Fbeets holder voted for cre8r-ftm on the beets snapshot
@@ -160,18 +173,32 @@ export default function useBribe(provider, address, pollTime = 0, blockNumber = 
       bribeSettings[CRE8R].network,
       [address],
       blockNumber
-    ).then(scores => {
+    ).then(async scores => {
       if (!scores) return;
-      const scoresWithValues = scores.filter((val, i) => val[address] != null)
-      let totalScore = 0
-      if (!scoresWithValues) return;
-      console.log(scoresWithValues)
-      for (let i = 0; i < scoresWithValues.length; i++) {
-        if (scoresWithValues[i][address]) {
-          totalScore += scoresWithValues[i][address]
+      const _cre8rScoreBreakdown = []
+      let total = 0;
+      for (let i = 0; i < scores.length; i++) {
+        const currentStrategy = scores[i]
+        const {symbol} = bribeSettings[CRE8R].strategies[i].params
+        const fetchUSDToSymbol = strategiesToUSDConverter[symbol]
+        //todo - refactor so more efficient
+        const priceUSD = await fetchUSDToSymbol()
+        let numTokens;
+        if (symbol == 'BPT-CRE8R-F') {
+          //for some reason snapshot api reduces holdings by a factor of 10
+          numTokens = currentStrategy[address] * 10
+        } else {
+          numTokens = currentStrategy[address]
+        }        
+        if (numTokens == undefined) {
+          continue;
         }
+        const valueUSD = numTokens * priceUSD
+        _cre8rScoreBreakdown.push({symbol, numTokens, priceUSD, valueUSD})
+        total += valueUSD
       }
-      setCre8rScore(totalScore)
+      setCre8rScore(total)
+      setCre8rScoreBreakdown(_cre8rScoreBreakdown)
     });
   }, [address])
 
@@ -198,7 +225,7 @@ export default function useBribe(provider, address, pollTime = 0, blockNumber = 
   }, [address])
 
   return {
-    cre8rScore, beetsScore
+    cre8rScore, beetsScore, cre8rScoreBreakdown
   };
 }
 

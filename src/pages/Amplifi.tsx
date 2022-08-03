@@ -6,7 +6,7 @@ import { BodyWrapper, MediumHeaderWrapper } from "./AppBody";
 import { useActiveProtocol } from "../state/governance/hooks";
 import { AutoColumn } from "../components/Column";
 import { Above1080Only, Below1080Only } from "../theme/components";
-import { RowFixed } from "../components/Row";
+import { RowBetween, RowFixed } from "../components/Row";
 import { WrappedListLogo } from "../components/governance/styled";
 import Dropdown from "../components/governance/Dropdown";
 import Tabs from "../components/governance/Tabs";
@@ -14,6 +14,7 @@ import { TYPE } from "../theme";
 import CampaignList from "components/campaigns/CampaignList";
 import CampaignDetails from "components/campaigns/CampaignDetails";
 import { useActiveCampaign } from "state/campaigns/hooks";
+import CRE8RPriceCard from "components/CRE8RPriceCard";
 
 export default function Amplifi({
   match: {
@@ -33,25 +34,29 @@ export default function Amplifi({
         <MediumHeaderWrapper>
           <AutoColumn gap="sm">
             <Above1080Only>
-              <RowFixed>
-                <WrappedListLogo src={activeProtocol?.logo} />
-                <AutoColumn>
-                <TYPE.mediumHeader
-                  ml="8px"
-                  fontWeight={600}
-                  color={activeProtocol?.primaryColor}
-                >
-                  {activeProtocol?.name}
-                </TYPE.mediumHeader>
-                {campaignID && <TYPE.small
-                  ml="8px"
-                  fontWeight={600}
-                  color={activeProtocol?.primaryColor}
-                >
-                  {activeCampaign?.title}
-                </TYPE.small>}
-                </AutoColumn>
-              </RowFixed>
+              <RowBetween>
+                <RowFixed>
+                  <WrappedListLogo src={activeProtocol?.logo} />
+                  <AutoColumn>
+                    <TYPE.mediumHeader
+                      ml="8px"
+                      fontWeight={600}
+                      color={activeProtocol?.primaryColor}
+                    >
+                      {activeProtocol?.name}
+                    </TYPE.mediumHeader>
+                    {campaignID && <TYPE.small
+                      ml="8px"
+                      fontWeight={600}
+                      color={activeProtocol?.primaryColor}
+                    >
+                      {activeCampaign?.title}
+                    </TYPE.small>}
+                  </AutoColumn>
+
+                </RowFixed>
+                <CRE8RPriceCard />
+              </RowBetween>
             </Above1080Only>
             <Below1080Only>
               <Dropdown />
