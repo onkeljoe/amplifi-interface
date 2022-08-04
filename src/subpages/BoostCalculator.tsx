@@ -21,6 +21,7 @@ import {
 } from "./utils";
 import snapshot from "@snapshot-labs/snapshot.js";
 import { toast } from "react-toastify";
+import {calcProjectedPayouts} from './data/payout'
 
 const hub = "https://hub.snapshot.org"; // or https://testnet.snapshot.org for testnet
 const client = new snapshot.Client712(hub);
@@ -67,7 +68,7 @@ const VoteButton = styled.a`
 
 function BoostCalculator() {
   const { library, account } = useActiveWeb3React();
-  const { cre8rScore, beetsScore } = useBribe(library, account);
+  const { cre8rScore, beetsScore, beetsScoreBreakdown, cre8rPrice } = useBribe(library, account); //has a blocknumber default
   const {
     cre8rScore: latestCS,
     beetsScore: latestBS,
@@ -114,6 +115,10 @@ function BoostCalculator() {
     accountLastPayout + cre8rScore * 1.35 + amountUSDForBoostedBribe <=
       latestCS;
 
+  let projectedPayout;
+  if (account && beetsScoreBreakdown && cre8rScore && latestCS && lastPayout && cre8rPrice) {
+    projectedPayout = calcProjectedPayouts(account, beetsScoreBreakdown?.beetsScore, cre8rScore, latestCS, lastPayout, cre8rPrice, 640)
+  }
   const loaded =
     amountUSDForBasicBoost &&
     basicBoostToReceiveUSD &&
@@ -125,7 +130,7 @@ function BoostCalculator() {
     (beetsChange || beetsChange == 0);
 
   const countdownText = useCountdown(
-    "Aug 3, 2022 9:00:00 GMT-07:00",
+    "Aug 4, 2022 3:30:00 GMT-07:00",
     "Vote 100% For CRE8R In F-Major"
   );
 
@@ -232,7 +237,7 @@ function BoostCalculator() {
             cre8r payout * 2000 = amp payout
           </td>
           <td>
-            {hasBasicBoosted ? (
+            {projectedPayout && projectedPayout.debug[0].basicBoost ? (
               <span style={{ color: "green" }}>✔</span>
             ) : (
               <>❌</>
@@ -253,7 +258,7 @@ function BoostCalculator() {
 
           <td></td>
           <td>
-            {hasBoostedBribe ? (
+            {projectedPayout && projectedPayout.debug[0].boostedBribe ? (
               <span style={{ color: "green" }}>✔</span>
             ) : (
               <>❌</>
@@ -280,7 +285,7 @@ function BoostCalculator() {
             CODE cre8r payout * 2000 = amp payout
           </td>
           <td>
-            {hasBoostedBonus ? (
+            {projectedPayout && projectedPayout.debug[0].boostedBonus ? (
               <span style={{ color: "green" }}>✔</span>
             ) : (
               <>❌</>
@@ -390,3 +395,4 @@ function BoostCalculator() {
 }
 
 export default BoostCalculator;
+

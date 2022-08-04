@@ -29,6 +29,20 @@ export async function getCRE8RPrice() {
   })
 }
 
+
+export async function getFBeetsPrice() {
+  return fetch("https://api.dexscreener.com/latest/dex/pairs/fantom/0x2cea0da40cf133721377bb2b0bf4adc43715bfc30002000000000000000001e1-0x04068da6c83afcfa0e13ba15a6696662335d5b75-0xfcef8a994209d6916eb2c86cdd2afd60aa6f54b1").then(res => {
+    if (res.status >= 400) {
+      throw new Error("Bad response from server");
+    }
+    return res.json();
+  }).then(data => {
+    if (data.schemaVersion !== '1.0.0') {
+      throw 'Schema was updated, please confirm mappings are still correct'
+    }
+    return parseFloat(data.pairs[0].priceUsd)
+  })
+}
 export async function getFTMPrice() {
   return fetch("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=FTM&tsyms=USD").then(res => {
     if (res.status >= 400) {

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import snapshot from '@snapshot-labs/snapshot.js';
-import { getBeetsLPCRE8R, getCRE8RPrice, getSpiritLPCRE8R } from "subpages/data";
+import { getBeetsLPCRE8R, getCRE8RPrice, getFBeetsPrice, getSpiritLPCRE8R } from "subpages/data";
 
 //todo- refactor this into ts
 const BEETS = 'beets.eth';
@@ -158,12 +158,14 @@ const bribeSettings = {
  * @param {*} pollTime 
  * @param {*} blockNumber 
  * @param {*} space 
- * @returns {{cre8rScore: number | undefined, beetsScore: number | undefined, cre8rScoreBreakdown: any | undefined}}
+ * @returns {{cre8rScore: number | undefined, beetsScore: number | undefined, cre8rScoreBreakdown: any | undefined, beetsScoreBreakdown: {beetsScore: number, numBeets: number, fBeetsPrice: number} | undefined, cre8rPrice: number | undefined}}
  */
 export default function useBribe(provider, address, pollTime = 0, blockNumber = BLOCKNUMBER, space = CRE8R) {
   const [cre8rScore, setCre8rScore] = useState();
   const [cre8rScoreBreakdown, setCre8rScoreBreakdown] = useState();
+  const [beetsScoreBreakdown, setBeetsScoreBreakdown] = useState();
   const [beetsScore, setBeetsScore] = useState();
+  const [cre8rPrice, setCre8rPrice] = useState();
 
   // used to know how much an Fbeets holder voted for cre8r-ftm on the beets snapshot
   useEffect(() => {
@@ -197,6 +199,8 @@ export default function useBribe(provider, address, pollTime = 0, blockNumber = 
         _cre8rScoreBreakdown.push({symbol, numTokens, priceUSD, valueUSD})
         total += valueUSD
       }
+
+      setCre8rPrice(await strategiesToUSDConverter['CRE8R']())
       setCre8rScore(total)
       setCre8rScoreBreakdown(_cre8rScoreBreakdown)
     });
@@ -210,7 +214,7 @@ export default function useBribe(provider, address, pollTime = 0, blockNumber = 
       bribeSettings[BEETS].network,
       [address],
       blockNumber
-    ).then(scores => {
+    ).then(async scores => {
       if (!scores) return;
       const scoresWithValues = scores.filter((val, i) => val[address] != null)
       let totalScore = 0
@@ -220,12 +224,15 @@ export default function useBribe(provider, address, pollTime = 0, blockNumber = 
           totalScore += scoresWithValues[i][address]
         }
       }
-      setBeetsScore(totalScore)
+      const beetsPrice = await getFBeetsPrice();
+      const scoreUSD = totalScore * beetsPrice
+      setBeetsScoreBreakdown({beetsScore: scoreUSD, numBeets: totalScore, fBeetsPrice: beetsPrice})
+      setBeetsScore(scoreUSD)
     });
   }, [address])
 
   return {
-    cre8rScore, beetsScore, cre8rScoreBreakdown
+    cre8rScore, beetsScore, cre8rScoreBreakdown, beetsScoreBreakdown, cre8rPrice
   };
 }
 
