@@ -228,7 +228,7 @@ function BoostCalculator() {
           </td>
           
           <td>
-            {projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBoost, 1)}`}
+            {projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe * 1.1, 1)}`}
           </td>
           <td>
             {!loaded ? "🔄" : projectedPayout && projectedPayout.debug[0].basicBoost ? (
@@ -240,10 +240,11 @@ function BoostCalculator() {
           <td>LP between 79 and 3 * 79  to get $AMP</td>
 
           <td>
-            <p className="smalldesc">10x Current Holdings</p>
+            <p className="smalldesc">6x Current Holdings</p>
             {/* cre8r payout * 2000 = amp payout */}
-            Max AMP to earn: {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBoost / cre8rPrice * 60, 1)} $AMP`}
-            Current AMP earned: {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBoost2AmpInUSD / cre8rPrice * 60, 1)} $AMP`}
+            10% - 210% 🚀
+            {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBoost / cre8rPrice * 60, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].basicBribe * 1.1, 1)})`}
+            Current AMP earned: {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBoost2AmpInUSD / cre8rPrice * 60, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].basicBoost2AmpInUSD * 1.1, 1)})`}
           </td>
           <td>{!loaded ? "🔄" : projectedPayout && projectedPayout.debug[0].basicBoost2AmpInUSD ? (
               <span style={{ color: "green" }}>✔</span>
@@ -297,13 +298,11 @@ function BoostCalculator() {
             )}
           </td>
           
-          <td> how to get amp</td>
+            <td> how to get amp</td>
           <td>
-            <p className="smalldesc">10x Current Holdings</p>
-            {projectedPayout && latestCS && cre8rScore && cre8rPrice && `${nFormatter(projectedPayout.debug[0].boostedBonus / cre8rPrice * 60, 1)} $AMP`}
-
-            Max AMP to earn: {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].boostedBonus / cre8rPrice * 60, 1)} $AMP`}
-            Current AMP earned: {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].boostedBonus2AmpInUSD / cre8rPrice * 60, 1)} $AMP`}
+            {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBribe * 1.6 / cre8rPrice * 60, 1)} $AMP`}
+            60% - 320% 🚀
+            Current AMP earned: {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].boostedBonus2AmpInUSD / cre8rPrice * 60, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].boostedBonus2AmpInUSD, 1)})`}
           </td>
 
           <td>
@@ -320,7 +319,7 @@ function BoostCalculator() {
           <td>{projectedPayout && `$${nFormatter(projectedPayout.debug[0].payoutUSD, 1)}` || "🔄"}</td>
           <td></td>
           <td></td>
-          <td>{projectedPayout && `${nFormatter(Math.max(projectedPayout.debug[0].basicBoost2AmpInUSD, projectedPayout.debug[0].boostedBonus2AmpInUSD), 1)} $AMP`}
+          <td>{projectedPayout && cre8rPrice && `${nFormatter(Math.max(projectedPayout.debug[0].basicBoost2AmpInUSD, projectedPayout.debug[0].boostedBonus2AmpInUSD) / cre8rPrice * 60, 1)} $AMP ($${nFormatter(Math.max(projectedPayout.debug[0].basicBoost2AmpInUSD, projectedPayout.debug[0].boostedBonus2AmpInUSD), 1)})`}
           </td>
           <td></td>
         </tr>
