@@ -248,7 +248,7 @@ function BoostCalculator() {
           
            
            <div>
-            Current AMP earned: {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBoost2AmpInUSD / cre8rPrice * 60, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].basicBoost2AmpInUSD * 1.1, 1)})`} </div>
+            {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBoost2AmpInUSD / cre8rPrice * 60, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].basicBoost2AmpInUSD * 1.1, 1)})`} </div>
           </td>
 
           <td>{!loaded ? "🔄" : projectedPayout && projectedPayout.debug[0].basicBoost2AmpInUSD ? (
@@ -307,7 +307,7 @@ function BoostCalculator() {
           <td>
           
             
-            Current AMP earned: {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].boostedBonus2AmpInUSD / cre8rPrice * 60, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].boostedBonus2AmpInUSD, 1)})`}
+             {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].boostedBonus2AmpInUSD / cre8rPrice * 60, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].boostedBonus2AmpInUSD, 1)})`}
           </td>
 
           <td>
