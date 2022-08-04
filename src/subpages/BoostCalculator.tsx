@@ -201,6 +201,7 @@ function BoostCalculator() {
           <th>Bribe Tier</th>
           <th>Holdings Increase Requirement</th>
           <th>CRE8R Payout</th>
+          <th>Status</th>
           <th>Holdings Increase Requirement For Bonus $AMP</th>
           <th>AMP Payout</th>
           <th>Status</th>
@@ -210,8 +211,9 @@ function BoostCalculator() {
           <p className="smalldesc">$664.34 per 1% of Beets vote</p>
           </td>
           <td>Basic Bribe is used in calculations only. To increase it you gotta get more FBEETS.</td>
-          <td>CODE bb for user</td>
-          <td>   {projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe, 1)}`}</td>
+          <td>{projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe, 1)}`}</td>
+          <td>   </td>
+          <td></td>
           <td></td>
           <td>⌛</td>
         </tr>
@@ -228,12 +230,6 @@ function BoostCalculator() {
           <td>
             {projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe * 1.1, 1)}`}
           </td>
-          <td>LP between 79 and 3 * 79  to get $AMP</td>
-
-          <td>
-            <p className="smalldesc">10x Current Holdings</p>
-            cre8r payout * 2000 = amp payout
-          </td>
           <td>
             {!loaded ? "🔄" : projectedPayout && projectedPayout.debug[0].basicBoost ? (
               <span style={{ color: "green" }}>✔</span>
@@ -241,6 +237,13 @@ function BoostCalculator() {
               <>❌</>
             )}
           </td>
+          <td>LP between 79 and 3 * 79  to get $AMP</td>
+
+          <td>
+            <p className="smalldesc">10x Current Holdings</p>
+            cre8r payout * 2000 = amp payout
+          </td>
+          <td>amp status here</td>
         </tr>
         <tr className="boosted_bribe">
           <td>
@@ -254,9 +257,6 @@ function BoostCalculator() {
             {/* {nFormatter(amountUSDForBoostedBribe!, 1)} */}
           </td>
           <td>{projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe * 1.25, 1)}`} 25% 🚀</td>
-
-          <td></td>
-          <td></td>
           <td>
             {!loaded ? "🔄" : projectedPayout && projectedPayout.debug[0].boostedBribe ? (
               <span style={{ color: "green" }}>✔</span>
@@ -264,6 +264,10 @@ function BoostCalculator() {
               <>❌</>
             )}
           </td>
+          <td></td>
+          <td></td>
+          <td>new status for amp</td>
+          
         </tr>
         <tr className="boosted_bonus">
           <td>
@@ -279,13 +283,6 @@ function BoostCalculator() {
             {nFormatter(amountUSDForBoostedBonus!, 1)}
           </td>
           <td>{projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe * 1.6, 1)}`} 60% 🚀</td>
-          <td> how to get amp</td>
-          <td>
-         
-            <p className="smalldesc">10x Current Holdings</p>
-            {projectedPayout && latestCS && cre8rScore && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBribe/cre8rPrice * 1.6 * 60, 1)} $AMP`}
-          </td>
-
           <td>
             {!loaded ? "🔄" : projectedPayout && projectedPayout.debug[0].boostedBonus ? (
               <span style={{ color: "green" }}>✔</span>
@@ -293,11 +290,22 @@ function BoostCalculator() {
               <>❌</>
             )}
           </td>
+          
+          <td> how to get amp</td>
+          <td>
+         
+            <p className="smalldesc">10x Current Holdings</p>
+            {projectedPayout && latestCS && cre8rScore && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBribe/cre8rPrice * 1.6 * 60, 1)} $AMP`}
+          </td>
+
+          <td>amp status</td>
         </tr>
         <tr className="payout-row">
           <td>Totals</td>
           <td></td>
           <td>{projectedPayout && `$${nFormatter(projectedPayout.debug[0].payoutUSD, 1)}` || "🔄"}</td>
+          <td></td>
+          <td></td>
           <td>{projectedPayout && latestCS && cre8rScore && latestCS/cre8rScore > 3 && cre8rPrice && projectedPayout.debug[0].payoutUSD/cre8rPrice*60 * Math.max(1,latestCS/cre8rScore/10) || latestCS ? null :"🔄" } 
           {latestCS && cre8rScore && latestCS/cre8rScore < 3 && `You need a multiplier of at least 3x to be eligible for $AMP. Current multiplier: ${nFormatter(latestCS/cre8rScore, 1)}`}
           </td>
@@ -331,7 +339,7 @@ function BoostCalculator() {
           )}
         </div>
         <div>
-          Your Beets VP:{" "}
+          Your FBeets Dollar Value:{" "}
           {beetsScore != undefined && (
             <span style={{ color: "" }}> ${nFormatter(beetsScore, 1)}</span>
           )}
