@@ -222,10 +222,7 @@ function BoostCalculator() {
           </td>
           <td>
             <p className="smalldesc">LP 3x Basic Bribe - Get 1.1 CRE8R OR LP</p>
-            {amountUSDForBasicBoost == 0
-              ? `Get some fBeets and check later`
-              : `LP at least $${nFormatter(amountUSDForBasicBoost!, 1)}`}{" "}
-            {/* IF new voter (voted last week) get 1.1 if you LP 3x OR get 1.1 CRE8R AND Matching AMP IF you LP 10x Boosted Allow for AMP boost here too LP 10x Basic Bribe payout */}
+            {projectedPayout && `LP at least $${nFormatter(projectedPayout.debug[0].basicBribe * 3, 1)}`}
           </td>
           
           <td>
