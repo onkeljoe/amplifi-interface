@@ -22,7 +22,7 @@ import {
 import snapshot from "@snapshot-labs/snapshot.js";
 import { toast } from "react-toastify";
 import {calcProjectedPayouts} from './data/payout'
-const CRE8R_TO_AMP_RATIO = 74/600
+const CRE8R_TO_AMP_RATIO = 8
 const hub = "https://hub.snapshot.org"; // or https://testnet.snapshot.org for testnet
 const client = new snapshot.Client712(hub);
 
