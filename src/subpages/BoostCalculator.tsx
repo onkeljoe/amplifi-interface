@@ -165,6 +165,9 @@ function BoostCalculator() {
   return (
     <>
       {/* TODO: Get snapshot query: https://docs.snapshot.org/snapshot.js */}
+      <h1>
+        {!loaded && 'This page may take a while to load. If you do not have any fBeets this may not work. Please connect a wallet with fBeets.'}
+      </h1>
       <div>
         This button will unlock when the next beets snapshot is live. Text will
         dissapear when that happens cc @jono
