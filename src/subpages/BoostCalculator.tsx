@@ -242,6 +242,9 @@ function BoostCalculator() {
           <div>10% - 210% 🚀</div> 
             {projectedPayout && cre8rPrice && `Earn up to ${nFormatter(projectedPayout.debug[0].basicBoost / cre8rPrice * 60, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].basicBribe * 1.1, 1)})`}</div></td>
 
+
+            <div>{projectedPayout && `LP at least $${nFormatter(projectedPayout.debug[0].basicBribe * 6, 1)}`}</div>
+
           <td>
             {/* <p className="smalldesc">6x Current Holdings</p> */}
             {/* cre8r payout * 2000 = amp payout */}
@@ -302,8 +305,16 @@ function BoostCalculator() {
             )}
           </td>
           
-            <td> 60% - 320% 🚀
-          <div>  {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBribe * 1.6 / cre8rPrice * 60, 1)} $AMP`} </div></td>
+            <td> 
+              60% - 320% 🚀
+              <div>
+                {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBribe * 1.6 / cre8rPrice * 60, 1)} $AMP`}
+              </div>
+              <div>
+              Increase CRE8R Holdings by $
+              {nFormatter(amountUSDForBoostedBonus! * 5.714, 1)}
+              </div>
+          </td>
           <td>
           
             
