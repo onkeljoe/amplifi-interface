@@ -249,7 +249,7 @@ function BoostCalculator() {
             <p className="smalldesc">For Compounders</p>
           </td>
           <td>
-            <p className="smalldesc">Just compound last weeks bribe</p>
+            <p className="smalldesc">Just compound last weeks bribe {accountLastPayout && `($${nFormatter(accountLastPayout,1)})`}</p>
             {/* Increase CRE8R Holdings by CODE IF Last weeks holdings + last weeks Bribe payment is equal to current holdings then show tickbox in status else show amount {("you were paid x CRE8R last week but you forgot to compound to get this boost you gotta buy")} needed to increase holdings $ */}
             {latestCS && cre8rScore && accountLastPayout && cre8rScore + (accountLastPayout as any).lastWeekPayoutInCRE8R > latestCS && `You were paid $${nFormatter(accountLastPayout,1)} CRE8R last week but you forgot to compound to get this boost you gotta buy ${latestCS - cre8rScore - (accountLastPayout as any).lastWeekPayoutInCRE8R > 0 && `and buy $${latestCS - cre8rScore - (accountLastPayout as any).lastWeekPayoutInCRE8R} more CRE8R holdings`}`}
             {/* {nFormatter(amountUSDForBoostedBribe!, 1)} */}
