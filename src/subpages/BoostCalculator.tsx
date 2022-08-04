@@ -33,9 +33,9 @@ const Table = styled.table`
 
 const VoteButton = styled.a`
   background-image: ${({theme}) => theme.special};
-  margin: 10px;
-  font-size: 20px;
-  padding: 15px;
+  margin: 5px;
+  font-size: 12px;
+  padding: 10px;
   text-align: center;
   text-transform: uppercase;
   transition: 0.5s;
@@ -43,7 +43,7 @@ const VoteButton = styled.a`
   color: #FFF;
   box-shadow: 0 0 20px #eee;
   border-radius: 10px;
-  width: 200px;
+  width: 100%;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   cursor: pointer;
@@ -76,7 +76,7 @@ function BoostCalculator () {
 
   const loaded = amountUSDForBasicBoost && basicBoostToReceiveUSD && amountUSDForBoostedBribe && amountUSDForBoostedBonus && (cre8rScore || cre8rScore == 0) && (beetsScore || beetsScore == 0) && (cre8rChange || cre8rChange == 0) && (beetsChange || beetsChange == 0)
 
-  const countdownText = useCountdown("Aug 3, 2022 9:00:00 GMT-07:00", "Vote on Beets Snapshot");
+  const countdownText = useCountdown("Aug 3, 2022 9:00:00 GMT-07:00", "Vote 100% For CRE8R In F-Major");
 
 
   useEffect(() => {
@@ -106,8 +106,8 @@ function BoostCalculator () {
   return (
     <>
     {/* TODO: Get snapshot query: https://docs.snapshot.org/snapshot.js */}
-    <div>This button will unlock when the next beets snapshot comes</div>
-      <VoteButton onClick={() => {
+    <div>This button will unlock when the next beets snapshot is live. Text will dissapear when that happens cc @jono</div>
+      <VoteButton  onClick={() => {
         if (!account || !library) return;
         (client as any).vote((library as any), account, {
           space: 'amplifidao.eth',
@@ -119,69 +119,127 @@ function BoostCalculator () {
           })
         }).then((receipt : any) => {
           console.log(receipt)
-          toast.success('Vote is successful! Thank you for voting for CRE8R.')
+          toast.success('Vote is successful! Thank you for voting for CRE8R-FTM.')
         }).catch((err : any) => console.log(err));
       }}>
         {countdownText}
       </VoteButton>
-      <div>
+      {/* <div>
         <h1>Bribe Tiers</h1>
-      </div>
+      </div> */}
       <Table>
+      <caption>Bribe Payout Calculator *Assumes 100% Vote On CRE8R-FTM</caption>
         <tr>
           <th>Bribe Tier</th>
-          <th>Payout</th>
-          <th>Condition</th>
+          
+          <th>Holdings Increase Requirement</th>
+          <th>CRE8R Payout</th>
+          <th>AMP Payout</th>
           <th>Status</th>
         </tr>
-        <tr>
+        <tr className="basic_bribe">
           <td>
             Basic Bribe
+          </td>
+          <td>
+            Used in Boost Calculation. 
           </td>
           <td>
             $664.34 per 1% of Beets vote
           </td>
           <td>
-            Vote for CRE8R in F-Major on Beets snapshot
+            
           </td>
           <td>⌛</td>
         </tr>
-        <tr>
+        <tr className="basic_boosted">
           <td>
-            Basic Boosted {'(for new voter)'}
+            Basic Boosted
+            <p className='smalldesc'>For New Voters</p>
+            
           </td>
           <td>
+          <p className='smalldesc'>LP 3x Basic Bribe - Get 1.1 CRE8R OR LP 10x Basic Bribe - Get 1.1 + Matching AMP</p>
+          {amountUSDForBasicBoost == 0 ? `Get some fBeets and check later` : `LP at least $${nFormatter(amountUSDForBasicBoost!,1)}`}  {/* IF new voter (voted last week) get 1.1 if you LP 3x OR get 1.1 CRE8R AND Matching AMP IF you LP 10x Boosted Allow for AMP boost here too LP 10x Basic Bribe payout */}
+          </td>
+          <td>
+           
             {basicBoostToReceiveUSD == 0 ? `Get some fBeets and check later` : `$${nFormatter(basicBoostToReceiveUSD!,1)}`}
           </td>
+          
           <td>
-          {amountUSDForBasicBoost == 0 ? `Get some fBeets and check later` : `LP at least $${nFormatter(amountUSDForBasicBoost!,1)}`}
+            10x Current Holdings
           </td>
           <td>{hasBasicBoosted ? <span style={{ color: 'green' }}>✔</span> : <>❌</>}</td>
         </tr>
-        <tr>
+        <tr className='boosted_bribe'>
           <td>
-            Boosted Bribe
+            Boosted Bribe 
+            <p className='smalldesc'>For Compounders</p>
           </td>
           <td>
-          25% bonus of Basic Bribe 
-          </td>
-          <td>
+          <p className='smalldesc'>Just compound last weeks bribe</p>
             Increase CRE8R Holdings + last bribe by ${nFormatter(amountUSDForBoostedBribe!,1)}
+          </td>
+          <td>
+          
+          25% 🚀
+          </td>
+         
+          <td>
+            No AMP Payout
           </td>
           <td>{hasBoostedBribe ? <span style={{ color: 'green' }}>✔</span> : <>❌</>}</td>
         </tr>
-        <tr>
+        <tr className='boosted_bonus'>
           <td>
             Boosted Bonus
+            <p className='smalldesc'>For Increasoooors</p>
           </td>
           <td>
-            35% of Basic Bribe
+          <p className='smalldesc'>LP 35% of current holdings and get 1.6x Basic Bribe - Get 1.6x CRE8R OR LP 10x Basic Bribe - Get 1.1 + Matching AMP</p>
+            Increase CRE8R Holdings + last bribe by  ${nFormatter(amountUSDForBoostedBonus!,1)}
+          </td>
+          <td>
+          
+            60% 🚀
+          </td>
+          
+          <td>10x Current Holdings</td>
+          <td>{hasBoostedBonus ? <span style={{ color: 'green' }}>✔</span>: <>❌</>}</td>
+          
+        </tr>
+        <tr className='payout-row'>
+          <td>
+           
+          </td>
+          <td>
+            
+          </td>
+          <td>
+            6000 $CRE8R
+          </td>
+          <td>3000 $AMP</td>
+          <td></td>
+        </tr>
+        {/* <tr className='amp_bonus'>
+          <td>
+            $AMP Bonus
+          </td>
+          <td>
+            35% 🚀
           </td>
           <td>
             Increase CRE8R Holdings + last bribe by  ${nFormatter(amountUSDForBoostedBonus!,1)}
           </td>
+          <td>
+            amp payout
+          </td>
           <td>{hasBoostedBonus ? <span style={{ color: 'green' }}>✔</span>: <>❌</>}</td>
-        </tr>
+        </tr> */}
+        
+     
+       
       </Table>
       <div>Last Holdings Block Number: {BLOCKNUMBER}</div>
       <div>
