@@ -231,7 +231,7 @@ function BoostCalculator() {
           <td>
             {projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe * 1.1, 1)}`}
           </td>
-          <td>LP 3 x the number we are showing to get max $AMP</td>
+          <td>LP between 79 and 3 * 79  to get $AMP</td>
 
           <td>
             <p className="smalldesc">10x Current Holdings</p>
