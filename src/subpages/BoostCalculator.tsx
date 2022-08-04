@@ -32,6 +32,7 @@ const lastPayoutUri =
 const Table = styled.table`
   border-collapse: collapse;
   width: 100%;
+  font-size: 0.9rem;
   td,
   th {
     border: 1px solid #dddddd;
@@ -223,7 +224,7 @@ function BoostCalculator() {
             <p className="smalldesc">For New Voters</p>
           </td>
           <td>
-            <p className="smalldesc">LP 3x Basic Bribe - Get 1.1 CRE8R OR LP</p>
+            <p className="smalldesc">LP 3x Projected Basic Bribe - Get 1.1x</p>
             {projectedPayout && `LP at least $${nFormatter(projectedPayout.debug[0].basicBribe * 3, 1)}`}
           </td>
           
@@ -282,8 +283,7 @@ function BoostCalculator() {
           </td>
           <td>
             <p className="smalldesc">
-              LP 35% of current holdings and get 1.6x Basic Bribe - Get 1.6x
-              CRE8R OR LP 10x Basic Bribe - Get 1.1 + Matching AMP
+              LP 35% of current holdings and get 1.6x Basic Bribe
             </p>
             Increase CRE8R Holdings by $
             {nFormatter(amountUSDForBoostedBonus!, 1)}
