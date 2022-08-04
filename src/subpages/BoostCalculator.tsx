@@ -205,6 +205,7 @@ function BoostCalculator() {
 
           <th>Holdings Increase Requirement</th>
           <th>CRE8R Payout</th>
+          <th>Holdings Increase Requirement For Bonus $AMP</th>
           <th>AMP Payout</th>
           <th>Status</th>
         </tr>
@@ -212,6 +213,7 @@ function BoostCalculator() {
           <td>Basic Bribe</td>
           <td>Used in Boost Calculation.</td>
           <td>$664.34 per 1% of Beets vote</td>
+          <td></td>
           <td></td>
           <td>⌛</td>
         </tr>
@@ -227,9 +229,11 @@ function BoostCalculator() {
               : `LP at least $${nFormatter(amountUSDForBasicBoost!, 1)}`}{" "}
             {/* IF new voter (voted last week) get 1.1 if you LP 3x OR get 1.1 CRE8R AND Matching AMP IF you LP 10x Boosted Allow for AMP boost here too LP 10x Basic Bribe payout */}
           </td>
+          
           <td>
             {projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe * 1.1, 1)}`}
           </td>
+          <td>how to get amp</td>
 
           <td>
             <p className="smalldesc">10x Current Holdings</p>
@@ -257,6 +261,7 @@ function BoostCalculator() {
           <td>{projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe * 1.25, 1)}`} 25% 🚀</td>
 
           <td></td>
+          <td></td>
           <td>
             {!loaded ? "🔄" : projectedPayout && projectedPayout.debug[0].boostedBribe ? (
               <span style={{ color: "green" }}>✔</span>
@@ -279,11 +284,13 @@ function BoostCalculator() {
             {nFormatter(amountUSDForBoostedBonus!, 1)}
           </td>
           <td>{projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe * 1.6, 1)}`} 60% 🚀</td>
-
+          <td> how to get amp</td>
           <td>
+         
             <p className="smalldesc">10x Current Holdings</p>
             {projectedPayout && latestCS && cre8rScore && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBribe/cre8rPrice * 1.6 * 60, 1)} $AMP`}
           </td>
+
           <td>
             {!loaded ? "🔄" : projectedPayout && projectedPayout.debug[0].boostedBonus ? (
               <span style={{ color: "green" }}>✔</span>
