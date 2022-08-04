@@ -62,7 +62,7 @@ const VoteButton = styled.a`
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     margin: 8px 10px 12px;
     background-position: right center;
-    cursor: not-allowed;
+    cursor: pointer;
   }
 `;
 
