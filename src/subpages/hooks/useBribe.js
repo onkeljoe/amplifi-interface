@@ -169,6 +169,7 @@ export default function useBribe(provider, address, pollTime = 0, blockNumber = 
 
   // used to know how much an Fbeets holder voted for cre8r-ftm on the beets snapshot
   useEffect(() => {
+    if (!address) return
     snapshot.utils.getScores(
       CRE8R,
       bribeSettings[CRE8R].strategies,
@@ -208,6 +209,7 @@ export default function useBribe(provider, address, pollTime = 0, blockNumber = 
 
   // used for beets VP
   useEffect(() => {
+    if (!address) return
     snapshot.utils.getScores(
       BEETS,
       bribeSettings[BEETS].strategies,

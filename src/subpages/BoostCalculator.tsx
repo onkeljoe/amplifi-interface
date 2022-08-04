@@ -118,6 +118,7 @@ function BoostCalculator() {
   let projectedPayout;
   if (account && beetsScoreBreakdown && cre8rScore && latestCS && lastPayout && cre8rPrice) {
     projectedPayout = calcProjectedPayouts(account, beetsScoreBreakdown?.beetsScore, cre8rScore, latestCS, lastPayout, cre8rPrice, 640)
+    console.log(projectedPayout)
   }
   const loaded =
     amountUSDForBasicBoost &&
