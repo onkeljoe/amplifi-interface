@@ -228,9 +228,7 @@ function BoostCalculator() {
             {/* IF new voter (voted last week) get 1.1 if you LP 3x OR get 1.1 CRE8R AND Matching AMP IF you LP 10x Boosted Allow for AMP boost here too LP 10x Basic Bribe payout */}
           </td>
           <td>
-            {basicBoostToReceiveUSD == 0
-              ? `Get some fBeets and check later`
-              : `$${nFormatter(basicBoostToReceiveUSD!, 1)}`}
+            {projectedPayout && `$${nFormatter(projectedPayout.debug[0].boostedBribe, 1)}`}
           </td>
 
           <td>
@@ -252,10 +250,11 @@ function BoostCalculator() {
           </td>
           <td>
             <p className="smalldesc">Just compound last weeks bribe</p>
-            Increase CRE8R Holdings by CODE IF Last weeks holdings + last weeks Bribe payment is equal to current holdings then show tickbox in status else show amount {("you were paid x CRE8R last week but you forgot to compound to get this boost you gotta buy")} needed to increase holdings $
+            {/* Increase CRE8R Holdings by CODE IF Last weeks holdings + last weeks Bribe payment is equal to current holdings then show tickbox in status else show amount {("you were paid x CRE8R last week but you forgot to compound to get this boost you gotta buy")} needed to increase holdings $ */}
+            {latestCS && cre8rScore && accountLastPayout && cre8rScore + (accountLastPayout as any).lastWeekPayoutInCRE8R > latestCS && `You were paid $${nFormatter(accountLastPayout,1)} CRE8R last week but you forgot to compound to get this boost you gotta buy ${latestCS - cre8rScore - (accountLastPayout as any).lastWeekPayoutInCRE8R > 0 && `and buy $${latestCS - cre8rScore - (accountLastPayout as any).lastWeekPayoutInCRE8R} more CRE8R holdings`}`}
             {nFormatter(amountUSDForBoostedBribe!, 1)}
           </td>
-          <td>25% 🚀</td>
+          <td>{projectedPayout && `$${nFormatter(projectedPayout.debug[0].boostedBribe, 1)}`} 25% 🚀</td>
 
           <td></td>
           <td>
@@ -279,11 +278,11 @@ function BoostCalculator() {
             Increase CRE8R Holdings by $
             {nFormatter(amountUSDForBoostedBonus!, 1)}
           </td>
-          <td>60% 🚀</td>
+          <td>{projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe * 1.6, 1)}`} 60% 🚀</td>
 
           <td>
             <p className="smalldesc">10x Current Holdings</p>
-            CODE cre8r payout * 2000 = amp payout
+            {projectedPayout && latestCS && cre8rScore && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBribe/cre8rPrice * 1.6 * 60, 1)} $AMP`}
           </td>
           <td>
             {projectedPayout && projectedPayout.debug[0].boostedBonus ? (
@@ -296,8 +295,10 @@ function BoostCalculator() {
         <tr className="payout-row">
           <td>Totals</td>
           <td></td>
-          <td>CODE Take the highest $CRE8R payout or show new voter payout?</td>
-          <td>CODE Multiply CRE8R by 600 $AMP</td>
+          <td>{projectedPayout && projectedPayout.debug[0].payoutUSD || "loading"}</td>
+          <td>{projectedPayout && latestCS && cre8rScore && latestCS/cre8rScore > 3 && cre8rPrice && projectedPayout.debug[0].payoutUSD/cre8rPrice*60 * Math.max(1,latestCS/cre8rScore/10) || latestCS ? null :"loading" } 
+          {latestCS && cre8rScore && latestCS/cre8rScore < 3 && `You need a multiplier of at least 3x to be eligible for $AMP. Current multiplier: ${nFormatter(latestCS/cre8rScore, 1)}`}
+          </td>
           <td></td>
         </tr>
         {/* <tr className='amp_bonus'>
