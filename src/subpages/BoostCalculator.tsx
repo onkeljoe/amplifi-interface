@@ -239,7 +239,7 @@ function BoostCalculator() {
           </td>
           <td><div> 
           {/* <div>10% - 210% 🚀</div>  */}
-            {projectedPayout && cre8rPrice && `Earn up to ${nFormatter(projectedPayout.debug[0].basicBoost / cre8rPrice * 60, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].basicBribe * 1.1, 1)})`}</div>
+            {projectedPayout && cre8rPrice && `Earn up to ${nFormatter(projectedPayout.debug[0].basicBoost / cre8rPrice * 600, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].basicBribe * 1.1, 1)})`}</div>
             <div><a href="https://beets.fi/#/pool/0xbb4607bede4610e80d35c15692efcb7807a2d0a6000200000000000000000140">{projectedPayout && `LP at least $${nFormatter(projectedPayout.debug[0].basicBribe * 6, 1)}`}</a></div>
             </td>
 
@@ -252,7 +252,7 @@ function BoostCalculator() {
           
            
            <div>
-             {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBoost2AmpInUSD / cre8rPrice * 60, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].basicBoost2AmpInUSD, 1)})`} </div>
+             {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBoost2AmpInUSD / cre8rPrice * 600, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].basicBoost2AmpInUSD, 1)})`} </div>
           </td>
 
           <td>{!loaded ? "🔄" : projectedPayout && projectedPayout.debug[0].basicBoost2AmpInUSD ? (
@@ -309,7 +309,7 @@ function BoostCalculator() {
             <td> 
               {/* 60% - 320% 🚀 */}
               <div>
-                Earn up to {projectedPayout && cre8rPrice && `${nFormatter(amountUSDForBoostedBonus! / cre8rPrice * 60 * 5.714 / 2, 1)} $AMP`}
+                Earn up to {projectedPayout && cre8rPrice && `${nFormatter(amountUSDForBoostedBonus! / cre8rPrice * 600 * 5.714 / 2, 1)} $AMP`}
               </div>
               <div>
              <a href="https://beets.fi/#/pool/0xbb4607bede4610e80d35c15692efcb7807a2d0a6000200000000000000000140"> Increase CRE8R Holdings by $
@@ -319,7 +319,7 @@ function BoostCalculator() {
           <td>
           
             
-             {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].boostedBonus2AmpInUSD / cre8rPrice * 60, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].boostedBonus2AmpInUSD, 1)})`}
+             {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].boostedBonus2AmpInUSD / cre8rPrice * 600, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].boostedBonus2AmpInUSD, 1)})`}
           </td>
 
           <td>
@@ -336,7 +336,7 @@ function BoostCalculator() {
           <td>{projectedPayout && `$${nFormatter(projectedPayout.debug[0].payoutUSD, 1)}` || "🔄"}</td>
           <td></td>
           <td></td>
-          <td>{projectedPayout && cre8rPrice && `${nFormatter(Math.max(projectedPayout.debug[0].basicBoost2AmpInUSD, projectedPayout.debug[0].boostedBonus2AmpInUSD) / cre8rPrice * 60, 1)} $AMP ($${nFormatter(Math.max(projectedPayout.debug[0].basicBoost2AmpInUSD, projectedPayout.debug[0].boostedBonus2AmpInUSD), 1)})`}
+          <td>{projectedPayout && cre8rPrice && `${nFormatter(Math.max(projectedPayout.debug[0].basicBoost2AmpInUSD, projectedPayout.debug[0].boostedBonus2AmpInUSD) / cre8rPrice * 600, 1)} $AMP ($${nFormatter(Math.max(projectedPayout.debug[0].basicBoost2AmpInUSD, projectedPayout.debug[0].boostedBonus2AmpInUSD), 1)})`}
           </td>
           <td></td>
         </tr>
