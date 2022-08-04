@@ -207,9 +207,11 @@ function BoostCalculator() {
           <th>Status</th>
         </tr>
         <tr className="basic_bribe">
-          <td>Basic Bribe</td>
+          <td>Basic Bribe
+          <p className="smalldesc">$664.34 per 1% of Beets vote</p>
+          </td>
           <td>Used in Boost Calculation.</td>
-          <td>$664.34 per 1% of Beets vote</td>
+          <td>CODE bb for user</td>
           <td></td>
           <td></td>
           <td>⌛</td>
@@ -230,7 +232,7 @@ function BoostCalculator() {
           <td>
             {projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe * 1.1, 1)}`}
           </td>
-          <td>how to get amp</td>
+          <td>LP 3 x the number we are showing to get max $AMP</td>
 
           <td>
             <p className="smalldesc">10x Current Holdings</p>
