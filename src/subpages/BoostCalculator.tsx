@@ -199,7 +199,6 @@ function BoostCalculator() {
         </caption>
         <tr>
           <th>Bribe Tier</th>
-
           <th>Holdings Increase Requirement</th>
           <th>CRE8R Payout</th>
           <th>Holdings Increase Requirement For Bonus $AMP</th>
@@ -212,7 +211,7 @@ function BoostCalculator() {
           </td>
           <td>Used in Boost Calculation.</td>
           <td>CODE bb for user</td>
-          <td></td>
+          <td>   {projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe, 1)}`}</td>
           <td></td>
           <td>⌛</td>
         </tr>
