@@ -236,7 +236,7 @@ function BoostCalculator() {
             cre8r payout * 2000 = amp payout
           </td>
           <td>
-            {projectedPayout && projectedPayout.debug[0].basicBoost ? (
+            {!loaded ? "🔄" : projectedPayout && projectedPayout.debug[0].basicBoost ? (
               <span style={{ color: "green" }}>✔</span>
             ) : (
               <>❌</>
@@ -252,7 +252,7 @@ function BoostCalculator() {
             <p className="smalldesc">Just compound last weeks bribe</p>
             {/* Increase CRE8R Holdings by CODE IF Last weeks holdings + last weeks Bribe payment is equal to current holdings then show tickbox in status else show amount {("you were paid x CRE8R last week but you forgot to compound to get this boost you gotta buy")} needed to increase holdings $ */}
             {latestCS && cre8rScore && accountLastPayout && cre8rScore + (accountLastPayout as any).lastWeekPayoutInCRE8R > latestCS && `You were paid $${nFormatter(accountLastPayout,1)} CRE8R last week but you forgot to compound to get this boost you gotta buy ${latestCS - cre8rScore - (accountLastPayout as any).lastWeekPayoutInCRE8R > 0 && `and buy $${latestCS - cre8rScore - (accountLastPayout as any).lastWeekPayoutInCRE8R} more CRE8R holdings`}`}
-            {nFormatter(amountUSDForBoostedBribe!, 1)}
+            {/* {nFormatter(amountUSDForBoostedBribe!, 1)} */}
           </td>
           <td>{projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe * 1.25, 1)}`} 25% 🚀</td>
 
@@ -295,7 +295,7 @@ function BoostCalculator() {
         <tr className="payout-row">
           <td>Totals</td>
           <td></td>
-          <td>{projectedPayout && projectedPayout.debug[0].payoutUSD || "🔄"}</td>
+          <td>{projectedPayout && `$${nFormatter(projectedPayout.debug[0].payoutUSD, 1)}` || "🔄"}</td>
           <td>{projectedPayout && latestCS && cre8rScore && latestCS/cre8rScore > 3 && cre8rPrice && projectedPayout.debug[0].payoutUSD/cre8rPrice*60 * Math.max(1,latestCS/cre8rScore/10) || latestCS ? null :"🔄" } 
           {latestCS && cre8rScore && latestCS/cre8rScore < 3 && `You need a multiplier of at least 3x to be eligible for $AMP. Current multiplier: ${nFormatter(latestCS/cre8rScore, 1)}`}
           </td>
