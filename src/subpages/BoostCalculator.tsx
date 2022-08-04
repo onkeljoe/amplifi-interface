@@ -242,7 +242,7 @@ function BoostCalculator() {
           <td>
             <p className="smalldesc">6x Current Holdings</p>
             {/* cre8r payout * 2000 = amp payout */}
-            10% - 210% 🚀
+            10% - 220% 🚀
             {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBoost / cre8rPrice * 60, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].basicBribe * 1.1, 1)})`}
             Current AMP earned: {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBoost2AmpInUSD / cre8rPrice * 60, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].basicBoost2AmpInUSD * 1.1, 1)})`}
           </td>
