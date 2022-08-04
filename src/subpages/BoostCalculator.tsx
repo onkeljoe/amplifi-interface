@@ -209,7 +209,7 @@ function BoostCalculator() {
           <td>Basic Bribe
           <p className="smalldesc">$664.34 per 1% of Beets vote</p>
           </td>
-          <td>Used in Boost Calculation.</td>
+          <td>Basic Bribe is used in calculations only. To increase it you gotta get more FBEETS.</td>
           <td>CODE bb for user</td>
           <td>   {projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe, 1)}`}</td>
           <td></td>
