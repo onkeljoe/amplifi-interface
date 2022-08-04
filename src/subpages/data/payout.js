@@ -59,7 +59,11 @@ function calcPayouts(addresses, voters, total, percent, lastHoldingsAddresses, c
 
       let ratioHoldings = currentHoldings / lastHoldings
       let multiplierHoldings = (Math.min(0.35, ratioHoldings) - 0.35) * 1 / 1.65
-      boostedBonus2 = multiplierHoldings * boostedBonus
+      boostedBonus2 += multiplierHoldings * boostedBonus //extra bonus
+      
+      let excessCre8r = currentHoldings - (lastHoldings + lastWeekPayoutInCRE8R)*1.35
+      
+      boostedBonus2 += multiplierHoldings / 2 * excessCre8r
 
     }
 
