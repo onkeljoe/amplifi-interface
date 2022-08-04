@@ -1,3 +1,25 @@
+p.smalldesc {
+  font-size: 12px;
+  display: inherit;
+  color: #332d2d;
+}
+
+tr.basic_bribe {
+  background-color: rgb(236, 221, 221);
+}
+tr.basic_boosted {
+  background-color: rgb(150, 245, 126);
+}
+tr.boosted_bribe {
+  background-color: rgb(94, 233, 94);
+}
+tr.boosted_bonus {
+  background-color: rgb(0, 243, 0);
+}
+tr.amp_bonus {
+  background-color: rgb(245, 31, 227);
+}
+
 .wp-post-image {
   width: 100%;
   height: auto;
@@ -129,6 +151,9 @@ div#ampBlockColumn {
   min-width: 0;
   word-break: inherit;
   overflow-wrap: break-word;
+}
+.wp-container-2.wp-block-column {
+  word-break: inherit;
 }
 
 p.ampLabel.has-text-color {
