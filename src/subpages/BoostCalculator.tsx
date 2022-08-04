@@ -124,42 +124,6 @@ function BoostCalculator () {
       }}>
         {countdownText}
       </VoteButton>
-
-      <div>Last Holdings Block Number: {BLOCKNUMBER}</div>
-      <div>
-        <div>
-          <h1>Your Stats at Block Number: {BLOCKNUMBER}</h1>
-        </div>
-        <div>
-        Your CRE8R Holdings across Fantom Pools and Vaults: {cre8rScore && <span style={{color: ''}}>${nFormatter(cre8rScore, 1)}</span>}
-        </div>
-        <div>
-        Your Beets VP: {beetsScore != undefined && <span style={{color: ''}}> ${nFormatter(beetsScore, 1)}</span>}
-        </div>
-      </div>
-      <div>
-        <div>
-          <h1>Your Stats at the Latest Block</h1>
-        </div>
-        <div>
-        Your CRE8R Holdings across Fantom Pools and Vaults: {(cre8rChange || cre8rChange == 0) && <span style={{color: cre8rChange > 0 ? 'green' : 'red'}}>${nFormatter(latestCS!, 1)} {`(${formatChange(cre8rChange)})`}</span>}
-        </div>
-        <div>
-        Your Beets VP: {(beetsChange || beetsChange == 0) && <span style={{color: beetsChange > 0 ? 'green' : 'red'}}> ${nFormatter(latestBS!, 1)} {`(${formatChange(beetsChange)})`}</span>}
-        </div>
-        <div>
-          <h2>CRE8R holdings breakdown</h2>
-          {cre8rScoreBreakdown && cre8rScoreBreakdown.map((i : any) => {
-            return <div key={i.symbol} style={{marginBottom: 10}}> 
-              <div>symbol: {i.symbol}</div>
-              <div>number of tokens: {nFormatter(i.numTokens, 1)}</div>
-              <div>one token price: ${i.priceUSD.toFixed(4)}</div>
-              <div>total value: ${i.valueUSD.toFixed(2)}</div>
-            </div>
-          })}
-        </div>
-      </div>
-
       <div>
         <h1>Bribe Tiers</h1>
       </div>
@@ -219,6 +183,42 @@ function BoostCalculator () {
           <td>{hasBoostedBonus ? <span style={{ color: 'green' }}>✔</span>: <>❌</>}</td>
         </tr>
       </Table>
+      <div>Last Holdings Block Number: {BLOCKNUMBER}</div>
+      <div>
+        <div>
+          <h1>Your Stats at Block Number: {BLOCKNUMBER}</h1>
+        </div>
+        <div>
+        Your CRE8R Holdings across Fantom Pools and Vaults: {cre8rScore && <span style={{color: ''}}>${nFormatter(cre8rScore, 1)}</span>}
+        </div>
+        <div>
+        Your Beets VP: {beetsScore != undefined && <span style={{color: ''}}> ${nFormatter(beetsScore, 1)}</span>}
+        </div>
+      </div>
+      <div>
+        <div>
+          <h1>Your Stats at the Latest Block</h1>
+        </div>
+        <div>
+        Your CRE8R Holdings across Fantom Pools and Vaults: {(cre8rChange || cre8rChange == 0) && <span style={{color: cre8rChange > 0 ? 'green' : 'red'}}>${nFormatter(latestCS!, 1)} {`(${formatChange(cre8rChange)})`}</span>}
+        </div>
+        <div>
+        Your Beets VP: {(beetsChange || beetsChange == 0) && <span style={{color: beetsChange > 0 ? 'green' : 'red'}}> ${nFormatter(latestBS!, 1)} {`(${formatChange(beetsChange)})`}</span>}
+        </div>
+        <div>
+          <h2>CRE8R holdings breakdown</h2>
+          {cre8rScoreBreakdown && cre8rScoreBreakdown.map((i : any) => {
+            return <div key={i.symbol} style={{marginBottom: 10}}> 
+              <div>symbol: {i.symbol}</div>
+              <div>number of tokens: {nFormatter(i.numTokens, 1)}</div>
+              <div>one token price: ${i.priceUSD.toFixed(4)}</div>
+              <div>total value: ${i.valueUSD.toFixed(2)}</div>
+            </div>
+          })}
+        </div>
+      </div>
+
+
       <div>
         <h1>
           Payouts for <a href="https://snapshot.org/#/beets.eth/proposal/0x9b3b328e77e2d5b99a26ede7b4f6c36ee0bf6b4c06241e84f50f01735270d6e9">
