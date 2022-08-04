@@ -24,31 +24,47 @@ function calcPayouts(addresses, voters, total, percent, lastHoldingsAddresses, c
     let basicBribe = voters[a]/total * 100 * percent * cre8rBasicPayoutperPercent 
     // totalPayoutAtBasic = percent * 100 * cre8rBasicPayoutperPercent 
     // basicBribe = ratio / cre8rPrice * percent * cre8rBasicPayoutperPercent
-    //payouts
+    //payouts $CRE8R
     let bogusestBribe = 0
     let basicBoost = 0
     let boostedBribe = 0
     let boostedBonus = 0
     let boostedBonanza = 0
-    let payoutUSD = 0
+
     if (dif <= -currentHoldings * .04) { //why do we need the &&? could we remove currentHoldings?
       bogusestBribe = basicBribe * 0.5
     }
-  
-    if (currentHoldings > (basicBribe*3) && lastWeekPayoutInCRE8R == 0) {
+    const hasLp3x = currentHoldings > (basicBribe*3)
+    if (hasLp3x && lastWeekPayoutInCRE8R == 0) {
       basicBoost = basicBribe * 1.1
     }
   
-    if (basicBoost && currentHoldings * 1.2 >= lastHoldings + lastWeekPayoutInCRE8R) {
+    if (hasLp3x && basicBoost && currentHoldings * 1.2 >= lastHoldings + lastWeekPayoutInCRE8R) {
       boostedBribe = basicBribe * 1.25
     }
-    if (basicBoost && currentHoldings > lastWeekPayoutInCRE8R + lastHoldings*1.35) { // currentHoldings > lastHoldings*1.35 + lastWeekPayout
+    if (hasLp3x && basicBoost && currentHoldings > lastWeekPayoutInCRE8R + lastHoldings*1.35) { // currentHoldings > lastHoldings*1.35 + lastWeekPayout
       boostedBonus = basicBribe * 1.35
       if (hasBonanza) {
         boostedBonanza = basicBribe * 1.6
       }
     }
+    //payouts $AMP
+    let basicBoost2 = 0;
+    let boostedBonus2 = 0;
 
+    if (hasLp3x) {
+      let ratioLP = currentHoldings / basicBribe
+      let multiplierLP = (Math.min(6, (ratioLP)) - 3) * 1/3
+      basicBoost2 = multiplierLP * basicBoost
+
+      let ratioHoldings = currentHoldings / lastHoldings
+      let multiplierHoldings = (Math.min(0.35, ratioHoldings) - 0.35) * 1 / 1.65
+      boostedBonus2 = multiplierHoldings * boostedBonus
+
+    }
+
+
+    let payoutUSD = 0
     if (bogusestBribe) {
       payoutUSD = bogusestBribe
     } else {
@@ -72,6 +88,9 @@ function calcPayouts(addresses, voters, total, percent, lastHoldingsAddresses, c
         boostedBonus,
         boostedBonanza,
         payoutUSD,
+        payoutCre8rInUSD: payoutUSD,
+        basicBoost2AmpInUSD: basicBoost2,
+        boostedBonus2AmpInUSD: boostedBonus2,
         payoutCre8r: payoutUSD/cre8rPrice
       }
     }

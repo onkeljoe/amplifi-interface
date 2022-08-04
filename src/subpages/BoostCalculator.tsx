@@ -228,7 +228,7 @@ function BoostCalculator() {
           </td>
           
           <td>
-            {projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe * 1.1, 1)}`}
+            {projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBoost, 1)}`}
           </td>
           <td>
             {!loaded ? "🔄" : projectedPayout && projectedPayout.debug[0].basicBoost ? (
@@ -241,9 +241,15 @@ function BoostCalculator() {
 
           <td>
             <p className="smalldesc">10x Current Holdings</p>
-            cre8r payout * 2000 = amp payout
+            {/* cre8r payout * 2000 = amp payout */}
+            Max AMP to earn: {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBoost / cre8rPrice * 60, 1)} $AMP`}
+            Current AMP earned: {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBoost2AmpInUSD / cre8rPrice * 60, 1)} $AMP`}
           </td>
-          <td>amp status here</td>
+          <td>{!loaded ? "🔄" : projectedPayout && projectedPayout.debug[0].basicBoost2AmpInUSD ? (
+              <span style={{ color: "green" }}>✔</span>
+            ) : (
+              <>❌</>
+            )}</td>
         </tr>
         <tr className="boosted_bribe">
           <td>
@@ -293,12 +299,20 @@ function BoostCalculator() {
           
           <td> how to get amp</td>
           <td>
-         
             <p className="smalldesc">10x Current Holdings</p>
-            {projectedPayout && latestCS && cre8rScore && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBribe/cre8rPrice * 1.6 * 60, 1)} $AMP`}
+            {projectedPayout && latestCS && cre8rScore && cre8rPrice && `${nFormatter(projectedPayout.debug[0].boostedBonus / cre8rPrice * 60, 1)} $AMP`}
+
+            Max AMP to earn: {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].boostedBonus / cre8rPrice * 60, 1)} $AMP`}
+            Current AMP earned: {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].boostedBonus2AmpInUSD / cre8rPrice * 60, 1)} $AMP`}
           </td>
 
-          <td>amp status</td>
+          <td>
+            {!loaded ? "🔄" : projectedPayout && projectedPayout.debug[0].boostedBonus2AmpInUSD ? (
+              <span style={{ color: "green" }}>✔</span>
+            ) : (
+              <>❌</>
+            )}
+          </td>
         </tr>
         <tr className="payout-row">
           <td>Totals</td>
@@ -306,8 +320,7 @@ function BoostCalculator() {
           <td>{projectedPayout && `$${nFormatter(projectedPayout.debug[0].payoutUSD, 1)}` || "🔄"}</td>
           <td></td>
           <td></td>
-          <td>{projectedPayout && latestCS && cre8rScore && latestCS/cre8rScore > 3 && cre8rPrice && projectedPayout.debug[0].payoutUSD/cre8rPrice*60 * Math.max(1,latestCS/cre8rScore/10) || latestCS ? null :"🔄" } 
-          {latestCS && cre8rScore && latestCS/cre8rScore < 3 && `You need a multiplier of at least 3x to be eligible for $AMP. Current multiplier: ${nFormatter(latestCS/cre8rScore, 1)}`}
+          <td>{projectedPayout && `${nFormatter(Math.max(projectedPayout.debug[0].basicBoost2AmpInUSD, projectedPayout.debug[0].boostedBonus2AmpInUSD), 1)} $AMP`}
           </td>
           <td></td>
         </tr>
