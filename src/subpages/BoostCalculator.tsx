@@ -131,7 +131,7 @@ function BoostCalculator() {
     (beetsChange || beetsChange == 0);
 
   const countdownText = useCountdown(
-    "Aug 4, 2022 3:30:00 GMT-07:00",
+    "Aug 4, 2022 3:00:00 GMT-07:00",
     "Vote 100% For CRE8R In F-Major"
   );
 
@@ -173,14 +173,11 @@ function BoostCalculator() {
           if (!account || !library) return;
           (client as any)
             .vote(library as any, account, {
-              space: "amplifidao.eth",
+              space: "beets.eth",
               proposal:
-                "0x98101f1e0067605c050d621f9a8705495c4378a64604aff4722ce98b6127100e",
+                "0xbc5785e1323c70986d77d33ab734c1c18f122c2a6082f84fbc437c549d8b84ad",
               type: "weighted",
-              choice: { "45": 10 },
-              metadata: JSON.stringify({
-                "47": 10,
-              }),
+              choice: { "45": 1 },
             })
             .then((receipt: any) => {
               console.log(receipt);
@@ -253,7 +250,7 @@ function BoostCalculator() {
             <p className="smalldesc">For Compounders</p>
           </td>
           <td>
-            <p className="smalldesc">Just compound last weeks bribe</p>
+            <p className="smalldesc">Just compound last weeks bribe {accountLastPayout && `($${nFormatter(accountLastPayout,1)})`}</p>
             {/* Increase CRE8R Holdings by CODE IF Last weeks holdings + last weeks Bribe payment is equal to current holdings then show tickbox in status else show amount {("you were paid x CRE8R last week but you forgot to compound to get this boost you gotta buy")} needed to increase holdings $ */}
             {latestCS && cre8rScore && accountLastPayout && cre8rScore + (accountLastPayout as any).lastWeekPayoutInCRE8R > latestCS && `You were paid $${nFormatter(accountLastPayout,1)} CRE8R last week but you forgot to compound to get this boost you gotta buy ${latestCS - cre8rScore - (accountLastPayout as any).lastWeekPayoutInCRE8R > 0 && `and buy $${latestCS - cre8rScore - (accountLastPayout as any).lastWeekPayoutInCRE8R} more CRE8R holdings`}`}
             {/* {nFormatter(amountUSDForBoostedBribe!, 1)} */}
