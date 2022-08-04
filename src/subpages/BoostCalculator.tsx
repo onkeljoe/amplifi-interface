@@ -22,9 +22,11 @@ import {
 import snapshot from "@snapshot-labs/snapshot.js";
 import { toast } from "react-toastify";
 import {calcProjectedPayouts} from './data/payout'
+
 const AMP_PRICE_USD = 0.001666666667
 const hub = "https://hub.snapshot.org"; // or https://testnet.snapshot.org for testnet
-  "https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-43050170.json";
+const lastPayoutUri = "https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-43050170.json";
+const client = new snapshot.Client712(hub);
 
 const Table = styled.table`
   border-collapse: collapse;
