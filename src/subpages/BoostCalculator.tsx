@@ -286,7 +286,7 @@ function BoostCalculator() {
           </td>
           <td></td>
           <td></td>
-          <td>new status for amp</td>
+          <td></td>
           
         </tr>
         <tr className="boosted_bonus">
