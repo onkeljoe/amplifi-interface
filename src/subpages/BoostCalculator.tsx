@@ -239,11 +239,13 @@ function BoostCalculator() {
             )}
           </td>
           <td><div> 
-          <div>10% - 210% 🚀</div> 
-            {projectedPayout && cre8rPrice && `Earn up to ${nFormatter(projectedPayout.debug[0].basicBoost / cre8rPrice * 60, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].basicBribe * 1.1, 1)})`}</div></td>
+          {/* <div>10% - 210% 🚀</div>  */}
+            {projectedPayout && cre8rPrice && `Earn up to ${nFormatter(projectedPayout.debug[0].basicBoost / cre8rPrice * 60, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].basicBribe * 1.1, 1)})`}</div>
+            <div><a href="https://beets.fi/#/pool/0xbb4607bede4610e80d35c15692efcb7807a2d0a6000200000000000000000140">{projectedPayout && `LP at least $${nFormatter(projectedPayout.debug[0].basicBribe * 6, 1)}`}</a></div>
+            </td>
 
 
-            <div>{projectedPayout && `LP at least $${nFormatter(projectedPayout.debug[0].basicBribe * 6, 1)}`}</div>
+            
 
           <td>
             {/* <p className="smalldesc">6x Current Holdings</p> */}
@@ -306,13 +308,13 @@ function BoostCalculator() {
           </td>
           
             <td> 
-              60% - 320% 🚀
+              {/* 60% - 320% 🚀 */}
               <div>
-                {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBribe * 1.6 / cre8rPrice * 60, 1)} $AMP`}
+                Earn up to {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBribe * 1.6 / cre8rPrice * 60, 1)} $AMP`}
               </div>
               <div>
-              Increase CRE8R Holdings by $
-              {nFormatter(amountUSDForBoostedBonus! * 5.714, 1)}
+             <a href="https://beets.fi/#/pool/0xbb4607bede4610e80d35c15692efcb7807a2d0a6000200000000000000000140"> Increase CRE8R Holdings by $
+              {nFormatter(amountUSDForBoostedBonus! * 5.714, 1)}</a>
               </div>
           </td>
           <td>
