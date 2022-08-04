@@ -228,7 +228,7 @@ function BoostCalculator() {
             {/* IF new voter (voted last week) get 1.1 if you LP 3x OR get 1.1 CRE8R AND Matching AMP IF you LP 10x Boosted Allow for AMP boost here too LP 10x Basic Bribe payout */}
           </td>
           <td>
-            {projectedPayout && `$${nFormatter(projectedPayout.debug[0].boostedBribe, 1)}`}
+            {projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe * 1.1, 1)}`}
           </td>
 
           <td>
