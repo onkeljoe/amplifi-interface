@@ -98,7 +98,7 @@ function BoostCalculator() {
     cre8rScore &&
     amountUSDForBasicBoost &&
     latestCS - cre8rScore > amountUSDForBasicBoost;
-  const accountLastPayout =
+  const accountLastPayout : any =
     lastPayout && lastPayout.filter((i: any) => i.address == account)[0];
   const hasBoostedBribe =
     lastPayout &&
@@ -266,7 +266,7 @@ function BoostCalculator() {
             <p className="smalldesc">For Compounders</p>
           </td>
           <td>
-            <p className="smalldesc">Just compound last weeks bribe {accountLastPayout && `($${nFormatter(accountLastPayout,1)})`}</p>
+            <p className="smalldesc">Just compound last weeks bribe {accountLastPayout && `($${nFormatter(accountLastPayout.payoutUSD,1)})`}</p>
             {/* Increase CRE8R Holdings by CODE IF Last weeks holdings + last weeks Bribe payment is equal to current holdings then show tickbox in status else show amount {("you were paid x CRE8R last week but you forgot to compound to get this boost you gotta buy")} needed to increase holdings $ */}
             {latestCS && cre8rScore && accountLastPayout && cre8rScore + (accountLastPayout as any).lastWeekPayoutInCRE8R > latestCS && `You were paid $${nFormatter(accountLastPayout,1)} CRE8R last week but you forgot to compound to get this boost you gotta buy ${latestCS - cre8rScore - (accountLastPayout as any).lastWeekPayoutInCRE8R > 0 && `and buy $${latestCS - cre8rScore - (accountLastPayout as any).lastWeekPayoutInCRE8R} more CRE8R holdings`}`}
             {/* {nFormatter(amountUSDForBoostedBribe!, 1)} */}
@@ -308,11 +308,11 @@ function BoostCalculator() {
             <td> 
               {/* 60% - 320% 🚀 */}
               <div>
-                Earn up to {projectedPayout && cre8rPrice && `${nFormatter(amountUSDForBoostedBonus! / AMP_PRICE_USD * 5.714 / 2, 1)} $AMP $${nFormatter(amountUSDForBoostedBonus! * 5.714 / 2, 1)}`}
+                Earn up to {projectedPayout && cre8rPrice && `${nFormatter(amountUSDForBoostedBonus! / AMP_PRICE_USD * 5.714 / 2, 1)} $AMP ($${nFormatter(amountUSDForBoostedBonus! * 5.714 / 2, 1)})`}
               </div>
               <div>
              <a href="https://beets.fi/#/pool/0xbb4607bede4610e80d35c15692efcb7807a2d0a6000200000000000000000140"> Increase CRE8R Holdings by $
-              {`(${nFormatter(amountUSDForBoostedBonus! * 5.714, 1)})`}</a>
+              {`${nFormatter(amountUSDForBoostedBonus! * 5.714, 1)}`}</a>
               </div>
           </td>
           <td>
