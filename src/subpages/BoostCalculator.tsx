@@ -267,7 +267,7 @@ function BoostCalculator() {
           </td>
           <td>
             <p className="smalldesc">Just compound last weeks bribe {accountLastPayout && cre8rPrice && `($${nFormatter(accountLastPayout.lastWeekPayoutInCRE8R * cre8rPrice,1)})`}</p>
-            {latestCS && cre8rScore && cre8rPrice && accountLastPayout && cre8rScore + accountLastPayout.lastWeekPayoutInCRE8R > latestCS && `You were paid $${nFormatter(accountLastPayout.lastWeekPayoutInCRE8R * cre8rPrice,1)} CRE8R last week but you forgot to compound to get this boost you gotta buy ${latestCS - cre8rScore - accountLastPayout.lastWeekPayoutInCRE8R > 0 && `and buy $${latestCS - cre8rScore - accountLastPayout.lastWeekPayoutInCRE8R} more CRE8R holdings`}`}
+            {latestCS && cre8rScore && cre8rPrice && accountLastPayout && cre8rScore + accountLastPayout.lastWeekPayoutInCRE8R > latestCS && `You were paid $${nFormatter(accountLastPayout.payoutUSD,1)} CRE8R last week but you forgot to compound to get this boost you gotta buy ${latestCS - cre8rScore - accountLastPayout.payoutUSD > 0 && `and buy $${latestCS - cre8rScore - accountLastPayout.payoutUSD} more CRE8R holdings`}`}
             {/* {nFormatter(amountUSDForBoostedBribe!, 1)} */}
           </td>
           <td>{projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe * 1.25, 1)}`} 25% 🚀</td>
