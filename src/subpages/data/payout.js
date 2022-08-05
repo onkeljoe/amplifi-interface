@@ -72,7 +72,7 @@ function calcPayouts(addresses, voters, total, percent, lastHoldingsAddresses, c
     if (bogusestBribe) {
       payoutUSD = bogusestBribe
     } else {
-      payoutUSD = Math.max(/*basicBribe,*/ basicBoost, boostedBribe, boostedBonus, boostedBonanza)
+      payoutUSD = Math.max(basicBribe, basicBoost, boostedBribe, boostedBonus, boostedBonanza)
     } 
     let debugBribes = {
       address: a,
