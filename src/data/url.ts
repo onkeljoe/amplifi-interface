@@ -38,7 +38,14 @@ export async function getUrl(
   campaignUrlComponents.push(`utm_source=${utm_source}`);
 
   function getLongLink() {
-    return baseUrl?.replace("https://", "") + campaignUrlComponents.join("&");
+    let longLink = ""
+    if (baseUrl.includes("#")) {
+      longLink = baseUrl?.replace("?", "").replace("#","?" + campaignUrlComponents.join("&") +  "#");
+    } else {
+      longLink = baseUrl + campaignUrlComponents.join("&");
+    }
+    console.log(longLink)
+    return longLink.replace("https://", "") 
   }
   if (!process.env.REACT_APP_REBRANDLY) {
     return { utm: getLongLink(), shortUtm: undefined };
@@ -60,9 +67,10 @@ export async function getUrl(
       apikey: process.env.REACT_APP_REBRANDLY,
     },
   };
+  console.log(encodeURIComponent(getLongLink()))
   const response = await fetch(
     "https://api.rebrandly.com/v1/links/new?destination=" +
-      encodeURIComponent(campaignUrl + campaignUrlComponents.join("&")) +
+      encodeURIComponent("https://" + getLongLink()) +
       "&" +
       urlComponents.join("&"),
     options
