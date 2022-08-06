@@ -7,7 +7,7 @@ export function RedirectWithUpdatedGovernance() {
   const [lastSelected] = useLastSelectedProtocolID();
 
   const { username: usernameQuery } = useParsedQueryString();
-  const route = `campaigns/${lastSelected ?? "uniswap"}${
+  const route = `campaigns/${lastSelected ?? "CRE8R"}${
     usernameQuery ? "?username=" + usernameQuery : ""
   }`;
 
