@@ -21,11 +21,12 @@ import {
 } from "./utils";
 import snapshot from "@snapshot-labs/snapshot.js";
 import { toast } from "react-toastify";
-import {calcProjectedPayouts} from './data/payout'
+import { calcProjectedPayouts } from "./data/projectedPayouts";
 
-const AMP_PRICE_USD = 0.001666666667
+const AMP_PRICE_USD = 0.001666666667;
 const hub = "https://hub.snapshot.org"; // or https://testnet.snapshot.org for testnet
-const lastPayoutUri = "https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-43050170.json";
+const lastPayoutUri =
+  "https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-43050170.json";
 const client = new snapshot.Client712(hub);
 
 const Table = styled.table`
@@ -68,65 +69,57 @@ const VoteButton = styled.a`
 
 function BoostCalculator() {
   const { library, account } = useActiveWeb3React();
-  const { cre8rScore, beetsScore, beetsScoreBreakdown, cre8rPrice } = useBribe(library, account); //has a blocknumber default
+  const { cre8rScore: lastCS, beetsScore: lastBS, beetsScoreBreakdown, cre8rPrice } = useBribe(
+    library,
+    account
+  ); //has a blocknumber default
   const {
-    cre8rScore: latestCS,
-    beetsScore: latestBS,
+    cre8rScore: currentCS,
+    beetsScore: currentBS,
     cre8rScoreBreakdown,
   } = useBribe(library, account, 0, BLOCKNUMBER + 4000000000); // what year would this be?
   const cre8rChange =
-    cre8rScore &&
-    (latestCS || latestCS == 0) &&
-    calcChange(cre8rScore, latestCS);
+    lastCS &&
+    (currentCS || currentCS == 0) &&
+    calcChange(lastCS, currentCS);
   const beetsChange =
-    beetsScore &&
-    (latestBS || latestBS == 0) &&
-    calcChange(beetsScore, latestBS);
+    lastBS &&
+    (currentBS || currentBS == 0) &&
+    calcChange(lastBS, currentBS);
   const [lastPayout, setLastPayout] = useState([]);
   const amountUSDForBasicBoost =
-    beetsScore && calcLpToGetBasicBoosted(beetsScore);
+    lastBS && calcLpToGetBasicBoosted(lastBS);
   const basicBoostToReceiveUSD =
-    beetsScore && calcBasicBoostedToReceive(beetsScore);
+    lastBS && calcBasicBoostedToReceive(lastBS);
   const amountUSDForBoostedBribe =
-    cre8rScore && calcUSDBoostedBribeToRecieve(cre8rScore);
+    lastCS && calcUSDBoostedBribeToRecieve(lastCS);
   const amountUSDForBoostedBonus =
-    cre8rScore && calcUSDBoostedBonusToRecieve(cre8rScore);
+    lastCS && calcUSDBoostedBonusToRecieve(lastCS);
 
-  const hasBasicBoosted =
-    beetsScore == 0 &&
-    latestCS &&
-    cre8rScore &&
-    amountUSDForBasicBoost &&
-    latestCS - cre8rScore > amountUSDForBasicBoost;
-  const accountLastPayout : any =
+  const accountLastPayout: any =
     lastPayout && lastPayout.filter((i: any) => i.address == account)[0];
-  const hasBoostedBribe =
-    lastPayout &&
-    latestCS &&
-    amountUSDForBoostedBribe &&
-    cre8rScore &&
-    accountLastPayout + cre8rScore * 1.25 + amountUSDForBoostedBribe <=
-      latestCS;
-  const hasBoostedBonus =
-    lastPayout &&
-    latestCS &&
-    amountUSDForBoostedBribe &&
-    cre8rScore &&
-    accountLastPayout + cre8rScore * 1.35 + amountUSDForBoostedBribe <=
-      latestCS;
 
   let projectedPayout;
-  if (account && beetsScoreBreakdown && cre8rScore && latestCS && cre8rPrice) {
-    projectedPayout = calcProjectedPayouts(account, beetsScoreBreakdown?.beetsScore / beetsScoreBreakdown?.fBeetsPrice, cre8rScore / cre8rPrice, latestCS / cre8rPrice, accountLastPayout && (accountLastPayout as any).lastWeekPayoutInCRE8R || 0, cre8rPrice, 640)
-    console.log(projectedPayout)
+  if (account && beetsScoreBreakdown && lastCS && currentCS && cre8rPrice) {
+    projectedPayout = calcProjectedPayouts(
+      account,
+      beetsScoreBreakdown?.beetsScore / beetsScoreBreakdown?.fBeetsPrice,
+      lastCS / cre8rPrice,
+      currentCS / cre8rPrice,
+      (accountLastPayout && (accountLastPayout as any).lastWeekPayoutInCRE8R) ||
+        0,
+      cre8rPrice,
+      640
+    );
+    console.log(projectedPayout);
   }
   const loaded =
     amountUSDForBasicBoost &&
     basicBoostToReceiveUSD &&
     amountUSDForBoostedBribe &&
     amountUSDForBoostedBonus &&
-    (cre8rScore || cre8rScore == 0) &&
-    (beetsScore || beetsScore == 0) &&
+    (lastCS || lastCS == 0) &&
+    (lastBS || lastBS == 0) &&
     (cre8rChange || cre8rChange == 0) &&
     (beetsChange || beetsChange == 0);
 
@@ -150,23 +143,18 @@ function BoostCalculator() {
       </>
     );
   }
-  if (!loaded) {
+  return (
     <>
-      <LoadingRows>
+      {/* TODO: Get snapshot query: https://docs.snapshot.org/snapshot.js */}
+      {!loaded ? <>
+        <LoadingRows>
         <div></div>
         <div></div>
         <div></div>
         <div></div>
         <div></div>
       </LoadingRows>
-    </>;
-  }
-  return (
-    <>
-      {/* TODO: Get snapshot query: https://docs.snapshot.org/snapshot.js */}
-      <h1>
-        {!loaded && 'This page may take a while to load. If you do not have any fBeets this may not work. Please connect a wallet with fBeets.'}
-      </h1>
+      </> : <>
       <VoteButton
         onClick={() => {
           if (!account || !library) return;
@@ -206,12 +194,19 @@ function BoostCalculator() {
           <th>Status</th>
         </tr>
         <tr className="basic_bribe">
-          <td>Basic Bribe
-          <p className="smalldesc">$664.34 per 1% of Beets vote</p>
+          <td>
+            Basic Bribe
+            <p className="smalldesc">$664.34 per 1% of Beets vote</p>
           </td>
-          <td>Basic Bribe is used in calculations only. To increase it you gotta get more FBEETS.</td>
-          <td>{projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe, 1)}`}</td>
-          <td>   </td>
+          <td>
+            Basic Bribe is used in calculations only. To increase it you gotta
+            get more FBEETS.
+          </td>
+          <td>
+            {projectedPayout &&
+              `$${nFormatter(projectedPayout.debug[0].basicBribe, 1)}`}
+          </td>
+          <td> </td>
           <td></td>
           <td></td>
           <td>⌛</td>
@@ -223,42 +218,77 @@ function BoostCalculator() {
           </td>
           <td>
             <p className="smalldesc">LP 3x Projected Basic Bribe - Get 1.1x</p>
-            {projectedPayout && `LP at least $${nFormatter(projectedPayout.debug[0].basicBribe * 3, 1)}`}
+            {projectedPayout &&
+              `LP at least $${nFormatter(
+                projectedPayout.debug[0].basicBribe * 3,
+                1
+              )}`}
           </td>
-          
+
           <td>
-            {projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe * 1.1, 1)}`}
+            {projectedPayout &&
+              `$${nFormatter(projectedPayout.debug[0].basicBribe * 1.1, 1)}`}
           </td>
           <td>
-            {!loaded ? "🔄" : projectedPayout && projectedPayout.debug[0].basicBoost ? (
+            {!loaded ? (
+              "🔄"
+            ) : projectedPayout && projectedPayout.debug[0].basicBoost ? (
               <span style={{ color: "green" }}>✔</span>
             ) : (
               <>❌</>
             )}
           </td>
-          <td><div> 
-          {/* <div>10% - 210% 🚀</div>  */}
-            {projectedPayout && cre8rPrice && `Earn up to ${nFormatter(projectedPayout.debug[0].basicBribe * 1.1 / AMP_PRICE_USD, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].basicBribe * 1.1, 1)})`}</div>
-            <div><a href="https://beets.fi/#/pool/0xbb4607bede4610e80d35c15692efcb7807a2d0a6000200000000000000000140">{projectedPayout && `LP at least $${nFormatter(projectedPayout.debug[0].basicBribe * 6, 1)}`}</a></div>
-            </td>
-
-
-            
+          <td>
+            <div>
+              {/* <div>10% - 210% 🚀</div>  */}
+              {projectedPayout &&
+                cre8rPrice &&
+                `Earn up to ${nFormatter(
+                  (projectedPayout.debug[0].basicBribe * 1.1) / AMP_PRICE_USD,
+                  1
+                )} $AMP ($${nFormatter(
+                  projectedPayout.debug[0].basicBribe * 1.1,
+                  1
+                )})`}
+            </div>
+            <div>
+              <a href="https://beets.fi/#/pool/0xbb4607bede4610e80d35c15692efcb7807a2d0a6000200000000000000000140">
+                {projectedPayout &&
+                  `LP at least $${nFormatter(
+                    projectedPayout.debug[0].basicBribe * 6,
+                    1
+                  )}`}
+              </a>
+            </div>
+          </td>
 
           <td>
             {/* <p className="smalldesc">6x Current Holdings</p> */}
             {/* cre8r payout * 2000 = amp payout */}
-          
-           
-           <div>
-             {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].basicBoost2AmpInUSD / AMP_PRICE_USD, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].basicBoost2AmpInUSD, 1)})`} </div>
+
+            <div>
+              {projectedPayout &&
+                cre8rPrice &&
+                `${nFormatter(
+                  projectedPayout.debug[0].basicBoost2AmpInUSD / AMP_PRICE_USD,
+                  1
+                )} $AMP ($${nFormatter(
+                  projectedPayout.debug[0].basicBoost2AmpInUSD,
+                  1
+                )})`}{" "}
+            </div>
           </td>
 
-          <td>{!loaded ? "🔄" : projectedPayout && projectedPayout.debug[0].basicBoost2AmpInUSD ? (
+          <td>
+            {!loaded ? (
+              "🔄"
+            ) : projectedPayout &&
+              projectedPayout.debug[0].basicBoost2AmpInUSD ? (
               <span style={{ color: "green" }}>✔</span>
             ) : (
               <>❌</>
-            )}</td>
+            )}
+          </td>
         </tr>
         <tr className="boosted_bribe">
           <td>
@@ -266,13 +296,48 @@ function BoostCalculator() {
             <p className="smalldesc">For Compounders</p>
           </td>
           <td>
-            <p className="smalldesc">Just compound last weeks bribe {accountLastPayout && cre8rPrice && `($${nFormatter(accountLastPayout.lastWeekPayoutInCRE8R * cre8rPrice,1)})`}</p>
-            {latestCS && cre8rScore && cre8rPrice && accountLastPayout && cre8rScore + accountLastPayout.lastWeekPayoutInCRE8R > latestCS && `You were paid $${nFormatter(accountLastPayout.lastWeekPayoutInCRE8R * cre8rPrice,1)} CRE8R last week but you forgot to compound to get this boost you gotta buy ${latestCS - cre8rScore - accountLastPayout.lastWeekPayoutInCRE8R > 0 && `and buy $${latestCS - cre8rScore - accountLastPayout.lastWeekPayoutInCRE8R} more CRE8R holdings`}`}
+            <p className="smalldesc">
+              Just compound last weeks bribe{" "}
+              {accountLastPayout &&
+                cre8rPrice &&
+                `($${nFormatter(
+                  accountLastPayout.lastWeekPayoutInCRE8R * cre8rPrice,
+                  1
+                )})`}
+            </p>
+            {currentCS &&
+              lastCS &&
+              cre8rPrice &&
+              accountLastPayout &&
+              lastCS + accountLastPayout.lastWeekPayoutInCRE8R > currentCS &&
+              `You were paid $${nFormatter(
+                accountLastPayout.lastWeekPayoutInCRE8R * cre8rPrice,
+                1
+              )} CRE8R last week but you forgot to compound to get this boost you gotta buy ${
+                currentCS -
+                  lastCS -
+                  accountLastPayout.lastWeekPayoutInCRE8R >
+                  0 &&
+                `and buy $${
+                  currentCS -
+                  lastCS -
+                  accountLastPayout.lastWeekPayoutInCRE8R
+                } more CRE8R holdings`
+              }`}
             {/* {nFormatter(amountUSDForBoostedBribe!, 1)} */}
           </td>
-          <td>{projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe * 1.25, 1)}`} 25% 🚀</td>
           <td>
-            {!loaded ? "🔄" : projectedPayout && projectedPayout.debug[0].boostedBribe ? (
+            {projectedPayout &&
+              `$${nFormatter(
+                projectedPayout.debug[0].basicBribe * 1.25,
+                1
+              )}`}{" "}
+            25% 🚀
+          </td>
+          <td>
+            {!loaded ? (
+              "🔄"
+            ) : projectedPayout && projectedPayout.debug[0].boostedBribe ? (
               <span style={{ color: "green" }}>✔</span>
             ) : (
               <>❌</>
@@ -281,7 +346,6 @@ function BoostCalculator() {
           <td></td>
           <td></td>
           <td></td>
-          
         </tr>
         <tr className="boosted_bonus">
           <td>
@@ -295,33 +359,63 @@ function BoostCalculator() {
             Increase CRE8R Holdings by $
             {nFormatter(amountUSDForBoostedBonus!, 1)}
           </td>
-          <td>{projectedPayout && `$${nFormatter(projectedPayout.debug[0].basicBribe * 1.6, 1)}`} 60% 🚀</td>
           <td>
-            {!loaded ? "🔄" : projectedPayout && projectedPayout.debug[0].boostedBonus ? (
+            {projectedPayout &&
+              `$${nFormatter(
+                projectedPayout.debug[0].basicBribe * 1.6,
+                1
+              )}`}{" "}
+            60% 🚀
+          </td>
+          <td>
+            {!loaded ? (
+              "🔄"
+            ) : projectedPayout && projectedPayout.debug[0].boostedBonus ? (
               <span style={{ color: "green" }}>✔</span>
             ) : (
               <>❌</>
             )}
           </td>
-          
-            <td> 
-              {/* 60% - 320% 🚀 */}
-              <div>
-                Earn up to {projectedPayout && cre8rPrice && `${nFormatter(amountUSDForBoostedBonus! / AMP_PRICE_USD * 5.714 / 2, 1)} $AMP ($${nFormatter(amountUSDForBoostedBonus! * 5.714 / 2, 1)})`}
-              </div>
-              <div>
-             <a href="https://beets.fi/#/pool/0xbb4607bede4610e80d35c15692efcb7807a2d0a6000200000000000000000140"> Increase CRE8R Holdings by $
-              {`${nFormatter(amountUSDForBoostedBonus! * 5.714, 1)}`}</a>
-              </div>
+
+          <td>
+            {/* 60% - 320% 🚀 */}
+            <div>
+              Earn up to{" "}
+              {projectedPayout &&
+                cre8rPrice &&
+                `${nFormatter(
+                  ((amountUSDForBoostedBonus! / AMP_PRICE_USD) * 5.714) / 2,
+                  1
+                )} $AMP ($${nFormatter(
+                  (amountUSDForBoostedBonus! * 5.714) / 2,
+                  1
+                )})`}
+            </div>
+            <div>
+              <a href="https://beets.fi/#/pool/0xbb4607bede4610e80d35c15692efcb7807a2d0a6000200000000000000000140">
+                {" "}
+                Increase CRE8R Holdings by $
+                {`${nFormatter(amountUSDForBoostedBonus! * 5.714, 1)}`}
+              </a>
+            </div>
           </td>
           <td>
-          
-            
-             {projectedPayout && cre8rPrice && `${nFormatter(projectedPayout.debug[0].boostedBonus2AmpInUSD / AMP_PRICE_USD, 1)} $AMP ($${nFormatter(projectedPayout.debug[0].boostedBonus2AmpInUSD, 1)})`}
+            {projectedPayout &&
+              cre8rPrice &&
+              `${nFormatter(
+                projectedPayout.debug[0].boostedBonus2AmpInUSD / AMP_PRICE_USD,
+                1
+              )} $AMP ($${nFormatter(
+                projectedPayout.debug[0].boostedBonus2AmpInUSD,
+                1
+              )})`}
           </td>
 
           <td>
-            {!loaded ? "🔄" : projectedPayout && projectedPayout.debug[0].boostedBonus2AmpInUSD ? (
+            {!loaded ? (
+              "🔄"
+            ) : projectedPayout &&
+              projectedPayout.debug[0].boostedBonus2AmpInUSD ? (
               <span style={{ color: "green" }}>✔</span>
             ) : (
               <>❌</>
@@ -331,10 +425,29 @@ function BoostCalculator() {
         <tr className="payout-row">
           <td>Totals</td>
           <td></td>
-          <td>{projectedPayout && `$${nFormatter(projectedPayout.debug[0].payoutUSD, 1)}` || "🔄"}</td>
+          <td>
+            {(projectedPayout &&
+              `$${nFormatter(projectedPayout.debug[0].payoutUSD, 1)}`) ||
+              "🔄"}
+          </td>
           <td></td>
           <td></td>
-          <td>{projectedPayout && cre8rPrice && `${nFormatter(Math.max(projectedPayout.debug[0].basicBoost2AmpInUSD, projectedPayout.debug[0].boostedBonus2AmpInUSD) / AMP_PRICE_USD, 1)} $AMP ($${nFormatter(Math.max(projectedPayout.debug[0].basicBoost2AmpInUSD, projectedPayout.debug[0].boostedBonus2AmpInUSD), 1)})`}
+          <td>
+            {projectedPayout &&
+              cre8rPrice &&
+              `${nFormatter(
+                Math.max(
+                  projectedPayout.debug[0].basicBoost2AmpInUSD,
+                  projectedPayout.debug[0].boostedBonus2AmpInUSD
+                ) / AMP_PRICE_USD,
+                1
+              )} $AMP ($${nFormatter(
+                Math.max(
+                  projectedPayout.debug[0].basicBoost2AmpInUSD,
+                  projectedPayout.debug[0].boostedBonus2AmpInUSD
+                ),
+                1
+              )})`}
           </td>
           <td></td>
         </tr>
@@ -361,14 +474,14 @@ function BoostCalculator() {
         </div>
         <div>
           Your CRE8R Holdings across Fantom Pools and Vaults:{" "}
-          {cre8rScore && (
-            <span style={{ color: "" }}>${nFormatter(cre8rScore, 1)}</span>
+          {lastCS && (
+            <span style={{ color: "" }}>${nFormatter(lastCS, 1)}</span>
           )}
         </div>
         <div>
           Your FBeets Dollar Value:{" "}
-          {beetsScore != undefined && (
-            <span style={{ color: "" }}> ${nFormatter(beetsScore, 1)}</span>
+          {lastBS != undefined && (
+            <span style={{ color: "" }}> ${nFormatter(lastBS, 1)}</span>
           )}
         </div>
       </div>
@@ -380,7 +493,7 @@ function BoostCalculator() {
           Your CRE8R Holdings across Fantom Pools and Vaults:{" "}
           {(cre8rChange || cre8rChange == 0) && (
             <span style={{ color: cre8rChange > 0 ? "green" : "red" }}>
-              ${nFormatter(latestCS!, 1)} {`(${formatChange(cre8rChange)})`}
+              ${nFormatter(currentCS!, 1)} {`(${formatChange(cre8rChange)})`}
             </span>
           )}
         </div>
@@ -389,7 +502,7 @@ function BoostCalculator() {
           {(beetsChange || beetsChange == 0) && (
             <span style={{ color: beetsChange > 0 ? "green" : "red" }}>
               {" "}
-              ${nFormatter(latestBS!, 1)} {`(${formatChange(beetsChange)})`}
+              ${nFormatter(currentBS!, 1)} {`(${formatChange(beetsChange)})`}
             </span>
           )}
         </div>
@@ -429,9 +542,10 @@ function BoostCalculator() {
             );
           })}
       </div>
+      </>}
+      
     </>
   );
 }
 
 export default BoostCalculator;
-
