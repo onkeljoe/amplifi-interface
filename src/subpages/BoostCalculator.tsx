@@ -308,11 +308,11 @@ function BoostCalculator() {
             <td> 
               {/* 60% - 320% 🚀 */}
               <div>
-                Earn up to {projectedPayout && cre8rPrice && `${nFormatter(amountUSDForBoostedBonus! / AMP_PRICE_USD * 5.714 / 2, 1)} $AMP $${nFormatter(amountUSDForBoostedBonus! * 5.714 / 2, 1)}`}
+                Earn up to {projectedPayout && cre8rPrice && `${nFormatter(amountUSDForBoostedBonus! / AMP_PRICE_USD * 5.714 / 2, 1)} $AMP ($${nFormatter(amountUSDForBoostedBonus! * 5.714 / 2, 1)})`}
               </div>
               <div>
              <a href="https://beets.fi/#/pool/0xbb4607bede4610e80d35c15692efcb7807a2d0a6000200000000000000000140"> Increase CRE8R Holdings by $
-              {`(${nFormatter(amountUSDForBoostedBonus! * 5.714, 1)})`}</a>
+              {`${nFormatter(amountUSDForBoostedBonus! * 5.714, 1)}`}</a>
               </div>
           </td>
           <td>
