@@ -308,12 +308,12 @@ function BoostCalculator() {
                 currentCS -
                   pastCS -
                   accountLastPayout.lastWeekPayoutInCRE8R >
-                  0 &&
+                  0 ?
                 `and buy $${
                   currentCS -
                   pastCS -
                   accountLastPayout.lastWeekPayoutInCRE8R
-                } more CRE8R holdings`
+                } more CRE8R holdings` : null
               }`}
             {/* {nFormatter(amountUSDForBoostedBribe!, 1)} */}
           </td>
