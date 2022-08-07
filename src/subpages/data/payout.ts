@@ -42,7 +42,7 @@ export function calcPayouts(
     if (hasLp3x && basicBoost && currentHoldings * 1.2  * (1 - MARGIN_OF_ERROR) >= lastHoldings + lastWeekPayoutInCRE8R) {
       boostedBribe = basicBribeUSD * 1.25
     }
-    if (hasLp3x && basicBoost && currentHoldings * (1 - MARGIN_OF_ERROR) > lastWeekPayoutInCRE8R + lastHoldings*1.35) { // currentHoldings > lastHoldings*1.35 + lastWeekPayout
+    if (hasLp3x && basicBoost && currentHoldings * (1 - MARGIN_OF_ERROR) > (lastWeekPayoutInCRE8R + lastHoldings) * 1.35) { // currentHoldings > lastHoldings*1.35 + lastWeekPayout
       boostedBonus = basicBribeUSD * 1.35
       if (hasBonanza) {
         boostedBonanza = basicBribeUSD * 1.6
