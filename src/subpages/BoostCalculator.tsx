@@ -375,10 +375,10 @@ function BoostCalculator() {
               {pastCS &&
                 cre8rPrice &&
                 `${nFormatter(
-                  pastCS / 2 / AMP_PRICE_USD,
+                  pastCS / AMP_PRICE_USD,
                   1
                 )} $AMP ($${nFormatter(
-                  pastCS / 2,
+                  pastCS,
                   1
                 )})`}
             </div>
