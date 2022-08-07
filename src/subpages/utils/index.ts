@@ -9,9 +9,6 @@ Basic boosted (for new voter)
 boosted Bribe
 Boosted bonus
 boosted bonanza
-
-
-
 */
 
 /**
@@ -21,11 +18,12 @@ boosted bonanza
  * @param {*} thisWeeksBasicBribeAmount Total Bribe payout at basic for 100%
  * @returns basic boosted reward in USD
  */
-export function calcBasicBoostedToReceive (beetsScore : number, totalVotingPower = TOTALVOTINGPOWER,thisWeeksBasicBribeAmount = BASICBRIBEFOR100) {
+export function calcBasicBoostedRewUSD (beetsScore : number, totalVotingPower = TOTALVOTINGPOWER,thisWeeksBasicBribeAmount = BASICBRIBEFOR100) {
   const basicBoostedForAddress = (beetsScore / totalVotingPower) * thisWeeksBasicBribeAmount
 
   return basicBoostedForAddress
 }
+
 /**
  * This is the amount needed to LP (or buy cre8r) to get basic boosted
  * @param beetsScore 
@@ -33,16 +31,18 @@ export function calcBasicBoostedToReceive (beetsScore : number, totalVotingPower
  * @param thisWeeksBasicBribeAmount 
  * @returns amount to LP in USD to get basic boosted
  */
-export function calcLpToGetBasicBoosted (beetsScore : number, totalVotingPower = TOTALVOTINGPOWER,thisWeeksBasicBribeAmount = BASICBRIBEFOR100) {
-  return calcBasicBoostedToReceive(beetsScore,totalVotingPower,thisWeeksBasicBribeAmount)*3
+export function calcBasicBoostedReqUSD (beetsScore : number, totalVotingPower = TOTALVOTINGPOWER,thisWeeksBasicBribeAmount = BASICBRIBEFOR100) {
+  return calcBasicBoostedRewUSD(beetsScore,totalVotingPower,thisWeeksBasicBribeAmount)*3
 }
 
-export function calcUSDBoostedBribeToRecieve (cre8rScore: number) {
+export function calcBoostedBribeRewUSD (cre8rScore: number) {
   return cre8rScore * 0.25
 }
 
-
-
-export function calcUSDBoostedBonusToRecieve (cre8rScore : number) {
+export function calcBoostedBonusReqUSD (cre8rScore : number) {
   return cre8rScore * 0.35
+}
+
+export function calcBoostedBonusRewUSD (cre8rScore : number) {
+  return cre8rScore * 1.6
 }

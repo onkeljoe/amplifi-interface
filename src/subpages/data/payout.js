@@ -1,3 +1,4 @@
+const MARGIN_OF_ERROR = 0.005 // 0.5% percent
 /**
  * 
  * @param {*} addresses 
@@ -34,15 +35,15 @@ function calcPayouts(addresses, voters, total, percent, lastHoldingsAddresses, c
     if (dif <= -currentHoldings * .04) { //why do we need the &&? could we remove currentHoldings?
       bogusestBribe = basicBribe * 0.5
     }
-    const hasLp3x = currentHoldings > (basicBribe*3)
+    const hasLp3x = currentHoldings * (1 - MARGIN_OF_ERROR) > (basicBribe*3)
     if (hasLp3x && lastWeekPayoutInCRE8R == 0) {
       basicBoost = basicBribe * 1.1
     }
   
-    if (hasLp3x && basicBoost && currentHoldings * 1.2 >= lastHoldings + lastWeekPayoutInCRE8R) {
+    if (hasLp3x && basicBoost && currentHoldings * 1.2 * (1 - MARGIN_OF_ERROR) >= lastHoldings + lastWeekPayoutInCRE8R) {
       boostedBribe = basicBribe * 1.25
     }
-    if (hasLp3x && basicBoost && currentHoldings > lastWeekPayoutInCRE8R + lastHoldings*1.35) { // currentHoldings > lastHoldings*1.35 + lastWeekPayout
+    if (hasLp3x && basicBoost && currentHoldings * (1 - MARGIN_OF_ERROR) > lastWeekPayoutInCRE8R + lastHoldings*1.35) { // currentHoldings > lastHoldings*1.35 + lastWeekPayout
       boostedBonus = basicBribe * 1.35
       if (hasBonanza) {
         boostedBonanza = basicBribe * 1.6
@@ -107,17 +108,26 @@ function calcPayouts(addresses, voters, total, percent, lastHoldingsAddresses, c
 }
 
 
-
-
-export function calcProjectedPayouts(account, numOfFBeets, lastHoldingsUSD, currentHoldingsUSD, lastPayout, cre8rPrice, cre8rBasicPayoutperPercent) {
+const TOTAL_FBEETS_CIRCULATION = 84619703
+/**
+ * 
+ * @param {*} account 
+ * @param {{ numOfFBeetsOfAccount: number, lastHoldingsUSD: number, currentHoldingsUSD: number, lastPayoutUSD: number }} accountDetails 
+ * @param {*} cre8rPrice 
+ * @param {*} cre8rBasicPayoutperPercent 
+ * @returns 
+ */
+export function calcProjectedPayoutsOfAccount(account, accountDetails, cre8rPrice, cre8rBasicPayoutperPercent) {
+  const { numOfFBeetsOfAccount, lastHoldingsUSD, currentHoldingsUSD, lastPayoutUSD } = accountDetails
+  const lastPayoutCRE8R = lastPayoutUSD * cre8rPrice
   const addresses = [account]
   const voters = {
-    [account]: numOfFBeets
+    [account]: numOfFBeetsOfAccount
   }
 
 
-  const total = numOfFBeets //84619703//387386679469087688
-  const percent = numOfFBeets/84619703 // if I have 40000 fBeets and there are 84619703 fBeets in circulation so the assuming everyone votes, the lowest percent you can earn is 40000/84619703
+  const total = numOfFBeetsOfAccount
+  const percent = numOfFBeetsOfAccount/TOTAL_FBEETS_CIRCULATION // if I have 40000 fBeets and there are 84619703 fBeets in circulation so the assuming everyone votes, the lowest percent you can earn is 40000/84619703
   //fetch dynamically
   const lastHoldingsAddresses = {
     [account]: lastHoldingsUSD
@@ -127,7 +137,7 @@ export function calcProjectedPayouts(account, numOfFBeets, lastHoldingsUSD, curr
   }
 
   const lastPayouts = {
-    [account]: lastPayout
+    [account]: lastPayoutCRE8R
   }
   return calcPayouts(addresses, voters, total, percent, lastHoldingsAddresses, currentHoldingsAddresses,lastPayouts, cre8rPrice, cre8rBasicPayoutperPercent)
 }
