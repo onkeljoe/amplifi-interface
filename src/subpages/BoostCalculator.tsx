@@ -13,19 +13,14 @@ import useBribe, {
   strategiesToUSDConverter,
 } from "./hooks/useBribe";
 import { calcChange, formatChange } from "./math";
-import {
-  calcBasicBoostedReqUSD,
-  calcBasicBoostedRewUSD,
-  calcBoostedBonusReqUSD,
-  calcBoostedBonusRewUSD,
-  calcBoostedBribeRewUSD,
-} from "./utils";
 import snapshot from "@snapshot-labs/snapshot.js";
 import { toast } from "react-toastify";
-import { calcProjectedPayoutsOfAccount } from "./data/payout";
+import { calcProjectedPayouts } from "./data/projectedPayouts";
+import useCRE8RPrice from "hooks/useCRE8RPrice";
 
-const PAYOUT_PER_PERCENT_USD = 640;
 const AMP_PRICE_USD = 0.001666666667;
+const PAYOUT_PER_TOTAL_PERCENT_USD = 664.34;
+
 const hub = "https://hub.snapshot.org"; // or https://testnet.snapshot.org for testnet
 const lastPayoutUri =
   "https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-43050170.json";
@@ -71,44 +66,45 @@ const VoteButton = styled.a`
 
 function BoostCalculator() {
   const { library, account } = useActiveWeb3React();
+  const {cre8rPrice} = useCRE8RPrice();
+  const { 
+    cre8rScore: pastCS, 
+    beetsScore: pastBS, 
+    beetsScoreBreakdown, 
+  } = useBribe(
+    library,
+    account
+  ); //has a blocknumber default
   const {
-    cre8rScore: pastCS,
-    beetsScore: pastBS,
-    beetsScoreBreakdown,
-    cre8rPrice,
-  } = useBribe(library, account); //has a blocknumber default
-  const {
-    cre8rScore: latestCS,
-    beetsScore: latestBS,
+    cre8rScore: currentCS,
+    beetsScore: currentBS,
     cre8rScoreBreakdown,
   } = useBribe(library, account, 0, BLOCKNUMBER + 4000000000); // what year would this be?
   const cre8rChange =
-    pastCS && (latestCS || latestCS == 0) && calcChange(pastCS, latestCS);
+    pastCS &&
+    (currentCS || currentCS == 0) &&
+    calcChange(pastCS, currentCS);
   const beetsChange =
-    (pastBS || pastBS == 0) &&
-    (latestBS || latestBS == 0) &&
-    calcChange(pastBS, latestBS);
+    pastBS &&
+    (currentBS || currentBS == 0) &&
+    calcChange(pastBS, currentBS);
   const [lastPayout, setLastPayout] = useState([]);
 
   const accountLastPayout: any =
     lastPayout && lastPayout.filter((i: any) => i.address == account)[0];
 
   let projectedPayout;
-  if (account && beetsScoreBreakdown && pastCS && latestCS && cre8rPrice) {
-    projectedPayout = calcProjectedPayoutsOfAccount(
+  if (account && beetsScoreBreakdown && pastCS && currentCS && cre8rPrice) {
+    projectedPayout = calcProjectedPayouts(
       account,
       {
-        numOfFBeetsOfAccount:
-          beetsScoreBreakdown?.beetsScore / beetsScoreBreakdown?.fBeetsPrice,
-        lastHoldingsUSD: pastCS / cre8rPrice,
-        currentHoldingsUSD: latestCS / cre8rPrice,
-        lastPayoutUSD:
-          (accountLastPayout &&
-            accountLastPayout.lastWeekPayoutInCRE8R / cre8rPrice) ||
-          0,
+        numOfFBeetsOfAccount: beetsScoreBreakdown?.beetsScore / beetsScoreBreakdown?.fBeetsPrice, 
+        lastHoldingsUSD: pastCS / cre8rPrice, 
+        currentHoldingsUSD: currentCS / cre8rPrice, 
+        lastPayoutUSD: (accountLastPayout && accountLastPayout.lastWeekPayoutInCRE8R) || 0
       },
       cre8rPrice,
-      PAYOUT_PER_PERCENT_USD
+      PAYOUT_PER_TOTAL_PERCENT_USD
     );
     console.log(projectedPayout);
   }
@@ -138,24 +134,18 @@ function BoostCalculator() {
       </>
     );
   }
-  if (!loaded) {
+  return (
     <>
-      <LoadingRows>
+      {/* TODO: Get snapshot query: https://docs.snapshot.org/snapshot.js */}
+      {!loaded ? <>
+        <LoadingRows>
         <div></div>
         <div></div>
         <div></div>
         <div></div>
         <div></div>
       </LoadingRows>
-    </>;
-  }
-  return (
-    <>
-      {/* TODO: Get snapshot query: https://docs.snapshot.org/snapshot.js */}
-      <h1>
-        {!loaded &&
-          "This page may take a while to load. If you do not have any fBeets this may not work. Please connect a wallet with fBeets."}
-      </h1>
+      </> : <>
       <VoteButton
         onClick={() => {
           if (!account || !library) return;
@@ -197,7 +187,7 @@ function BoostCalculator() {
         <tr className="basic_bribe">
           <td>
             Basic Bribe
-            <p className="smalldesc">$664.34 per 1% of Beets vote</p>
+            <p className="smalldesc">${`${PAYOUT_PER_TOTAL_PERCENT_USD}`} per 1% of Beets vote</p>
           </td>
           <td>
             Basic Bribe is used in calculations only. To increase it you gotta
@@ -306,20 +296,26 @@ function BoostCalculator() {
                   1
                 )})`}
             </p>
-            {latestCS &&
+            {currentCS &&
               pastCS &&
               cre8rPrice &&
               accountLastPayout &&
-              pastCS + accountLastPayout.lastWeekPayoutInCRE8R > latestCS &&
+              pastCS + accountLastPayout.lastWeekPayoutInCRE8R > currentCS &&
               `You were paid $${nFormatter(
-                accountLastPayout.payoutUSD,
+                accountLastPayout.lastWeekPayoutInCRE8R * cre8rPrice,
                 1
               )} CRE8R last week but you forgot to compound to get this boost you gotta buy ${
-                latestCS - pastCS - accountLastPayout.payoutUSD > 0 &&
+                currentCS -
+                  pastCS -
+                  accountLastPayout.lastWeekPayoutInCRE8R >
+                  0 &&
                 `and buy $${
-                  latestCS - pastCS - accountLastPayout.payoutUSD
+                  currentCS -
+                  pastCS -
+                  accountLastPayout.lastWeekPayoutInCRE8R
                 } more CRE8R holdings`
               }`}
+            {/* {nFormatter(amountUSDForBoostedBribe!, 1)} */}
           </td>
           <td>
             {projectedPayout &&
@@ -352,7 +348,7 @@ function BoostCalculator() {
               LP 35% of current holdings and get 1.6x Basic Bribe
             </p>
             Increase CRE8R Holdings by $
-            {nFormatter(amountUSDForBoostedBonus, 1)}
+            {pastCS && nFormatter(pastCS * 0.35, 1)}
           </td>
           <td>
             {projectedPayout &&
@@ -376,13 +372,13 @@ function BoostCalculator() {
             {/* 60% - 320% 🚀 */}
             <div>
               Earn up to{" "}
-              {projectedPayout &&
+              {pastCS &&
                 cre8rPrice &&
                 `${nFormatter(
-                  ((amountUSDForBoostedBonus / AMP_PRICE_USD) * 5.714) / 2,
+                  pastCS / 2 / AMP_PRICE_USD,
                   1
                 )} $AMP ($${nFormatter(
-                  (amountUSDForBoostedBonus * 5.714) / 2,
+                  pastCS / 2,
                   1
                 )})`}
             </div>
@@ -390,7 +386,7 @@ function BoostCalculator() {
               <a href="https://beets.fi/#/pool/0xbb4607bede4610e80d35c15692efcb7807a2d0a6000200000000000000000140">
                 {" "}
                 Increase CRE8R Holdings by $
-                {`${nFormatter(amountUSDForBoostedBonus * 5.714, 1)}`}
+                {pastCS && `${nFormatter(pastCS * 2, 1)}`}
               </a>
             </div>
           </td>
@@ -471,18 +467,18 @@ function BoostCalculator() {
         </div>
         <div>
           Your CRE8R Holdings across Fantom Pools and Vaults:{" "}
-          {(cre8rChange || cre8rChange == 0) && (
+          {(cre8rChange || cre8rChange == 0) && currentCS && (
             <span style={{ color: cre8rChange > 0 ? "green" : "red" }}>
-              ${nFormatter(latestCS!, 1)} {`(${formatChange(cre8rChange)})`}
+              ${nFormatter(currentCS, 1)} {`(${formatChange(cre8rChange)})`}
             </span>
           )}
         </div>
         <div>
           Your Beets VP:{" "}
-          {(beetsChange || beetsChange == 0) && (
+          {(beetsChange || beetsChange == 0) && currentBS && (
             <span style={{ color: beetsChange > 0 ? "green" : "red" }}>
               {" "}
-              ${nFormatter(latestBS!, 1)} {`(${formatChange(beetsChange)})`}
+              ${nFormatter(currentBS, 1)} {`(${formatChange(beetsChange)})`}
             </span>
           )}
         </div>
@@ -522,6 +518,8 @@ function BoostCalculator() {
             );
           })}
       </div>
+      </>}
+      
     </>
   );
 }

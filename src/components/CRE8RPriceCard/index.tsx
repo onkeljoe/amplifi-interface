@@ -5,6 +5,7 @@ import cre8rIcon from 'assets/images/cre8r-logo.png'
 import useAirdrop from 'hooks/useAirdrop';
 import { nFormatter } from 'utils/format';
 import { getCRE8RPrice } from 'subpages/data';
+import useCRE8RPrice from 'hooks/useCRE8RPrice';
 
 const ColoredCard = styled(Card)<{width?: string}>`
   color: ${({ theme }) => theme.black};
@@ -40,17 +41,23 @@ const ColoredCard = styled(Card)<{width?: string}>`
 `
 
 export function CRE8RPriceCard ({width}: {width?: string}) {
-  const [cre8rPrice, setCre8rPrice] = useState<string>('-')
-  useEffect(() => {
-    getCRE8RPrice().then(num => {
-      setCre8rPrice('$' + num.toFixed(3))
-    })
-  }, [])
+  const {cre8rPrice, status} = useCRE8RPrice();
+  let displayPrice = ''
+  console.log(cre8rPrice)
+  switch(status) {
+    case 'fetching':
+      displayPrice = '-';
+      break;
+    case 'fetched':
+      if (cre8rPrice) displayPrice = "$" + nFormatter(cre8rPrice, 3)
+      break;
+  }
+
   return (
     <ColoredCard width={width} >
       <div>
         <Cre8rLogo style={{marginRight: '5px'}} src={cre8rIcon} /> 
-        <span>{cre8rPrice}</span>
+        <span>{displayPrice}</span>
       </div>
     </ColoredCard>
   )
