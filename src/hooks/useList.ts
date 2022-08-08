@@ -6,29 +6,26 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { AppState } from "state";
 import { useVerifiedHandle } from "state/social/hooks";
 import { updateAmplifiAirdropList } from "state/user/actions";
-export function useAirdrop () {
+export function useList () {
   const { account } = useActiveWeb3React();
   const verifiedHandleEntry = useVerifiedHandle(account);
-  const dispatch = useDispatch();
-  const airdropList = useSelector<AppState, AppState["user"]["amplifiAirdrop"]>((state) => {
-    return state.user.amplifiAirdrop;
-  }, shallowEqual);
+  const [data, setData] = useState<any>();
   useEffect(() => {
     if (account && verifiedHandleEntry) {
+      console.log(account)
+      console.log(verifiedHandleEntry)
       fetchList({
-        id: config.airdrop.excel.id,
+        id: '1b7UGQy62ysOwhUcH5uPFPDlINGMUyK7uEhZwqjoBSXo', // config.airdrop.excel.id,
         source: "excel",
-        type: "airdrop", //todo - currently this field is ignored
-        excelSheetName: "example"
+        type: "payout", //todo - currently this field is ignored
+        excelSheetName: "Bribes Payout",
       }).then((res) => {
-        console.log(res)
-        if (res) {
-          dispatch(updateAmplifiAirdropList({amplifiAirdrop: res.data}))
-        }
+        if (!res) return;
+        setData(res.data)
       })
     }
   } , [account, verifiedHandleEntry])
-  return verifiedHandleEntry && verifiedHandleEntry.handle && airdropList && airdropList[verifiedHandleEntry.handle]
+  return data
 }
 
-export default useAirdrop
+export default useList

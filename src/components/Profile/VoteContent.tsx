@@ -25,6 +25,8 @@ import { useAllIdentities } from "../../state/social/hooks";
 import { nameOrAddress } from "../../utils/getName";
 import { Break } from "../../pages/DelegateInfo";
 import useAirdrop from "hooks/useAirdrop";
+import useList from "hooks/useList";
+import { nFormatter } from "utils/format";
 
 const OffsetCard = styled(Card)<{ bgColor?: string }>`
   background-color: ${({ theme, bgColor }) => bgColor ?? theme.bg1};
@@ -42,7 +44,10 @@ export default function VoteContent() {
   const { account } = useActiveWeb3React();
   const [activeProtocol] = useActiveProtocol();
   const airdropAmount = useAirdrop();
-  
+  const payoutsAMP = useList();
+  const payoutBasicBoostAMP = payoutsAMP && account ? payoutsAMP[0][account] ? payoutsAMP[0][account] : 0 : undefined
+  const payoutBoostedBonusAMP = payoutsAMP && account ? payoutsAMP[1][account] ? payoutsAMP[1][account] : 0 : undefined
+  const totalAMP = payoutBasicBoostAMP + payoutBoostedBonusAMP
   // UI views
   const toggelDelegateModal = useToggleModal(ApplicationModal.DELEGATE);
 
@@ -96,11 +101,27 @@ export default function VoteContent() {
         <RowBetween>
           <TYPE.black color={theme.text1}>
             {" "}
-            Matching $AMP Rewards:
+            $AMP Basic Boost Rewards:
           </TYPE.black>{" "}
           {/* changed from votes to earnings for demo/dummy  */}
           <TYPE.main color={activeProtocol?.primaryColor}>
-            {airdropAmount ? airdropAmount : account ? <Loader /> : "-"}
+            {payoutBasicBoostAMP !== undefined ? "$" + nFormatter(payoutBasicBoostAMP, 1) : account ? <Loader /> : "-"}
+          </TYPE.main>
+        </RowBetween>
+      </WhiteCard>
+      <WhiteCard
+        border={`1px solid ${theme.bg3}`}
+        style={{ zIndex: 2 }}
+        padding="1rem"
+      >
+        <RowBetween>
+          <TYPE.black color={theme.text1}>
+            {" "}
+            $AMP Boosted Bonus Rewards:
+          </TYPE.black>{" "}
+          {/* changed from votes to earnings for demo/dummy  */}
+          <TYPE.main color={activeProtocol?.primaryColor}>
+            {payoutBoostedBonusAMP !== undefined ? "$" + nFormatter(payoutBoostedBonusAMP, 1) : account ? <Loader /> : "-"}
           </TYPE.main>
         </RowBetween>
       </WhiteCard>
@@ -199,7 +220,7 @@ export default function VoteContent() {
             </RowBetween>
           </OffsetCard>
         )}
-      <WhiteCard
+      {/* <WhiteCard
         border={`1px solid ${theme.bg3}`}
         padding="16px"
         opacity={receivedVotes?.greaterThan(BIG_INT_ZERO) ? "1" : "0.5"}
@@ -209,7 +230,6 @@ export default function VoteContent() {
           <TYPE.black color={theme.text1}>
             ${activeProtocol?.token.symbol} Received{" "}
           </TYPE.black>{" "}
-          {/* Was  Recieved Votes */}
           <TYPE.main color={activeProtocol?.primaryColor}>
             {receivedVotes ? (
               receivedVotes.toFixed(0)
@@ -220,7 +240,7 @@ export default function VoteContent() {
             )}
           </TYPE.main>
         </RowBetween>
-      </WhiteCard>
+      </WhiteCard> */}
       {delegatorsCount > 0 && (
         <OffsetCard bgColor={theme.green2}>
           <TYPE.main fontWeight={500} color={theme.green1} fontSize="14px">
@@ -246,10 +266,11 @@ export default function VoteContent() {
           <RowBetween
             style={{ color: activeProtocol?.primaryColor, fontWeight: 600 }}
           >
-            <span>Total ${activeProtocol?.token.symbol}</span>{" "}
+            {/* <span>Total ${activeProtocol?.token.symbol}</span>{" "} */}
+            <span>Total $AMP</span>{" "}
             {/* Was Total Votes */}
             <span>
-              {totalVotes ? totalVotes.toFixed(0) : account ? <Loader /> : "-"}
+              {totalAMP !== undefined ? "$" + nFormatter(totalAMP, 1) : account ? <Loader /> : "-"}
             </span>
           </RowBetween>
         )}
