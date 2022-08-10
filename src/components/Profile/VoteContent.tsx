@@ -45,6 +45,7 @@ export default function VoteContent() {
   const [activeProtocol] = useActiveProtocol();
   const airdropAmount = useAirdrop();
   const payoutsAMP = useList();
+  console.log("payoutsAMP", payoutsAMP)
   const payoutBasicBoostAMP = payoutsAMP && account ? payoutsAMP[0][account] ? payoutsAMP[0][account] : 0 : undefined
   const payoutBoostedBonusAMP = payoutsAMP && account ? payoutsAMP[1][account] ? payoutsAMP[1][account] : 0 : undefined
   const totalAMP = payoutBasicBoostAMP + payoutBoostedBonusAMP

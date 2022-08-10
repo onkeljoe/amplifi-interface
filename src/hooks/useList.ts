@@ -8,12 +8,9 @@ import { useVerifiedHandle } from "state/social/hooks";
 import { updateAmplifiAirdropList } from "state/user/actions";
 export function useList () {
   const { account } = useActiveWeb3React();
-  const verifiedHandleEntry = useVerifiedHandle(account);
   const [data, setData] = useState<any>();
   useEffect(() => {
-    if (account && verifiedHandleEntry) {
-      console.log(account)
-      console.log(verifiedHandleEntry)
+    if (account) {
       fetchList({
         id: '1b7UGQy62ysOwhUcH5uPFPDlINGMUyK7uEhZwqjoBSXo', // config.airdrop.excel.id,
         source: "excel",
@@ -21,10 +18,11 @@ export function useList () {
         excelSheetName: "Bribes Payout",
       }).then((res) => {
         if (!res) return;
+        console.log("f",res)
         setData(res.data)
       })
     }
-  } , [account, verifiedHandleEntry])
+  } , [account])
   return data
 }
 
