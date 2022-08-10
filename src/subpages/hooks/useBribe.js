@@ -165,7 +165,6 @@ export default function useBribe(provider, address, pollTime = 0, blockNumber = 
   const [cre8rScoreBreakdown, setCre8rScoreBreakdown] = useState();
   const [beetsScoreBreakdown, setBeetsScoreBreakdown] = useState();
   const [beetsScore, setBeetsScore] = useState();
-  const [cre8rPrice, setCre8rPrice] = useState();
 
   // used to know how much an Fbeets holder voted for cre8r-ftm on the beets snapshot
   useEffect(() => {
@@ -200,8 +199,6 @@ export default function useBribe(provider, address, pollTime = 0, blockNumber = 
         _cre8rScoreBreakdown.push({symbol, numTokens, priceUSD, valueUSD})
         total += valueUSD
       }
-
-      setCre8rPrice(await strategiesToUSDConverter['CRE8R']())
       setCre8rScore(total)
       setCre8rScoreBreakdown(_cre8rScoreBreakdown)
     });
@@ -234,7 +231,7 @@ export default function useBribe(provider, address, pollTime = 0, blockNumber = 
   }, [address])
 
   return {
-    cre8rScore, beetsScore, cre8rScoreBreakdown, beetsScoreBreakdown, cre8rPrice
+    cre8rScore, beetsScore, cre8rScoreBreakdown, beetsScoreBreakdown
   };
 }
 

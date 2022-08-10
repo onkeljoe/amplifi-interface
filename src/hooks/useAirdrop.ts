@@ -15,17 +15,15 @@ export function useAirdrop () {
   }, shallowEqual);
   useEffect(() => {
     if (account && verifiedHandleEntry) {
-      console.log(account)
-      console.log(verifiedHandleEntry)
       fetchList({
         id: config.airdrop.excel.id,
         source: "excel",
         type: "airdrop", //todo - currently this field is ignored
-        excelSheetName: "example",
-        query: undefined
+        excelSheetName: "example"
       }).then((res) => {
+        console.log(res)
         if (res) {
-          dispatch(updateAmplifiAirdropList({amplifiAirdrop: res}))
+          dispatch(updateAmplifiAirdropList({amplifiAirdrop: res.data}))
         }
       })
     }
