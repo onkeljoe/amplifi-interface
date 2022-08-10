@@ -87,7 +87,6 @@ export const cre8rCmsClient = new ApolloClient({
   }),
   cache: new InMemoryCache({
     possibleTypes,
-    resultCaching: false
   }),
   shouldBatch: true,
 });

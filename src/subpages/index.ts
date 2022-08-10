@@ -1,4 +1,5 @@
 import BoostCalculator from "./BoostCalculator";
+import PayoutResults from "./PayoutResults";
 
 interface SubPages {
   [protocolID: string]: {
@@ -24,6 +25,9 @@ const subpages : SubPages = {
         Component: BoostCalculator,
         props: {
         }
+      },
+      'beets-boosted-bribes-snapshot-voting-how-to-get-boost': {
+        Component: PayoutResults
       }
     }
   }

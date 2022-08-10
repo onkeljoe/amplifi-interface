@@ -27,6 +27,8 @@ import { Break } from "../../pages/DelegateInfo";
 import useAirdrop from "hooks/useAirdrop";
 import useList from "hooks/useList";
 import { nFormatter } from "utils/format";
+import { useActiveCampaign } from "state/campaigns/hooks";
+import { useLocation } from "react-router-dom";
 
 const OffsetCard = styled(Card)<{ bgColor?: string }>`
   background-color: ${({ theme, bgColor }) => bgColor ?? theme.bg1};
@@ -39,13 +41,17 @@ const OffsetCard = styled(Card)<{ bgColor?: string }>`
 
 export default function VoteContent() {
   const theme = useTheme();
-
+  const { pathname } = useLocation();
   // account details
   const { account } = useActiveWeb3React();
   const [activeProtocol] = useActiveProtocol();
+  const [activeCampaign] = useActiveCampaign();
+  //todo: refactor
+  const isBeetsCampaign = activeCampaign && pathname.includes('campaigns/CRE8R/beets-boosted-bribes') //&& activeCampaign.id === 'beets-boosted-bribes' && activeProtocol?.id === 'CRE8R'
+  //todo: refactor
+  const isInCampaign = pathname.split("/").length - 1 > 2
   const airdropAmount = useAirdrop();
   const payoutsAMP = useList();
-  console.log("payoutsAMP", payoutsAMP)
   const payoutBasicBoostAMP = payoutsAMP && account ? payoutsAMP[0][account] ? payoutsAMP[0][account] : 0 : undefined
   const payoutBoostedBonusAMP = payoutsAMP && account ? payoutsAMP[1][account] ? payoutsAMP[1][account] : 0 : undefined
   const totalAMP = payoutBasicBoostAMP + payoutBoostedBonusAMP
@@ -94,6 +100,9 @@ export default function VoteContent() {
 
   return (
     <AutoColumn gap="16px">
+      {!isBeetsCampaign ? <>
+        {isInCampaign ? 'This campaign currently does not having an metrics to show.' : 'Please view a campaign to view your rewards.'}
+      </> : <>
       <WhiteCard
         border={`1px solid ${theme.bg3}`}
         style={{ zIndex: 2 }}
@@ -276,6 +285,7 @@ export default function VoteContent() {
           </RowBetween>
         )}
       </Card>
+    </>}
     </AutoColumn>
   );
 }
