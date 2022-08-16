@@ -13,6 +13,7 @@ import RadicleLogo from "../../assets/images/radicle-logo.svg";
 import UniLogo from "../../assets/images/uni-logo.png";
 import DevoLogo from "../../assets/images/IMG_5812.png";
 import BilliLogo from "../../assets/images/billilogo.jpg";
+import ACWILogo from "../../assets/images/ACWI-logo.png";
 import { SerializedToken } from "./../user/actions";
 import {
   updateActiveProtocol,
@@ -362,11 +363,26 @@ export const CRE8R_GOVERNANCE: GovernanceInfo = {
   baseUrl: "https://cre8r.vip/client-discover-call-booking-form/?",
 };
 
+// demo-t0rb1k newProtocol Alt Coins With Images
+export const ACWI_GOVERNANCE_ADDRESS =
+  "0x389E3fe2D63C5092f0ceC7685a27416B80189262";
+export const ACWI_GOVERNANCE: GovernanceInfo = {
+  id: "ACWI",
+  name: "Alt Coins With Images",
+  logo: ACWILogo,
+  primaryColor: "#fff", // placeholder
+  secondaryColor: "#000", // placeholder
+  token: serializeToken(ENS), //placeholder
+  governanceAlphaAddresses: [ACWI_GOVERNANCE_ADDRESS],
+  social: "@twitter", // placeholder
+};
+
 // mapping for routing
 export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   fuji: FUJI_GOVERNANCE,
   CRE8R: CRE8R_GOVERNANCE,
   AMPLIFI: AMPLIFI_GOVERNANCE,
+  ACWI: ACWI_GOVERNANCE,
   // DEVO: DEVO_GOVERNANCE, //demo
   // BilliDrop: BILLI_GOVERNANCE, //demo
   // connect: CONNECT_CONFIG,
