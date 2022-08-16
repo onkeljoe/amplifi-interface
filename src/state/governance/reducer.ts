@@ -13,6 +13,8 @@ import RadicleLogo from "../../assets/images/radicle-logo.svg";
 import UniLogo from "../../assets/images/uni-logo.png";
 import DevoLogo from "../../assets/images/devo-logo.png";
 import BilliLogo from "../../assets/images/billilogo.jpg";
+import ACWILogo from "../../assets/images/ACWI-logo.png";
+import GMXLogo from "../../assets/images/GMX-logo.jpg";
 import { SerializedToken } from "./../user/actions";
 import {
   updateActiveProtocol,
@@ -362,6 +364,58 @@ export const CRE8R_GOVERNANCE: GovernanceInfo = {
   baseUrl: "https://cre8r.vip/client-discover-call-booking-form/?",
 };
 
+export const ACWI_GOVERNANCE_ADDRESS =
+  "0x389E3fe2D63C5092f0ceC7685a27416B80189262";
+export const ACWI_GOVERNANCE: GovernanceInfo = {
+  id: "ACWI",
+  name: "Alt Coins With Images",
+  logo: ACWILogo,
+  governanceAlphaAddresses: [ACWI_GOVERNANCE_ADDRESS],
+  primaryColor: "#fff", // placeholder
+  secondaryColor: "#000", // placeholder
+  token: serializeToken(ENS), // placeholder
+  social: "@twitter", // placeholder
+};
+
+export const GMX_GOVERNANCE_ADDRESS_AVALANCHE =
+  "0x9ab2De34A33fB459b538c43f251eB825645e8595";
+export const GMX_GOVERNANCE_ADDRESS_ARBITRUM =
+  "0x489ee077994B6658eAfA855C308275EAd8097C4A";
+export const GMX_ADDRESS_ARBITRUM =
+  "0xfc5A1A6EB076a2C7aD06eD22C90d7E710E35ad0a";
+export const GMX_ADDRESS_AVALANCHE =
+  "0x62edc0692BD897D2295872a9FFCac5425011c661";
+
+const GMX_ARBITRUM = new Token(
+  ChainId.MAINNET, // not true, but typings dont allow to change
+  GMX_ADDRESS_ARBITRUM,
+  18,
+  "GMX",
+  "GMX Token Arbitrum"
+);
+const GMX_AVALANCHE = new Token(
+  ChainId.MAINNET, // not true, but typings dont allow to change
+  GMX_ADDRESS_AVALANCHE,
+  18,
+  "GMX",
+  "GMX Token Avalanche"
+);
+
+export const GMX_GOVERNANCE: GovernanceInfo = {
+  id: "GMX",
+  name: "GMX",
+  logo: GMXLogo,
+  token: serializeToken(GMX_ARBITRUM),
+  governanceAlphaAddresses: [
+    GMX_GOVERNANCE_ADDRESS_AVALANCHE,
+    GMX_GOVERNANCE_ADDRESS_ARBITRUM,
+  ],
+  primaryColor: "#fff", // placeholder
+  secondaryColor: "#000", // placeholder
+  social: "@GMX_IO",
+  baseUrl: "https://amplifi.cre8r.vip?",
+};
+
 // mapping for routing
 export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   fuji: FUJI_GOVERNANCE,
@@ -369,6 +423,8 @@ export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   AMPLIFI: AMPLIFI_GOVERNANCE,
   DEVO: DEVO_GOVERNANCE, //demo
   BilliDrop: BILLI_GOVERNANCE, //demo
+  ACWI: ACWI_GOVERNANCE, //demo
+  GMX: GMX_GOVERNANCE, //demo
   // connect: CONNECT_CONFIG,
 };
 

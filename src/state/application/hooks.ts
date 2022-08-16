@@ -21,6 +21,8 @@ import {
   ENS_GOVERNANCE,
   CRE8R_GOVERNANCE,
   AMPLIFI_GOVERNANCE,
+  ACWI_GOVERNANCE,
+  GMX_GOVERNANCE,
 } from "../governance/reducer";
 import {
   uniswapClient,
@@ -32,7 +34,9 @@ import {
   ensClient,
   snapshotClient,
   cre8rCmsClient,
-  devoClient
+  devoClient,
+  ACWIClient,
+  GMXClient,
 } from "../../apollo/client";
 
 export function useBlockNumber(): number | undefined {
@@ -162,6 +166,14 @@ export function useSubgraphClient() {
 
   if (activeProtocol?.id === ENS_GOVERNANCE.id) {
     return ensClient;
+  }
+
+  if (activeProtocol?.id === ACWI_GOVERNANCE.id) {
+    return ACWIClient;
+  }
+
+  if (activeProtocol?.id === GMX_GOVERNANCE.id) {
+    return GMXClient;
   }
   return undefined;
 }
