@@ -13,7 +13,7 @@ import RadicleLogo from "../../assets/images/radicle-logo.svg";
 import UniLogo from "../../assets/images/uni-logo.png";
 import DevoLogo from "../../assets/images/devo-logo.png";
 import BilliLogo from "../../assets/images/billilogo.jpg";
-import ACWILogo from "../../assets/images/ACWI-logo.png";
+import ACWILogo from "../../assets/images/new-altcoinswi.png";
 import GMXLogo from "../../assets/images/GMX-logo.jpg";
 import { SerializedToken } from "./../user/actions";
 import {
@@ -371,8 +371,8 @@ export const ACWI_GOVERNANCE: GovernanceInfo = {
   name: "Alt Coins With Images",
   logo: ACWILogo,
   governanceAlphaAddresses: [ACWI_GOVERNANCE_ADDRESS],
-  primaryColor: "#fff", // placeholder
-  secondaryColor: "#000", // placeholder
+  primaryColor: "#000", // placeholder
+  secondaryColor: "#ccc", // placeholder
   token: serializeToken(ENS), // placeholder
   social: "@twitter", // placeholder
 };
@@ -410,8 +410,8 @@ export const GMX_GOVERNANCE: GovernanceInfo = {
     GMX_GOVERNANCE_ADDRESS_AVALANCHE,
     GMX_GOVERNANCE_ADDRESS_ARBITRUM,
   ],
-  primaryColor: "#fff", // placeholder
-  secondaryColor: "#000", // placeholder
+  primaryColor: "#000", // placeholder
+  secondaryColor: "#ccc", // placeholder
   social: "@GMX_IO",
   baseUrl: "https://amplifi.cre8r.vip?",
 };
