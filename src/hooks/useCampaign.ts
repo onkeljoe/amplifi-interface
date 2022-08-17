@@ -11,6 +11,7 @@ import {
   useWPUriQuery
 } from "./useWP";
 import subpages from "subpages";
+import React from "react";
 /* 
 
 # The expected structure of the WP
@@ -299,25 +300,32 @@ interface WPACFPage extends Page {
 interface SubPage extends Page {
   type: 'SubPage';
   data: {
-    component: () => JSX.Element
+    component: (props : any) => JSX.Element
   }
 }
 
 
-function useSubPage (uri: string) : SubPage | undefined {
-  const parts = uri.split('/')
+function useSubPage (protocolID: string, campaignID: string, tabUri: string) : SubPage | undefined {
+  if (campaignID === "") return undefined 
+  const parts = tabUri.split('/')
   // not sure how to make this also undefined because if subpage key doesn't exist then Component will not
-  const key = parts[parts.length - 1] || parts[parts.length - 2] 
+  const tabKey = parts[parts.length - 1] || parts[parts.length - 2] 
   //if uri is /amplifi-pages/boost-calculator/ , then uri.split('/') will be ['amplifi-pages', 'boost-calculator', '']
-  const Component = subpages[key]
-  if (Component) {
-    return {
-      data: {
-        component: Component
-      },
-      error: false,
-      loading: false,
-      type: 'SubPage'
+  console.log({campaignID, protocolID})
+  if (subpages[protocolID] && subpages[protocolID][campaignID]) {
+    const settings = subpages[protocolID][campaignID][tabKey]
+    if (settings) {
+      console.log("settings",settings)
+      return {
+        data: {
+          component: () => {
+              return settings.Component(settings.props)
+          }
+        },
+        error: false,
+        loading: false,
+        type: 'SubPage'
+      }
     }
   }
   return undefined
@@ -331,7 +339,7 @@ function useWPPage (path: string | undefined) : WPACFPage | WPContentPage | unde
       return;
     }
     setRes(undefined);
-    queryUriToContent(path).then((_res) => {
+    queryUriToContent(path).then((_res : any) => {
       setRes(_res);
     });
   }, [path, queryUriToContent]);
@@ -346,11 +354,10 @@ function useWPPage (path: string | undefined) : WPACFPage | WPContentPage | unde
  * @param uri
  * @returns
  */
-function usePage (uri: string) : Page | undefined {
-  console.log('f')
-  const subpage = useSubPage(uri);
+function usePage (protocolID: string, campaignID: string, tabUri: string) : Page | undefined {
+  const subpage = useSubPage(protocolID, campaignID, tabUri);
   //if subpage exists, skip WP query
-  const wppage = useWPPage(subpage ? undefined : uri);
+  const wppage = useWPPage(subpage ? undefined : tabUri);
   return subpage || wppage;
 };
 
@@ -440,7 +447,7 @@ export const useCampaign = (
     () => getTabUri(routeForTab, routeToUriMap, amplifiCampaignsTabData),
     [routeForTab, routeToUriMap, amplifiCampaignsTabData]
   );
-  const page = usePage(tabUri);
+  const page = usePage(protocolID, campaignID || "", tabUri);
 
   const [activeCampaign, setActiveCampaign] = useActiveCampaign();
   const [activeProtocol] = useActiveProtocol();
@@ -468,6 +475,7 @@ export const useCampaign = (
       kpi: "",
       overviewVideo: amplifiCampaignFields.overviewVideo,
       startDate: amplifiCampaignFields.startDate,
+      tweetIntent: amplifiCampaignFields.tweetintent,
       whitelist: [],
       featuredImage: amplifiCampaignFields.featuredImage?.sourceUrl,
     });

@@ -1,3 +1,4 @@
+import config from "config";
 export async function getUrl(
   twitterHandle: string,
   roughBaseUrl: string,
@@ -27,8 +28,8 @@ export async function getUrl(
   const utm_campaign = campaignId; //todo- make id campaign specific rather than protocol specific
   const utm_source = protocolId;
   const domain = {
-    id: "278c3d8b2f6d469e812bdddbf713a079",
-    fullName: "link.cre8r.vip",
+    id: config.rebrandly.id,
+    fullName: config.rebrandly.fullName,
   };
 
   const campaignUrlComponents: any = [];
@@ -37,7 +38,14 @@ export async function getUrl(
   campaignUrlComponents.push(`utm_source=${utm_source}`);
 
   function getLongLink() {
-    return baseUrl?.replace("https://", "") + campaignUrlComponents.join("&");
+    let longLink = ""
+    if (baseUrl.includes("#")) {
+      longLink = baseUrl?.replace("?", "").replace("#","?" + campaignUrlComponents.join("&") +  "#");
+    } else {
+      longLink = baseUrl + campaignUrlComponents.join("&");
+    }
+    console.log(longLink)
+    return longLink.replace("https://", "") 
   }
   if (!process.env.REACT_APP_REBRANDLY) {
     return { utm: getLongLink(), shortUtm: undefined };
@@ -50,7 +58,7 @@ export async function getUrl(
   const urlComponents = [];
 
   urlComponents.push(`domain[id]=${domain.id}`);
-  urlComponents.push(`domain[fullName]=${domain.fullName}`);
+  urlComponents.push(`domain[fullName]=${domain.fullName}`);  //consider for deletion 
 
   const options: any = {
     method: "GET",
@@ -59,9 +67,10 @@ export async function getUrl(
       apikey: process.env.REACT_APP_REBRANDLY,
     },
   };
+  console.log(encodeURIComponent(getLongLink()))
   const response = await fetch(
     "https://api.rebrandly.com/v1/links/new?destination=" +
-      encodeURIComponent(campaignUrl + campaignUrlComponents.join("&")) +
+      encodeURIComponent("https://" + getLongLink()) +
       "&" +
       urlComponents.join("&"),
     options

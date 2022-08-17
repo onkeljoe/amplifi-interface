@@ -50,6 +50,7 @@ const URI_QUERY = gql`
         content
         date
         amplifiCampaignFields {
+          tweetintent
           baseUrl
           campaignBudget
           description

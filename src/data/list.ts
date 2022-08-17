@@ -1,8 +1,7 @@
 interface ListConfig {
   source: 'excel';
-  type: string; //airdrop
   id: string;
-  query?: string;
+  type: 'airdrop' | 'payout'; //type determines how the data is processed
   excelSheetName?: string;
 }
 
@@ -13,41 +12,110 @@ export async function fetchList(config: ListConfig) {
         console.error('Unable to fetch excel sheet, sheet name must be the sheet TAB name')
         return;
       }
-      const res = await fetchListExcel(config.id, config.excelSheetName, config.query)
-      return convertExcelResponseToAirdropList(res)
+      if (config.type === 'airdrop') {
+        const res = await fetchListExcel(config.id, config.excelSheetName, config.type, undefined)
+        return {
+          data: convertExcelResponseToAirdropList(res), 
+          type: config.type
+        }
+      } else {
+        const res = await fetchListExcel(config.id, config.excelSheetName, config.type, 'Select *')
+        return {
+          data: [convertExcelResponseToAmpPayoutBasicBoostList(res), convertExcelResponseToAmpPayoutBoostedBonusList(res)],
+          type: config.type
+        }
+      }
     default:
       return;
   }
 }
 
-interface ExcelTableRow {
-  c : Array<{v: string}>
+interface ExcelResponse {
+  version: string;
+  reqId: string;
+  status: string;
+  sig: string;
+  table: {
+    cols: Array<{id: string, label: string, type: string, pattern?: string}>,
+    parsedNumHeader: 1,
+    rows: Array<ExcelTableRow>
+  }
 }
-function fetchListExcel(sheetId : string, sheetName: string, query : string | undefined) : Promise<Array<ExcelTableRow>> {
+
+interface ExcelTableRow {
+  c : Array<{v: string | null} | null>
+}
+function fetchListExcel(sheetId : string, sheetName: string, type : string, query : string | undefined) : Promise<ExcelResponse> {
   const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?`;
   const url = `${base}&sheet=${sheetName}&tq=${encodeURIComponent(query || 'Select *')}`
   return fetch(url)
   .then(res => res.text())
   .then(rep => {
-      //Remove additional text and extract only JSON:
-      const jsonData = JSON.parse(rep.substring(47).slice(0, -2));
-      return jsonData.table.rows
+    //Remove additional text and extract only JSON:
+    const jsonData = JSON.parse(rep.substring(47).slice(0, -2));
+      return jsonData
 
   })
+}
+
+export interface AmpPayoutList {
+  [address: string]: number | string
+}
+function convertExcelResponseToAmpPayoutBasicBoostList(excelRes : ExcelResponse) : AmpPayoutList {
+  let _airdropList = {}
+
+  let basicBoost2AmpInUSDPos : number | undefined; 
+  for (let i = 0; i < excelRes.table.cols.length; i++) {
+    if (excelRes.table.cols[i].label == 'basicBoost2AmpInUSD') {
+      basicBoost2AmpInUSDPos = i
+    }
+  }
+  if (basicBoost2AmpInUSDPos === undefined) {
+    throw `basicBoost2AmpInUSD header is not found on table ${excelRes.reqId}`
+  }
+  excelRes.table.rows.forEach((r) => {
+    _airdropList = {
+      ..._airdropList,
+      [r!.c[0]!.v!]: basicBoost2AmpInUSDPos && r && r.c && r.c[basicBoost2AmpInUSDPos] && r.c[basicBoost2AmpInUSDPos]?.v //must always have something like col A
+    }
+  })
+  return _airdropList
+}
+function convertExcelResponseToAmpPayoutBoostedBonusList(excelRes : ExcelResponse) : AmpPayoutList {
+  let _airdropList = {}
+
+  let basicBoost2AmpInUSDPos : number | undefined; 
+  for (let i = 0; i < excelRes.table.cols.length; i++) {
+    if (excelRes.table.cols[i].label == 'boostedBonus2AmpInUSD') {
+      basicBoost2AmpInUSDPos = i
+    }
+  }
+  if (basicBoost2AmpInUSDPos === undefined) {
+    throw `basicBoost2AmpInUSD header is not found on table ${excelRes.reqId}`
+  }
+  excelRes.table.rows.forEach((r) => {
+    _airdropList = {
+      ..._airdropList,
+      [r!.c[0]!.v!]: basicBoost2AmpInUSDPos && r && r.c && r.c[basicBoost2AmpInUSDPos] && r.c[basicBoost2AmpInUSDPos]?.v //must always have something like col A
+    }
+  })
+  return _airdropList
 }
 
 export interface AirdropList {
   [twitterHandle: string]: number
 }
 
-function convertExcelResponseToAirdropList(excelRows : Array<ExcelTableRow>) : AirdropList {
+
+
+function convertExcelResponseToAirdropList(excelRes : ExcelResponse) : AirdropList {
   let _airdropList = {}
-  excelRows.forEach((r) => {
+  //must follow airdrop layout: https://docs.google.com/spreadsheets/d/1u8IBLhr3Bk9MUkDquCEq2_q-IE-1KRiVYfo1la4nV_Y/edit#gid=0
+  excelRes.table.rows.forEach((r) => {
     _airdropList = {
       ..._airdropList,
-      [r.c[0].v]: r.c[1].v
+      [r!.c[0]!.v!]: r!.c[1]!.v! 
     }
   })
-  console.log(_airdropList)
   return _airdropList
 }

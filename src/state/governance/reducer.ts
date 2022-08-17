@@ -11,7 +11,7 @@ import HundredLogo from "../../assets/images/hundred-logo.png";
 import NounsLogo from "../../assets/images/nouns-logo.png";
 import RadicleLogo from "../../assets/images/radicle-logo.svg";
 import UniLogo from "../../assets/images/uni-logo.png";
-import DevoLogo from "../../assets/images/devo-logo.png";
+import DevoLogo from "../../assets/images/IMG_5812.png";
 import BilliLogo from "../../assets/images/billilogo.jpg";
 import ACWILogo from "../../assets/images/new-altcoinswi.png";
 import GMXLogo from "../../assets/images/GMX-logo.jpg";
@@ -139,7 +139,7 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   emoji: "🔊",
   baseUrl: "https://amplifi.cre8r.vip?",
   hasSnapshot: true,
-  spaceSnapshot: "cre8r.eth",
+  spaceSnapshot: "amplifidao.eth",
   // featuredImage: AmpliFiLogo,
 };
 

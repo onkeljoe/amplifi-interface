@@ -6,7 +6,7 @@ import { useReferralLink } from "state/campaigns/hooks";
 import { useVerifiedHandle } from "state/social/hooks";
 import styled from "styled-components";
 import { useActiveProtocol } from "../../state/governance/hooks";
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useActiveCampaign } from "state/campaigns/hooks";
 import parse from "html-react-parser";
 // gutenberg basic styles
@@ -22,8 +22,15 @@ import {
   OnlyAboveSmall,
   OnlyAboveLarge,
 } from "../../theme";
+import getTextToTwitter from "utils/getTextToTwitter";
+import TwitterIcon from 'assets/svg/twitter.svg';
 
-
+const Logo = styled.img`
+  height: 20px;
+  width: 20px;
+  margin-left: 4px;
+  margin: 10px;
+`;
 
 export const Break = styled.div`
   width: 800px;
@@ -40,6 +47,8 @@ const RoundedLink = styled.div`
   border-radius: 12px;
   border: solid #dcd4d4;
   border-width: 1px;
+  display: flex;
+  justify-content: center;
 `;
 const Item = styled.div`
   display: flex;
@@ -61,10 +70,17 @@ const ColumnLabel = styled(TYPE.darkGray)`
 `;
 export default function ReferralLinksCard() {
   const [activeProtocol] = useActiveProtocol();
+  const [activeCampaign] = useActiveCampaign();
   const referralLink = useReferralLink();
+  const twitterIntentUrl = useMemo(() => {
+    if (activeCampaign?.tweetIntent && referralLink) {
+      return getTextToTwitter(activeCampaign.tweetIntent, referralLink)
+    }
+    return undefined
+  }, [activeCampaign?.tweetIntent, referralLink])
+  
   const { account } = useActiveWeb3React();
   const verifiedHandleEntry = useVerifiedHandle(account);
-  const [activeCampaign] = useActiveCampaign();
   return (
     <>
     {/* <AutoColumn> */}
@@ -72,6 +88,7 @@ export default function ReferralLinksCard() {
           referralLink ? (
             <>
               <RoundedLink >
+                {twitterIntentUrl && <a href={twitterIntentUrl}><Logo src={TwitterIcon} alt="ff" /></a>}
                 <Copy toCopy={"https://" + referralLink}>
                   <div style={{padding: 4}}>
                     <div style={{ paddingLeft: 10 }}>
@@ -82,6 +99,8 @@ export default function ReferralLinksCard() {
                     {activeCampaign && <div style={{fontSize: 8, color: 'lightGrey', padding: 1}}>{activeCampaign.baseUrl.replace("?", "")}</div>}
                   </div>
                 </Copy>
+
+                
               </RoundedLink>
             </>
           ) : (

@@ -29,6 +29,7 @@ export interface CampaignInfo {
   kpi: string;
   overviewVideo: string;
   startDate: string;
+  tweetIntent?: string;
   isDemo: boolean;
   whitelist: Whitelist[];
   campaignBudget?: string;
