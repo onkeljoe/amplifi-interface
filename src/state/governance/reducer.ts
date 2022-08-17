@@ -56,26 +56,26 @@ export interface GlobaData {
 }
 
 export const CHEESE_ADDRESS = "0x238d82a35e69d7c10fe69a649134171c63e57522";
-const CHEESE = new Token(
+const GOAT = new Token(
   ChainId.MAINNET,
   CHEESE_ADDRESS,
   18,
-  "Cheese",
-  "CHEESE"
+  "GOAT",
+  "GOAT"
 );
 
 export const BILLI_GOVERNANCE: GovernanceInfo = {
   id: "BilliDrop",
   name: "BilliDrop",
   logo: BilliLogo,
-  primaryColor: "#383838",
-  secondaryColor: "#B0B0B0",
-  token: serializeToken(CHEESE),
+  primaryColor: "#283e32",
+  secondaryColor: "#FFFFFF",
+  token: serializeToken(GOAT),
   governanceAlphaAddresses: [],
   // governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
   migrationProposalId: 8,
-  social: "@CRE8RDAO",
-  emoji: "🔊",
+  social: "@DropBilli",
+  emoji: "🐐",
   baseUrl: "https://amplifi.cre8r.vip?",
   hasSnapshot: true,
   spaceSnapshot: "cre8r.eth",
