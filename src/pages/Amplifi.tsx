@@ -31,7 +31,7 @@ export default function Amplifi({
   return (
     <BodyWrapper>
       <AutoColumn gap="1rem">
-        <MediumHeaderWrapper>
+        <div> 
           <AutoColumn gap="sm">
             <Above1080Only>
               <RowBetween>
@@ -63,7 +63,7 @@ export default function Amplifi({
             </Below1080Only>
             <Tabs />
           </AutoColumn>
-        </MediumHeaderWrapper>
+        </div>
         {campaignID ? <CampaignDetails /> : <CampaignList />}
       </AutoColumn>
     </BodyWrapper>
