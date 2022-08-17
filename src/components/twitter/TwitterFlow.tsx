@@ -113,10 +113,10 @@ export default function TwitterFlow({ onDismiss }: { onDismiss: () => void }) {
   // used just for display in UI
   const readableTweetCopy = `${activeProtocol?.emoji ?? ""}👀${
     activeProtocol?.social
-  } X @CRE8RDAO AmpliFi 🧱 ${
+  } X @AmpliFiDAO 📡 ${
     activeProtocol?.id == CONNECT_CONFIG.id
       ? "user"
-      : `#${activeProtocol?.token?.symbol}Ampbassador`
+      : `#${activeProtocol?.token?.symbol}`
   } \n amplifi.cre8r.vip/#/amplifi/${
     activeProtocol?.id
   } \n addr:${account} \n sig:${sig ?? ""}`;
