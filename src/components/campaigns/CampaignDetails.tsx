@@ -18,7 +18,7 @@ import CampaignContent from "./CampaignContent";
 import CampaignOverview from "./CampaignOverview";
 import ReferralLinksCard from "components/ReferralLinksCard";
 import { Break } from "./CampaignOverview";
-import { Wrapper } from "../../pages/AppBody";
+const Wrapper = styled.div<{ backgroundColor?: string }>``;
 
 const ProposalInfo = styled(AutoColumn)`
   border-radius: 12px;
@@ -67,11 +67,12 @@ function CampaignDetails({
     }
   }, [dispatch, protocolID, setActiveProtocol]);
 
-  const { amplifiCampaignsTabData, uriToRouteMap, page, tabUri } = useCampaign(
-    protocolID,
-    pathname,
-    campaignID
-  );
+  const {
+    amplifiCampaignsTabData,
+    uriToRouteMap,
+    page,
+    tabUri
+  } = useCampaign(protocolID, pathname, campaignID);
 
   return (
     <Wrapper>
@@ -122,37 +123,31 @@ function CampaignDetails({
             />
           )}
           {/* <Break /> */}
-          {page && (
-            <>
-              {page.type === "SubPage" ? (
-                <>
-                  {(() => {
-                    const Component = page.data.component;
-                    return <Component />;
-                  })()}
-                </>
-              ) : page.type === "WPACFPage" ? (
-                <Wrapper>
-                  <CampaignOverview />
-                </Wrapper>
-              ) : (
-                <>
-                  {/* <Break /> */}
-                  {!page || !page.data ? (
-                    <LoadingRows>
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                    </LoadingRows>
-                  ) : (
-                    // WPContentPage
-                    <CampaignContent content={page.data.content} />
-                  )}
-                </>
-              )}
-            </>
-          )}
+          {page && <>
+            {page.type === 'SubPage' ? <>
+              {(() => {
+                const Component = page.data.component
+                return <Component />
+              })()}
+            </> : page.type === 'WPACFPage' ? (
+              <CampaignOverview />
+            ) : (
+              <>
+                {/* <Break /> */}
+                {!page || !page.data ? (
+                  <LoadingRows>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                  </LoadingRows>
+                ) : (
+                  // WPContentPage
+                  <CampaignContent content={page.data.content} />
+                )}
+              </>
+            )}
+          </>}
           {page && page.error && <div>Error loading content</div>}
         </AutoColumn>
       </ProposalInfo>
