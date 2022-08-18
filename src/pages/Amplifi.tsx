@@ -15,12 +15,13 @@ import CampaignList from "components/campaigns/CampaignList";
 import CampaignDetails from "components/campaigns/CampaignDetails";
 import { useActiveCampaign } from "state/campaigns/hooks";
 import CRE8RPriceCard from "components/CRE8RPriceCard";
+import ReferralLinksCard from "components/ReferralLinksCard";
 
 export default function Amplifi({
   match: {
     params: { protocolID, campaignID },
   },
-}: RouteComponentProps<{ protocolID?: string, campaignID?: string }>) {
+}: RouteComponentProps<{ protocolID?: string; campaignID?: string }>) {
   // if valid protocol id passed in, update global active protocol
   useProtocolUpdate(protocolID);
   // if on testnet, show warning
@@ -31,7 +32,7 @@ export default function Amplifi({
   return (
     <BodyWrapper>
       <AutoColumn gap="1rem">
-        <div> 
+        <MediumHeaderWrapper>
           <AutoColumn gap="sm">
             <Above1080Only>
               <RowBetween>
@@ -45,15 +46,16 @@ export default function Amplifi({
                     >
                       {activeProtocol?.name}
                     </TYPE.mediumHeader>
-                    {campaignID && <TYPE.small
-                      ml="8px"
-                      fontWeight={600}
-                      color={activeProtocol?.primaryColor}
-                    >
-                      {activeCampaign?.title}
-                    </TYPE.small>}
+                    {campaignID && (
+                      <TYPE.small
+                        ml="8px"
+                        fontWeight={600}
+                        color={activeProtocol?.primaryColor}
+                      >
+                        {activeCampaign?.title}
+                      </TYPE.small>
+                    )}
                   </AutoColumn>
-
                 </RowFixed>
                 <CRE8RPriceCard />
               </RowBetween>
@@ -62,8 +64,9 @@ export default function Amplifi({
               <Dropdown />
             </Below1080Only>
             <Tabs />
+            <ReferralLinksCard />
           </AutoColumn>
-        </div>
+        </MediumHeaderWrapper>
         {campaignID ? <CampaignDetails /> : <CampaignList />}
       </AutoColumn>
     </BodyWrapper>

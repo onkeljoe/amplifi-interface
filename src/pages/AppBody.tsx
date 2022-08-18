@@ -15,9 +15,12 @@ export const BodyWrapper = styled.div`
   }
 `;
 
+export const Wrapper = styled.div<{ backgroundColor?: string }>`
+  @media (max-width: 500px) {
+    max-width: 256px;
+  }
+`;
+
 export const MediumHeaderWrapper = styled.div`
-  display: none;
-  ${({ theme }) => theme.mediaWidth.upToLarge`
-    display: initial;
-  `};
+  display: initial;
 `;
