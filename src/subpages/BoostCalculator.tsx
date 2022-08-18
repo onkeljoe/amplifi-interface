@@ -155,7 +155,7 @@ function BoostCalculator() {
               proposal:
                 "0xbc5785e1323c70986d77d33ab734c1c18f122c2a6082f84fbc437c549d8b84ad",
               type: "weighted",
-              choice: { "45": 1 },
+              choice: { "43": 1 },
             })
             .then((receipt: any) => {
               console.log(receipt);
