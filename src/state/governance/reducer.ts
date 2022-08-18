@@ -419,7 +419,7 @@ export const GMX_GOVERNANCE: GovernanceInfo = {
 // mapping for routing
 export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
  // fuji: FUJI_GOVERNANCE,
-//  CRE8R: CRE8R_GOVERNANCE,
+  CRE8R: CRE8R_GOVERNANCE,
 
 //  DEVO: DEVO_GOVERNANCE, //demo
   BilliDrop: BILLI_GOVERNANCE, //demo
