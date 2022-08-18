@@ -11,7 +11,7 @@ import { AppDispatch } from "../../state";
 import { useActiveProtocol } from "../../state/governance/hooks";
 import { SUPPORTED_PROTOCOLS } from "../../state/governance/reducer";
 import { TYPE } from "../../theme";
-import { AutoColumn } from "../Column";
+import Column, { AutoColumn } from "../Column";
 import { ProposalStatus } from "../governance/styled";
 import { RowBetween, RowFixed } from "../Row";
 import CampaignContent from "./CampaignContent";
@@ -67,17 +67,18 @@ function CampaignDetails({
     }
   }, [dispatch, protocolID, setActiveProtocol]);
 
-  const {
-    amplifiCampaignsTabData,
-    uriToRouteMap,
-    page,
-    tabUri
-  } = useCampaign(protocolID, pathname, campaignID);
+  const { amplifiCampaignsTabData, uriToRouteMap, page, tabUri } = useCampaign(
+    protocolID,
+    pathname,
+    campaignID
+  );
 
   return (
     <Wrapper>
-      <ProposalInfo gap="lg" justify="start">
-        {/* <RowBetween style={{ width: "100%", alignItems: "flex-start" }}>
+      {/*This Wrapper can add a background if needed by string param;
+      And I switch out ProposalInfo coz it doesnt do anything */}
+      {/* <ProposalInfo gap="lg" justify="start"> */}
+      {/* <RowBetween style={{ width: "100%", alignItems: "flex-start" }}>
           <RowFixed>
             <ArrowWrapper
               onClick={() => {
@@ -97,49 +98,52 @@ function CampaignDetails({
           
         </RowBetween> */}
 
-        <AutoColumn gap="10px" style={{ width: "100%" }}>
-          {/* <TYPE.largeHeader style={{ marginBottom: ".5rem" }}>
+      <Column gap="10px" style={{ width: "100%" }}>
+        {/* <TYPE.largeHeader style={{ marginBottom: ".5rem" }}>
             {data && data.data.title ? data.data.title : <LoadingRows>
               <div/></LoadingRows>}
           </TYPE.largeHeader> */}
-          {/* <Break /> */}
-          {/* <TYPE.body fontSize="12px" fontWeight="600" mb="1rem" mt="1rem">
+        {/* <Break /> */}
+        {/* <TYPE.body fontSize="12px" fontWeight="600" mb="1rem" mt="1rem">
             Campaigns are still in testing phase and are subject to change. Please
             check back soon.
           </TYPE.body> */}
-          {/* <ReferralLinksCard /> */}
-          <CampaignContent />
-          <RowBetween>{/* <TYPE.main>Date here</TYPE.main> */}</RowBetween>
-          {amplifiCampaignsTabData.length > 0 && (
-            <Tabs
-              data={amplifiCampaignsTabData}
-              value={tabUri}
-              onChange={() => {
-                //optional
-              }}
-              onClick={(value: any) => {
-                history.replace(uriToRouteMap[value]);
-              }}
-            />
-          )}
-          {/* <Break /> */}
-          {page && <>
-            {page.type === 'SubPage' ? <>
-              {(() => {
-                const Component = page.data.component
-                return <Component />
-              })()}
-            </> : page.type === 'WPACFPage' ? (
+        {/* <ReferralLinksCard /> */}
+        <CampaignContent />
+        <RowBetween>{/* <TYPE.main>Date here</TYPE.main> */}</RowBetween>
+        {amplifiCampaignsTabData.length > 0 && (
+          <Tabs
+            data={amplifiCampaignsTabData}
+            value={tabUri}
+            onChange={() => {
+              //optional
+            }}
+            onClick={(value: any) => {
+              history.replace(uriToRouteMap[value]);
+            }}
+          />
+        )}
+        {/* <Break /> */}
+        {page && (
+          <>
+            {page.type === "SubPage" ? (
+              <>
+                {(() => {
+                  const Component = page.data.component;
+                  return <Component />;
+                })()}
+              </>
+            ) : page.type === "WPACFPage" ? (
               <CampaignOverview />
             ) : (
               <>
                 {/* <Break /> */}
                 {!page || !page.data ? (
                   <LoadingRows>
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
+                    <div />
+                    <div />
+                    <div />
+                    <div />
                   </LoadingRows>
                 ) : (
                   // WPContentPage
@@ -147,10 +151,11 @@ function CampaignDetails({
                 )}
               </>
             )}
-          </>}
-          {page && page.error && <div>Error loading content</div>}
-        </AutoColumn>
-      </ProposalInfo>
+          </>
+        )}
+        {page && page.error && <div>Error loading content</div>}
+      </Column>
+      {/* </ProposalInfo> */}
     </Wrapper>
   );
 }
