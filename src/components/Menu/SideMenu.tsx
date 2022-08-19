@@ -347,6 +347,27 @@ export default function SideMenu(): JSX.Element {
               </TYPE.main>
             </AutoColumn>
             <AutoColumn gap="0.5rem">
+              <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
+              <TYPE.main>
+                Boost CRE8R DAO content marketing campaigns reach. And
+                facilitate KPI based marketing campaigns for web3
+              </TYPE.main>
+            </AutoColumn>
+            <AutoColumn gap="0.5rem">
+              <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
+              <TYPE.main>
+                Boost CRE8R DAO content marketing campaigns reach. And
+                facilitate KPI based marketing campaigns for web3
+              </TYPE.main>
+            </AutoColumn>
+            <AutoColumn gap="0.5rem">
+              <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
+              <TYPE.main>
+                Boost CRE8R DAO content marketing campaigns reach. And
+                facilitate KPI based marketing campaigns for web3
+              </TYPE.main>
+            </AutoColumn>
+            <AutoColumn gap="0.5rem">
               <TYPE.body fontWeight={600}>
                 I don’t have Twitter, can I use AmpliFi?
               </TYPE.body>

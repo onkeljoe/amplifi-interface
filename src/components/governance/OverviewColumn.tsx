@@ -91,7 +91,7 @@ export default function OverviewColumn({
         >
           Amplifi Campaigns
         </TabOption>
-        <TabOption
+        {/* <TabOption
           as={Link}
           to={"/delegates/" + activeProtocol?.id}
           selected={location.pathname.includes("/delegates/")}
@@ -99,8 +99,8 @@ export default function OverviewColumn({
           color2={activeProtocol?.secondaryColor}
         >
           Delegates
-        </TabOption>
-        <TabOption
+        </TabOption> */}
+        {/* <TabOption
           as={Link}
           to={"/proposals/" + activeProtocol?.id}
           selected={location.pathname.includes("/proposals/")}
@@ -108,7 +108,7 @@ export default function OverviewColumn({
           color2={activeProtocol?.secondaryColor}
         >
           View Proposals
-        </TabOption>
+        </TabOption> */}
       </AutoColumn>
     </Wrapper>
   );
