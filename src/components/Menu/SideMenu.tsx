@@ -156,7 +156,7 @@ export default function SideMenu(): JSX.Element {
               position: "absolute",
               marginLeft: "-1rem",
               boxShadow: "0px 8px 8px 2px rgb(71 156 251 / 50%)",
-              zIndex: "5",
+              zIndex: 5,
               backgroundColor: "rgba(198,225,255,76)",
             }}
           >
