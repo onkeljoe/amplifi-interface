@@ -123,9 +123,9 @@ export default function ReferralLinksCard() {
                 <li>
                   Connect your wallet{" "}
                   {account ? (
-                    <span style={{ color: "green" }}>✔ Done</span>
+                    <span style={{ color: "green", backgroundColor: "white" }}>✔ Done</span>
                   ) : (
-                    <span style={{ color: "red" }}>❌ Incomplete</span>
+                    <span style={{ color: "red", backgroundColor: "white" }}>❌ Incomplete</span>
                   )}
                 </li>
                 <li>

@@ -43,6 +43,13 @@ export default function CampaignOverview() {
             {parse(activeCampaign.content)}
           </>} */}
       <CampaignWrapper gridTemplateColumn={activeCampaign.overviewVideo ? '2fr 3fr' : '1fr'}>
+      <AutoColumn>
+        {activeCampaign.overviewVideo && (
+            <div style={{marginTop: 0}}>
+              <Youtube src={activeCampaign.overviewVideo} />
+            </div>
+        )}
+        </AutoColumn>
         <AutoColumn>
           
           {activeCampaign.description && (
@@ -69,13 +76,7 @@ export default function CampaignOverview() {
               </>
             )}
         </AutoColumn>
-        <AutoColumn>
-        {activeCampaign.overviewVideo && (
-            <div style={{marginTop: 0}}>
-              <Youtube src={activeCampaign.overviewVideo} />
-            </div>
-        )}
-        </AutoColumn>
+       
       </CampaignWrapper>
     </Wrapper>
   );
