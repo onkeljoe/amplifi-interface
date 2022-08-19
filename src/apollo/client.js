@@ -106,3 +106,11 @@ export const GMXClient = new ApolloClient({
   cache: new InMemoryCache(),
   shouldBatch: true,
 });
+
+export const ChainBetClient = new ApolloClient({
+  link: new HttpLink({
+    uri: "https://cre8r.vip/graphql", // what should i put in here?
+  }),
+  cache: new InMemoryCache(),
+  shouldBatch: true,
+});
