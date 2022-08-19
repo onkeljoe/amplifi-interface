@@ -14,12 +14,10 @@ const Wrapper = styled.div<{ backgroundColor?: string; open: boolean }>`
   height: fit-content;
   position: relative;
   padding: 1rem;
-  border-radius: 20px;
+  border-radius: ${({ open }) => (!open ? "20px" : "20px 20px 0 0")};
   user-select: none;
   background-color: ${({ backgroundColor }) => backgroundColor ?? "white"};
   z-index: 3;
-  border-bottom-left-radius: ${({ open }) => (open ? "0px" : "20px")};
-  border-bottom-right-radius: ${({ open }) => (open ? "0px" : "20px")}
   :hover {
     cursor: pointer;
   }
