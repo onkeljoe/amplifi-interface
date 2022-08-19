@@ -188,7 +188,7 @@ export default function SideMenu(): JSX.Element {
           >
             <ButtonBasic
               as={ExternalLink}
-              href="https://github.com/Uniswap/sybil-list"
+              href="https://github.com/CRE8RDAO/sybil-interface"
               style={{
                 backgroundColor: "rgba(255,255,255,0.4)",
                 color: "#000",
@@ -200,7 +200,7 @@ export default function SideMenu(): JSX.Element {
             </ButtonBasic>
             <ButtonBasic
               onClick={() => setfaqOpen(!faqOpen)}
-              href="https://github.com/Uniswap/sybil-list"
+              href="https://github.com/CRE8RDAO/sybil-interface"
               style={{
                 backgroundColor: "rgba(255,255,255,0.4)",
                 color: "#000",
@@ -235,7 +235,7 @@ export default function SideMenu(): JSX.Element {
           <RowBetween style={{ padding: "0 1rem" }}>
             <ButtonBasic
               onClick={() => setfaqOpen(!faqOpen)}
-              href="https://GitHub.com/CRE8RDAO"
+              href="https://github.com/CRE8RDAO/sybil-interface"
               style={{
                 backgroundColor: "rgba(255,255,255,0.4)",
                 color: "#000",
