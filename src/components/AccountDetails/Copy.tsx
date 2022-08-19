@@ -9,6 +9,7 @@ const CopyIcon = styled(LinkStyledButton)`
   color: ${({ theme }) => theme.white};
   flex-shrink: 0;
   display: flex;
+  align-items: center;
   // text-decoration: none;
   font-size: 0.825rem;
   :focus {
