@@ -9,14 +9,6 @@ export const uniswapClient = new ApolloClient({
   shouldBatch: true,
 });
 
-export const devoClient = new ApolloClient({
-  link: new HttpLink({
-    uri: "https://api.thegraph.com/subgraphs/name/arr00/uniswap-governance-v2",
-  }),
-  cache: new InMemoryCache(),
-  shouldBatch: true,
-});
-
 export const billiClient = new ApolloClient({
   link: new HttpLink({
     uri: "https://api.thegraph.com/subgraphs/name/arr00/uniswap-governance-v2",
@@ -88,21 +80,5 @@ export const cre8rCmsClient = new ApolloClient({
   cache: new InMemoryCache({
     possibleTypes,
   }),
-  shouldBatch: true,
-});
-
-export const ACWIClient = new ApolloClient({
-  link: new HttpLink({
-    uri: "https://api.thegraph.com/subgraphs/name/arr00/uniswap-governance-v2", // what should i put in here?
-  }),
-  cache: new InMemoryCache(),
-  shouldBatch: true,
-});
-
-export const GMXClient = new ApolloClient({
-  link: new HttpLink({
-    uri: "https://api.thegraph.com/subgraphs/name/arr00/uniswap-governance-v2", // what should i put in here?
-  }),
-  cache: new InMemoryCache(),
   shouldBatch: true,
 });

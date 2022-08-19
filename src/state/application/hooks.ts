@@ -34,9 +34,6 @@ import {
   ensClient,
   snapshotClient,
   cre8rCmsClient,
-  devoClient,
-  ACWIClient,
-  GMXClient,
 } from "../../apollo/client";
 
 export function useBlockNumber(): number | undefined {
@@ -134,9 +131,6 @@ export function useSubgraphClient() {
   if (activeProtocol?.id === UNISWAP_GOVERNANCE.id) {
     return uniswapClient;
   }
-  if (activeProtocol?.id === UNISWAP_GOVERNANCE.id) {
-    return devoClient;
-  }
 
   if (activeProtocol?.id === COMPOUND_GOVERNANCE.id) {
     return compoundClient;
@@ -167,15 +161,7 @@ export function useSubgraphClient() {
   if (activeProtocol?.id === ENS_GOVERNANCE.id) {
     return ensClient;
   }
-
-  if (activeProtocol?.id === ACWI_GOVERNANCE.id) {
-    return ACWIClient;
-  }
-
-  if (activeProtocol?.id === GMX_GOVERNANCE.id) {
-    return GMXClient;
-  }
-  return undefined;
+  return uniswapClient;
 }
 
 export function useSubgraphClientSnapshot() {

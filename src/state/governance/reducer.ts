@@ -410,16 +410,32 @@ export const GMX_GOVERNANCE: GovernanceInfo = {
   baseUrl: "https://amplifi.cre8r.vip?",
 };
 
+export const GMX2_GOVERNANCE: GovernanceInfo = {
+  id: "GMX",
+  name: "GMX",
+  logo: GMXLogo,
+  token: serializeToken(GMX_ARBITRUM),
+  governanceAlphaAddresses: [
+    GMX_GOVERNANCE_ADDRESS_AVALANCHE,
+    GMX_GOVERNANCE_ADDRESS_ARBITRUM,
+  ],
+  primaryColor: "#000", // placeholder
+  secondaryColor: "#ccc", // placeholder
+  social: "@GMX_IO",
+  baseUrl: "https://amplifi.cre8r.vip?",
+};
+
 // mapping for routing
 export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   // fuji: FUJI_GOVERNANCE,
-  //  CRE8R: CRE8R_GOVERNANCE,
+  CRE8R: CRE8R_GOVERNANCE,
 
   //  DEVO: DEVO_GOVERNANCE, //demo
   BilliDrop: BILLI_GOVERNANCE, //demo
   AMPLIFI: AMPLIFI_GOVERNANCE,
   //  ACWI: ACWI_GOVERNANCE, //demo
-  //  GMX: GMX_GOVERNANCE, //demo
+  GMX: GMX2_GOVERNANCE,
+  // GMX: GMX_GOVERNANCE, //demo
   // connect: CONNECT_CONFIG,
 };
 
