@@ -115,7 +115,7 @@ export default function ReferralLinksCard() {
           <>{/* <Loader /> */}</>
         )
       ) : (
-        <RoundedLink>
+        <RoundedLink style={{ marginBottom: "1rem" }}>
           <Grid>
             <Item>To check airdrop / generate referral links you must:</Item>
             <Item>

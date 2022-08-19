@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { RowBetween, RowFixed } from "../Row";
+import { RowBetween, RowFixed, RowFlat } from "../Row";
 import { TYPE, ExternalLink, BlankInternalLink } from "../../theme";
 import { AutoColumn } from "../Column";
 import { ButtonBasic } from "../Button";
@@ -40,11 +40,10 @@ const Wrapper = styled.div<{ open: boolean }>`
 
 const MobileHeader = styled.div`
   width: 100%;
-  background-color: red;
+  background-color: rgba(198, 225, 255, 76);
   display: none;
   padding: 1rem;
-  background: url(${MenuBG});
-
+  position: relative;
   @media (max-width: 1080px) {
     display: initial;
   }
@@ -95,17 +94,95 @@ export default function SideMenu(): JSX.Element {
   return (
     <>
       <MobileHeader>
-        <RowBetween>
-          <BlankInternalLink to="/">
-            <RowFixed style={{ gap: "8px" }}>
-              <SybilLogo />
-              <SybilWorkmark>CRE8R AmpliFi</SybilWorkmark>
-            </RowFixed>
-          </BlankInternalLink>
-          <ExternalLink href="https://github.com/Uniswap/sybil-list">
-            <GitHub size={20} style={{ stroke: "black" }} />
-          </ExternalLink>
-        </RowBetween>
+        {!faqOpen ? (
+          <RowBetween alignItems="center">
+            <BlankInternalLink to="/">
+              <RowFixed style={{ gap: "8px" }}>
+                <SybilLogo />
+                <SybilWorkmark>CRE8R AmpliFi</SybilWorkmark>
+              </RowFixed>
+            </BlankInternalLink>
+            <RowFlat style={{ gap: "8px" }}>
+              <ExternalLink
+                href="https://github.com/CRE8RDAO/sybil-interface"
+                style={{ display: "flex" }}
+              >
+                <GitHub size={20} style={{ stroke: "black" }} />
+              </ExternalLink>
+              <ButtonBasic
+                onClick={() => setfaqOpen(!faqOpen)}
+                style={{
+                  backgroundColor: "rgba(255,255,255,0.4)",
+                  color: "#000",
+                  padding: 0,
+                }}
+              >
+                <HelpCircle size={20} />
+              </ButtonBasic>
+            </RowFlat>
+          </RowBetween>
+        ) : (
+          <RowBetween>
+            <ButtonBasic
+              onClick={() => setfaqOpen(!faqOpen)}
+              style={{
+                backgroundColor: "rgba(255,255,255,0.4)",
+                color: "#000",
+                gap: 12,
+              }}
+            >
+              <HelpCircle size={20} />
+              <TYPE.black style={{ lineHeight: "125%", fontWeight: 400 }}>
+                Help and Info
+              </TYPE.black>
+            </ButtonBasic>
+            <ButtonBasic
+              onClick={() => setfaqOpen(!faqOpen)}
+              style={{
+                cursor: "pointer",
+                backgroundColor: "rgba(255,255,255,0.4)",
+                color: "#000",
+              }}
+            >
+              <X />
+            </ButtonBasic>
+          </RowBetween>
+        )}
+        {faqOpen && (
+          <AutoColumn
+            gap="1.5rem"
+            style={{
+              padding: "1rem 1.25rem",
+              position: "absolute",
+              marginLeft: "-1rem",
+              boxShadow: "0px 8px 8px 2px rgb(71 156 251 / 50%)",
+              zIndex: "5",
+              backgroundColor: "rgba(198,225,255,76)",
+            }}
+          >
+            <AutoColumn gap="0.5rem">
+              <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
+              <TYPE.main>
+                Boost CRE8R DAO content marketing campaigns reach. And
+                facilitate KPI based marketing campaigns for web3
+              </TYPE.main>
+            </AutoColumn>
+            <AutoColumn gap="0.5rem">
+              <TYPE.body fontWeight={600}>
+                I don’t have Twitter, can I use AmpliFi?
+              </TYPE.body>
+              <TYPE.main>
+                Soon Discord, but yes if you DM @CRE8RDAO we can set you
+                up..&nbsp;
+                <ExternalLink href="">Twitter Link</ExternalLink>.
+              </TYPE.main>
+            </AutoColumn>
+            <AutoColumn gap="0.5rem">
+              <TYPE.body fontWeight={600}>Can I use AmpliFi?</TYPE.body>
+              <TYPE.main>Yep, dm @CRE8RDAO on twitter and lets chat!</TYPE.main>
+            </AutoColumn>
+          </AutoColumn>
+        )}
       </MobileHeader>
       <Wrapper open={open} onClick={() => !open && setOpen(!open)}>
         <AutoColumn gap="24px">
@@ -188,7 +265,7 @@ export default function SideMenu(): JSX.Element {
           >
             <ButtonBasic
               as={ExternalLink}
-              href="https://github.com/Uniswap/sybil-list"
+              href="https://github.com/CRE8RDAO/sybil-interface"
               style={{
                 backgroundColor: "rgba(255,255,255,0.4)",
                 color: "#000",
@@ -200,7 +277,7 @@ export default function SideMenu(): JSX.Element {
             </ButtonBasic>
             <ButtonBasic
               onClick={() => setfaqOpen(!faqOpen)}
-              href="https://github.com/Uniswap/sybil-list"
+              href="https://github.com/CRE8RDAO/sybil-interface"
               style={{
                 backgroundColor: "rgba(255,255,255,0.4)",
                 color: "#000",

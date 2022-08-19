@@ -8,7 +8,7 @@ import { useActiveWeb3React, useTheme } from "../../hooks";
 import ReactGA from "react-ga";
 import { ApplicationModal } from "../../state/application/actions";
 import Card from "../Card";
-import { RowFixed, RowBetween, RowFlat } from "../Row";
+import { RowFixed, RowBetween, RowFlat, Row } from "../Row";
 import { TYPE, BlankInternalLink, StyledInternalLink } from "../../theme";
 import { ButtonBasic, ButtonCustom } from "../Button";
 import { shortenAddress } from "../../utils";
@@ -109,19 +109,19 @@ const WhiteCard = styled.div`
   background: white;
   padding: 10px;
   border-radius: 12px;
-`
+`;
 
 const AirdropGreyBox = styled.div`
   min-width: 25%;
   // width: 120px;
   border-radius: 12px;
-  background: ${({theme}) => theme.bg2};
+  background: ${({ theme }) => theme.bg2};
   height: 38px;
   margin-left: 5px;
   :hover {
     cursor: help;
   }
-`
+`;
 
 export default function Profile() {
   const theme = useTheme();
@@ -168,17 +168,21 @@ export default function Profile() {
   // toggle for mobile view
   const [showProfileModal, setShowProfileModal] = useState(false);
 
-  const ConnectPitch = ({stageText} : {stageText: string}) => (
+  const ConnectPitch = ({ stageText }: { stageText: string }) => (
     <TYPE.blue fontSize="12px" paddingTop={"10px"}>
-      Connecting your{` ${stageText} `}allows you to check your 
-      {" "}<StyledInternalLink to={"/campaigns/amplifi/amplifi-publisher-airdrop"} style={{
-        textDecoration: "underline",
-        color: "black"
-
-      }}>airdrop</StyledInternalLink>
-      {" "} &amp; generate your unique referral link
+      Connecting your{` ${stageText} `}allows you to check your{" "}
+      <StyledInternalLink
+        to={"/campaigns/amplifi/amplifi-publisher-airdrop"}
+        style={{
+          textDecoration: "underline",
+          color: "black",
+        }}
+      >
+        airdrop
+      </StyledInternalLink>{" "}
+      &amp; generate your unique referral link
     </TYPE.blue>
-  )
+  );
   const ProfileContent = () => (
     <SectionWrapper>
       <BackgroundWrapper
@@ -220,17 +224,15 @@ export default function Profile() {
           </Above1080Only>
         ) : (
           <AutoColumn gap="16px">
-            
             {!verifiedHandleEntry && account ? (
               !twitterAccount ? (
                 <WhiteCard>
                   <RowFlat>
-                    <MysteryAmplifiCard width={'140px'}/>
-                    <div style={{ width: '5px'}}/>
+                    <MysteryAmplifiCard width={"140px"} />
+                    <div style={{ width: "5px" }} />
                     <TwitterLoginButton text="Add a public identity" />
                   </RowFlat>
-                  <ConnectPitch stageText={'Twitter'}/>
-
+                  <ConnectPitch stageText={"Twitter"} />
                 </WhiteCard>
               ) : (
                 <TwitterButton
@@ -252,13 +254,15 @@ export default function Profile() {
                 </TwitterButton>
               )
             ) : null}
-            {account && verifiedHandleEntry &&<WhiteCard>
-              <RowFlat>
-                <MysteryAmplifiCard />
-                <AirdropGreyBox />
-                <AirdropGreyBox />
-              </RowFlat>
-            </WhiteCard>}
+            {account && verifiedHandleEntry && (
+              <WhiteCard>
+                <RowFlat>
+                  <MysteryAmplifiCard />
+                  <AirdropGreyBox />
+                  <AirdropGreyBox />
+                </RowFlat>
+              </WhiteCard>
+            )}
             <WalletSummary />
             <TYPE.main mb="16px">
               Your{" "}
@@ -295,7 +299,7 @@ export default function Profile() {
             <BlankInternalLink
               to={`/delegates/${activeProtocol?.id}/${account}`}
             >
-              <RowFixed>
+              <Row width="160px">
                 <RoundedProfileImage>
                   <img
                     src={
@@ -324,12 +328,13 @@ export default function Profile() {
                     </TYPE.main>
                   ))
                 )}
-              </RowFixed>
+              </Row>
             </BlankInternalLink>
             {!account ? (
               <ButtonBasic width="fit-content" onClick={toggleWalletModal}>
                 <ButtonText>Connect wallet</ButtonText>
-                <ConnectPitch stageText="Wallet and Twitter" />
+                {/* <ConnectPitch stageText="Wallet and Twitter" /> */}{" "}
+                {/* I'm not sure if we need this! */}
               </ButtonBasic>
             ) : (
               <RowFixed>

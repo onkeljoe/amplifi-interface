@@ -98,7 +98,7 @@ function CampaignList({
               );
             })
           ) : (
-            <LoadingRows style={{paddingTop: 10}}>
+            <LoadingRows style={{ paddingTop: 10 }}>
               <div />
               <div />
               <div />

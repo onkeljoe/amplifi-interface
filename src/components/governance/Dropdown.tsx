@@ -77,7 +77,7 @@ export default function Dropdown() {
             <Option
               key={i}
               backgroundColor={SUPPORTED_PROTOCOLS[k].secondaryColor}
-              to={`/delegates/${SUPPORTED_PROTOCOLS[k].id}`}
+              to={`/campaigns/${SUPPORTED_PROTOCOLS[k].id}`}
             >
               <RowBetween>
                 <RowFixed style={{ gap: "16px" }}>

@@ -56,20 +56,14 @@ export interface GlobaData {
 }
 
 export const CHEESE_ADDRESS = "0x238d82a35e69d7c10fe69a649134171c63e57522";
-const GOAT = new Token(
-  ChainId.MAINNET,
-  CHEESE_ADDRESS,
-  18,
-  "GOAT",
-  "GOAT"
-);
+const GOAT = new Token(ChainId.MAINNET, CHEESE_ADDRESS, 18, "GOAT", "GOAT");
 
 export const BILLI_GOVERNANCE: GovernanceInfo = {
   id: "BilliDrop",
   name: "BilliDrop",
   logo: BilliLogo,
   primaryColor: "#283e32",
-  secondaryColor: "#FFFFFF",
+  secondaryColor: "#ccc",
   token: serializeToken(GOAT),
   governanceAlphaAddresses: [],
   // governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
@@ -418,14 +412,14 @@ export const GMX_GOVERNANCE: GovernanceInfo = {
 
 // mapping for routing
 export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
- // fuji: FUJI_GOVERNANCE,
-//  CRE8R: CRE8R_GOVERNANCE,
+  // fuji: FUJI_GOVERNANCE,
+  //  CRE8R: CRE8R_GOVERNANCE,
 
-//  DEVO: DEVO_GOVERNANCE, //demo
+  //  DEVO: DEVO_GOVERNANCE, //demo
   BilliDrop: BILLI_GOVERNANCE, //demo
   AMPLIFI: AMPLIFI_GOVERNANCE,
-//  ACWI: ACWI_GOVERNANCE, //demo
-//  GMX: GMX_GOVERNANCE, //demo
+  //  ACWI: ACWI_GOVERNANCE, //demo
+  //  GMX: GMX_GOVERNANCE, //demo
   // connect: CONNECT_CONFIG,
 };
 
