@@ -200,7 +200,7 @@ export default function SideMenu(): JSX.Element {
             </ButtonBasic>
             <ButtonBasic
               onClick={() => setfaqOpen(!faqOpen)}
-              href="https://github.com/CRE8RDAO/sybil-interface"
+              href="https://github.com/Uniswap/sybil-list"
               style={{
                 backgroundColor: "rgba(255,255,255,0.4)",
                 color: "#000",
@@ -235,7 +235,7 @@ export default function SideMenu(): JSX.Element {
           <RowBetween style={{ padding: "0 1rem" }}>
             <ButtonBasic
               onClick={() => setfaqOpen(!faqOpen)}
-              href="https://github.com/CRE8RDAO/sybil-interface"
+              href="https://GitHub.com/CRE8RDAO"
               style={{
                 backgroundColor: "rgba(255,255,255,0.4)",
                 color: "#000",
@@ -262,6 +262,27 @@ export default function SideMenu(): JSX.Element {
 
         {faqOpen && (
           <AutoColumn gap="1.5rem" style={{ padding: "0 1.25rem" }}>
+            <AutoColumn gap="0.5rem">
+              <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
+              <TYPE.main>
+                Boost CRE8R DAO content marketing campaigns reach. And
+                facilitate KPI based marketing campaigns for web3
+              </TYPE.main>
+            </AutoColumn>
+            <AutoColumn gap="0.5rem">
+              <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
+              <TYPE.main>
+                Boost CRE8R DAO content marketing campaigns reach. And
+                facilitate KPI based marketing campaigns for web3
+              </TYPE.main>
+            </AutoColumn>
+            <AutoColumn gap="0.5rem">
+              <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
+              <TYPE.main>
+                Boost CRE8R DAO content marketing campaigns reach. And
+                facilitate KPI based marketing campaigns for web3
+              </TYPE.main>
+            </AutoColumn>
             <AutoColumn gap="0.5rem">
               <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
               <TYPE.main>
