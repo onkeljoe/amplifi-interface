@@ -14,7 +14,6 @@ const PERSISTED_KEYS: string[] = [
   "user",
   "transactions",
   "governance",
-  "campaigns",
 ];
 
 const store = configureStore({

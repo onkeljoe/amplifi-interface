@@ -1,10 +1,31 @@
 import styled from "styled-components";
 
-const Column = styled.div`
+const Column = styled.div<{
+  gap?: "sm" | "md" | "lg" | string;
+  justify?:
+    | "stretch"
+    | "center"
+    | "start"
+    | "end"
+    | "flex-start"
+    | "flex-end"
+    | "space-between";
+  align?:
+    | "stretch"
+    | "center"
+    | "start"
+    | "end"
+    | "flex-start"
+    | "flex-end"
+    | "space-between";
+}>`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  gap?: "sm" | "md" | "lg" | string;
+  justify-content: ${({ justify }) => justify && justify};
+  align-items: ${({ align }) => align && align};
 `;
+
 export const ColumnCenter = styled(Column)`
   width: 100%;
   align-items: center;

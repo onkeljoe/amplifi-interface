@@ -1,10 +1,10 @@
 import React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { useProtocolUpdate } from "../hooks/useProtocolUpdate";
-import { BodyWrapper, MediumHeaderWrapper } from "./AppBody";
+import { BodyWrapper } from "./AppBody";
 // import { useActiveWeb3React } from '../hooks'
 import { useActiveProtocol } from "../state/governance/hooks";
-import { AutoColumn } from "../components/Column";
+import Column, { AutoColumn } from "../components/Column";
 import { Above1080Only, Below1080Only } from "../theme/components";
 import { RowBetween, RowFixed } from "../components/Row";
 import { WrappedListLogo } from "../components/governance/styled";
@@ -15,12 +15,12 @@ import CampaignList from "components/campaigns/CampaignList";
 import CampaignDetails from "components/campaigns/CampaignDetails";
 import { useActiveCampaign } from "state/campaigns/hooks";
 import CRE8RPriceCard from "components/CRE8RPriceCard";
-
+import ReferralLinksCard from "components/ReferralLinksCard";
 export default function Amplifi({
   match: {
     params: { protocolID, campaignID },
   },
-}: RouteComponentProps<{ protocolID?: string, campaignID?: string }>) {
+}: RouteComponentProps<{ protocolID?: string; campaignID?: string }>) {
   // if valid protocol id passed in, update global active protocol
   useProtocolUpdate(protocolID);
   // if on testnet, show warning
@@ -30,42 +30,44 @@ export default function Amplifi({
   const [activeCampaign] = useActiveCampaign();
   return (
     <BodyWrapper>
-      <AutoColumn gap="1rem">
-        <MediumHeaderWrapper>
-          <AutoColumn gap="sm">
-            <Above1080Only>
-              <RowBetween>
-                <RowFixed>
-                  <WrappedListLogo src={activeProtocol?.logo} />
-                  <AutoColumn>
-                    <TYPE.mediumHeader
-                      ml="8px"
-                      fontWeight={600}
-                      color={activeProtocol?.primaryColor}
-                    >
-                      {activeProtocol?.name}
-                    </TYPE.mediumHeader>
-                    {campaignID && <TYPE.small
+      <Column gap="1rem">
+        {/*All in all I've just deleted the div/mediumWrapper out of here as far as
+        it wasn't actually doing anything */}
+        <AutoColumn gap="sm">
+          <Above1080Only>
+            <RowBetween>
+              <RowFixed>
+                <WrappedListLogo src={activeProtocol?.logo} />
+                <AutoColumn>
+                  <TYPE.mediumHeader
+                    ml="8px"
+                    fontWeight={600}
+                    color={activeProtocol?.primaryColor}
+                  >
+                    {activeProtocol?.name}
+                  </TYPE.mediumHeader>
+                  {campaignID && (
+                    <TYPE.small
                       ml="8px"
                       fontWeight={600}
                       color={activeProtocol?.primaryColor}
                     >
                       {activeCampaign?.title}
-                    </TYPE.small>}
-                  </AutoColumn>
-
-                </RowFixed>
-                <CRE8RPriceCard />
-              </RowBetween>
-            </Above1080Only>
-            <Below1080Only>
-              <Dropdown />
-            </Below1080Only>
-            <Tabs />
-          </AutoColumn>
-        </MediumHeaderWrapper>
-        {campaignID ? <CampaignDetails /> : <CampaignList />}
-      </AutoColumn>
+                    </TYPE.small>
+                  )}
+                </AutoColumn>
+              </RowFixed>
+              <CRE8RPriceCard />
+            </RowBetween>
+          </Above1080Only>
+          <Below1080Only>
+            <Dropdown />
+          </Below1080Only>
+          <Tabs />
+          <ReferralLinksCard />
+        </AutoColumn>
+        <Column>{campaignID ? <CampaignDetails /> : <CampaignList />}</Column>
+      </Column>
     </BodyWrapper>
   );
 }

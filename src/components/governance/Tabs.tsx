@@ -9,7 +9,6 @@ import Card from "../Card";
 import { TYPE } from "../../theme";
 import { Link, useLocation } from "react-router-dom";
 import Toggle from "../Toggle";
-import ReferralLinksCard from "components/ReferralLinksCard";
 
 export const TabOption = styled.button<{
   selected?: boolean;
@@ -42,58 +41,72 @@ const AboveSmall = styled.div`
   `};
 `;
 
+const TabsCardStyled = styled.div`
+  padding: 1rem 0;
+  @media (max-width: 500px) {
+    padding: 0;
+  }
+`;
+
 function Tabs() {
   const [activeProtocol] = useActiveProtocol();
   const [filter, setFilter] = useFilterActive();
   const location = useLocation();
 
   return (
-    <Card padding="1rem 0">
-      <RowBetween>
-        <AutoRow gap="8px" width="fit-content">
-          <TabOption
-            as={Link}
-            to={"/campaigns/" + activeProtocol?.id}
-            selected={location.pathname.includes("campaigns")}
-            color={activeProtocol?.primaryColor}
-            color2={activeProtocol?.secondaryColor}
-          >
-            <TYPE.main color={activeProtocol?.primaryColor} fontSize={"16px"}>
-            Campaigns
-            </TYPE.main>
-          </TabOption>
-          <TabOption
-            as={Link}
-            to={"/delegates/" + activeProtocol?.id}
-            selected={location.pathname.includes("delegates")}
-            color={activeProtocol?.primaryColor}
-            color2={activeProtocol?.secondaryColor}
-          >
-            <TYPE.black fontSize={"16px"} color={activeProtocol?.primaryColor}>
-              Delegates
-            </TYPE.black>
-          </TabOption>
-          <TabOption
-            as={Link}
-            to={"/proposals/" + activeProtocol?.id}
-            selected={location.pathname.includes("proposals")}
-            color={activeProtocol?.primaryColor}
-            color2={activeProtocol?.secondaryColor}
-          >
-            <TYPE.black fontSize={"16px"} color={activeProtocol?.primaryColor}>
-              Proposals
-            </TYPE.black>
-          </TabOption>
-        </AutoRow>
-        {location.pathname.includes("delegates") && (
-          <AboveSmall>
-            <RowFixed>
-              <Toggle isActive={filter} toggle={() => setFilter(!filter)} />
-            </RowFixed>
-          </AboveSmall>
-        )}
-        <ReferralLinksCard />
-      </RowBetween>
+    <Card>
+      <TabsCardStyled>
+        <RowBetween>
+          <AutoRow gap="8px" width="fit-content">
+            <TabOption
+              as={Link}
+              to={"/campaigns/" + activeProtocol?.id}
+              selected={location.pathname.includes("campaigns")}
+              color={activeProtocol?.primaryColor}
+              color2={activeProtocol?.secondaryColor}
+            >
+              <TYPE.main color={activeProtocol?.primaryColor} fontSize={"16px"}>
+                Campaigns
+              </TYPE.main>
+            </TabOption>
+            <TabOption
+              as={Link}
+              to={"/delegates/" + activeProtocol?.id}
+              selected={location.pathname.includes("delegates")}
+              color={activeProtocol?.primaryColor}
+              color2={activeProtocol?.secondaryColor}
+            >
+              <TYPE.black
+                fontSize={"16px"}
+                color={activeProtocol?.primaryColor}
+              >
+                Delegates
+              </TYPE.black>
+            </TabOption>
+            <TabOption
+              as={Link}
+              to={"/proposals/" + activeProtocol?.id}
+              selected={location.pathname.includes("proposals")}
+              color={activeProtocol?.primaryColor}
+              color2={activeProtocol?.secondaryColor}
+            >
+              <TYPE.black
+                fontSize={"16px"}
+                color={activeProtocol?.primaryColor}
+              >
+                Proposals
+              </TYPE.black>
+            </TabOption>
+          </AutoRow>
+          {location.pathname.includes("delegates") && (
+            <AboveSmall>
+              <RowFixed>
+                <Toggle isActive={filter} toggle={() => setFilter(!filter)} />
+              </RowFixed>
+            </AboveSmall>
+          )}
+        </RowBetween>
+      </TabsCardStyled>
     </Card>
   );
 }
