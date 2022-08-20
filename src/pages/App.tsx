@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify"; 
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import GoogleAnalyticsReporter from "../components/analytics/GoogleAnalyticsReporter";
