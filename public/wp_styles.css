@@ -1,3 +1,11 @@
+.wp-container-1.is-content-justification-center.is-nowrap.wp-block-group.MetaReferalRow.has-small-font-size {
+  flex-flow: row wrap!important;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 p.smalldesc {
   font-size: 12px;
   display: inherit;
