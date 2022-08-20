@@ -39,7 +39,7 @@ export const Break = styled.div`
   margin: 0;
 `;
 
-const RoundedLink = styled.div`
+const RoundedLink = styled.div<{numOfLinks?: number}>`
   font-size: 12px;
   background-image: ${({ theme }) => theme.special};
   color: ${({ theme }) => theme.white};
@@ -49,6 +49,10 @@ const RoundedLink = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: ${({numOfLinks}) => numOfLinks ? (100/numOfLinks).toString() + "%" : '100%'};
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    width: 100%;
+  `};
 `;
 
 export default function ReferralLinksCard() {
@@ -70,29 +74,41 @@ export default function ReferralLinksCard() {
       {activeProtocol && verifiedHandleEntry ? (
         referralLink ? (
           <>
-            <RoundedLink>
-              {twitterIntentUrl && (
-                <a href={twitterIntentUrl}>
-                  <Logo src={TwitterIcon} alt="twitter logo" />
-                </a>
-              )}
-              <Copy toCopy={"https://" + referralLink}>
-                <div>
-                  <div style={{ paddingLeft: 10 }}>
-                    {"  "}
-                    Copy your unique link &amp; start earning
-                    {/* {utmLinks[activeProtocol?.id]} */}
-                  </div>
-                  {activeCampaign && (
-                    <div
-                      style={{ fontSize: 8, color: "lightGrey", padding: 1 }}
-                    >
-                      {activeCampaign.baseUrl.replace("?", "")}
+            <div style={{
+              padding: 10,
+              display: 'flex',
+              flexWrap: 'wrap'
+            }}>
+              <RoundedLink style={{
+                padding: 10
+              }}
+              numOfLinks={twitterIntentUrl ? 2 : 1}
+              >
+                <Copy toCopy={"https://" + referralLink}>
+                  <div>
+                    <div style={{ paddingLeft: 10 }}>
+                      {"  "}
+                      Copy your unique link &amp; start earning
+                      {/* {utmLinks[activeProtocol?.id]} */}
                     </div>
-                  )}
-                </div>
-              </Copy>
-            </RoundedLink>
+                    {activeCampaign && (
+                      <div
+                      style={{ fontSize: 8, color: "lightGrey", padding: 1 }}
+                      >
+                        {activeCampaign.baseUrl.replace("?", "")}
+                      </div>
+                    )}
+                  </div>
+                </Copy>
+              </RoundedLink>
+              {twitterIntentUrl && (
+                <RoundedLink numOfLinks={twitterIntentUrl ? 2 : 1}>
+                  <a href={twitterIntentUrl}>
+                    <Logo src={TwitterIcon} alt="twitter logo" />
+                  </a>
+                </RoundedLink>
+              )}
+            </div>
           </>
         ) : (
           <>{/* <Loader /> */}</>
