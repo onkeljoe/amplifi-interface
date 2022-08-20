@@ -7,7 +7,8 @@ const config = {
     excel: {
       id: "1u8IBLhr3Bk9MUkDquCEq2_q-IE-1KRiVYfo1la4nV_Y"
     }
-  }
+  },
+  campaignToast: "",//"Campaigns are still in testing phase and are subject to change. Please check back soon."
 }
 
 export default config

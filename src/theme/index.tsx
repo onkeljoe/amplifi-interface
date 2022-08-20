@@ -38,7 +38,7 @@ export function colors(darkMode: boolean): Colors {
     // base
     white,
     black,
-    special: 'linear-gradient(90deg,#9C27B0 0%,#5E35B1 100%)',
+    special: 'linear-gradient(90deg,#FF3700 0%,#FFBC7D 200%)',
     // text
     text1: darkMode ? "#FFFFFF" : "#000000",
     text2: darkMode ? "#C3C5CB" : "#565A69",
@@ -58,7 +58,7 @@ export function colors(darkMode: boolean): Colors {
     advancedBG: darkMode ? "rgba(0,0,0,0.1)" : "rgba(255,255,255,0.6)",
 
     //primary colors
-    primary1: darkMode ? "#2172E5" : "#2172E5",
+    primary1: darkMode ? "#FF3700" : "#FF3700",
     primary2: darkMode ? "#3680E7" : "#3680E7",
     primary3: darkMode ? "#4D8FEA" : "#FF99C9",
     primary4: darkMode ? "#376bad70" : "#F6DDE8",

@@ -40,7 +40,6 @@ export const Break = styled.div`
 `;
 
 const RoundedLink = styled.div`
-  padding: 5px;
   font-size: 12px;
   background-image: ${({ theme }) => theme.special};
   color: ${({ theme }) => theme.white};
@@ -51,23 +50,7 @@ const RoundedLink = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const Item = styled.div`
-  display: flex;
-  justify-content: center;
-  // padding: .3rem;
-`;
 
-const Grid = styled.div`
-  display: grid;
-  // grid-template-columns: 1fr 1fr;
-  grid-template-rows: 20px;
-  // grid-gap: 5px;
-  padding: 0.3rem;
-`;
-const ColumnLabel = styled(TYPE.darkGray)`
-  white-space: no-wrap;
-  font-size: 15px;
-`;
 export default function ReferralLinksCard() {
   const [activeProtocol] = useActiveProtocol();
   const [activeCampaign] = useActiveCampaign();
@@ -115,26 +98,26 @@ export default function ReferralLinksCard() {
           <>{/* <Loader /> */}</>
         )
       ) : (
-        <RoundedLink style={{ marginBottom: "1rem" }}>
-          <Grid>
-            <Item>To check airdrop / generate referral links you must:</Item>
-            <Item>
-              <ul style={{ padding: 0, margin: 0 }}>
-                <li>
-                  Connect your wallet{" "}
-                  {account ? (
-                    <span style={{ color: "green", backgroundColor: "white" }}>✔ Done</span>
-                  ) : (
-                    <span style={{ color: "red", backgroundColor: "white" }}>❌ Incomplete</span>
-                  )}
-                </li>
-                <li>
-                  Connect your Twitter{" "}
-                  {verifiedHandleEntry ? `-Done` : `❌ Incomplete`}
-                </li>
-              </ul>
-            </Item>
-          </Grid>
+        <RoundedLink>
+          <div style={{padding: 10}}>
+            <div style={{paddingBottom: 10}}>
+              To check airdrop and generate referral links you must:
+            </div> 
+            <ul style={{ paddingLeft: 20, margin: 0 }}>
+              <li>
+                Connect your wallet{" "}
+                {account ? (
+                  <span style={{ color: "green", backgroundColor: "white" }}>✔ Done</span>
+                ) : (
+                  <span style={{ color: "red", backgroundColor: "white" }}>❌ Incomplete</span>
+                )}
+              </li>
+              <li>
+                Connect your Twitter{" "}
+                {verifiedHandleEntry ? `-Done` : `❌ Incomplete`}
+              </li>
+            </ul>
+          </div>
         </RoundedLink>
       )}
       {/* </AutoColumn> */}
