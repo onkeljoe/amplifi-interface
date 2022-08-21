@@ -418,7 +418,7 @@ export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   BilliDrop: BILLI_GOVERNANCE, //demo
   AMPLIFI: AMPLIFI_GOVERNANCE,
   //  ACWI: ACWI_GOVERNANCE, //demo
-  GMX: GMX_GOVERNANCE,
+  // GMX: GMX_GOVERNANCE,
   // GMX: GMX_GOVERNANCE, //demo
   // connect: CONNECT_CONFIG,
 };
