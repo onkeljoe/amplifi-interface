@@ -69,7 +69,7 @@ function Tabs() {
                 Campaigns
               </TYPE.main>
             </TabOption>
-            <TabOption
+            {/* <TabOption
               as={Link}
               to={"/delegates/" + activeProtocol?.id}
               selected={location.pathname.includes("delegates")}
@@ -96,7 +96,7 @@ function Tabs() {
               >
                 Proposals
               </TYPE.black>
-            </TabOption>
+            </TabOption> */}
           </AutoRow>
           {location.pathname.includes("delegates") && (
             <AboveSmall>
