@@ -16,6 +16,7 @@ import BilliLogo from "../../assets/images/billilogo.jpg";
 import ACWILogo from "../../assets/images/new-altcoinswi.png";
 import GMXLogo from "../../assets/images/GMX-logo.jpg";
 import ChainBetLogo from "../../assets/images/ChainBetLogo.svg";
+import PoolLogo from "../../assets/images/pooltogether-icon.png";
 import { SerializedToken } from "./../user/actions";
 import {
   updateActiveProtocol,
@@ -433,6 +434,28 @@ export const GMX_GOVERNANCE: GovernanceInfo = {
   baseUrl: "https://amplifi.cre8r.vip?",
 };
 
+export const POOL_TOGETHER_GOVERNANCE_ADDRESS =
+  "0xB3a87172F555ae2a2AB79Be60B336D2F7D0187f0";
+export const POOL_ADDRESS = "0x0cEC1A9154Ff802e7934Fc916Ed7Ca50bDE6844e";
+const POOL = new Token(
+  ChainId.MAINNET,
+  POOL_ADDRESS,
+  18,
+  "POOL",
+  "PoolTogether"
+);
+export const POOL_TOGETHER_GOVERNANCE: GovernanceInfo = {
+  id: "pool-together",
+  name: "PoolTogether Governance",
+  logo: PoolLogo,
+  primaryColor: "#48289f",
+  secondaryColor: "#E6e3f3",
+  token: serializeToken(POOL),
+  governanceAlphaAddresses: [POOL_TOGETHER_GOVERNANCE_ADDRESS],
+  social: "@PoolTogether",
+  emoji: "🏆",
+};
+
 // mapping for routing
 export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   CRE8R: CRE8R_GOVERNANCE,
@@ -441,6 +464,7 @@ export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   ACWI: ACWI_GOVERNANCE, //demo
   GMX: GMX_GOVERNANCE, //demo
   BET: CHAINBET_GOVERNANCE, //demo
+  POOL: POOL_TOGETHER_GOVERNANCE, //demo
   AMPLIFI: AMPLIFI_GOVERNANCE,
   connect: CONNECT_CONFIG,
 };
