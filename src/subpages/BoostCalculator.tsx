@@ -14,7 +14,7 @@ import useBribe, {
 } from "./hooks/useBribe";
 import { calcChange, formatChange } from "./math";
 import snapshot from "@snapshot-labs/snapshot.js";
-import { toast } from "react-toastify";
+import toast from "components/Toast";
 import { calcProjectedPayouts } from "./data/projectedPayouts";
 import useCRE8RPrice from "hooks/useCRE8RPrice";
 

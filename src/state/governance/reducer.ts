@@ -62,8 +62,8 @@ export const BILLI_GOVERNANCE: GovernanceInfo = {
   id: "BilliDrop",
   name: "BilliDrop",
   logo: BilliLogo,
-  primaryColor: "#283e32",
-  secondaryColor: "#ccc",
+  primaryColor: "#1b3125",
+  secondaryColor: "#e1f5ea",
   token: serializeToken(GOAT),
   governanceAlphaAddresses: [],
   // governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
@@ -404,8 +404,8 @@ export const GMX_GOVERNANCE: GovernanceInfo = {
     GMX_GOVERNANCE_ADDRESS_AVALANCHE,
     GMX_GOVERNANCE_ADDRESS_ARBITRUM,
   ],
-  primaryColor: "#000", // placeholder
-  secondaryColor: "#ccc", // placeholder
+  primaryColor: "#2d42fc",
+  secondaryColor: "#d6efff",
   social: "@GMX_IO",
   baseUrl: "https://amplifi.cre8r.vip?",
 };
