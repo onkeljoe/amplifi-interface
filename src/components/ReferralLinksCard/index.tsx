@@ -43,37 +43,39 @@ const RoundedLink = styled.div<{ numOfLinks?: number }>`
   font-size: 15px;
   max-height: 65px;
   padding: 15px;
-  background-color: #ffbc7d;
-  color: ${({ theme }) => theme.white};
+  background-color: #ff3700;
   border-radius: 12px;
   border: solid #ff3700;
   border-width: 1px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${({ numOfLinks }) => (numOfLinks === 2 ? "fit-content" : "100%")};
+  transition: background-color 0.2s;
+  transition: all 0.4s;
+  min-width: ${({ numOfLinks }) => (numOfLinks === 2 ? "342px" : "100%")};
   ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 100%;
     gap: 10px;
     margin-bottom: 10px;
   `};
-  :hover {
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+    min-width: fit-content;
+  `}
+  a {
     text-decoration: none;
-    color: ${({ theme }) => theme.text3};
-    background-color: #ff3700;
   }
-
-  a:hover {
-    color: #ffbc7d;
+  :hover {
+    background-color: #ffbc7d;
+  }
+  :active {
+    transform: scale(0.9) translateY(8px);
   }
 `;
 
 const RoundedLinkLoggedOut = styled.div<{ numOfLinks?: number }>`
   font-size: 15px;
   padding: 15px;
-
   background-color: #ffbc7d;
-  color: ${({ theme }) => theme.white};
   border-radius: 12px;
   border: solid #ff3700;
   border-width: 1px;
@@ -99,49 +101,43 @@ const RoundedLinkLoggedOut = styled.div<{ numOfLinks?: number }>`
 `;
 
 export const ReferralCardLink = styled.a`
-  color: #ffbc7d;
+  color: ${({ theme }) => theme.white};
   max-height: 65px;
-  background-color: "#ff3700";
   padding: 8px;
   outline: none;
   border: 1px solid transparent;
   border-radius: 12px;
   text-decoration: none;
   font-size: 15px;
+  transition: color 0.2s;
   :hover {
     cursor: pointer;
     /* opacity: 0.8; */
-    color: "#ff3700!important";
-    background-color: "#ffbc7d";
+    color: #ff3700;
   }
 `;
 
 const RoundedLinkTweetintent = styled.div`
   font-size: 15px;
-
-  color: #ffbc7d;
   background-color: #ff3700;
   max-height: 65px;
-
   border-radius: 12px;
   border: solid #ff3700;
   border-width: 1px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-
+  transition: background-color 0.2s;
+  transition: all 0.4s;
   ${({ theme }) => theme.mediaWidth.upToSmall`
   width: 100%;
 `};
   :hover {
     text-decoration: none;
-    color: #ff3700;
     background-color: #ffbc7d;
   }
-
-  a:hover {
-    color: #ff3700;
-    background-color: #ffbc7d;
+  :active {
+    transform: scale(0.9) translateY(8px);
   }
 `;
 
@@ -216,7 +212,7 @@ export default function ReferralLinksCard() {
         )
       ) : (
         <RoundedLinkLoggedOut>
-          <div style={{ padding: 10, color: "#ff3700" }}>
+          <div style={{ padding: 10, color: "#fff" }}>
             <div style={{ paddingBottom: 10 }}>
               To check airdrop and generate referral links you must:
             </div>
@@ -231,7 +227,11 @@ export default function ReferralLinksCard() {
               </li>
               <li>
                 Connect your Twitter{" "}
-                {verifiedHandleEntry ? `-Done` : `❌ Incomplete`}
+                {verifiedHandleEntry ? (
+                  `-Done`
+                ) : (
+                  <span style={{ color: "red" }}>❌ Incomplete</span>
+                )}
               </li>
             </ul>
           </div>
