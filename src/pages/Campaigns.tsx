@@ -1,7 +1,7 @@
 import React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { useProtocolUpdate } from "../hooks/useProtocolUpdate";
-import { BodyWrapper } from "./AppBody";
+import { BodyWrapper, MediumHeaderWrapper } from "./AppBody";
 // import { useActiveWeb3React } from '../hooks'
 import { useActiveProtocol } from "../state/governance/hooks";
 import Column, { AutoColumn } from "../components/Column";
@@ -31,41 +31,41 @@ export default function Amplifi({
   return (
     <BodyWrapper>
       <Column gap="1rem">
-        {/*All in all I've just deleted the div/mediumWrapper out of here as far as
-        it wasn't actually doing anything */}
-        <AutoColumn gap="sm">
-          <Above1080Only>
-            <RowBetween>
-              <RowFixed>
-                <WrappedListLogo src={activeProtocol?.logo} />
-                <AutoColumn>
-                  <TYPE.mediumHeader
-                    ml="8px"
-                    fontWeight={600}
-                    color={activeProtocol?.primaryColor}
-                  >
-                    {activeProtocol?.name}
-                  </TYPE.mediumHeader>
-                  {campaignID && (
-                    <TYPE.small
+        <MediumHeaderWrapper>
+          <AutoColumn gap="sm">
+            <Above1080Only>
+              <RowBetween>
+                <RowFixed>
+                  <WrappedListLogo src={activeProtocol?.logo} />
+                  <AutoColumn>
+                    <TYPE.mediumHeader
                       ml="8px"
                       fontWeight={600}
                       color={activeProtocol?.primaryColor}
                     >
-                      {activeCampaign?.title}
-                    </TYPE.small>
-                  )}
-                </AutoColumn>
-              </RowFixed>
-              <CRE8RPriceCard />
-            </RowBetween>
-          </Above1080Only>
-          <Below1080Only>
-            <Dropdown />
-          </Below1080Only>
-          <Tabs />
-          <ReferralLinksCard />
-        </AutoColumn>
+                      {activeProtocol?.name}
+                    </TYPE.mediumHeader>
+                    {campaignID && (
+                      <TYPE.small
+                        ml="8px"
+                        fontWeight={600}
+                        color={activeProtocol?.primaryColor}
+                      >
+                        {activeCampaign?.title}
+                      </TYPE.small>
+                    )}
+                  </AutoColumn>
+                </RowFixed>
+                <CRE8RPriceCard />
+              </RowBetween>
+            </Above1080Only>
+            <Below1080Only>
+              <Dropdown />
+            </Below1080Only>
+            <Tabs />
+          </AutoColumn>
+        </MediumHeaderWrapper>
+        <ReferralLinksCard />
         <Column>{campaignID ? <CampaignDetails /> : <CampaignList />}</Column>
       </Column>
     </BodyWrapper>

@@ -41,6 +41,7 @@ export const Break = styled.div`
 
 const RoundedLink = styled.div<{ numOfLinks?: number }>`
   font-size: 15px;
+  max-height: 65px;
   padding: 15px;
   background-color: #ffbc7d;
   color: ${({ theme }) => theme.white};
@@ -72,6 +73,7 @@ const RoundedLink = styled.div<{ numOfLinks?: number }>`
 const RoundedLinkLoggedOut = styled.div<{ numOfLinks?: number }>`
   font-size: 15px;
   padding: 15px;
+  
   background-color: #ffbc7d;
   color: ${({ theme }) => theme.white};
   border-radius: 12px;
@@ -101,6 +103,7 @@ const RoundedLinkLoggedOut = styled.div<{ numOfLinks?: number }>`
 
 export const ReferralCardLink = styled.a`
   color: #ffbc7d;
+  max-height: 65px;
     background-color: '#ff3700';
   padding: 8px;
   outline: none;
@@ -122,7 +125,7 @@ const RoundedLinkTweetintent = styled.div`
 
   color: #ffbc7d;
   background-color: #ff3700;
-
+  max-height: 65px;
 
 border-radius: 12px;
 border: solid #ff3700;
