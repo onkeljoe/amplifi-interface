@@ -87,7 +87,7 @@ const DataRow = styled.div`
   }
 
   ${({ theme }) => theme.mediaWidth.upToExtraLarge`
-    grid-template-columns: 1fr 100px 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
      > *:nth-child(2){
       display: none;
     }
