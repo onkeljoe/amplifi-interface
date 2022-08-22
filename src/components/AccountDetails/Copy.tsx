@@ -7,7 +7,7 @@ import { LinkStyledButton } from "../../theme";
 
 const CopyIcon = styled(LinkStyledButton)`
   color: #ff3700;
-  
+  min-height: 46px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -21,14 +21,21 @@ const CopyIcon = styled(LinkStyledButton)`
   }
   :hover {
     text-decoration: none;
-   color: #ffbc7d;
+    color: #ffbc7d;
   }
   text-decoration: none;
   svg {
     color: white;
-}
-  
+  }
 `;
+
+// to now show copy icon on mobile (takes precious space)
+const CopyIconWrapper = styled.span`
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+  display: none;
+  `}
+`;
+
 const TransactionStatusText = styled.span`
   margin-left: 0.25rem;
   font-size: 0.825rem;
@@ -51,7 +58,9 @@ const CopyHelper = (props: {
         </TransactionStatusText>
       ) : (
         <TransactionStatusText>
-          <Copy size={"20"} />
+          <CopyIconWrapper>
+            <Copy size={"20"} />
+          </CopyIconWrapper>
         </TransactionStatusText>
       )}
       {isCopied ? "" : props.children}

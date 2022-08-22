@@ -16,6 +16,7 @@ import CampaignDetails from "components/campaigns/CampaignDetails";
 import { useActiveCampaign } from "state/campaigns/hooks";
 import CRE8RPriceCard from "components/CRE8RPriceCard";
 import ReferralLinksCard from "components/ReferralLinksCard";
+
 export default function Amplifi({
   match: {
     params: { protocolID, campaignID },
@@ -30,16 +31,16 @@ export default function Amplifi({
   const [activeCampaign] = useActiveCampaign();
   return (
     <BodyWrapper>
-      <Column gap="1rem">
+      <Column gap='1rem'>
         <MediumHeaderWrapper>
-          <AutoColumn gap="sm">
+          <AutoColumn gap='sm'>
             <Above1080Only>
               <RowBetween>
                 <RowFixed>
                   <WrappedListLogo src={activeProtocol?.logo} />
                   <AutoColumn>
                     <TYPE.mediumHeader
-                      ml="8px"
+                      ml='8px'
                       fontWeight={600}
                       color={activeProtocol?.primaryColor}
                     >
@@ -47,7 +48,7 @@ export default function Amplifi({
                     </TYPE.mediumHeader>
                     {campaignID && (
                       <TYPE.small
-                        ml="8px"
+                        ml='8px'
                         fontWeight={600}
                         color={activeProtocol?.primaryColor}
                       >

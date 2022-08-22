@@ -49,13 +49,12 @@ const RoundedLink = styled.div<{ numOfLinks?: number }>`
   border: solid #ff3700;
   border-width: 1px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: ${({ numOfLinks }) =>
-    numOfLinks ? (99 / numOfLinks).toString() + "%" : "100%"};
+  width: ${({ numOfLinks }) => (numOfLinks === 2 ? "fit-content" : "100%")};
   ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 100%;
-    flex-gap: 10px;
+    gap: 10px;
     margin-bottom: 10px;
   `};
   :hover {
@@ -67,13 +66,12 @@ const RoundedLink = styled.div<{ numOfLinks?: number }>`
   a:hover {
     color: #ffbc7d;
   }
-
 `;
 
 const RoundedLinkLoggedOut = styled.div<{ numOfLinks?: number }>`
   font-size: 15px;
   padding: 15px;
-  
+
   background-color: #ffbc7d;
   color: ${({ theme }) => theme.white};
   border-radius: 12px;
@@ -98,13 +96,12 @@ const RoundedLinkLoggedOut = styled.div<{ numOfLinks?: number }>`
   a:hover {
     color: #ffbc7d;
   } */
-
 `;
 
 export const ReferralCardLink = styled.a`
   color: #ffbc7d;
   max-height: 65px;
-    background-color: '#ff3700';
+  background-color: "#ff3700";
   padding: 8px;
   outline: none;
   border: 1px solid transparent;
@@ -114,44 +111,39 @@ export const ReferralCardLink = styled.a`
   :hover {
     cursor: pointer;
     /* opacity: 0.8; */
-    color: '#ff3700!important';
-    background-color: '#ffbc7d';
-  
+    color: "#ff3700!important";
+    background-color: "#ffbc7d";
   }
 `;
 
 const RoundedLinkTweetintent = styled.div`
- font-size: 15px;
+  font-size: 15px;
 
   color: #ffbc7d;
   background-color: #ff3700;
   max-height: 65px;
 
-border-radius: 12px;
-border: solid #ff3700;
-border-width: 1px;
-display: flex;
-justify-content: space-around;
-align-items: center;
+  border-radius: 12px;
+  border: solid #ff3700;
+  border-width: 1px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
-${({ theme }) => theme.mediaWidth.upToSmall`
+  ${({ theme }) => theme.mediaWidth.upToSmall`
   width: 100%;
 `};
-:hover {
-  text-decoration: none;
-color: #ff3700;
-background-color: #ffbc7d;
-}
+  :hover {
+    text-decoration: none;
+    color: #ff3700;
+    background-color: #ffbc7d;
+  }
 
-a:hover {
-  color: #ff3700;
-background-color: #ffbc7d;
-}
-  
-  
+  a:hover {
+    color: #ff3700;
+    background-color: #ffbc7d;
+  }
 `;
-
-
 
 export default function ReferralLinksCard() {
   const [activeProtocol] = useActiveProtocol();
@@ -177,20 +169,20 @@ export default function ReferralLinksCard() {
                 padding: 10,
                 display: "flex",
                 flexWrap: "wrap",
-                justifyContent: "space-around",
-                
+                justifyContent: "space-between",
+                gap: "10px",
               }}
             >
               <RoundedLink numOfLinks={twitterIntentUrl ? 2 : 1}>
                 <Copy toCopy={"https://" + referralLink}>
-                  <div style={{ padding: '5px' }}>
+                  <div style={{ padding: "5px" }}>
                     <div>
                       {"  "}
                       Copy your unique link &amp; start earning
                       {/* {utmLinks[activeProtocol?.id]} */}
                     </div>
                     {activeCampaign && (
-                      <div style={{ fontSize: "9px", padding: '2px' }}>
+                      <div style={{ fontSize: "9px", padding: "2px" }}>
                         {activeCampaign.baseUrl.replace("?", "")}
                       </div>
                     )}
@@ -199,14 +191,19 @@ export default function ReferralLinksCard() {
               </RoundedLink>
               {twitterIntentUrl && (
                 <RoundedLinkTweetintent
-                  style={{ padding: '20px' }}
+                  style={{ padding: "20px" }}
                   // numOfLinks={twitterIntentUrl ? 2 : 1}
                 >
-                  <ReferralCardLink style={{textDecoration: 'none'}} href={twitterIntentUrl}>
-                    <div style={{display: "flex", alignItems: "center"}}>
-                      <div style={{ flex:"0 1 auto"}}>Tweet your unique link</div>
-                      <div style={{flex:"0 1 auto"}}>
-                        <Logo src={TwitterIcon} alt="twitter logo" />
+                  <ReferralCardLink
+                    style={{ textDecoration: "none" }}
+                    href={twitterIntentUrl}
+                  >
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <div style={{ flex: "0 1 auto" }}>
+                        Tweet your unique link
+                      </div>
+                      <div style={{ flex: "0 1 auto" }}>
+                        <Logo src={TwitterIcon} alt='twitter logo' />
                       </div>
                     </div>
                   </ReferralCardLink>
@@ -219,7 +216,7 @@ export default function ReferralLinksCard() {
         )
       ) : (
         <RoundedLinkLoggedOut>
-          <div style={{ padding: 10, color: "#ff3700"  }}>
+          <div style={{ padding: 10, color: "#ff3700" }}>
             <div style={{ paddingBottom: 10 }}>
               To check airdrop and generate referral links you must:
             </div>
@@ -227,13 +224,9 @@ export default function ReferralLinksCard() {
               <li>
                 Connect your wallet{" "}
                 {account ? (
-                  <span style={{ color: "green",  }}>
-                    ✔ Done
-                  </span>
+                  <span style={{ color: "green" }}>✔ Done</span>
                 ) : (
-                  <span style={{ color: "red",  }}>
-                    ❌ Incomplete
-                  </span>
+                  <span style={{ color: "red" }}>❌ Incomplete</span>
                 )}
               </li>
               <li>
