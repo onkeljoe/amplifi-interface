@@ -1,6 +1,6 @@
 import React from "react";
 import { BodyWrapper, MediumHeaderWrapper } from "./AppBody";
-import DelegateList from "../components/governance/DelegateList";
+import PayoutList from "components/campaigns/PayoutList";
 import { RouteComponentProps } from "react-router-dom";
 import { useActiveWeb3React } from "../hooks";
 import { ChainId } from "@uniswap/sdk";
@@ -52,11 +52,7 @@ export default function Payouts({
             <Tabs />
           </AutoColumn>
         </MediumHeaderWrapper>
-        {chainId === ChainId.MAINNET ? (
-          <DelegateList hideZero={false} />
-        ) : (
-          <OutlineCard>Please switch to Ethereum mainnet. </OutlineCard>
-        )}
+        <PayoutList hideZero={false} />
       </AutoColumn>
     </BodyWrapper>
   );
