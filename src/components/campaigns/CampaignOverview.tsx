@@ -76,7 +76,6 @@ export default function CampaignOverview() {
               </>
             )}
         </AutoColumn>
-       
       </CampaignWrapper>
     </Wrapper>
   );

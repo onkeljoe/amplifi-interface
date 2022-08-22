@@ -24,9 +24,6 @@ export default function Tabs({
   data,
   onClick,
 }: TabsProps): JSX.Element {
-  // useEffect(() => {
-  //   setPath(data[0].uri || '/')
-  // }, [data])
   return (
     <TabContext value={value || data[0].uri}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -50,13 +47,6 @@ export default function Tabs({
           ))}
         </MuiTabs>
       </Box>
-      {/* {data.map((d, i) => {
-        return (
-        <TabPanel value={d.tab} key={i}>
-          <div dangerouslySetInnerHTML={{__html: d.content}} />
-        </TabPanel>
-      )
-      })} */}
     </TabContext>
   );
 }

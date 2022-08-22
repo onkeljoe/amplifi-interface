@@ -34,7 +34,7 @@ import { BigNumber } from "ethers";
 import { nameOrAddress } from "../../utils/getName";
 import { useAllIdentities } from "../../state/social/hooks";
 import { ButtonError } from "../../components/Button";
-
+import Breadcrumb from "components/Breadcrumb";
 const Wrapper = styled.div<{ backgroundColor?: string }>``;
 
 const ProposalInfo = styled(AutoColumn)`
@@ -186,19 +186,7 @@ function ProposalDetails({
       <Wrapper>
         <ProposalInfo gap="lg" justify="start">
           <RowBetween style={{ width: "100%", alignItems: "flex-start" }}>
-            <RowFixed>
-              <ArrowWrapper
-                onClick={() => {
-                  history?.length === 1 ? history.push("/") : history.goBack();
-                }}
-                style={{ alignItems: "flex-start" }}
-              >
-                <TYPE.body fontWeight="600">Proposals</TYPE.body>
-              </ArrowWrapper>
-              <ChevronRight size={16} />
-              <TYPE.body>{"Proposal #" + proposalID}</TYPE.body>
-            </RowFixed>
-
+            <Breadcrumb title={"Proposal #" + proposalID} history={history} />
             {proposalData && (
               <ProposalStatus status={status ?? ""}>{status}</ProposalStatus>
             )}

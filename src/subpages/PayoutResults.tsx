@@ -1,24 +1,14 @@
+import React from 'react';
 import axios from "axios";
-import CRE8RPriceCard from "components/CRE8RPriceCard";
+import { AutoColumn } from "components/Column";
 import { LoadingRows } from "components/Loader";
+import { AutoRow } from "components/Row";
 import { useActiveWeb3React } from "hooks";
-import useCountdown from "hooks/useCountdown";
-import React, { useEffect, useState } from "react";
-import { useBlockNumber } from "state/application/hooks";
+import useCRE8RPrice from "hooks/useCRE8RPrice";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { nFormatter } from "utils/format";
 import { nameOrAddress } from "utils/getName";
-import useBribe, {
-  BLOCKNUMBER,
-  strategiesToUSDConverter,
-} from "./hooks/useBribe";
-import { calcChange, formatChange } from "./math";
-import snapshot from "@snapshot-labs/snapshot.js";
-import { toast } from "react-toastify";
-import { calcProjectedPayouts } from "./data/projectedPayouts";
-import useCRE8RPrice from "hooks/useCRE8RPrice";
-import { AutoColumn } from "components/Column";
-import { AutoRow } from "components/Row";
 
 const AMP_PRICE_USD = 0.001666666667;
 const PAYOUT_PER_TOTAL_PERCENT_USD = 664.34;

@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
-import { ToastContainer } from "react-toastify"; 
-import "react-toastify/dist/ReactToastify.css";
+import toast from "components/Toast";
 import styled from "styled-components";
 import GoogleAnalyticsReporter from "../components/analytics/GoogleAnalyticsReporter";
 import OverviewColumn, {
@@ -174,17 +173,7 @@ export default function App() {
           </Web3ReactManager>
         </div>
       )}
-      <ToastContainer
-        position="top-center"
-        autoClose={50000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+    <toast.Toaster />
     </Suspense>
   );
 }

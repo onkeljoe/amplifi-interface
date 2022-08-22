@@ -38,7 +38,7 @@ export function colors(darkMode: boolean): Colors {
     // base
     white,
     black,
-    special: 'linear-gradient(90deg,#9C27B0 0%,#5E35B1 100%)',
+    special: 'linear-gradient(90deg,#FF3700 0%,#FF3700 100%)',
     // text
     text1: darkMode ? "#FFFFFF" : "#000000",
     text2: darkMode ? "#C3C5CB" : "#565A69",
