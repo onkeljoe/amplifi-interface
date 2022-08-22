@@ -52,7 +52,7 @@ export default function Payouts({
             <Tabs />
           </AutoColumn>
         </MediumHeaderWrapper>
-        <PayoutList hideZero={false} />
+        <PayoutList title={'Top Payouts'} url={'https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-44457923.json'} hideZero={false} />
       </AutoColumn>
     </BodyWrapper>
   );

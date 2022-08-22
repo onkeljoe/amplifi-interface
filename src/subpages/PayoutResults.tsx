@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { nFormatter } from "utils/format";
 import { nameOrAddress } from "utils/getName";
+import PayoutList from 'components/campaigns/PayoutList';
 
 const AMP_PRICE_USD = 0.001666666667;
 const PAYOUT_PER_TOTAL_PERCENT_USD = 664.34;
@@ -142,23 +143,8 @@ function PayoutMethodology() {
       </div> */}
       <div>
       <AutoColumn gap="6px">
-        {lastPayout
-          .sort((a: any, b: any) => b.payoutUSD - a.payoutUSD)
-          .map(({ address, payoutUSD }: any) => {
-            return (
-              <DataRow key={address}>
-                <AutoRow gap="10px" style={{ flexWrap: "nowrap" }}>
-                  <div style={{minWidth: 200}}>
-                    {nameOrAddress(address, undefined, true)}:{" "}
-                  </div>
-                  <div>
-                    {nFormatter(payoutUSD, 2)} USD
-                  </div>
-                </AutoRow>
-              </DataRow>
-            );
-          })}
-          </AutoColumn>
+        <PayoutList title={''} url={'https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-44457923.json'} hideZero={false} />
+      </AutoColumn>
       </div>
       </>}
       

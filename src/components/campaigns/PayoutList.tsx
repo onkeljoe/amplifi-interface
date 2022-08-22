@@ -170,7 +170,7 @@ export const Break = styled.div`
   margin: 12px 0;
 `;
 
-export default function PayoutList({ hideZero }: { hideZero: boolean }) {
+export default function PayoutList({ hideZero, title, url }: { hideZero: boolean, title?: string, url: string }) {
   const { chainId, account } = useActiveWeb3React();
   const [filter, setFilter] = useFilterActive();
   const [activeProtocol] = useActiveProtocol();
@@ -179,7 +179,7 @@ export default function PayoutList({ hideZero }: { hideZero: boolean }) {
   const [maxFetched, setMaxFetched] = useMaxFetched();
   const boostedBribeList = useList(
     {
-      idOrUrl: 'https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-44457923.json', // config.airdrop.excel.id,
+      idOrUrl: url, // config.airdrop.excel.id,
       source: "url-json",
       type: "payout"
     }
@@ -271,12 +271,12 @@ export default function PayoutList({ hideZero }: { hideZero: boolean }) {
     );
   };
 
-  return false ? (
+  return activeProtocol && activeProtocol.id !== 'CRE8R' ? (
     <Card padding="20px">
       <EmptyWrapper>
-        <TYPE.body style={{ marginBottom: "8px" }}>No delegates yet.</TYPE.body>
+        <TYPE.body style={{ marginBottom: "8px" }}>No payouts yet.</TYPE.body>
         <TYPE.subHeader>
-          <i>Community members with delegated votes will appear here.</i>
+          <i>Rewards for participating will appear here</i>
         </TYPE.subHeader>
       </EmptyWrapper>
     </Card>
@@ -285,7 +285,7 @@ export default function PayoutList({ hideZero }: { hideZero: boolean }) {
       <OnlyAboveLarge>
         <RowBetween style={{ marginBottom: "32px", alignItems: "flex-start" }}>
           <TYPE.body fontSize="16px" fontWeight="600">
-            Top Payouts
+            {title}
           </TYPE.body>
           <OnlyAboveSmall>
             <RowFixed>
@@ -329,28 +329,6 @@ export default function PayoutList({ hideZero }: { hideZero: boolean }) {
           </LoadingRows>
         )}
       </AutoColumn>
-      {/* {combinedDelegates && combinedDelegates?.length > 0 && (
-        <PageButtons>
-          <div
-            onClick={() => {
-              setPage(page === 1 ? page : page - 1);
-            }}
-          >
-            <Arrow faded={page === 1 ? true : false}>←</Arrow>
-          </div>
-          <TYPE.body>{"Page " + page + " of " + maxPage}</TYPE.body>
-          <div
-            onClick={() => {
-              setPage(page === maxPage ? page : page + 1);
-              page !== maxPage &&
-                maxFetched &&
-                setMaxFetched(maxFetched + FETCHING_INTERVAL);
-            }}
-          >
-            <Arrow faded={page === maxPage ? true : false}>→</Arrow>
-          </div>
-        </PageButtons>
-      )} */}
     </Card>
   );
 }
