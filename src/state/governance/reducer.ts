@@ -42,7 +42,6 @@ export interface GovernanceInfo {
   social: string;
   emoji?: string;
   baseUrl?: string;
-  hasSnapshot?: boolean;
   spaceSnapshot?: string;
 }
 
@@ -71,8 +70,6 @@ export const BILLI_GOVERNANCE: GovernanceInfo = {
   social: "@DropBilli",
   emoji: "🐐",
   baseUrl: "https://amplifi.cre8r.vip?",
-  hasSnapshot: true,
-  spaceSnapshot: "cre8r.eth",
   // featuredImage: AmpliFiLogo,
 };
 
@@ -132,7 +129,6 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   social: "@CRE8RDAO",
   emoji: "🔊",
   baseUrl: "https://amplifi.cre8r.vip?",
-  hasSnapshot: true,
   spaceSnapshot: "amplifidao.eth",
   // featuredImage: AmpliFiLogo,
 };
@@ -159,9 +155,7 @@ export const DEVO_GOVERNANCE: GovernanceInfo = {
   social: "@DEVO",
   emoji: "🔊",
   baseUrl: "https://amplifi.cre8r.vip?",
-  hasSnapshot: true,
   spaceSnapshot: "devo.eth",
-  // featuredImage: AmpliFiLogo,
 };
 
 export const COMP_GOVERNANCE_ADDRESS_BRAVO =
@@ -210,7 +204,6 @@ export const HND_GOVERNANCE: GovernanceInfo = {
   social: "@HundredFinance",
   emoji: "💯",
   baseUrl: "https://amplifi.cre8r.vip/#/amplifi/HND?",
-  hasSnapshot: true,
   spaceSnapshot: "hundredfinance.eth",
 };
 export const AAVE_GOVERNANCE_ADDRESS =
@@ -356,6 +349,7 @@ export const CRE8R_GOVERNANCE: GovernanceInfo = {
   social: "@cre8rAmpliFi",
   emoji: "🧱",
   baseUrl: "https://cre8r.vip/client-discover-call-booking-form/?",
+  spaceSnapshot: "cre8r.eth"
 };
 
 export const ACWI_GOVERNANCE_ADDRESS =

@@ -106,7 +106,6 @@ function BoostCalculator() {
       cre8rPrice,
       PAYOUT_PER_TOTAL_PERCENT_USD
     );
-    console.log(projectedPayout);
   }
   const loaded =
     (pastCS || pastCS == 0) &&

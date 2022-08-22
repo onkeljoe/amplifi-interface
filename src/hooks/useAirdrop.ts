@@ -21,7 +21,6 @@ export function useAirdrop () {
         type: "airdrop", //todo - currently this field is ignored
         excelSheetName: "example"
       }).then((res) => {
-        console.log(res)
         if (res) {
           dispatch(updateAmplifiAirdropList({amplifiAirdrop: res.data}))
         }

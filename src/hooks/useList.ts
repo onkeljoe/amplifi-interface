@@ -18,7 +18,6 @@ export function useList () {
         excelSheetName: "Bribes Payout",
       }).then((res) => {
         if (!res) return;
-        console.log("f",res)
         setData(res.data)
       })
     }

@@ -67,8 +67,6 @@ export function useBulkENS(addresses: string[]): {
         }
         return accum;
       }, 0);
-
-      console.log("amount have: " + amountHave + " / " + answers.length);
     }
     fetchAllAddresses();
   }, [addresses, library]);
