@@ -25,6 +25,7 @@ import Delegates from "./Delegates";
 import { RedirectWithUpdatedGovernance } from "./Governance/redirect";
 import Identities from "./Identities";
 import Proposals from "./Proposals";
+import Payouts from "./Payouts";
 
 
 const FIRST_2_COLS_WIDTH = 320;
@@ -118,6 +119,12 @@ export default function App() {
                   strict
                   path="/campaigns/:protocolID/:campaignID/:tabID"
                   component={Campaigns}
+                />
+                <Route
+                  exact
+                  strict
+                  path="/payouts/:protocolID"
+                  component={Payouts}
                 />
                 <Route
                   exact

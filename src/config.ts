@@ -18,6 +18,10 @@ const config = {
         routePrefix: '/campaigns/'
       },
       {
+        title: 'Payouts',
+        routePrefix: '/payouts/'
+      },
+      {
         title: 'Delegates',
         routePrefix: '/delegates/'
       },
