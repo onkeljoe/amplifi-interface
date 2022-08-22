@@ -15,6 +15,7 @@ import DevoLogo from "../../assets/images/IMG_5812.png";
 import BilliLogo from "../../assets/images/billilogo.jpg";
 import ACWILogo from "../../assets/images/new-altcoinswi.png";
 import GMXLogo from "../../assets/images/GMX-logo.jpg";
+import ChainBetLogo from "../../assets/images/ChainBetLogo.svg";
 import { SerializedToken } from "./../user/actions";
 import {
   updateActiveProtocol,
@@ -371,6 +372,28 @@ export const ACWI_GOVERNANCE: GovernanceInfo = {
   social: "@twitter", // placeholder
 };
 
+export const CHAINBET_GOVERNANCE_ADDRESS =
+  "0x92562944916b586262121F98FdAaE958275c7d03";
+export const CHAINBET_ADDRESS = "0x92562944916b586262121F98FdAaE958275c7d03"; // placeholder!!
+const BET = new Token(
+  ChainId.MAINNET, // ?
+  CHAINBET_ADDRESS,
+  18,
+  "BET",
+  "BET ChainBet"
+);
+export const CHAINBET_GOVERNANCE: GovernanceInfo = {
+  id: "BET",
+  name: "ChainBet",
+  logo: ChainBetLogo,
+  governanceAlphaAddresses: [CHAINBET_GOVERNANCE_ADDRESS],
+  primaryColor: "#000",
+  secondaryColor: "#ccc",
+  token: serializeToken(BET),
+  social: "@0xChainBet",
+  baseUrl: "https://app.chainbet.gg?",
+};
+
 export const GMX_GOVERNANCE_ADDRESS_AVALANCHE =
   "0x9ab2De34A33fB459b538c43f251eB825645e8595";
 export const GMX_GOVERNANCE_ADDRESS_ARBITRUM =
@@ -413,14 +436,13 @@ export const GMX_GOVERNANCE: GovernanceInfo = {
 // mapping for routing
 export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   CRE8R: CRE8R_GOVERNANCE,
-
   //  DEVO: DEVO_GOVERNANCE, //demo
   BilliDrop: BILLI_GOVERNANCE, //demo
+  ACWI: ACWI_GOVERNANCE, //demo
+  GMX: GMX_GOVERNANCE, //demo
+  BET: CHAINBET_GOVERNANCE, //demo
   AMPLIFI: AMPLIFI_GOVERNANCE,
-  //  ACWI: ACWI_GOVERNANCE, //demo
-  // GMX: GMX_GOVERNANCE,
-  // GMX: GMX_GOVERNANCE, //demo
-  // connect: CONNECT_CONFIG,
+  connect: CONNECT_CONFIG,
 };
 
 export const FETCHING_INTERVAL = 50;
