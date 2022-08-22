@@ -6,12 +6,13 @@ import { CheckCircle, Copy } from "react-feather";
 import { LinkStyledButton } from "../../theme";
 
 const CopyIcon = styled(LinkStyledButton)`
-  color: ${({ theme }) => theme.white};
+  color: #ff3700;
+  
   flex-shrink: 0;
   display: flex;
   align-items: center;
   // text-decoration: none;
-  font-size: 0.825rem;
+  font-size: 15px;
   :focus {
     text-decoration: none;
   }
@@ -20,9 +21,13 @@ const CopyIcon = styled(LinkStyledButton)`
   }
   :hover {
     text-decoration: none;
-    color: ${({ theme }) => theme.text3};
+   color: #ffbc7d;
   }
   text-decoration: none;
+  svg {
+    color: white;
+}
+  
 `;
 const TransactionStatusText = styled.span`
   margin-left: 0.25rem;

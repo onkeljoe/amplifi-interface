@@ -299,7 +299,7 @@ export default function Profile() {
             <BlankInternalLink
               to={`/delegates/${activeProtocol?.id}/${account}`}
             >
-              <Row width="160px">
+              <Row>
                 <RoundedProfileImage>
                   <img
                     src={

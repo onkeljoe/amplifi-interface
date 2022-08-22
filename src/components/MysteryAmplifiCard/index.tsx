@@ -4,10 +4,10 @@ import styled from 'styled-components'
 import amplifiIcon from 'assets/images/AmpliFi.svg'
 import useAirdrop from 'hooks/useAirdrop';
 import { nFormatter } from 'utils/format';
-
+import { darken } from 'polished';
 const ColoredCard = styled(Card)<{width?: string}>`
   color: ${({ theme }) => theme.black};
-  background: linear-gradient(90deg, #9C27B0 0%, #5E35B1 100%);
+  background: ${({theme}) => theme.special};
   text-decoration: none;
   padding: 9px;
   font-size: 14px;
@@ -22,7 +22,14 @@ const ColoredCard = styled(Card)<{width?: string}>`
   overflow: hidden;
   text-overflow: clip;
   `;
+
+const RoundBox = styled.span`
+  background: ${({theme}) => darken("0.1", theme.primary1)};
+  padding: 3px;
+  borderRadius: 10px;
+`
   
+
   //width should be 5px more than height
   const AmplifiLogo = styled.img<{height?: string, width?: string}>`
   height: 20px;
@@ -45,7 +52,7 @@ export function MysteryAmplifiCard ({width}: {width?: string}) {
     <ColoredCard width={width} >
       <div>
         <AmplifiLogo style={{marginRight: '5px'}} src={amplifiIcon} /> 
-        <span>{airdropAmount ? nFormatter(airdropAmount, 1) : <span style={{background:'#493991', padding: 3, borderRadius: 5}}>-</span>}{` $AMP`}</span>
+        <span>{airdropAmount ? nFormatter(airdropAmount, 1) : <RoundBox>-</RoundBox>}{` $AMP`}</span>
       </div>
     </ColoredCard>
   )

@@ -43,9 +43,9 @@ const AboveSmall = styled.div`
 
 const TabsCardStyled = styled.div`
   padding: 1rem 0;
-  @media (max-width: 500px) {
-    padding: 0;
-  }
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+  padding: 0;
+  `};
 `;
 
 function Tabs() {
@@ -54,7 +54,7 @@ function Tabs() {
   const location = useLocation();
 
   return (
-    <Card>
+    <Card padding={"0px"}>
       <TabsCardStyled>
         <RowBetween>
           <AutoRow gap="8px" width="fit-content">
@@ -69,7 +69,7 @@ function Tabs() {
                 Campaigns
               </TYPE.main>
             </TabOption>
-            <TabOption
+            {/* <TabOption
               as={Link}
               to={"/delegates/" + activeProtocol?.id}
               selected={location.pathname.includes("delegates")}
@@ -96,7 +96,7 @@ function Tabs() {
               >
                 Proposals
               </TYPE.black>
-            </TabOption>
+            </TabOption> */}
           </AutoRow>
           {location.pathname.includes("delegates") && (
             <AboveSmall>
