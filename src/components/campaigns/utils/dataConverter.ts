@@ -4,7 +4,6 @@ export const boostedBribesToPayoutListFormat = (list: any) => {
     return b.basicBoost2AmpInUSD - a.basicBoost2AmpInUSD;
   });
   for (let i = 0; i < list.length; i++) {
-    console.log(list[i].address);
     data.push({
       autonomous: true,
       delegatedVotes: list[i].basicBoost2AmpInUSD.toFixed(2),
@@ -33,7 +32,6 @@ export const dataToTotalFormat = ({ data }: any) => {
     return b.AMPinUSD - a.AMPinUSD;
   });
   for (let i = 0; i < list.length; i++) {
-    console.log(list[i].address);
     res.push({
       autonomous: true,
       delegatedVotes: list[i].AMPinUSD.toFixed(2),
