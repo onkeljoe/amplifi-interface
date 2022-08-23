@@ -7,7 +7,6 @@ export function useList(settings: ListSettings) {
     if ('success' == status) return; 
     fetchList(settings).then((res) => {
       if (!res) return;
-      console.log('hisafhasifhdasifhdi')
       setStatus('success')
       setData(res.data);
     });
