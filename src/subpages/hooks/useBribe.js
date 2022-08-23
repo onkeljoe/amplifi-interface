@@ -4,7 +4,7 @@ import { getBeetsLPCRE8R, getCRE8RPrice, getFBeetsPrice, getSpiritLPCRE8R } from
 
 //todo- refactor this into ts
 const BEETS = 'beets.eth';
-export const BLOCKNUMBER = 43050170;
+export const BLOCKNUMBER = 45482134;
 const CRE8R = 'cre8r.eth';
 
 export const strategiesToUSDConverter = {

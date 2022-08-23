@@ -49,6 +49,7 @@ import { nameOrAddress } from "../../utils/getName";
 import { FETCHING_INTERVAL } from "../../state/governance/reducer";
 import Toggle from "components/Toggle";
 import useList from "hooks/useList";
+import { boostedBribesToPayoutListFormat } from "./utils/dataConverter";
 
 const ColumnLabel = styled(TYPE.darkGray)`
   white-space: no-wrap;
@@ -170,7 +171,7 @@ export const Break = styled.div`
   margin: 12px 0;
 `;
 
-export default function PayoutList({ hideZero, title, url }: { hideZero: boolean, title?: string, url: string }) {
+export default function PayoutList({ hideZero, title, description, url, dataConverter }: { hideZero: boolean, title?: string, description?: string, url: string, dataConverter: any }) {
   const { chainId, account } = useActiveWeb3React();
   const [filter, setFilter] = useFilterActive();
   const [activeProtocol] = useActiveProtocol();
@@ -184,34 +185,11 @@ export default function PayoutList({ hideZero, title, url }: { hideZero: boolean
       type: "payout"
     }
   );
-  const data = []
+  let data;
 
   //refactor to useMemo
   if (boostedBribeList) {
-    boostedBribeList.sort((a : any, b: any) => {
-      return b.basicBoost2AmpInUSD - a.basicBoost2AmpInUSD 
-    })
-    for (let i = 0; i < boostedBribeList.length; i++) {
-      console.log(boostedBribeList[i].address)
-      data.push(
-        {
-        autonomous: true,
-        delegatedVotes: boostedBribeList[i].basicBoost2AmpInUSD.toFixed(2),
-        payoutUSD: boostedBribeList[i].payoutUSD.toFixed(2),
-        delegatedVotesRaw: 12,
-        EOA: true,
-        handle: '132443',
-        id: boostedBribeList[i].address,
-        votePercent:1,
-        votes: [
-          {
-            id: "Sdfsdf",
-            support:true,
-            votes: 1
-          }
-        ],
-      })
-    }
+    data = dataConverter(boostedBribeList)
   }
 
   const PayoutRow = ({ d, index }: { d: any; index: number }) => {
@@ -254,7 +232,9 @@ export default function PayoutList({ hideZero, title, url }: { hideZero: boolean
               </AccountLinkGroup>
             </BlankInternalLink>
           </AutoRow>
-          <NoWrap textAlign="end">{votes !== "0.00" ? 1 : 0}</NoWrap>
+          <NoWrap textAlign="end">
+            {/* {votes !== "0.00" ? 1 : 0} */}
+          </NoWrap>
           <NoWrap textAlign="end">{!payoutCre8rUSD
                 ? "0 $AMP IN USD"
                 : payoutCre8rUSD + (true ? " $CRE8R IN USD" : " $CRE8R IN USD")}</NoWrap>
@@ -284,9 +264,14 @@ export default function PayoutList({ hideZero, title, url }: { hideZero: boolean
     <Card padding="0">
       <OnlyAboveLarge>
         <RowBetween style={{ marginBottom: "32px", alignItems: "flex-start" }}>
-          <TYPE.body fontSize="16px" fontWeight="600">
-            {title}
-          </TYPE.body>
+          <div>
+            <TYPE.body fontSize="16px" fontWeight="600">
+              {title}
+            </TYPE.body>
+            {description && <TYPE.body fontSize="10px" fontWeight={"400"} paddingTop={"10px"}>
+              {description}
+            </TYPE.body>}
+          </div>
           <OnlyAboveSmall>
             <RowFixed>
               <Toggle isActive={filter} toggle={() => setFilter(!filter)} />
@@ -297,13 +282,15 @@ export default function PayoutList({ hideZero, title, url }: { hideZero: boolean
       <AutoColumn gap="0">
         <DataRow>
           <ColumnLabel>Rank</ColumnLabel>
-          <ColumnLabel textAlign="end">Proposals Voted</ColumnLabel>
+          <ColumnLabel textAlign="end">
+            {/* Proposals Voted */}
+          </ColumnLabel>
           <ColumnLabel textAlign="end">Total CRE8R Rewards</ColumnLabel>
           <ColumnLabel textAlign="end">Total AMP Bonus</ColumnLabel>
         </DataRow>
         <Break />
-        {true ? (
-          data.map((j, i) => {
+        {data ? (
+          data.map((j : any, i : any) => {
             return (
               <PayoutRow 
               index={i}

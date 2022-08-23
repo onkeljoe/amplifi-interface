@@ -15,6 +15,7 @@ import { WrappedListLogo } from "../components/governance/styled";
 import Tabs from "../components/governance/Tabs";
 
 import { Above1080Only, Below1080Only } from "../theme/components";
+import { boostedBribesToPayoutListFormat, dataToTotalFormat } from "components/campaigns/utils/dataConverter";
 
 export default function Payouts({
   match: {
@@ -52,7 +53,15 @@ export default function Payouts({
             <Tabs />
           </AutoColumn>
         </MediumHeaderWrapper>
-        <PayoutList title={'Top Payouts'} url={'https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-44457923.json'} hideZero={false} />
+        <PayoutList 
+          title={'Top Payouts'} 
+          // todo: require ipfs gateway in config
+          url={`https://amplifi.infura-ipfs.io/ipfs/Qmf9Thq47xDnChagDRcguuZJdg8XbmtuU1QdZjxbNTPQuE`} 
+          hideZero={false} 
+          dataConverter={dataToTotalFormat}
+          description={`Qmf9Thq47xDnChagDRcguuZJdg8XbmtuU1QdZjxbNTPQuE`}
+        />
+        
       </AutoColumn>
     </BodyWrapper>
   );

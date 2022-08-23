@@ -10,6 +10,7 @@ import styled from "styled-components";
 import { nFormatter } from "utils/format";
 import { nameOrAddress } from "utils/getName";
 import PayoutList from 'components/campaigns/PayoutList';
+import { boostedBribesToPayoutListFormat } from 'components/campaigns/utils/dataConverter';
 
 const AMP_PRICE_USD = 0.001666666667;
 const PAYOUT_PER_TOTAL_PERCENT_USD = 664.34;
@@ -123,7 +124,6 @@ function PayoutMethodology() {
 
   return (
     <>
-      {/* TODO: Get snapshot query: https://docs.snapshot.org/snapshot.js */}
       {!lastPayout ? <>
         <LoadingRows>
         <div></div>
@@ -133,17 +133,14 @@ function PayoutMethodology() {
         <div></div>
       </LoadingRows>
       </> : <>
-      {/* <div>
-        <h1>
-          Payouts for{" "}
-          <a href={linkToSnapshot}>
-            Beets Round 16
-          </a>
-        </h1>
-      </div> */}
       <div>
       <AutoColumn gap="6px">
-        <PayoutList title={'Payouts for round 17'} url={'https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-44457923.json'} hideZero={false} />
+        <PayoutList 
+        title={'Payouts for round 18'} 
+        url={'https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-45482115.json'} 
+        hideZero={false} 
+        dataConverter={boostedBribesToPayoutListFormat}
+        />
       </AutoColumn>
       </div>
       </>}
