@@ -35,7 +35,7 @@ function useCountdown(endDate: string, finalText: string) {
     return () => {
       clearInterval(x);
     };
-  }, []);
+  }, [endDate, finalText]);
 
   return countdownText;
 }

@@ -381,13 +381,13 @@ const GMX_ARBITRUM = new Token(
   "GMX",
   "GMX Token Arbitrum"
 );
-const GMX_AVALANCHE = new Token(
-  ChainId.MAINNET, // not true, but typings dont allow to change
-  GMX_ADDRESS_AVALANCHE,
-  18,
-  "GMX",
-  "GMX Token Avalanche"
-);
+// const GMX_AVALANCHE = new Token(
+//   ChainId.MAINNET, // not true, but typings dont allow to change
+//   GMX_ADDRESS_AVALANCHE,
+//   18,
+//   "GMX",
+//   "GMX Token Avalanche"
+// );
 
 export const GMX_GOVERNANCE: GovernanceInfo = {
   id: "GMX",

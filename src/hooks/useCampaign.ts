@@ -11,7 +11,7 @@ import {
   useWPUriQuery,
 } from "./useWP";
 import subpages from "subpages";
-import React from "react";
+
 /* 
 
 # The expected structure of the WP
@@ -489,7 +489,7 @@ export const useCampaign = (
       whitelist: [],
       featuredImage: amplifiCampaignFields.featuredImage?.sourceUrl,
     });
-  }, [protocolID, page, campaignID, activeProtocol, setActiveCampaign]);
+  }, [protocolID, page, campaignID, activeProtocol, setActiveCampaign, activeCampaign?.id]);
 
   return {
     amplifiCampaigns,

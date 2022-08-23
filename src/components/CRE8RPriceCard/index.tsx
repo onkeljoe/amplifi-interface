@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import cre8rIcon from "assets/images/cre8r-logo.png";
+import useCRE8RPrice from "hooks/useCRE8RPrice";
 import { Card } from "rebass";
 import styled from "styled-components";
-import cre8rIcon from "assets/images/cre8r-logo.png";
-import useAirdrop from "hooks/useAirdrop";
 import { nFormatter } from "utils/format";
-import { getCRE8RPrice } from "subpages/data";
-import useCRE8RPrice from "hooks/useCRE8RPrice";
 
 const ColoredCard = styled(Card)<{ width?: string }>`
   color: ${({ theme }) => theme.black};

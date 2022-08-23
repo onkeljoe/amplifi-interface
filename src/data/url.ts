@@ -23,7 +23,6 @@ export async function getUrl(
   ) {
     baseUrl = roughBaseUrl + "/?";
   }
-  const campaignUrl = baseUrl;
   const utm_content = twitterHandle;
   const utm_campaign = campaignId; //todo- make id campaign specific rather than protocol specific
   const utm_source = protocolId;

@@ -1,11 +1,5 @@
-import config from "config";
-import { AirdropList, fetchList, ListSettings } from "data/list";
-import { useActiveWeb3React } from "hooks";
-import { useCallback, useEffect, useState } from "react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { AppState } from "state";
-import { useVerifiedHandle } from "state/social/hooks";
-import { updateAmplifiAirdropList } from "state/user/actions";
+import { fetchList, ListSettings } from "data/list";
+import { useEffect, useState } from "react";
 export function useList(settings: ListSettings) {
   const [data, setData] = useState<any>();
   useEffect(() => {

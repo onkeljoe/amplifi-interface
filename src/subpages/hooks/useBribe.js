@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import snapshot from "@snapshot-labs/snapshot.js";
 import {
   getBeetsLPCRE8R,
@@ -164,11 +164,8 @@ const bribeSettings = {
  * @returns {{cre8rScore: number | undefined, beetsScore: number | undefined, cre8rScoreBreakdown: any | undefined, beetsScoreBreakdown: {beetsScore: number, numBeets: number, fBeetsPrice: number} | undefined, cre8rPrice: number | undefined}}
  */
 export default function useBribe(
-  provider,
   address,
-  pollTime = 0,
   blockNumber = BLOCKNUMBER,
-  space = CRE8R
 ) {
   const [cre8rScore, setCre8rScore] = useState();
   const [cre8rScoreBreakdown, setCre8rScoreBreakdown] = useState();
@@ -213,7 +210,7 @@ export default function useBribe(
         setCre8rScore(total);
         setCre8rScoreBreakdown(_cre8rScoreBreakdown);
       });
-  }, [address]);
+  }, [address, blockNumber]);
 
   // used for beets VP
   useEffect(() => {
@@ -229,7 +226,7 @@ export default function useBribe(
       .then(async (scores) => {
         if (!scores) return;
         const scoresWithValues = scores.filter(
-          (val, i) => val[address] != null
+          (val) => val[address] != null
         );
         let totalScore = 0;
         if (!scoresWithValues) return;
@@ -247,7 +244,7 @@ export default function useBribe(
         });
         setBeetsScore(scoreUSD);
       });
-  }, [address]);
+  }, [address, blockNumber]);
 
   return {
     cre8rScore,

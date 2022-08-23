@@ -104,9 +104,10 @@ function convertExcelResponseToAmpPayoutBasicBoostList(
     throw `basicBoost2AmpInUSD header is not found on table ${excelRes.reqId}`;
   }
   excelRes.table.rows.forEach((r) => {
+    if (!r || !r.c[0] || !r.c[0].v) return;
     _airdropList = {
       ..._airdropList,
-      [r!.c[0]!.v!]:
+      [r.c[0].v]:
         basicBoost2AmpInUSDPos &&
         r &&
         r.c &&
@@ -131,9 +132,10 @@ function convertExcelResponseToAmpPayoutBoostedBonusList(
     throw `basicBoost2AmpInUSD header is not found on table ${excelRes.reqId}`;
   }
   excelRes.table.rows.forEach((r) => {
+    if (!r || !r.c[0] || !r.c[0].v) return;
     _airdropList = {
       ..._airdropList,
-      [r!.c[0]!.v!]:
+      [r.c[0].v]:
         basicBoost2AmpInUSDPos &&
         r &&
         r.c &&
@@ -154,9 +156,10 @@ function convertExcelResponseToAirdropList(
   let _airdropList = {};
   //must follow airdrop layout: https://docs.google.com/spreadsheets/d/1u8IBLhr3Bk9MUkDquCEq2_q-IE-1KRiVYfo1la4nV_Y/edit#gid=0
   excelRes.table.rows.forEach((r) => {
+    if (!r || !r.c[0] || !r.c[0].v || !r.c[1]) return;
     _airdropList = {
       ..._airdropList,
-      [r!.c[0]!.v!]: r!.c[1]!.v!,
+      [r.c[0].v]: r.c[1].v,
     };
   });
   return _airdropList;

@@ -21,8 +21,6 @@ import {
   ENS_GOVERNANCE,
   CRE8R_GOVERNANCE,
   AMPLIFI_GOVERNANCE,
-  ACWI_GOVERNANCE,
-  GMX_GOVERNANCE,
 } from "../governance/reducer";
 import {
   uniswapClient,

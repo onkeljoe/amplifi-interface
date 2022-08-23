@@ -1,22 +1,16 @@
+import React, { useEffect, useState } from "react";
+import snapshot from "@snapshot-labs/snapshot.js";
 import axios from "axios";
-import CRE8RPriceCard from "components/CRE8RPriceCard";
 import { LoadingRows } from "components/Loader";
+import toast from "components/Toast";
 import { useActiveWeb3React } from "hooks";
 import useCountdown from "hooks/useCountdown";
-import React, { useEffect, useState } from "react";
-import { useBlockNumber } from "state/application/hooks";
+import useCRE8RPrice from "hooks/useCRE8RPrice";
 import styled from "styled-components";
 import { nFormatter } from "utils/format";
-import { nameOrAddress } from "utils/getName";
-import useBribe, {
-  BLOCKNUMBER,
-  strategiesToUSDConverter,
-} from "./hooks/useBribe";
-import { calcChange, formatChange } from "./math";
-import snapshot from "@snapshot-labs/snapshot.js";
-import toast from "components/Toast";
 import { calcProjectedPayouts } from "./data/projectedPayouts";
-import useCRE8RPrice from "hooks/useCRE8RPrice";
+import useBribe, { BLOCKNUMBER } from "./hooks/useBribe";
+import { calcChange, formatChange } from "./math";
 
 const AMP_PRICE_USD = 0.001666666667;
 const PAYOUT_PER_TOTAL_PERCENT_USD = 664.34;
@@ -71,12 +65,12 @@ function BoostCalculator() {
     cre8rScore: pastCS,
     beetsScore: pastBS,
     beetsScoreBreakdown,
-  } = useBribe(library, account); //has a blocknumber default
+  } = useBribe(account); //has a blocknumber default
   const {
     cre8rScore: currentCS,
     beetsScore: currentBS,
     cre8rScoreBreakdown,
-  } = useBribe(library, account, 0, BLOCKNUMBER); // what year would this be?
+  } = useBribe(account, BLOCKNUMBER); // what year would this be?
   const cre8rChange =
     pastCS && (currentCS || currentCS == 0) && calcChange(pastCS, currentCS);
   const beetsChange =

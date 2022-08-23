@@ -1,54 +1,25 @@
-import React, { useMemo, useState } from "react";
-import styled from "styled-components";
-import { AutoColumn } from "../Column";
-import {
-  TYPE,
-  BlankInternalLink,
-  OnlyAboveExtraSmall,
-  OnlyAboveSmall,
-  OnlyAboveLarge,
-} from "../../theme";
-import Row, { AutoRow, RowBetween, RowFixed } from "../Row";
-import EmptyProfile from "../../assets/images/emptyprofile.png";
-import { shortenAddress } from "../../utils";
-import useENSName from "../../hooks/useENSName";
-import {
-  useActiveProtocol,
-  useGlobalData,
-  useGovernanceToken,
-  useFilterActive,
-  useTopDelegates,
-  useUserDelegatee,
-  useVerifiedDelegates,
-  DelegateData,
-  useMaxFetched,
-} from "../../state/governance/hooks";
-import {
-  WrappedListLogo,
-  RoundedProfileImage,
-  DelegateButton,
-  EmptyWrapper,
-} from "../governance/styled";
-import Card from "../Card";
-import { useActiveWeb3React } from "../../hooks";
-import {
-  useToggleModal,
-  useModalDelegatee,
-} from "../../state/application/hooks";
-import { ApplicationModal } from "../../state/application/actions";
-import { Percent, JSBI } from "@uniswap/sdk";
-import { LoadingRows } from "../Loader";
-import { BIG_INT_ZERO } from "../../constants";
-import { useTokenBalance } from "../../state/wallet/hooks";
-import {
-  useAllIdentities,
-  useTwitterProfileData,
-} from "../../state/social/hooks";
-import { nameOrAddress } from "../../utils/getName";
-import { FETCHING_INTERVAL } from "../../state/governance/reducer";
+import React, { useState } from "react";
 import Toggle from "components/Toggle";
 import useList from "hooks/useList";
-import { boostedBribesToPayoutListFormat } from "./utils/dataConverter";
+import styled from "styled-components";
+import EmptyProfile from "../../assets/images/emptyprofile.png";
+import {
+  useActiveProtocol,
+  useFilterActive,
+} from "../../state/governance/hooks";
+import { FETCHING_INTERVAL } from "../../state/governance/reducer";
+import {
+  BlankInternalLink,
+  OnlyAboveLarge,
+  OnlyAboveSmall,
+  TYPE,
+} from "../../theme";
+import { shortenAddress } from "../../utils";
+import Card from "../Card";
+import { AutoColumn } from "../Column";
+import { EmptyWrapper, WrappedListLogo } from "../governance/styled";
+import { LoadingRows } from "../Loader";
+import Row, { AutoRow, RowBetween, RowFixed } from "../Row";
 
 const ColumnLabel = styled(TYPE.darkGray)`
   white-space: no-wrap;
@@ -137,23 +108,6 @@ const FixedRankWidth = styled.div`
   margin-right: 0px;
 `;
 
-const PageButtons = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 2em;
-  margin-bottom: 0.5em;
-`;
-const Arrow = styled.div<{ faded?: boolean }>`
-  color: ${({ theme }) => theme.primary1};
-  opacity: ${(props) => (props.faded ? 0.3 : 1)};
-  padding: 0 20px;
-  user-select: none;
-  :hover {
-    cursor: pointer;
-  }
-`;
-
 const HiddenBelow1080 = styled.span`
   @media (max-width: 1080px) {
     display: none;
@@ -174,7 +128,6 @@ export const Break = styled.div`
 `;
 
 export default function PayoutList({
-  hideZero,
   title,
   description,
   url,
@@ -186,12 +139,10 @@ export default function PayoutList({
   url: string;
   dataConverter: any;
 }) {
-  const { chainId, account } = useActiveWeb3React();
   const [filter, setFilter] = useFilterActive();
   const [activeProtocol] = useActiveProtocol();
 
-  const [page, setPage] = useState(1);
-  const [maxFetched, setMaxFetched] = useMaxFetched();
+  const [page] = useState(1);
   const boostedBribeList = useList({
     idOrUrl: url, // config.airdrop.excel.id,
     source: "url-json",
@@ -205,8 +156,6 @@ export default function PayoutList({
   }
 
   const PayoutRow = ({ d, index }: { d: any; index: number }) => {
-    const name = null;
-    const percentOfVotes = 1;
     const votes = d.delegatedVotes;
     const payoutCre8rUSD = d.payoutUSD;
     return (

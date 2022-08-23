@@ -1,7 +1,7 @@
 import config from "config";
-import { AirdropList, fetchList } from "data/list";
+import { fetchList } from "data/list";
 import { useActiveWeb3React } from "hooks";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { AppState } from "state";
 import { useVerifiedHandle } from "state/social/hooks";
@@ -29,7 +29,7 @@ export function useAirdrop() {
         }
       });
     }
-  }, [account, verifiedHandleEntry]);
+  }, [account, verifiedHandleEntry, dispatch]);
   return (
     verifiedHandleEntry &&
     verifiedHandleEntry.handle &&

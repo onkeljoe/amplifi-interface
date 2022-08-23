@@ -154,7 +154,7 @@ const beetsPoolQuery = gql`
 export async function getBeetsLPCRE8R() {
   const poolId =
     "0xbb4607bede4610e80d35c15692efcb7807a2d0a6000200000000000000000140";
-  const { loading, error, data } = await beetsClient.query({
+  const { error, data } = await beetsClient.query({
     query: beetsPoolQuery,
     variables: {
       id: poolId,

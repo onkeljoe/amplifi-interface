@@ -24,7 +24,6 @@ import { CloseIcon, StyledInternalLink } from "../../theme/components";
 import { useAllIdentities } from "../../state/social/hooks";
 import { nameOrAddress } from "../../utils/getName";
 import { Break } from "../../pages/DelegateInfo";
-import useAirdrop from "hooks/useAirdrop";
 import useList from "hooks/useList";
 import { nFormatter } from "utils/format";
 import { useActiveCampaign } from "state/campaigns/hooks";
@@ -51,7 +50,6 @@ export default function VoteContent() {
     activeCampaign && pathname.includes("campaigns/CRE8R/beets-boosted-bribes"); //&& activeCampaign.id === 'beets-boosted-bribes' && activeProtocol?.id === 'CRE8R'
   //todo: refactor
   const isInCampaign = pathname.split("/").length - 1 > 2;
-  const airdropAmount = useAirdrop();
   const payoutsAMP = useList({
     idOrUrl: "1b7UGQy62ysOwhUcH5uPFPDlINGMUyK7uEhZwqjoBSXo", // config.airdrop.excel.id,
     source: "excel",
