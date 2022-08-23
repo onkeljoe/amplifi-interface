@@ -167,7 +167,7 @@ export default function PayoutList({
                 <NoWrap>{(page - 1) * FETCHING_INTERVAL + (index + 1)}</NoWrap>
               </FixedRankWidth>
             </HiddenBelow1080>
-            <BlankInternalLink to={activeProtocol?.id + "/" + d.id}>
+            <div>
               <AccountLinkGroup gap='10px' width='initial'>
                 <HiddenBelow1080>
                   <WrappedListLogo
@@ -191,7 +191,10 @@ export default function PayoutList({
                   )}
                 </AutoColumn>
               </AccountLinkGroup>
-            </BlankInternalLink>
+            </div>
+            {/* <BlankInternalLink
+              to={activeProtocol?.id + "/" + d.id}
+            ></BlankInternalLink> */}
           </AutoRow>
           <NoWrap textAlign='end'>{/* {votes !== "0.00" ? 1 : 0} */}</NoWrap>
           <NoWrap textAlign='end'>

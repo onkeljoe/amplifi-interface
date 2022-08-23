@@ -486,7 +486,7 @@ export const ARGENT_GOVERNANCE: GovernanceInfo = {
 // mapping for routing
 export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   CRE8R: CRE8R_GOVERNANCE,
-  //  DEVO: DEVO_GOVERNANCE, //demo
+   DEVO: DEVO_GOVERNANCE, //demo
   BilliDrop: BILLI_GOVERNANCE, //demo
   ACWI: ACWI_GOVERNANCE, //demo
   GMX: GMX_GOVERNANCE, //demo
