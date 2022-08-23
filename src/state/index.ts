@@ -10,11 +10,7 @@ import multicall from "./multicall/reducer";
 import social from "./social/reducer";
 import campaigns from "./campaigns/reducer";
 
-const PERSISTED_KEYS: string[] = [
-  "user",
-  "transactions",
-  "governance",
-];
+const PERSISTED_KEYS: string[] = ["user", "transactions", "governance"];
 
 const store = configureStore({
   reducer: {

@@ -9,7 +9,7 @@ import Card from "../Card";
 import { TYPE } from "../../theme";
 import { Link, useLocation } from "react-router-dom";
 import Toggle from "../Toggle";
-
+import config from "config";
 export const TabOption = styled.button<{
   selected?: boolean;
   color?: string;
@@ -48,27 +48,48 @@ const TabsCardStyled = styled.div`
   `};
 `;
 
+export function SingleTab({
+  title,
+  routePrefix,
+  activeProtocol,
+  location,
+}: any) {
+  return (
+    <TabOption
+      as={Link}
+      to={routePrefix + activeProtocol?.id}
+      // Note: This assumes that the title will be the same as the pathname so if the title has spaces this may not work
+      selected={location.pathname.includes(title.toLowerCase())}
+      color={activeProtocol?.primaryColor}
+      color2={activeProtocol?.secondaryColor}
+    >
+      <TYPE.main color={activeProtocol?.primaryColor} fontSize={"16px"}>
+        {title}
+      </TYPE.main>
+    </TabOption>
+  );
+}
+
 function Tabs() {
   const [activeProtocol] = useActiveProtocol();
   const [filter, setFilter] = useFilterActive();
   const location = useLocation();
-
   return (
     <Card padding={"0px"}>
       <TabsCardStyled>
         <RowBetween>
-          <AutoRow gap="8px" width="fit-content">
-            <TabOption
-              as={Link}
-              to={"/campaigns/" + activeProtocol?.id}
-              selected={location.pathname.includes("campaigns")}
-              color={activeProtocol?.primaryColor}
-              color2={activeProtocol?.secondaryColor}
-            >
-              <TYPE.main color={activeProtocol?.primaryColor} fontSize={"16px"}>
-                Campaigns
-              </TYPE.main>
-            </TabOption>
+          <AutoRow gap='8px' width='fit-content'>
+            {config.protocol.tabs.map(({ title, routePrefix }) => {
+              return (
+                <SingleTab
+                  key={title}
+                  title={title}
+                  routePrefix={routePrefix}
+                  activeProtocol={activeProtocol}
+                  location={location}
+                />
+              );
+            })}
             {/* <TabOption
               as={Link}
               to={"/delegates/" + activeProtocol?.id}

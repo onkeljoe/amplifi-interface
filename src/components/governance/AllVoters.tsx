@@ -65,7 +65,7 @@ export default function AllVoters({
   return (
     <StyledDataCard>
       <CardSection>
-        <AutoColumn gap="md">
+        <AutoColumn gap='md'>
           <RowBetween>
             <TYPE.black fontWeight={600}>{title}</TYPE.black>
             {amount && (
@@ -76,18 +76,18 @@ export default function AllVoters({
           </RowBetween>
         </AutoColumn>
         <TopVoterWrapper>
-          <AutoColumn gap="1rem">
+          <AutoColumn gap='1rem'>
             {allVoters?.map((p, i) => {
               return (
                 <RowBetween key={"vote-for-" + i}>
                   <StyledInternalLink
                     to={"/delegates/" + activeProtocol?.id + "/" + p.voter.id}
                   >
-                    <TYPE.black fontWeight={400} fontSize="14px">
+                    <TYPE.black fontWeight={400} fontSize='14px'>
                       {nameOrAddress(p.voter.id, allIdentities, true)}
                     </TYPE.black>
                   </StyledInternalLink>
-                  <TYPE.black fontWeight={400} fontSize="14px">
+                  <TYPE.black fontWeight={400} fontSize='14px'>
                     {parseFloat(p.votes).toLocaleString(undefined, {
                       maximumFractionDigits: 0,
                     })}

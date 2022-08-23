@@ -27,4 +27,6 @@ export const updateLastSelectedProtocolID = createAction<{
 }>("user/updateLastSelectedProtocolID");
 export const toggleURLWarning = createAction<void>("app/toggleURLWarning");
 
-export const updateAmplifiAirdropList = createAction<{amplifiAirdrop: any}>("app/updateAmplifiAirdropList");
+export const updateAmplifiAirdropList = createAction<{ amplifiAirdrop: any }>(
+  "app/updateAmplifiAirdropList"
+);

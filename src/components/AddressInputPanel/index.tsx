@@ -97,7 +97,7 @@ export default function AddressInputPanel({
     <InputPanel id={id}>
       <ContainerRow error={error}>
         <InputContainer>
-          <AutoColumn gap="md">
+          <AutoColumn gap='md'>
             <RowBetween>
               <TYPE.black color={theme.text2} fontWeight={500} fontSize={14}>
                 Delegate Address
@@ -112,15 +112,15 @@ export default function AddressInputPanel({
               )}
             </RowBetween>
             <Input
-              className="recipient-address-input"
-              type="text"
-              autoComplete="off"
-              autoCorrect="off"
-              autoCapitalize="off"
-              spellCheck="false"
-              placeholder="Wallet Address or ENS name"
+              className='recipient-address-input'
+              type='text'
+              autoComplete='off'
+              autoCorrect='off'
+              autoCapitalize='off'
+              spellCheck='false'
+              placeholder='Wallet Address or ENS name'
               error={error}
-              pattern="^(0x[a-fA-F0-9]{40})$"
+              pattern='^(0x[a-fA-F0-9]{40})$'
               onChange={handleInput}
               value={value}
             />

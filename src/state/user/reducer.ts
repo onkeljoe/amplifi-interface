@@ -34,7 +34,7 @@ export const initialState: UserState = {
   timestamp: currentTimestamp(),
   URLWarningVisible: true,
   lastSelectedProtocolID: undefined,
-  amplifiAirdrop: {}
+  amplifiAirdrop: {},
 };
 
 export default createReducer(initialState, (builder) =>
@@ -61,10 +61,11 @@ export default createReducer(initialState, (builder) =>
       (state, { payload: { protocolID } }) => {
         state.lastSelectedProtocolID = protocolID;
       }
-    ).addCase(
+    )
+    .addCase(
       updateAmplifiAirdropList,
-      (state, {payload: { amplifiAirdrop }}) => {
-        state.amplifiAirdrop = amplifiAirdrop
+      (state, { payload: { amplifiAirdrop } }) => {
+        state.amplifiAirdrop = amplifiAirdrop;
       }
     )
 );

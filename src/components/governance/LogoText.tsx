@@ -38,7 +38,7 @@ export default function LogoText({
     case "other":
       return (
         <RowFixed>
-          {children} <CheckMark stroke={theme.primary1} strokeWidth="4px" />
+          {children} <CheckMark stroke={theme.primary1} strokeWidth='4px' />
         </RowFixed>
       );
     default:

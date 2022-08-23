@@ -61,14 +61,13 @@ export function useBulkENS(addresses: string[]): {
           return library?.lookupAddress(a);
         })
       );
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const amountHave = answers.reduce((accum, name) => {
         if (name) {
           return (accum = accum + 1);
         }
         return accum;
       }, 0);
-
-      console.log("amount have: " + amountHave + " / " + answers.length);
     }
     fetchAllAddresses();
   }, [addresses, library]);

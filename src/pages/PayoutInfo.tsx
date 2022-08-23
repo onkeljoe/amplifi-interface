@@ -108,7 +108,7 @@ function localNumber(val: number) {
   return parseFloat(parseFloat(val.toString()).toFixed(0)).toLocaleString();
 }
 
-function DelegateInfo({
+function PayoutInfo({
   match: {
     params: { protocolID, delegateAddress },
   },
@@ -421,4 +421,4 @@ function DelegateInfo({
   );
 }
 
-export default withRouter(DelegateInfo);
+export default withRouter(PayoutInfo);
