@@ -1,17 +1,17 @@
 import { fetchList, ListSettings } from "data/list";
 import { useEffect, useState } from "react";
+
 export function useList(settings: ListSettings) {
   const [data, setData] = useState<any>();
-  const [status, setStatus] = useState<'loading' | 'success'>('loading');
+  const [refreshs, setRefreshs] = useState<number>(0);
   useEffect(() => {
-    if ('success' == status) return; 
+    if (refreshs > 0) return; 
+    setRefreshs(r => ++r)
     fetchList(settings).then((res) => {
       if (!res) return;
-      console.log('hisafhasifhdasifhdi')
-      setStatus('success')
       setData(res.data);
     });
-  });
+  }, [settings, refreshs]);
   return data;
 }
 
