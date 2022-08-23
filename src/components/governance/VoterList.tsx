@@ -106,7 +106,7 @@ export default function VoterList({
         <AllVoters title={title} amount={amount} allVoters={allVoters} />
       </Modal>
       <CardSection>
-        <AutoColumn gap="md">
+        <AutoColumn gap='md'>
           <WrapSmall>
             <TYPE.black fontWeight={600}>{title}</TYPE.black>
             {amount || amount === 0 ? (
@@ -123,25 +123,24 @@ export default function VoterList({
         </ProgressWrapper>
         <TopVoterWrapper>
           {voters.length > 0 ? (
-            <AutoColumn gap="1rem">
+            <AutoColumn gap='1rem'>
               <RowBetween>
-                <TYPE.main fontWeight={400} fontSize="14px">
+                <TYPE.main fontWeight={400} fontSize='14px'>
                   Top Voters
                 </TYPE.main>
                 <div />
               </RowBetween>
               {voters.map((p, i) => {
-                console.log(p);
                 return (
                   <RowBetween key={"vote-for-" + i}>
                     <StyledInternalLink
                       to={"/delegates/" + activeProtocol?.id + "/" + p.voter.id}
                     >
-                      <TYPE.black fontWeight={400} fontSize="14px">
+                      <TYPE.black fontWeight={400} fontSize='14px'>
                         {nameOrAddress(p.voter.id, allIdentities, true)}
                       </TYPE.black>
                     </StyledInternalLink>
-                    <TYPE.black fontWeight={400} fontSize="14px">
+                    <TYPE.black fontWeight={400} fontSize='14px'>
                       {parseFloat(p.votes).toLocaleString(undefined, {
                         maximumFractionDigits: 0,
                       })}
@@ -150,13 +149,13 @@ export default function VoterList({
                 );
               })}
               <ButtonEmpty onClick={() => setShowAll(true)}>
-                <TYPE.black fontWeight={600} fontSize="14px" textAlign="center">
+                <TYPE.black fontWeight={600} fontSize='14px' textAlign='center'>
                   View All
                 </TYPE.black>
               </ButtonEmpty>
             </AutoColumn>
           ) : (
-            <TYPE.main fontWeight={400} fontSize="14px">
+            <TYPE.main fontWeight={400} fontSize='14px'>
               {activeProtocol && activeProtocol?.id !== "uniswap"
                 ? "No votes yet"
                 : ""}

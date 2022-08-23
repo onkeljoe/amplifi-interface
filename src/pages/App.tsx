@@ -4,7 +4,7 @@ import toast from "components/Toast";
 import styled from "styled-components";
 import GoogleAnalyticsReporter from "../components/analytics/GoogleAnalyticsReporter";
 import OverviewColumn, {
-  OVERVIEW_EXPANSION_WIDTH
+  OVERVIEW_EXPANSION_WIDTH,
 } from "../components/governance/OverviewColumn";
 import ProposalDetails from "../components/governance/ProposalDetails";
 import Polling from "../components/Header/Polling";
@@ -19,13 +19,14 @@ import { useModalOpen, useToggleModal } from "../state/application/hooks";
 import { identityOnlyPath } from "../state/governance/reducer";
 import TwitterAccountQueryParamReader from "../state/social/TwitterAccountQueryParamReader";
 import DarkModeQueryParamReader from "../theme/DarkModeQueryParamReader";
-import Amplifi from "./Amplifi";
+import Campaigns from "./Campaigns";
 import DelegateInfo from "./DelegateInfo";
 import Delegates from "./Delegates";
 import { RedirectWithUpdatedGovernance } from "./Governance/redirect";
 import Identities from "./Identities";
 import Proposals from "./Proposals";
-
+import Payouts from "./Payouts";
+import PayoutInfo from "./PayoutInfo";
 
 const FIRST_2_COLS_WIDTH = 320;
 
@@ -75,7 +76,7 @@ const ContentWrapper = styled.div`
 function TopLevelModals() {
   const open = useModalOpen(ApplicationModal.DELEGATE);
   const toggle = useToggleModal(ApplicationModal.DELEGATE);
-  return <DelegateModal isOpen={open} onDismiss={toggle} title="Delegate" />;
+  return <DelegateModal isOpen={open} onDismiss={toggle} title='Delegate' />;
 }
 
 export default function App() {
@@ -104,52 +105,64 @@ export default function App() {
                 <Route
                   exact
                   strict
-                  path="/campaigns/:protocolID"
-                  component={Amplifi} //amplifi is a shell for CampaignList
+                  path='/campaigns/:protocolID'
+                  component={Campaigns} //amplifi is a shell for CampaignList
                 />
                 <Route
                   exact
                   strict
-                  path="/campaigns/:protocolID/:campaignID"
-                  component={Amplifi}
+                  path='/campaigns/:protocolID/:campaignID'
+                  component={Campaigns}
                 />
                 <Route
                   exact
                   strict
-                  path="/campaigns/:protocolID/:campaignID/:tabID"
-                  component={Amplifi}
+                  path='/campaigns/:protocolID/:campaignID/:tabID'
+                  component={Campaigns}
                 />
                 <Route
                   exact
                   strict
-                  path="/delegates/:protocolID"
+                  path='/payouts/:protocolID'
+                  component={Payouts}
+                />
+                <Route
+                  exact
+                  strict
+                  path='/payouts/:protocolID/:address'
+                  component={PayoutInfo}
+                />
+                <Route
+                  exact
+                  strict
+                  path='/delegates/:protocolID'
                   component={Delegates}
                 />
                 <Route
                   exact
                   strict
-                  path="/proposals/:protocolID"
+                  path='/proposals/:protocolID'
                   component={Proposals}
                 />
                 <Route
                   exact
                   strict
-                  path="/proposals/:protocolID/:proposalID"
+                  path='/proposals/:protocolID/:proposalID'
                   component={ProposalDetails}
                 />
                 <Route
                   exact
                   strict
-                  path="/delegates/:protocolID/:delegateAddress"
+                  path='/delegates/:protocolID/:delegateAddress'
                   component={DelegateInfo}
                 />
                 <Route
                   exact
                   strict
-                  path="/delegates/:protocolID/:delegateAddress"
+                  path='/delegates/:protocolID/:delegateAddress'
                   component={DelegateInfo}
                 />
-                <Route path="/" component={RedirectWithUpdatedGovernance} />
+                <Route path='/' component={RedirectWithUpdatedGovernance} />
               </Switch>
             </Web3ReactManager>
           </ContentWrapper>
@@ -162,18 +175,18 @@ export default function App() {
           <Web3Status />
           <Web3ReactManager>
             <Switch>
-              <Route exact strict path="/connect" component={Identities} />
+              <Route exact strict path='/connect' component={Identities} />
               <Route
                 exact
                 strict
-                path="/delegates/connect"
-                render={() => <Redirect to="/connect" />}
+                path='/delegates/connect'
+                render={() => <Redirect to='/connect' />}
               />
             </Switch>
           </Web3ReactManager>
         </div>
       )}
-    <toast.Toaster />
+      <toast.Toaster />
     </Suspense>
   );
 }

@@ -31,14 +31,14 @@ export default function Proposals({
 
   return (
     <BodyWrapper>
-      <AutoColumn gap="1rem">
+      <AutoColumn gap='1rem'>
         <MediumHeaderWrapper>
-          <AutoColumn gap="sm">
+          <AutoColumn gap='sm'>
             <Above1080Only>
               <RowFixed>
                 <WrappedListLogo src={activeProtocol?.logo} />
                 <TYPE.mediumHeader
-                  ml="8px"
+                  ml='8px'
                   fontWeight={600}
                   color={activeProtocol?.primaryColor}
                 >

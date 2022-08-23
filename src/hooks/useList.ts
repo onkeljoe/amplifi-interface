@@ -1,29 +1,17 @@
-import config from "config";
-import { AirdropList, fetchList } from "data/list";
-import { useActiveWeb3React } from "hooks";
-import { useCallback, useEffect, useState } from "react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { AppState } from "state";
-import { useVerifiedHandle } from "state/social/hooks";
-import { updateAmplifiAirdropList } from "state/user/actions";
-export function useList () {
-  const { account } = useActiveWeb3React();
+import { fetchList, ListSettings } from "data/list";
+import { useEffect, useState } from "react";
+export function useList(settings: ListSettings) {
   const [data, setData] = useState<any>();
+  const [status, setStatus] = useState<'loading' | 'success'>('loading');
   useEffect(() => {
-    if (account) {
-      fetchList({
-        id: '1b7UGQy62ysOwhUcH5uPFPDlINGMUyK7uEhZwqjoBSXo', // config.airdrop.excel.id,
-        source: "excel",
-        type: "payout", //todo - currently this field is ignored
-        excelSheetName: "Bribes Payout",
-      }).then((res) => {
-        if (!res) return;
-        console.log("f",res)
-        setData(res.data)
-      })
-    }
-  } , [account])
-  return data
+    if ('success' == status) return; 
+    fetchList(settings).then((res) => {
+      if (!res) return;
+      setStatus('success')
+      setData(res.data);
+    });
+  });
+  return data;
 }
 
-export default useList
+export default useList;

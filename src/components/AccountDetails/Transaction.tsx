@@ -72,9 +72,9 @@ export default function Transaction({
           {pending ? (
             <Loader />
           ) : success ? (
-            <CheckCircle size="16" />
+            <CheckCircle size='16' />
           ) : (
-            <Triangle size="16" />
+            <Triangle size='16' />
           )}
         </IconWrapper>
       </TransactionState>

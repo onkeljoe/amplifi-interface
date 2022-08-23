@@ -14,9 +14,9 @@ export * from "./components";
 const MEDIA_WIDTHS = {
   upToExtraSmall: 500,
   upToSmall: 720,
-  upToMedium: 1484, //960
-  upToLarge: 1484, //1280
-  upToExtraLarge: 1484, //1484
+  upToMedium: 960, //960
+  upToLarge: 1480, //1280
+  upToExtraLarge: 1684, //1484
 };
 
 const mediaWidthTemplates: {
@@ -38,7 +38,7 @@ export function colors(darkMode: boolean): Colors {
     // base
     white,
     black,
-    special: 'linear-gradient(90deg,#FF3700 0%,#FF3700 100%)',
+    special: "linear-gradient(90deg,#FF3700 0%,#FF3700 100%)",
     // text
     text1: darkMode ? "#FFFFFF" : "#000000",
     text2: darkMode ? "#C3C5CB" : "#565A69",
