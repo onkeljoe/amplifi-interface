@@ -94,15 +94,15 @@ const DataRow = styled.div`
   `};
 
   @media (max-width: 1370px) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
     padding: 0 0.5rem;
-    > *:nth-child(3) {
+    > *:nth-child(2) {
       display: none;
     }
   }
 
   ${({ theme }) => theme.mediaWidth.upToLarge`
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1.2fr;
   `};
 
   ${({ theme }) => theme.mediaWidth.upToSmall`

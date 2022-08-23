@@ -143,7 +143,7 @@ function PayoutMethodology() {
       </div> */}
       <div>
       <AutoColumn gap="6px">
-        <PayoutList title={''} url={'https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-44457923.json'} hideZero={false} />
+        <PayoutList title={'Payouts for round 17'} url={'https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-44457923.json'} hideZero={false} />
       </AutoColumn>
       </div>
       </>}
