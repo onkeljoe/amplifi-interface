@@ -23,7 +23,7 @@ const PAYOUT_PER_TOTAL_PERCENT_USD = 664.34;
 
 const hub = "https://hub.snapshot.org"; // or https://testnet.snapshot.org for testnet
 const lastPayoutUri =
-  "https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-43050170.json";
+  "https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-45482115.json";
 const client = new snapshot.Client712(hub);
 
 const Table = styled.table`
@@ -79,7 +79,7 @@ function BoostCalculator() {
     cre8rScore: currentCS,
     beetsScore: currentBS,
     cre8rScoreBreakdown,
-  } = useBribe(library, account, 0, BLOCKNUMBER + 4000000000); // what year would this be?
+  } = useBribe(library, account, 0, BLOCKNUMBER); // what year would this be?
   const cre8rChange =
     pastCS &&
     (currentCS || currentCS == 0) &&
@@ -106,18 +106,18 @@ function BoostCalculator() {
       cre8rPrice,
       PAYOUT_PER_TOTAL_PERCENT_USD
     );
-    console.log(projectedPayout);
   }
   const loaded =
     (pastCS || pastCS == 0) &&
     (pastBS || pastBS == 0) &&
     (cre8rChange || cre8rChange == 0) &&
     (beetsChange || beetsChange == 0);
-
-  const countdownText = useCountdown(
-    "Aug 4, 2022 3:00:00 GMT-07:00",
-    "Vote 100% For CRE8R In F-Major"
-  );
+    const activeText = "Vote 100% For CRE8R In F-Major"
+    const countdownText = useCountdown(
+      "Sep 2, 2022 3:00:00 GMT-07:00",
+      "Vote 100% For CRE8R In F-Major"
+    );
+    const active = activeText !== countdownText
 
   useEffect(() => {
     axios.get(lastPayoutUri).then((res) => {
@@ -148,7 +148,7 @@ function BoostCalculator() {
       </> : <>
       <VoteButton
         onClick={() => {
-          if (!account || !library) return;
+          if (!account || !library || !active) return;
           (client as any)
             .vote(library as any, account, {
               space: "beets.eth",
@@ -165,6 +165,7 @@ function BoostCalculator() {
             })
             .catch((err: any) => console.log(err));
         }}
+        
       >
         {countdownText}
       </VoteButton>
@@ -496,27 +497,6 @@ function BoostCalculator() {
               );
             })}
         </div>
-      </div>
-
-      <div>
-        <h1>
-          Payouts for{" "}
-          <a href="https://snapshot.org/#/beets.eth/proposal/0x9b3b328e77e2d5b99a26ede7b4f6c36ee0bf6b4c06241e84f50f01735270d6e9">
-            Beets Round 15
-          </a>
-        </h1>
-      </div>
-      <div>
-        {lastPayout
-          .sort((a: any, b: any) => b.payoutUSD - a.payoutUSD)
-          .map(({ address, payoutUSD }: any) => {
-            return (
-              <div key={address}>
-                {nameOrAddress(address, undefined, true)}:{" "}
-                {nFormatter(payoutUSD, 2)} USD
-              </div>
-            );
-          })}
       </div>
       </>}
       

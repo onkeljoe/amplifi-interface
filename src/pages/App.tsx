@@ -19,12 +19,14 @@ import { useModalOpen, useToggleModal } from "../state/application/hooks";
 import { identityOnlyPath } from "../state/governance/reducer";
 import TwitterAccountQueryParamReader from "../state/social/TwitterAccountQueryParamReader";
 import DarkModeQueryParamReader from "../theme/DarkModeQueryParamReader";
-import Amplifi from "./Amplifi";
+import Campaigns from "./Campaigns";
 import DelegateInfo from "./DelegateInfo";
 import Delegates from "./Delegates";
 import { RedirectWithUpdatedGovernance } from "./Governance/redirect";
 import Identities from "./Identities";
 import Proposals from "./Proposals";
+import Payouts from "./Payouts";
+import PayoutInfo from "./PayoutInfo";
 
 
 const FIRST_2_COLS_WIDTH = 320;
@@ -105,19 +107,31 @@ export default function App() {
                   exact
                   strict
                   path="/campaigns/:protocolID"
-                  component={Amplifi} //amplifi is a shell for CampaignList
+                  component={Campaigns} //amplifi is a shell for CampaignList
                 />
                 <Route
                   exact
                   strict
                   path="/campaigns/:protocolID/:campaignID"
-                  component={Amplifi}
+                  component={Campaigns}
                 />
                 <Route
                   exact
                   strict
                   path="/campaigns/:protocolID/:campaignID/:tabID"
-                  component={Amplifi}
+                  component={Campaigns}
+                />
+                <Route
+                  exact
+                  strict
+                  path="/payouts/:protocolID"
+                  component={Payouts}
+                />
+                <Route
+                  exact
+                  strict
+                  path="/payouts/:protocolID/:address"
+                  component={PayoutInfo}
                 />
                 <Route
                   exact

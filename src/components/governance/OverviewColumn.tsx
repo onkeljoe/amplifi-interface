@@ -5,8 +5,9 @@ import styled from "styled-components";
 import { useActiveProtocol } from "../../state/governance/hooks";
 import { AutoColumn } from "../Column";
 import { TYPE } from "../../theme";
-import { TabOption } from "../governance/Tabs";
+import { SingleTab, TabOption } from "../governance/Tabs";
 import { Link, useLocation } from "react-router-dom";
+import config from "config";
 
 export const OVERVIEW_EXPANSION_WIDTH = 99;
 
@@ -63,10 +64,10 @@ export default function OverviewColumn({
       backgroundColor={activeProtocol?.secondaryColor}
       expanded={expanded}
     >
-      <ButtonContainer expanded={expanded}>
-        <IconButton bgColor="white" onClick={onToggleExpand}>
+      <ButtonContainer expanded={true}>
+        {/* <IconButton bgColor="white" onClick={onToggleExpand}>
           <ChevronLeft />
-        </IconButton>
+        </IconButton> */}
       </ButtonContainer>
       <AutoColumn
         gap="md"
@@ -82,33 +83,17 @@ export default function OverviewColumn({
         >
           {activeProtocol?.name}
         </TYPE.main>
-        <TabOption
-          as={Link}
-          to={"/campaigns/" + activeProtocol?.id}
-          selected={location.pathname.includes("/campaigns/")}
-          color={activeProtocol?.primaryColor}
-          color2={activeProtocol?.secondaryColor}
-        >
-          Amplifi Campaigns
-        </TabOption>
-        {/* <TabOption
-          as={Link}
-          to={"/delegates/" + activeProtocol?.id}
-          selected={location.pathname.includes("/delegates/")}
-          color={activeProtocol?.primaryColor}
-          color2={activeProtocol?.secondaryColor}
-        >
-          Delegates
-        </TabOption> */}
-        {/* <TabOption
-          as={Link}
-          to={"/proposals/" + activeProtocol?.id}
-          selected={location.pathname.includes("/proposals/")}
-          color={activeProtocol?.primaryColor}
-          color2={activeProtocol?.secondaryColor}
-        >
-          View Proposals
-        </TabOption> */}
+        {config.protocol.tabs.map(({title, routePrefix}) => {
+          return (
+            <SingleTab
+              key={title} 
+              title={title} 
+              routePrefix={routePrefix} 
+              activeProtocol={activeProtocol} 
+              location={location}
+            />
+          )
+        })}
       </AutoColumn>
     </Wrapper>
   );

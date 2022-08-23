@@ -43,7 +43,6 @@ const ColoredCard = styled(Card)<{width?: string}>`
 export function CRE8RPriceCard ({width}: {width?: string}) {
   const {cre8rPrice, status} = useCRE8RPrice();
   let displayPrice = ''
-  console.log(cre8rPrice)
   switch(status) {
     case 'fetching':
       displayPrice = '-';

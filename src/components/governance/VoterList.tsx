@@ -131,7 +131,6 @@ export default function VoterList({
                 <div />
               </RowBetween>
               {voters.map((p, i) => {
-                console.log(p);
                 return (
                   <RowBetween key={"vote-for-" + i}>
                     <StyledInternalLink

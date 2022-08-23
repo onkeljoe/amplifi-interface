@@ -39,6 +39,8 @@ const Wrapper = styled.div<{ open: boolean }>`
 `;
 
 const MobileHeader = styled.div`
+  box-sizing: border-box;
+  min-height: 82px;
   width: 100%;
   background-color: rgba(198, 225, 255, 76);
   display: none;
@@ -47,6 +49,18 @@ const MobileHeader = styled.div`
   @media (max-width: 1080px) {
     display: initial;
   }
+`;
+
+const MobileFAQWrapper = styled.div`
+  width: 100%;
+  padding: 0 1.25rem;
+  padding-bottom: 1rem;
+  top: 82px;
+  position: absolute;
+  margin-left: -1rem;
+  box-shadow: 0px 8px 8px 2px rgb(71 156 251 / 50%);
+  z-index: 5;
+  background-color: rgba(198, 225, 255, 76);
 `;
 
 const SybilLogo = styled.div`
@@ -95,8 +109,8 @@ export default function SideMenu(): JSX.Element {
     <>
       <MobileHeader>
         {!faqOpen ? (
-          <RowBetween alignItems="center">
-            <BlankInternalLink to="/">
+          <RowBetween alignItems='center'>
+            <BlankInternalLink to='/'>
               <RowFixed style={{ gap: "8px" }}>
                 <SybilLogo />
                 <SybilWorkmark>CRE8R AmpliFi</SybilWorkmark>
@@ -104,7 +118,7 @@ export default function SideMenu(): JSX.Element {
             </BlankInternalLink>
             <RowFlat style={{ gap: "8px" }}>
               <ExternalLink
-                href="https://github.com/CRE8RDAO/sybil-interface"
+                href='https://github.com/CRE8RDAO/sybil-interface'
                 style={{ display: "flex" }}
               >
                 <GitHub size={20} style={{ stroke: "black" }} />
@@ -149,48 +163,42 @@ export default function SideMenu(): JSX.Element {
           </RowBetween>
         )}
         {faqOpen && (
-          <AutoColumn
-            gap="1.5rem"
-            style={{
-              padding: "1rem 1.25rem",
-              position: "absolute",
-              marginLeft: "-1rem",
-              boxShadow: "0px 8px 8px 2px rgb(71 156 251 / 50%)",
-              zIndex: 5,
-              backgroundColor: "rgba(198,225,255,76)",
-            }}
-          >
-            <AutoColumn gap="0.5rem">
-              <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
-              <TYPE.main>
-                Boost CRE8R DAO content marketing campaigns reach. And
-                facilitate KPI based marketing campaigns for web3
-              </TYPE.main>
+          <MobileFAQWrapper>
+            <AutoColumn gap='1.5rem'>
+              <AutoColumn gap='0.5rem'>
+                <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
+                <TYPE.main>
+                  Boost CRE8R DAO content marketing campaigns reach. And
+                  facilitate KPI based marketing campaigns for web3
+                </TYPE.main>
+              </AutoColumn>
+              <AutoColumn gap='0.5rem'>
+                <TYPE.body fontWeight={600}>
+                  I don’t have Twitter, can I use AmpliFi?
+                </TYPE.body>
+                <TYPE.main>
+                  Soon Discord, but yes if you DM @CRE8RDAO we can set you
+                  up..&nbsp;
+                  <ExternalLink href=''>Twitter Link</ExternalLink>.
+                </TYPE.main>
+              </AutoColumn>
+              <AutoColumn gap='0.5rem'>
+                <TYPE.body fontWeight={600}>Can I use AmpliFi?</TYPE.body>
+                <TYPE.main>
+                  Yep, dm @CRE8RDAO on twitter and lets chat!
+                </TYPE.main>
+              </AutoColumn>
             </AutoColumn>
-            <AutoColumn gap="0.5rem">
-              <TYPE.body fontWeight={600}>
-                I don’t have Twitter, can I use AmpliFi?
-              </TYPE.body>
-              <TYPE.main>
-                Soon Discord, but yes if you DM @CRE8RDAO we can set you
-                up..&nbsp;
-                <ExternalLink href="">Twitter Link</ExternalLink>.
-              </TYPE.main>
-            </AutoColumn>
-            <AutoColumn gap="0.5rem">
-              <TYPE.body fontWeight={600}>Can I use AmpliFi?</TYPE.body>
-              <TYPE.main>Yep, dm @CRE8RDAO on twitter and lets chat!</TYPE.main>
-            </AutoColumn>
-          </AutoColumn>
+          </MobileFAQWrapper>
         )}
       </MobileHeader>
       <Wrapper open={open} onClick={() => !open && setOpen(!open)}>
-        <AutoColumn gap="24px">
+        <AutoColumn gap='24px'>
           <div style={{ padding: "0px 5px 55px 5px", height: "28px" }}>
             {!open ? (
               <SybilLogo />
             ) : (
-              <RowBetween align="flex-start">
+              <RowBetween align='flex-start'>
                 <RowFixed style={{ gap: "8px" }}>
                   <SybilLogo />
                   <SybilWorkmark style={{ fontSize: "40px" }}>
@@ -240,7 +248,7 @@ export default function SideMenu(): JSX.Element {
                     <WrappedListLogo src={p.logo} color={p.primaryColor} />
                     {open && (
                       <TYPE.mediumHeader
-                        fontSize="16px"
+                        fontSize='16px'
                         ml={"12px"}
                         color={p.primaryColor}
                       >
@@ -256,7 +264,7 @@ export default function SideMenu(): JSX.Element {
 
         {!faqOpen ? (
           <AutoColumn
-            gap="16px"
+            gap='16px'
             style={{
               justifySelf: "flex-end",
               alignItems: "flex-start",
@@ -265,7 +273,7 @@ export default function SideMenu(): JSX.Element {
           >
             <ButtonBasic
               as={ExternalLink}
-              href="https://github.com/CRE8RDAO/sybil-interface"
+              href='https://github.com/CRE8RDAO/sybil-interface'
               style={{
                 backgroundColor: "rgba(255,255,255,0.4)",
                 color: "#000",
@@ -277,7 +285,7 @@ export default function SideMenu(): JSX.Element {
             </ButtonBasic>
             <ButtonBasic
               onClick={() => setfaqOpen(!faqOpen)}
-              href="https://github.com/CRE8RDAO/sybil-interface"
+              href='https://github.com/CRE8RDAO/sybil-interface'
               style={{
                 backgroundColor: "rgba(255,255,255,0.4)",
                 color: "#000",
@@ -287,7 +295,7 @@ export default function SideMenu(): JSX.Element {
               <HelpCircle size={20} />
             </ButtonBasic>
             {open && (
-              <AutoColumn gap="1rem" style={{ justifySelf: "flex-start" }}>
+              <AutoColumn gap='1rem' style={{ justifySelf: "flex-start" }}>
                 <TYPE.black
                   style={{
                     lineHeight: "125%",
@@ -299,7 +307,7 @@ export default function SideMenu(): JSX.Element {
                   A{" "}
                   <ExternalLink
                     style={{ color: "#ff007a" }}
-                    href="https://cre8r.vip/"
+                    href='https://cre8r.vip/'
                   >
                     CRE8R DAO
                   </ExternalLink>{" "}
@@ -312,7 +320,7 @@ export default function SideMenu(): JSX.Element {
           <RowBetween style={{ padding: "0 1rem" }}>
             <ButtonBasic
               onClick={() => setfaqOpen(!faqOpen)}
-              href="https://GitHub.com/CRE8RDAO"
+              href='https://GitHub.com/CRE8RDAO'
               style={{
                 backgroundColor: "rgba(255,255,255,0.4)",
                 color: "#000",
@@ -338,46 +346,46 @@ export default function SideMenu(): JSX.Element {
         )}
 
         {faqOpen && (
-          <AutoColumn gap="1.5rem" style={{ padding: "0 1.25rem" }}>
-            <AutoColumn gap="0.5rem">
+          <AutoColumn gap='1.5rem' style={{ padding: "0 1.25rem" }}>
+            <AutoColumn gap='0.5rem'>
               <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
               <TYPE.main>
                 Boost CRE8R DAO content marketing campaigns reach. And
                 facilitate KPI based marketing campaigns for web3
               </TYPE.main>
             </AutoColumn>
-            <AutoColumn gap="0.5rem">
+            <AutoColumn gap='0.5rem'>
               <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
               <TYPE.main>
                 Boost CRE8R DAO content marketing campaigns reach. And
                 facilitate KPI based marketing campaigns for web3
               </TYPE.main>
             </AutoColumn>
-            <AutoColumn gap="0.5rem">
+            <AutoColumn gap='0.5rem'>
               <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
               <TYPE.main>
                 Boost CRE8R DAO content marketing campaigns reach. And
                 facilitate KPI based marketing campaigns for web3
               </TYPE.main>
             </AutoColumn>
-            <AutoColumn gap="0.5rem">
+            <AutoColumn gap='0.5rem'>
               <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
               <TYPE.main>
                 Boost CRE8R DAO content marketing campaigns reach. And
                 facilitate KPI based marketing campaigns for web3
               </TYPE.main>
             </AutoColumn>
-            <AutoColumn gap="0.5rem">
+            <AutoColumn gap='0.5rem'>
               <TYPE.body fontWeight={600}>
                 I don’t have Twitter, can I use AmpliFi?
               </TYPE.body>
               <TYPE.main>
                 Soon Discord, but yes if you DM @CRE8RDAO we can set you
                 up..&nbsp;
-                <ExternalLink href="">Twitter Link</ExternalLink>.
+                <ExternalLink href=''>Twitter Link</ExternalLink>.
               </TYPE.main>
             </AutoColumn>
-            <AutoColumn gap="0.5rem">
+            <AutoColumn gap='0.5rem'>
               <TYPE.body fontWeight={600}>Can I use AmpliFi?</TYPE.body>
               <TYPE.main>Yep, dm @CRE8RDAO on twitter and lets chat!</TYPE.main>
             </AutoColumn>
