@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import Copy from "components/AccountDetails/Copy";
+import { CopyBtn } from "components/AccountDetails/Copy";
 import { useActiveWeb3React } from "hooks";
 import { useActiveCampaign, useReferralLink } from "state/campaigns/hooks";
 import { useVerifiedHandle } from "state/social/hooks";
@@ -24,39 +24,6 @@ export const Break = styled.div`
   background-color: ${({ theme }) => theme.bg3};
   height: 1px;
   margin: 0;
-`;
-
-const RoundedLink = styled.div<{ numOfLinks?: number }>`
-  font-size: 15px;
-  max-height: 65px;
-  padding: 15px;
-  background-color: #ff3700;
-  border-radius: 12px;
-  border: solid #ff3700;
-  border-width: 1px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 0.2s;
-  transition: all 0.4s;
-  min-width: ${({ numOfLinks }) => (numOfLinks === 2 ? "342px" : "100%")};
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    width: 100%;
-    gap: 10px;
-    margin-bottom: 10px;
-  `};
-  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-    min-width: fit-content;
-  `}
-  a {
-    text-decoration: none;
-  }
-  :hover {
-    background-color: #ffbc7d;
-  }
-  :active {
-    transform: scale(0.9) translateY(8px);
-  }
 `;
 
 const RoundedLinkLoggedOut = styled.div<{ numOfLinks?: number }>`
@@ -104,18 +71,18 @@ export const ReferralCardLink = styled.a`
   }
 `;
 
-const RoundedLinkTweetintent = styled.div`
+const RoundedLinkTweetintent = styled.a`
   font-size: 15px;
   background-color: #ff3700;
   max-height: 65px;
+  text-decoration: none;
   border-radius: 12px;
   border: solid #ff3700;
   border-width: 1px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  transition: background-color 0.2s;
-  transition: all 0.4s;
+  transition: all 0.2s;
   ${({ theme }) => theme.mediaWidth.upToSmall`
   width: 100%;
 `};
@@ -124,7 +91,7 @@ const RoundedLinkTweetintent = styled.div`
     background-color: #ffbc7d;
   }
   :active {
-    transform: scale(0.9) translateY(8px);
+    transform: scale(0.95) translateY(4px);
   }
 `;
 
@@ -156,31 +123,30 @@ export default function ReferralLinksCard() {
                 gap: "10px",
               }}
             >
-              <RoundedLink numOfLinks={twitterIntentUrl ? 2 : 1}>
-                <Copy toCopy={"https://" + referralLink}>
-                  <div style={{ padding: "5px" }}>
-                    <div>
-                      {"  "}
-                      Copy your unique link &amp; start earning
-                      {/* {utmLinks[activeProtocol?.id]} */}
-                    </div>
-                    {activeCampaign && (
-                      <div style={{ fontSize: "9px", padding: "2px" }}>
-                        {activeCampaign.baseUrl.replace("?", "")}
-                      </div>
-                    )}
+              <CopyBtn
+                toCopy={"https://" + referralLink}
+                numOfLinks={twitterIntentUrl ? 2 : 1}
+              >
+                <div style={{ padding: "5px" }}>
+                  <div>
+                    {"  "}
+                    Copy your unique link &amp; start earning
+                    {/* {utmLinks[activeProtocol?.id]} */}
                   </div>
-                </Copy>
-              </RoundedLink>
+                  {activeCampaign && (
+                    <div style={{ fontSize: "9px", padding: "2px" }}>
+                      {activeCampaign.baseUrl.replace("?", "")}
+                    </div>
+                  )}
+                </div>
+              </CopyBtn>
               {twitterIntentUrl && (
                 <RoundedLinkTweetintent
                   style={{ padding: "20px" }}
+                  href={twitterIntentUrl}
                   // numOfLinks={twitterIntentUrl ? 2 : 1}
                 >
-                  <ReferralCardLink
-                    style={{ textDecoration: "none" }}
-                    href={twitterIntentUrl}
-                  >
+                  <ReferralCardLink style={{ textDecoration: "none" }}>
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <div style={{ flex: "0 1 auto" }}>
                         Tweet your unique link
