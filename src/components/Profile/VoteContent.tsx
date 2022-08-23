@@ -51,7 +51,12 @@ export default function VoteContent() {
   //todo: refactor
   const isInCampaign = pathname.split("/").length - 1 > 2
   const airdropAmount = useAirdrop();
-  const payoutsAMP = useList();
+  const payoutsAMP = useList({
+    idOrUrl: '1b7UGQy62ysOwhUcH5uPFPDlINGMUyK7uEhZwqjoBSXo', // config.airdrop.excel.id,
+    source: "excel",
+    type: "payout", //todo - currently this field is ignored
+    excelSheetName: "Bribes Payout",
+  });
   const payoutBasicBoostAMP = payoutsAMP && account ? payoutsAMP[0][account] ? payoutsAMP[0][account] : 0 : undefined
   const payoutBoostedBonusAMP = payoutsAMP && account ? payoutsAMP[1][account] ? payoutsAMP[1][account] : 0 : undefined
   const totalAMP = payoutBasicBoostAMP + payoutBoostedBonusAMP
