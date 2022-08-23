@@ -6,13 +6,15 @@ import { CheckCircle, Copy } from "react-feather";
 import { LinkStyledButton } from "../../theme";
 
 const CopyIcon = styled(LinkStyledButton)`
-  color: #ff3700;
-  
+  color: ${({ theme }) => theme.white};
+  min-height: 46px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  // text-decoration: none;
+  text-decoration: none;
   font-size: 15px;
+  transition: color 0.2s;
+  transition: fill 0.2s;
   :focus {
     text-decoration: none;
   }
@@ -20,15 +22,22 @@ const CopyIcon = styled(LinkStyledButton)`
     text-decoration: none;
   }
   :hover {
+    color: #ff3700;
     text-decoration: none;
-   color: #ffbc7d;
   }
   text-decoration: none;
-  svg {
-    color: white;
-}
-  
+  span span svg {
+    fill: #ff3700;
+  }
 `;
+
+// to now show copy icon on mobile (takes precious space)
+const CopyIconWrapper = styled.span`
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+  display: none;
+  `}
+`;
+
 const TransactionStatusText = styled.span`
   margin-left: 0.25rem;
   font-size: 0.825rem;
@@ -51,7 +60,9 @@ const CopyHelper = (props: {
         </TransactionStatusText>
       ) : (
         <TransactionStatusText>
-          <Copy size={"20"} />
+          <CopyIconWrapper>
+            <Copy size={"20"} />
+          </CopyIconWrapper>
         </TransactionStatusText>
       )}
       {isCopied ? "" : props.children}
