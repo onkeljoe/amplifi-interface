@@ -94,8 +94,8 @@ export default function ProfileGeneric() {
     <SectionWrapper>
       <BackgroundWrapper account={!!account}>
         <TYPE.main
-          fontSize="20px"
-          fontWeight="700"
+          fontSize='20px'
+          fontWeight='700'
           style={{ marginBottom: "1rem" }}
         >
           Your Sybil identity
@@ -103,9 +103,9 @@ export default function ProfileGeneric() {
         {!account ? (
           <TYPE.body
             fontWeight={500}
-            fontSize="14px"
+            fontSize='14px'
             color={primaryColor}
-            mb="1rem"
+            mb='1rem'
           >
             Connect wallet to link wallet address to Sybil identity.
             <ButtonCustom
@@ -122,11 +122,11 @@ export default function ProfileGeneric() {
             </ButtonCustom>
           </TYPE.body>
         ) : (
-          <AutoColumn gap="16px">
+          <AutoColumn gap='16px'>
             <WalletSummary />
             {!verifiedHandleEntry && account ? (
               !twitterAccount ? (
-                <TwitterLoginButton text="Add identity" />
+                <TwitterLoginButton text='Add identity' />
               ) : (
                 <TwitterButton
                   onClick={() => {
@@ -139,7 +139,7 @@ export default function ProfileGeneric() {
                   }}
                 >
                   <RowBetween>
-                    <TYPE.white fontSize="14px">
+                    <TYPE.white fontSize='14px'>
                       Add a public identity
                     </TYPE.white>
                     <TwitterLogo src={TwitterIcon} />
@@ -148,7 +148,7 @@ export default function ProfileGeneric() {
               )
             ) : null}
             {!verifiedHandleEntry && account ? (
-              <TYPE.blue fontSize="14px">
+              <TYPE.blue fontSize='14px'>
                 {`If the governance program you're participating in is not listed here, you can still add an identity to your ethereum address. Connecting your Twitter to your address can help people find you.`}
               </TYPE.blue>
             ) : null}

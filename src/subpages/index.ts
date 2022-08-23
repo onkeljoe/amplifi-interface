@@ -5,11 +5,11 @@ interface SubPages {
   [protocolID: string]: {
     [campaignID: string]: {
       [tabUri: string]: {
-        Component: (props?: any) => JSX.Element,
-        props?: {[key: string]: string | number}
-      }
-    }
-  }
+        Component: (props?: any) => JSX.Element;
+        props?: { [key: string]: string | number };
+      };
+    };
+  };
 }
 
 /**
@@ -18,21 +18,18 @@ interface SubPages {
  * key = the end part of the URI
  * value = component to display instead
  */
-const subpages : SubPages = {
-  'CRE8R': {
-    'beets-boosted-bribes': {
-      'boost-calculator': {
+const subpages: SubPages = {
+  CRE8R: {
+    "beets-boosted-bribes": {
+      "boost-calculator": {
         Component: BoostCalculator,
-        props: {
-        }
+        props: {},
       },
-      'beets-boosted-bribes-snapshot-voting-how-to-get-boost': {
-        Component: PayoutResults
-      }
-    }
-  }
-}
+      "beets-boosted-bribes-snapshot-voting-how-to-get-boost": {
+        Component: PayoutResults,
+      },
+    },
+  },
+};
 
-
-
-export default subpages
+export default subpages;

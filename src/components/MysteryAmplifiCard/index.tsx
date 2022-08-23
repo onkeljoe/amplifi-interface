@@ -4,7 +4,6 @@ import styled from "styled-components";
 import amplifiIcon from "assets/images/AmpliFi.svg";
 import useAirdrop from "hooks/useAirdrop";
 import { nFormatter } from "utils/format";
-import { darken } from "polished";
 const ColoredCard = styled(Card)<{ width?: string }>`
   color: ${({ theme }) => theme.black};
   background: ${({ theme }) => theme.special};

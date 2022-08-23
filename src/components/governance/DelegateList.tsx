@@ -283,37 +283,37 @@ export default function DelegateList({ hideZero }: { hideZero: boolean }) {
     return (
       <AutoColumn>
         <DataRow>
-          <AutoRow gap="10px" style={{ flexWrap: "nowrap" }}>
+          <AutoRow gap='10px' style={{ flexWrap: "nowrap" }}>
             <HiddenBelow1080>
               <FixedRankWidth>
                 <NoWrap>{(page - 1) * FETCHING_INTERVAL + (index + 1)}</NoWrap>
               </FixedRankWidth>
             </HiddenBelow1080>
             <BlankInternalLink to={activeProtocol?.id + "/" + d.id}>
-              <AccountLinkGroup gap="10px" width="initial">
+              <AccountLinkGroup gap='10px' width='initial'>
                 <HiddenBelow1080>
                   {imageURL ? (
                     <RoundedProfileImage>
-                      <img src={imageURL} alt="profile" />
+                      <img src={imageURL} alt='profile' />
                     </RoundedProfileImage>
                   ) : (
                     <WrappedListLogo
                       src={EmptyProfile}
-                      alt="profile"
+                      alt='profile'
                       style={{ opacity: "0.2" }}
                     />
                   )}
                 </HiddenBelow1080>
-                <AutoColumn gap="6px">
+                <AutoColumn gap='6px'>
                   <ResponsiveText style={{ fontWeight: 500 }}>
                     {name}
                   </ResponsiveText>
                   {d.handle || d.autonomous || shortenAddress(d.id) !== name ? (
-                    <TYPE.black fontSize="12px">
+                    <TYPE.black fontSize='12px'>
                       {shortenAddress(d.id)}
                     </TYPE.black>
                   ) : (
-                    <TYPE.black fontSize="12px" style={{ opacity: "0.6" }}>
+                    <TYPE.black fontSize='12px' style={{ opacity: "0.6" }}>
                       {d.EOA ? "👤 EOA" : " 📜 Smart Contract"}
                     </TYPE.black>
                   )}
@@ -321,13 +321,13 @@ export default function DelegateList({ hideZero }: { hideZero: boolean }) {
               </AccountLinkGroup>
             </BlankInternalLink>
           </AutoRow>
-          <NoWrap textAlign="end">{d.votes.length}</NoWrap>
-          <NoWrap textAlign="end">{percentOfVotes}</NoWrap>
+          <NoWrap textAlign='end'>{d.votes.length}</NoWrap>
+          <NoWrap textAlign='end'>{percentOfVotes}</NoWrap>
           <Row style={{ justifyContent: "flex-end" }}>
             <OnlyAboveExtraSmall>
               <DelegateButton
-                width="fit-content"
-                mr="24px"
+                width='fit-content'
+                mr='24px'
                 disabled={!showDelegateButton || isDelegatee}
                 onClick={() => {
                   setPrefilledDelegate(d.id);
@@ -337,7 +337,7 @@ export default function DelegateList({ hideZero }: { hideZero: boolean }) {
                 {isDelegatee ? "Delegated" : "Delegate"}
               </DelegateButton>
             </OnlyAboveExtraSmall>
-            <VoteText textAlign="end">
+            <VoteText textAlign='end'>
               {votes === "0"
                 ? "0 Votes"
                 : votes + (votes === "1" ? " Vote" : " Votes")}
@@ -367,7 +367,7 @@ export default function DelegateList({ hideZero }: { hideZero: boolean }) {
   }, [chainId, combinedDelegates, activeProtocol, page, hideZero]);
 
   return combinedDelegates && combinedDelegates.length === 0 ? (
-    <Card padding="20px">
+    <Card padding='20px'>
       <EmptyWrapper>
         <TYPE.body style={{ marginBottom: "8px" }}>No delegates yet.</TYPE.body>
         <TYPE.subHeader>
@@ -376,10 +376,10 @@ export default function DelegateList({ hideZero }: { hideZero: boolean }) {
       </EmptyWrapper>
     </Card>
   ) : (
-    <Card padding="0">
+    <Card padding='0'>
       <OnlyAboveLarge>
         <RowBetween style={{ marginBottom: "32px", alignItems: "flex-start" }}>
-          <TYPE.body fontSize="16px" fontWeight="600">
+          <TYPE.body fontSize='16px' fontWeight='600'>
             Top Delegates
           </TYPE.body>
           <OnlyAboveSmall>
@@ -389,12 +389,12 @@ export default function DelegateList({ hideZero }: { hideZero: boolean }) {
           </OnlyAboveSmall>
         </RowBetween>
       </OnlyAboveLarge>
-      <AutoColumn gap="0">
+      <AutoColumn gap='0'>
         <DataRow>
           <ColumnLabel>Rank</ColumnLabel>
-          <ColumnLabel textAlign="end">Proposals Voted</ColumnLabel>
-          <ColumnLabel textAlign="end">Vote Weight</ColumnLabel>
-          <ColumnLabel textAlign="end">Total Votes</ColumnLabel>
+          <ColumnLabel textAlign='end'>Proposals Voted</ColumnLabel>
+          <ColumnLabel textAlign='end'>Vote Weight</ColumnLabel>
+          <ColumnLabel textAlign='end'>Total Votes</ColumnLabel>
         </DataRow>
         <Break />
         {combinedDelegates && combinedDelegates?.length > 0 ? (

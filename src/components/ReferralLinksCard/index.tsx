@@ -1,29 +1,16 @@
+import React, { useMemo } from "react";
 import Copy from "components/AccountDetails/Copy";
-import Card from "components/Card";
-import Loader from "components/Loader";
 import { useActiveWeb3React } from "hooks";
-import { useReferralLink } from "state/campaigns/hooks";
+import { useActiveCampaign, useReferralLink } from "state/campaigns/hooks";
 import { useVerifiedHandle } from "state/social/hooks";
 import styled from "styled-components";
 import { useActiveProtocol } from "../../state/governance/hooks";
-import React, { useMemo } from "react";
-import { useActiveCampaign } from "state/campaigns/hooks";
-import parse from "html-react-parser";
 // gutenberg basic styles
 import "@wordpress/block-library/build-style/common.css";
 import "@wordpress/block-library/build-style/style.css";
 import "@wordpress/block-library/build-style/theme.css";
-import { AutoColumn } from "../Column";
-import Row, { AutoRow, RowBetween, RowFixed } from "../Row";
-import {
-  TYPE,
-  BlankInternalLink,
-  OnlyAboveExtraSmall,
-  OnlyAboveSmall,
-  OnlyAboveLarge,
-} from "../../theme";
-import getTextToTwitter from "utils/getTextToTwitter";
 import TwitterIcon from "assets/svg/twitter.svg";
+import getTextToTwitter from "utils/getTextToTwitter";
 
 const Logo = styled.img`
   height: 20px;

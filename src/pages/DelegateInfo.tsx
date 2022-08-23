@@ -205,10 +205,10 @@ function DelegateInfo({
   return (
     <BodyWrapper>
       {formattedAddress && chainId && delegateAddress ? (
-        <AutoColumn gap="lg">
+        <AutoColumn gap='lg'>
           <RowFixed style={{ width: "100%", height: "20px" }}>
             <ArrowWrapper to={"/delegates/" + activeProtocol?.id}>
-              <TYPE.body fontSize="16px" fontWeight="600">
+              <TYPE.body fontSize='16px' fontWeight='600'>
                 Top Delegates
               </TYPE.body>
             </ArrowWrapper>
@@ -226,15 +226,15 @@ function DelegateInfo({
           </RowFixed>
           <GreyCard>
             <RowBetween>
-              <AutoRow gap="10px">
+              <AutoRow gap='10px'>
                 {twitterData?.profileURL ? (
                   <RoundedProfileImage>
-                    <img src={twitterData.profileURL} alt="profile" />
+                    <img src={twitterData.profileURL} alt='profile' />
                   </RoundedProfileImage>
                 ) : (
                   <WrappedListLogo src={EmptyProfile} />
                 )}
-                <AutoColumn gap="2px">
+                <AutoColumn gap='2px'>
                   <RowFixed>
                     <ExternalLink
                       href={
@@ -268,14 +268,14 @@ function DelegateInfo({
                           "address"
                         )}
                       >
-                        <TYPE.black fontSize="12px">
+                        <TYPE.black fontSize='12px'>
                           {shortenAddress(delegateAddress)}
                         </TYPE.black>
                       </ExternalLink>
                       <CopyHelper toCopy={formattedAddress} />
                     </RowFixed>
                   ) : (
-                    <TYPE.black fontSize="12px">
+                    <TYPE.black fontSize='12px'>
                       {isEOA === true
                         ? "👤 EOA"
                         : isEOA === false && "📜 Smart Contract"}
@@ -284,7 +284,7 @@ function DelegateInfo({
                 </AutoColumn>
               </AutoRow>
               <DelegateButton
-                width="fit-content"
+                width='fit-content'
                 disabled={!showDelegateButton || !account || isDelegatee}
                 onClick={() => {
                   setPrefilledDelegate(delegateAddress);
@@ -298,8 +298,8 @@ function DelegateInfo({
           <GreyCard>
             <DataRow>
               {!isAave && (
-                <AutoColumn gap="sm">
-                  <TYPE.main fontSize="14px">{`${activeProtocol?.token.symbol} Balance`}</TYPE.main>
+                <AutoColumn gap='sm'>
+                  <TYPE.main fontSize='14px'>{`${activeProtocol?.token.symbol} Balance`}</TYPE.main>
                   <ResponsiveDataText>
                     {delegateTokenBalance ? (
                       delegateTokenBalance?.toFixed(0)
@@ -309,13 +309,13 @@ function DelegateInfo({
                   </ResponsiveDataText>
                 </AutoColumn>
               )}
-              <AutoColumn gap="sm">
-                <TYPE.main fontSize="14px">Votes</TYPE.main>
+              <AutoColumn gap='sm'>
+                <TYPE.main fontSize='14px'>Votes</TYPE.main>
                 <ResponsiveDataText>{delegatedVotes}</ResponsiveDataText>
               </AutoColumn>
               <OnlyAboveSmall>
-                <AutoColumn gap="sm">
-                  <TYPE.main fontSize="14px">
+                <AutoColumn gap='sm'>
+                  <TYPE.main fontSize='14px'>
                     Token Holders Represented
                   </TYPE.main>
                   <ResponsiveDataText>{holdersRepresented}</ResponsiveDataText>
@@ -324,8 +324,8 @@ function DelegateInfo({
             </DataRow>
           </GreyCard>
           <GreyCard>
-            <AutoColumn gap="lg">
-              <TYPE.main fontSize="16px">Voting History</TYPE.main>
+            <AutoColumn gap='lg'>
+              <TYPE.main fontSize='16px'>Voting History</TYPE.main>
               <Break />
               {delegateInfo && proposalStatuses && delegateInfo.votes ? (
                 delegateInfo.votes
@@ -344,9 +344,9 @@ function DelegateInfo({
                             style={{ alignItems: "flex-start" }}
                           >
                             <AutoColumn
-                              gap="sm"
+                              gap='sm'
                               style={{ maxWidth: "500px" }}
-                              justify="flex-start"
+                              justify='flex-start'
                             >
                               <StyledInternalLink
                                 to={
@@ -371,15 +371,15 @@ function DelegateInfo({
                               )}
                             </AutoColumn>
                             <AutoColumn
-                              gap="sm"
-                              justify="flex-start"
+                              gap='sm'
+                              justify='flex-start'
                               style={{ height: "100%" }}
                             >
                               <RowFixed>
                                 <ResponsiveBodyText
-                                  mr="6px"
-                                  ml="6px"
-                                  textAlign="right"
+                                  mr='6px'
+                                  ml='6px'
+                                  textAlign='right'
                                 >
                                   {`${localNumber(vote.votes)} votes ${
                                     vote.support ? "in favor" : "against"

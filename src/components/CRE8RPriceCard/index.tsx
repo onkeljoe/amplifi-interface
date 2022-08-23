@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { Card } from 'rebass'
-import styled from 'styled-components'
-import cre8rIcon from 'assets/images/cre8r-logo.png'
-import useAirdrop from 'hooks/useAirdrop';
-import { nFormatter } from 'utils/format';
-import { getCRE8RPrice } from 'subpages/data';
-import useCRE8RPrice from 'hooks/useCRE8RPrice';
+import React from "react";
+import cre8rIcon from "assets/images/cre8r-logo.png";
+import useCRE8RPrice from "hooks/useCRE8RPrice";
+import { Card } from "rebass";
+import styled from "styled-components";
+import { nFormatter } from "utils/format";
 
-const ColoredCard = styled(Card)<{width?: string}>`
+const ColoredCard = styled(Card)<{ width?: string }>`
   color: ${({ theme }) => theme.black};
   background: ${({ theme }) => theme.bg2};
   text-decoration: none;
@@ -18,14 +16,14 @@ const ColoredCard = styled(Card)<{width?: string}>`
   :hover {
     cursor: help;
   }
-  width: ${({width}) => width ? width : null};
+  width: ${({ width }) => (width ? width : null)};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: clip;
-  `;
-  
-  //width should be 5px more than height
-  const Cre8rLogo = styled.img<{height?: string, width?: string}>`
+`;
+
+//width should be 5px more than height
+const Cre8rLogo = styled.img<{ height?: string; width?: string }>`
   height: 20px;
   width: 20px;
   background: ${({ theme }) => theme.white};
@@ -38,28 +36,28 @@ const ColoredCard = styled(Card)<{width?: string}>`
   vertical-align: sub;
   position: relative;
   top: 1px;
-`
+`;
 
-export function CRE8RPriceCard ({width}: {width?: string}) {
-  const {cre8rPrice, status} = useCRE8RPrice();
-  let displayPrice = ''
-  switch(status) {
-    case 'fetching':
-      displayPrice = '-';
+export function CRE8RPriceCard({ width }: { width?: string }) {
+  const { cre8rPrice, status } = useCRE8RPrice();
+  let displayPrice = "";
+  switch (status) {
+    case "fetching":
+      displayPrice = "-";
       break;
-    case 'fetched':
-      if (cre8rPrice) displayPrice = "$" + nFormatter(cre8rPrice, 3)
+    case "fetched":
+      if (cre8rPrice) displayPrice = "$" + nFormatter(cre8rPrice, 3);
       break;
   }
 
   return (
-    <ColoredCard width={width} >
+    <ColoredCard width={width}>
       <div>
-        <Cre8rLogo style={{marginRight: '5px'}} src={cre8rIcon} /> 
+        <Cre8rLogo style={{ marginRight: "5px" }} src={cre8rIcon} />
         <span>{displayPrice}</span>
       </div>
     </ColoredCard>
-  )
+  );
 }
 
-export default CRE8RPriceCard
+export default CRE8RPriceCard;
