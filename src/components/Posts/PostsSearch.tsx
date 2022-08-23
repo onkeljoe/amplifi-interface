@@ -18,24 +18,24 @@ class PostsSearch extends Component {
     const { searchQuery } = state;
 
     return (
-      <div className="posts-search">
+      <div className='posts-search'>
         <form
           style={{ padding: "40px" }}
-          className="posts-search__form"
+          className='posts-search__form'
           onSubmit={handleSubmit}
         >
           <input
             style={{ fontWeight: "bolder", padding: "20px" }}
-            type="text"
-            className="posts-search__search-field"
-            name="searchQuery"
+            type='text'
+            className='posts-search__search-field'
+            name='searchQuery'
             value={searchQuery}
             onChange={handleInputChange}
-            placeholder="Search For Content"
+            placeholder='Search For Content'
           />
         </form>
         {searchQuery && (
-          <div className="results">
+          <div className='results'>
             <PostsList searchQuery={searchQuery} />
           </div>
         )}

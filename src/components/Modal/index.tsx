@@ -142,7 +142,7 @@ export default function Modal({
                       },
                     }
                   : {})}
-                aria-label="dialog content"
+                aria-label='dialog content'
                 minHeight={minHeight}
                 maxHeight={maxHeight}
                 mobile={isMobile}

@@ -70,29 +70,29 @@ export default function OverviewColumn({
         </IconButton> */}
       </ButtonContainer>
       <AutoColumn
-        gap="md"
+        gap='md'
         style={{
           opacity: expanded ? 1 : 0,
         }}
       >
         <TYPE.main
-          fontSize="24px"
-          fontWeight="700"
+          fontSize='24px'
+          fontWeight='700'
           color={activeProtocol?.primaryColor}
           style={{ marginBottom: "1rem" }}
         >
           {activeProtocol?.name}
         </TYPE.main>
-        {config.protocol.tabs.map(({title, routePrefix}) => {
+        {config.protocol.tabs.map(({ title, routePrefix }) => {
           return (
             <SingleTab
-              key={title} 
-              title={title} 
-              routePrefix={routePrefix} 
-              activeProtocol={activeProtocol} 
+              key={title}
+              title={title}
+              routePrefix={routePrefix}
+              activeProtocol={activeProtocol}
               location={location}
             />
-          )
+          );
         })}
       </AutoColumn>
     </Wrapper>

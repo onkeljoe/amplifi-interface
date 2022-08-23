@@ -22,11 +22,11 @@ export function nameOrAddress(
     : undefined;
 
   if (identity?.twitter) {
-    return <LogoText type="twitter">{"@" + identity.twitter.handle}</LogoText>;
+    return <LogoText type='twitter'>{"@" + identity.twitter.handle}</LogoText>;
   }
 
   if (identity?.other) {
-    return <LogoText type="other">{identity.other.name}</LogoText>;
+    return <LogoText type='other'>{identity.other.name}</LogoText>;
   }
 
   if (autonomous) {

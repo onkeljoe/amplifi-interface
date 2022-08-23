@@ -18,7 +18,7 @@ import CampaignContent from "./CampaignContent";
 import CampaignOverview from "./CampaignOverview";
 import ReferralLinksCard from "components/ReferralLinksCard";
 import { Break } from "./CampaignOverview";
-import config from 'config'
+import config from "config";
 const Wrapper = styled.div<{ backgroundColor?: string }>``;
 
 const ProposalInfo = styled(AutoColumn)`
@@ -76,7 +76,7 @@ function CampaignDetails({
 
   return (
     <>
-      <TYPE.body fontSize="12px" fontWeight="600" mb="1rem" mt="1rem">
+      <TYPE.body fontSize='12px' fontWeight='600' mb='1rem' mt='1rem'>
         {config.campaign.toast}
       </TYPE.body>
     </>

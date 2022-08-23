@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import axios from "axios";
 import { AutoColumn } from "components/Column";
 import { LoadingRows } from "components/Loader";
@@ -9,8 +9,8 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { nFormatter } from "utils/format";
 import { nameOrAddress } from "utils/getName";
-import PayoutList from 'components/campaigns/PayoutList';
-import { boostedBribesToPayoutListFormat } from 'components/campaigns/utils/dataConverter';
+import PayoutList from "components/campaigns/PayoutList";
+import { boostedBribesToPayoutListFormat } from "components/campaigns/utils/dataConverter";
 
 const AMP_PRICE_USD = 0.001666666667;
 const PAYOUT_PER_TOTAL_PERCENT_USD = 664.34;
@@ -18,7 +18,8 @@ const PAYOUT_PER_TOTAL_PERCENT_USD = 664.34;
 const hub = "https://hub.snapshot.org"; // or https://testnet.snapshot.org for testnet
 const lastPayoutUri =
   "https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-44457923.json";
-const linkToSnapshot = "https://snapshot.org/#/beets.eth/proposal/0xbc5785e1323c70986d77d33ab734c1c18f122c2a6082f84fbc437c549d8b84ad";
+const linkToSnapshot =
+  "https://snapshot.org/#/beets.eth/proposal/0xbc5785e1323c70986d77d33ab734c1c18f122c2a6082f84fbc437c549d8b84ad";
 
 const Table = styled.table`
   border-collapse: collapse;
@@ -110,7 +111,7 @@ const DataRow = styled.div`
 
 function PayoutMethodology() {
   const { library, account } = useActiveWeb3React();
-  const {cre8rPrice} = useCRE8RPrice();
+  const { cre8rPrice } = useCRE8RPrice();
   const [lastPayout, setLastPayout] = useState<any>();
 
   useEffect(() => {
@@ -121,30 +122,34 @@ function PayoutMethodology() {
     });
   }, []);
 
-
   return (
     <>
-      {!lastPayout ? <>
-        <LoadingRows>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </LoadingRows>
-      </> : <>
-      <div>
-      <AutoColumn gap="6px">
-        <PayoutList 
-        title={'Payouts for round 18'} 
-        url={'https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-45482115.json'} 
-        hideZero={false} 
-        dataConverter={boostedBribesToPayoutListFormat}
-        />
-      </AutoColumn>
-      </div>
-      </>}
-      
+      {!lastPayout ? (
+        <>
+          <LoadingRows>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </LoadingRows>
+        </>
+      ) : (
+        <>
+          <div>
+            <AutoColumn gap='6px'>
+              <PayoutList
+                title={"Payouts for round 18"}
+                url={
+                  "https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-45482115.json"
+                }
+                hideZero={false}
+                dataConverter={boostedBribesToPayoutListFormat}
+              />
+            </AutoColumn>
+          </div>
+        </>
+      )}
     </>
   );
 }

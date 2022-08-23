@@ -38,13 +38,15 @@ export async function getUrl(
   campaignUrlComponents.push(`utm_source=${utm_source}`);
 
   function getLongLink() {
-    let longLink = ""
+    let longLink = "";
     if (baseUrl.includes("#")) {
-      longLink = baseUrl?.replace("?", "").replace("#","?" + campaignUrlComponents.join("&") +  "#");
+      longLink = baseUrl
+        ?.replace("?", "")
+        .replace("#", "?" + campaignUrlComponents.join("&") + "#");
     } else {
       longLink = baseUrl + campaignUrlComponents.join("&");
     }
-    return longLink.replace("https://", "") 
+    return longLink.replace("https://", "");
   }
   if (!process.env.REACT_APP_REBRANDLY) {
     return { utm: getLongLink(), shortUtm: undefined };
@@ -57,7 +59,7 @@ export async function getUrl(
   const urlComponents = [];
 
   urlComponents.push(`domain[id]=${domain.id}`);
-  urlComponents.push(`domain[fullName]=${domain.fullName}`);  //consider for deletion 
+  urlComponents.push(`domain[fullName]=${domain.fullName}`); //consider for deletion
 
   const options: any = {
     method: "GET",

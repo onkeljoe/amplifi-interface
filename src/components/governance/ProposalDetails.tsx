@@ -184,14 +184,14 @@ function ProposalDetails({
         proposalTitle={proposalData?.title}
       />
       <Wrapper>
-        <ProposalInfo gap="lg" justify="start">
+        <ProposalInfo gap='lg' justify='start'>
           <RowBetween style={{ width: "100%", alignItems: "flex-start" }}>
             <Breadcrumb title={"Proposal #" + proposalID} history={history} />
             {proposalData && (
               <ProposalStatus status={status ?? ""}>{status}</ProposalStatus>
             )}
           </RowBetween>
-          <AutoColumn gap="10px" style={{ width: "100%" }}>
+          <AutoColumn gap='10px' style={{ width: "100%" }}>
             <TYPE.largeHeader style={{ marginBottom: ".5rem" }}>
               {proposalData?.title}
             </TYPE.largeHeader>
@@ -211,18 +211,18 @@ function ProposalDetails({
             {proposalData && !proposalData.snapshot ? (
               <>
                 <VoterList
-                  title="For"
+                  title='For'
                   amount={proposalData?.forCount}
                   percentage={forPercentage}
                   voters={proposalData?.forVotes.slice(
                     0,
                     Math.min(10, Object.keys(proposalData?.forVotes)?.length)
                   )}
-                  support="for"
+                  support='for'
                   id={proposalData?.id}
                 />
                 <VoterList
-                  title="Against"
+                  title='Against'
                   amount={proposalData?.againstCount}
                   percentage={againstPercentage}
                   voters={proposalData?.againstVotes.slice(
@@ -318,7 +318,7 @@ function ProposalDetails({
               </>
             )}
           </CardWrapper>
-          <AutoColumn gap="md">
+          <AutoColumn gap='md'>
             <TYPE.mediumHeader fontWeight={600}>Details</TYPE.mediumHeader>
             {proposalData?.details?.map((d, i) => {
               return (
@@ -337,7 +337,7 @@ function ProposalDetails({
               );
             })}
           </AutoColumn>
-          <AutoColumn gap="md">
+          <AutoColumn gap='md'>
             <MarkDownWrapper>
               <ReactMarkdown
                 source={proposalData?.description}
@@ -345,7 +345,7 @@ function ProposalDetails({
               />
             </MarkDownWrapper>
           </AutoColumn>
-          <AutoColumn gap="md">
+          <AutoColumn gap='md'>
             <TYPE.mediumHeader fontWeight={600}>Proposer</TYPE.mediumHeader>
             <AddressWrapper>
               <ExternalLink

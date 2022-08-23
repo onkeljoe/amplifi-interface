@@ -349,7 +349,7 @@ export const CRE8R_GOVERNANCE: GovernanceInfo = {
   social: "@cre8rAmpliFi",
   emoji: "🧱",
   baseUrl: "https://cre8r.vip/client-discover-call-booking-form/?",
-  spaceSnapshot: "cre8r.eth"
+  spaceSnapshot: "cre8r.eth",
 };
 
 export const ACWI_GOVERNANCE_ADDRESS =

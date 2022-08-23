@@ -57,11 +57,11 @@ function TwitterAccountPreview() {
       <RowBetween>
         <RowFixed>
           <RoundedProfileImage>
-            <img src={profileData.profileURL} alt="profile" />
+            <img src={profileData.profileURL} alt='profile' />
           </RoundedProfileImage>
           <AutoColumn>
             <RowFixed>
-              <TYPE.body mr="12px" fontSize="18px" fontWeight="500">
+              <TYPE.body mr='12px' fontSize='18px' fontWeight='500'>
                 @{profileData.handle}
               </TYPE.body>
               <PendingFlag verified={false}>Unverified</PendingFlag>
@@ -77,7 +77,7 @@ function TwitterAccountPreview() {
         <RowFixed>
           <AutoColumn>
             <RowFixed>
-              <TYPE.body mr="12px" fontSize="18px" fontWeight="500">
+              <TYPE.body mr='12px' fontSize='18px' fontWeight='500'>
                 @{twitterAccount}
               </TYPE.body>
               <PendingFlag verified={false}>Unverified</PendingFlag>

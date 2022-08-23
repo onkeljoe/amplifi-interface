@@ -15,7 +15,10 @@ import { WrappedListLogo } from "../components/governance/styled";
 import Tabs from "../components/governance/Tabs";
 
 import { Above1080Only, Below1080Only } from "../theme/components";
-import { boostedBribesToPayoutListFormat, dataToTotalFormat } from "components/campaigns/utils/dataConverter";
+import {
+  boostedBribesToPayoutListFormat,
+  dataToTotalFormat,
+} from "components/campaigns/utils/dataConverter";
 
 export default function Payouts({
   match: {
@@ -32,14 +35,14 @@ export default function Payouts({
 
   return (
     <BodyWrapper>
-      <AutoColumn gap="1rem">
+      <AutoColumn gap='1rem'>
         <MediumHeaderWrapper>
-          <AutoColumn gap="sm">
+          <AutoColumn gap='sm'>
             <Above1080Only>
               <RowFixed>
                 <WrappedListLogo src={activeProtocol?.logo} />
                 <TYPE.mediumHeader
-                  ml="8px"
+                  ml='8px'
                   fontWeight={600}
                   color={activeProtocol?.primaryColor}
                 >
@@ -53,15 +56,14 @@ export default function Payouts({
             <Tabs />
           </AutoColumn>
         </MediumHeaderWrapper>
-        <PayoutList 
-          title={'Top Payouts'} 
+        <PayoutList
+          title={"Top Payouts"}
           // todo: require ipfs gateway in config
-          url={`https://amplifi.infura-ipfs.io/ipfs/Qmf9Thq47xDnChagDRcguuZJdg8XbmtuU1QdZjxbNTPQuE`} 
-          hideZero={false} 
+          url={`https://amplifi.infura-ipfs.io/ipfs/Qmf9Thq47xDnChagDRcguuZJdg8XbmtuU1QdZjxbNTPQuE`}
+          hideZero={false}
           dataConverter={dataToTotalFormat}
           description={`Qmf9Thq47xDnChagDRcguuZJdg8XbmtuU1QdZjxbNTPQuE`}
         />
-        
       </AutoColumn>
     </BodyWrapper>
   );

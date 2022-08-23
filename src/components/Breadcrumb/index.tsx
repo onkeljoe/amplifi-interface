@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { ChevronRight } from "react-feather";
 import styled from "styled-components";
 import { TYPE } from "../../theme";
@@ -6,7 +6,7 @@ import { AutoColumn } from "../Column";
 import { RowBetween, RowFixed } from "../Row";
 
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import { ProposalStatus } from 'components/governance/styled';
+import { ProposalStatus } from "components/governance/styled";
 
 const ArrowWrapper = styled.div`
   display: flex;
@@ -51,18 +51,22 @@ const AddressWrapper = styled.div`
 function Breadcrumb({
   title,
   history,
-  proposalID
-}: {title: string, history: any, proposalID?: string}) {
+  proposalID,
+}: {
+  title: string;
+  history: any;
+  proposalID?: string;
+}) {
   return (
     <RowFixed>
-      <ArrowWrapper 
+      <ArrowWrapper
         onClick={() => {
           if (!history) return;
           history?.length === 1 ? history.push("/") : history.goBack();
         }}
         style={{ alignItems: "flex-start" }}
       >
-        <TYPE.body fontWeight="600">{title}</TYPE.body>
+        <TYPE.body fontWeight='600'>{title}</TYPE.body>
       </ArrowWrapper>
       <ChevronRight size={16} />
       <TYPE.body>{title}</TYPE.body>

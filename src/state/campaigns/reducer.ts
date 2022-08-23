@@ -38,7 +38,7 @@ export interface CampaignInfo {
 export const AMPLIFI_CAMPAIGN: CampaignInfo = {
   id: "0",
   protocolId: "AMPLIFI",
-  title:"",
+  title: "",
   content: "",
   baseUrl: "https://amplifi.cre8r.vip?",
   budget: [
@@ -64,7 +64,7 @@ export const AMPLIFI_CAMPAIGN: CampaignInfo = {
 export const HND_CAMPAIGN: CampaignInfo = {
   id: "0", // Protocol URI should be set to this
   protocolId: "HND",
-  title:"",
+  title: "",
   content: "",
   baseUrl: "https://amplifi.cre8r.vip/#/amplifi/HND?",
   featuredImage: HundredFeatured,
@@ -94,7 +94,7 @@ export const HND_CAMPAIGN: CampaignInfo = {
 export const FUJI_CAMPAIGN: CampaignInfo = {
   id: "0",
   protocolId: "FUJI",
-  title:"",
+  title: "",
   content: "",
   baseUrl: "https://www.fujidao.org/#/dashboard/init-borrow?",
   featuredImage: FujiFeatured,
@@ -121,7 +121,7 @@ export const FUJI_CAMPAIGN: CampaignInfo = {
 export const CRE8R_CAMPAIGN: CampaignInfo = {
   id: "0",
   protocolId: "CRE8R",
-  title:"",
+  title: "",
   content: "",
   baseUrl: "https://cre8r.vip/client-discover-call-booking-form/?",
   budget: [],
