@@ -21,16 +21,16 @@ const config = {
         title: "Payouts",
         routePrefix: "/payouts/",
       },
-      // {
-      //   title: 'Delegates',
-      //   routePrefix: '/delegates/'
-      // },
-      // {
-      //   title: 'Proposals',
-      //   routePrefix: '/proposals/'
-      // }
-    ],
-  },
-};
+      {
+        title: 'Delegates',
+        routePrefix: '/delegates/'
+      },
+      {
+        title: 'Proposals',
+        routePrefix: '/proposals/'
+      }
+    ]
+  }
+}
 
 export default config;
