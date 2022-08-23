@@ -441,7 +441,7 @@ const POOL = new Token(
   "PoolTogether"
 );
 export const POOL_TOGETHER_GOVERNANCE: GovernanceInfo = {
-  id: "pool-together",
+  id: "POOL",
   name: "PoolTogether Governance",
   logo: PoolLogo,
   primaryColor: "#48289f",
@@ -457,7 +457,7 @@ export const PALADIN_GOVERNANCE_ADDRESS =
 export const PAL_ADDRESS = "0xAB846Fb6C81370327e784Ae7CbB6d6a6af6Ff4BF";
 const PAL = new Token(ChainId.MAINNET, PAL_ADDRESS, 18, "PAL", "Paladin");
 export const PALADIN_GOVERNANCE: GovernanceInfo = {
-  id: "paladin",
+  id: "PALADIN",
   name: "Paladin Governance",
   logo: PaladinLogo,
   primaryColor: "#ec2223",
@@ -473,7 +473,7 @@ export const ARGENT_GOVERNANCE_ADDRESS =
 export const ARG_ADDRESS = "0xAB846Fb6C81370327e784Ae7CbB6d6a6af6Ff4BF"; //place
 const ARG = new Token(ChainId.MAINNET, ARG_ADDRESS, 18, "ARG", "Argent");
 export const ARGENT_GOVERNANCE: GovernanceInfo = {
-  id: "argent",
+  id: "ARGENT",
   name: "Argent Governance",
   logo: ArgentLogo,
   primaryColor: "#ec2223",
