@@ -110,6 +110,9 @@ const DataRow = styled.div`
     grid-template-columns: 1fr 1fr;
     margin: 0;
     padding: 0 1rem;
+    > *:nth-child(3) {
+      display: none;
+    }
   `};
 `;
 
