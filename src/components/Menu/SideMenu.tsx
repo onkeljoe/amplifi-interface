@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { RowBetween, RowFixed, RowFlat } from "../Row";
 import { TYPE, ExternalLink, BlankInternalLink } from "../../theme";
-import { AutoColumn } from "../Column";
+import Column, { AutoColumn } from "../Column";
 import { ButtonBasic } from "../Button";
 import { GitHub, ChevronLeft, X, HelpCircle } from "react-feather";
 import "../../theme/extraFonts.css";
@@ -317,80 +317,64 @@ export default function SideMenu(): JSX.Element {
             )}
           </AutoColumn>
         ) : (
-          <RowBetween style={{ padding: "0 1rem" }}>
-            <ButtonBasic
-              onClick={() => setfaqOpen(!faqOpen)}
-              href='https://GitHub.com/CRE8RDAO'
-              style={{
-                backgroundColor: "rgba(255,255,255,0.4)",
-                color: "#000",
-                gap: 12,
-              }}
-            >
-              <HelpCircle size={20} />
-              <TYPE.black style={{ lineHeight: "125%", fontWeight: 400 }}>
-                Help and Info
-              </TYPE.black>
-            </ButtonBasic>
-            <ButtonBasic
-              onClick={() => setfaqOpen(!faqOpen)}
-              style={{
-                cursor: "pointer",
-                backgroundColor: "rgba(255,255,255,0.4)",
-                color: "#000",
-              }}
-            >
-              <X />
-            </ButtonBasic>
-          </RowBetween>
+          <Column justify='flex-end'>
+            <RowBetween style={{ padding: "0 1rem" }}>
+              <ButtonBasic
+                onClick={() => setfaqOpen(!faqOpen)}
+                href='https://GitHub.com/CRE8RDAO'
+                style={{
+                  backgroundColor: "rgba(255,255,255,0.4)",
+                  color: "#000",
+                  gap: 12,
+                }}
+              >
+                <HelpCircle size={20} />
+                <TYPE.black style={{ lineHeight: "125%", fontWeight: 400 }}>
+                  Help and Info
+                </TYPE.black>
+              </ButtonBasic>
+              <ButtonBasic
+                onClick={() => setfaqOpen(!faqOpen)}
+                style={{
+                  cursor: "pointer",
+                  backgroundColor: "rgba(255,255,255,0.4)",
+                  color: "#000",
+                }}
+              >
+                <X />
+              </ButtonBasic>
+            </RowBetween>
+            <AutoColumn gap='1.5rem' style={{ padding: "0 1.25rem" }}>
+              <AutoColumn gap='0.5rem'>
+                <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
+                <TYPE.main>
+                  Boost CRE8R DAO content marketing campaigns reach. And
+                  facilitate KPI based marketing campaigns for web3
+                </TYPE.main>
+              </AutoColumn>
+              <AutoColumn gap='0.5rem'>
+                <TYPE.body fontWeight={600}>
+                  I don’t have Twitter, can I use AmpliFi?
+                </TYPE.body>
+                <TYPE.main>
+                  Soon Discord, but yes if you DM @CRE8RDAO we can set you
+                  up..&nbsp;
+                  <ExternalLink href=''>Twitter Link</ExternalLink>.
+                </TYPE.main>
+              </AutoColumn>
+              <AutoColumn gap='0.5rem'>
+                <TYPE.body fontWeight={600}>Can I use AmpliFi?</TYPE.body>
+                <TYPE.main>
+                  Yep, dm @CRE8RDAO on twitter and lets chat!
+                </TYPE.main>
+              </AutoColumn>
+            </AutoColumn>
+          </Column>
         )}
 
-        {faqOpen && (
-          <AutoColumn gap='1.5rem' style={{ padding: "0 1.25rem" }}>
-            <AutoColumn gap='0.5rem'>
-              <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
-              <TYPE.main>
-                Boost CRE8R DAO content marketing campaigns reach. And
-                facilitate KPI based marketing campaigns for web3
-              </TYPE.main>
-            </AutoColumn>
-            <AutoColumn gap='0.5rem'>
-              <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
-              <TYPE.main>
-                Boost CRE8R DAO content marketing campaigns reach. And
-                facilitate KPI based marketing campaigns for web3
-              </TYPE.main>
-            </AutoColumn>
-            <AutoColumn gap='0.5rem'>
-              <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
-              <TYPE.main>
-                Boost CRE8R DAO content marketing campaigns reach. And
-                facilitate KPI based marketing campaigns for web3
-              </TYPE.main>
-            </AutoColumn>
-            <AutoColumn gap='0.5rem'>
-              <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
-              <TYPE.main>
-                Boost CRE8R DAO content marketing campaigns reach. And
-                facilitate KPI based marketing campaigns for web3
-              </TYPE.main>
-            </AutoColumn>
-            <AutoColumn gap='0.5rem'>
-              <TYPE.body fontWeight={600}>
-                I don’t have Twitter, can I use AmpliFi?
-              </TYPE.body>
-              <TYPE.main>
-                Soon Discord, but yes if you DM @CRE8RDAO we can set you
-                up..&nbsp;
-                <ExternalLink href=''>Twitter Link</ExternalLink>.
-              </TYPE.main>
-            </AutoColumn>
-            <AutoColumn gap='0.5rem'>
-              <TYPE.body fontWeight={600}>Can I use AmpliFi?</TYPE.body>
-              <TYPE.main>Yep, dm @CRE8RDAO on twitter and lets chat!</TYPE.main>
-            </AutoColumn>
-          </AutoColumn>
-        )}
+        {/* {faqOpen && (
+          
+        )} */}
       </Wrapper>
     </>
   );
