@@ -100,8 +100,6 @@ export function calcPayouts(
         boostedBonus2AmpInUSD: boostedBonus2,
       }
     }
-
-    // console.log(debugBribes)
     debug.push({address: debugBribes.address, in: '',...debugBribes.in,out: '', ...debugBribes.out})
     payouts.push({address: a, payout: payoutUSD})
   }

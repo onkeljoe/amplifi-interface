@@ -42,7 +42,7 @@ export default function CampaignOverview() {
       {/* {activeCampaign.content && <>
             {parse(activeCampaign.content)}
           </>} */}
-      <CampaignWrapper gridTemplateColumn={activeCampaign.overviewVideo ? '2fr 3fr' : '1fr'}>
+      <CampaignWrapper gridTemplateColumn={activeCampaign.overviewVideo ? '400px 1fr' : '1fr'}>
       <AutoColumn>
         {activeCampaign.overviewVideo && (
             <div style={{marginTop: 0}}>

@@ -44,7 +44,6 @@ export async function getUrl(
     } else {
       longLink = baseUrl + campaignUrlComponents.join("&");
     }
-    console.log(longLink)
     return longLink.replace("https://", "") 
   }
   if (!process.env.REACT_APP_REBRANDLY) {
@@ -67,7 +66,6 @@ export async function getUrl(
       apikey: process.env.REACT_APP_REBRANDLY,
     },
   };
-  console.log(encodeURIComponent(getLongLink()))
   const response = await fetch(
     "https://api.rebrandly.com/v1/links/new?destination=" +
       encodeURIComponent("https://" + getLongLink()) +

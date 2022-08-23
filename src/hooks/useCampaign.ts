@@ -311,11 +311,9 @@ function useSubPage (protocolID: string, campaignID: string, tabUri: string) : S
   // not sure how to make this also undefined because if subpage key doesn't exist then Component will not
   const tabKey = parts[parts.length - 1] || parts[parts.length - 2] 
   //if uri is /amplifi-pages/boost-calculator/ , then uri.split('/') will be ['amplifi-pages', 'boost-calculator', '']
-  console.log({campaignID, protocolID})
   if (subpages[protocolID] && subpages[protocolID][campaignID]) {
     const settings = subpages[protocolID][campaignID][tabKey]
     if (settings) {
-      console.log("settings",settings)
       return {
         data: {
           component: () => {

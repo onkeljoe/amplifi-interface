@@ -9,7 +9,6 @@ const useCRE8RPrice = () => {
     setStatus('fetching')
     if (cache.current) return;
     getCRE8RPrice().then(num => {
-      console.log('getting')
       cache.current = num
       setCre8rPrice(num)
       setStatus('fetched')

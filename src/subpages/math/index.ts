@@ -15,7 +15,6 @@ export const formatChange = (change : number) => {
   if (typeof change !== 'number') {
     return '0%'
   }
-  console.log('change', change)
   return (change).toFixed(2) + '%'
 } 
 

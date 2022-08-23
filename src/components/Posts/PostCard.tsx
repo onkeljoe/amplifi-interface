@@ -11,7 +11,6 @@ const formatDate = (date: any) => new Date(date).toDateString();
 const PostCard = ({ post }: any) => {
   const { postId, title, date, author, featuredImage, link } = post;
   const { name: authorName } = author;
-  console.log(featuredImage);
   return (
     <div key={postId} className="post-card">
       {featuredImage && ( // If a featured image exists, display it.

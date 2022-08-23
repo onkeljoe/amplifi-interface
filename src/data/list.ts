@@ -1,29 +1,37 @@
-interface ListConfig {
-  source: 'excel';
-  id: string;
+import axios from 'axios'
+export interface ListSettings {
+  source: 'excel' | 'url-json';
+  idOrUrl: string;
   type: 'airdrop' | 'payout'; //type determines how the data is processed
   excelSheetName?: string;
+
 }
 
-export async function fetchList(config: ListConfig) {
-  switch (config.source) {
+export async function fetchList(settings: ListSettings) {
+  switch (settings.source) {
     case 'excel':
-      if (!config.excelSheetName) {
+      if (!settings.excelSheetName) {
         console.error('Unable to fetch excel sheet, sheet name must be the sheet TAB name')
         return;
       }
-      if (config.type === 'airdrop') {
-        const res = await fetchListExcel(config.id, config.excelSheetName, config.type, undefined)
+      if (settings.type === 'airdrop') {
+        const res = await fetchListExcel(settings.idOrUrl, settings.excelSheetName, settings.type, undefined)
         return {
           data: convertExcelResponseToAirdropList(res), 
-          type: config.type
+          type: settings.type
         }
       } else {
-        const res = await fetchListExcel(config.id, config.excelSheetName, config.type, 'Select *')
+        const res = await fetchListExcel(settings.idOrUrl, settings.excelSheetName, settings.type, 'Select *')
         return {
           data: [convertExcelResponseToAmpPayoutBasicBoostList(res), convertExcelResponseToAmpPayoutBoostedBonusList(res)],
-          type: config.type
+          type: settings.type
         }
+      }
+    case 'url-json':
+      const res = await axios.get(settings.idOrUrl)
+      return {
+        data: res.data,
+        type: settings.type
       }
     default:
       return;

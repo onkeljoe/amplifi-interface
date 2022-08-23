@@ -16,12 +16,11 @@ export function useAirdrop () {
   useEffect(() => {
     if (account && verifiedHandleEntry) {
       fetchList({
-        id: config.airdrop.excel.id,
+        idOrUrl: config.airdrop.excel.id,
         source: "excel",
         type: "airdrop", //todo - currently this field is ignored
         excelSheetName: "example"
       }).then((res) => {
-        console.log(res)
         if (res) {
           dispatch(updateAmplifiAirdropList({amplifiAirdrop: res.data}))
         }
