@@ -53,6 +53,10 @@ const Wrapper = styled.div<{ open: boolean }>`
       border-radius: 10px;
       background-color: #c0c1c1;
     }
+
+    ::-webkit-scrollbar-thumb:hover {
+      cursor: default;
+    }
   }
 `;
 
