@@ -21,8 +21,6 @@ import {
   ENS_GOVERNANCE,
   CRE8R_GOVERNANCE,
   AMPLIFI_GOVERNANCE,
-  ACWI_GOVERNANCE,
-  GMX_GOVERNANCE,
 } from "../governance/reducer";
 import {
   uniswapClient,
@@ -166,10 +164,7 @@ export function useSubgraphClient() {
 
 export function useSubgraphClientSnapshot() {
   const [activeProtocol] = useActiveProtocol();
-  if (
-    activeProtocol &&
-    activeProtocol.spaceSnapshot
-  ) {
+  if (activeProtocol && activeProtocol.spaceSnapshot) {
     return { snapshotClient, spaceSnapshot: activeProtocol.spaceSnapshot };
   }
   return { snapshotClient: undefined, spaceSnapshot: undefined };

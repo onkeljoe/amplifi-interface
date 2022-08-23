@@ -10,8 +10,8 @@ function Youtube(props: { src: string }) {
       }}
     >
       <iframe
-        width="100%"
-        height="315"
+        width='100%'
+        height='315'
         src={props.src}
         style={{
           position: "absolute",
@@ -20,9 +20,9 @@ function Youtube(props: { src: string }) {
           width: "100%",
           height: "100%",
         }}
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        title='YouTube video player'
+        frameBorder='0'
+        allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
         allowFullScreen
       ></iframe>
     </div>

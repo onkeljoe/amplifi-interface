@@ -64,8 +64,8 @@ export default function ProposalList({
           </TYPE.subHeader>
         </EmptyWrapper>
       ) : (
-        <AutoColumn gap="0">
-          <TYPE.body fontSize="16px" fontWeight="600" mb="1rem">
+        <AutoColumn gap='0'>
+          <TYPE.body fontSize='16px' fontWeight='600' mb='1rem'>
             Proposals
           </TYPE.body>
           <Break />
@@ -92,11 +92,11 @@ export default function ProposalList({
                         <RowBetween>
                           <RowFixed>
                             <OnlyAboveSmall>
-                              <TYPE.darkGray mr="8px">
+                              <TYPE.darkGray mr='8px'>
                                 {p.id + "."}
                               </TYPE.darkGray>
                             </OnlyAboveSmall>
-                            <ResponsiveText mr="10px">{p.title}</ResponsiveText>
+                            <ResponsiveText mr='10px'>{p.title}</ResponsiveText>
                           </RowFixed>
                           <OnlyBelowSmall>
                             {allStatuses && allStatuses?.[i] ? (

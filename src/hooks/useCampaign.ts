@@ -8,10 +8,10 @@ import {
   MenuTreeItem,
   PageData,
   useWPNav,
-  useWPUriQuery
+  useWPUriQuery,
 } from "./useWP";
 import subpages from "subpages";
-import React from "react";
+
 /* 
 
 # The expected structure of the WP
@@ -154,31 +154,34 @@ interface NodeByUriResponse {
  * @returns
  */
 
-function getDisplayData (path: string, res: ApolloQueryResult<NodeByUriResponse>) : WPACFPage | WPContentPage | undefined {
+function getDisplayData(
+  path: string,
+  res: ApolloQueryResult<NodeByUriResponse>
+): WPACFPage | WPContentPage | undefined {
   if (!res || !res.data || res.error) {
-    return undefined
+    return undefined;
   } else if (isAmplifiCampaign(path)) {
     return {
       type: "WPACFPage",
       data: {
         amplifiCampaignFields: res.data.nodeByUri.amplifiCampaignFields,
         content: res.data.nodeByUri.content,
-        title: res.data.nodeByUri.title
+        title: res.data.nodeByUri.title,
       },
       loading: false,
       error: res.error,
     };
   }
   return {
-    type: 'WPContentPage',
+    type: "WPContentPage",
     data: {
       content: res.data.nodeByUri.content,
       title: res.data.nodeByUri.title,
     },
     loading: false,
-    error: res.error
-  }
-};
+    error: res.error,
+  };
+}
 type Route = string;
 export interface UriToRouteMap {
   [uri: string]: Route;
@@ -242,7 +245,7 @@ const generateRouteToWpUriMap = (protocolID: string, nav?: MenuTreeItem[]) => {
   return invertedMap;
 };
 
-type PageTypes = 'WPACFPage' | 'WPContentPage' | 'SubPage' | 'ErrorPage'
+type PageTypes = "WPACFPage" | "WPContentPage" | "SubPage" | "ErrorPage";
 interface Page {
   type: PageTypes;
   data: any;
@@ -251,15 +254,15 @@ interface Page {
 }
 
 interface WPContentPage extends Page {
-  type: 'WPContentPage';
+  type: "WPContentPage";
   data: {
     title: string;
     content: string;
-  }
+  };
 }
 
 interface WPACFPage extends Page {
-  type: 'WPACFPage';
+  type: "WPACFPage";
   data: {
     title: string;
     content: string;
@@ -293,43 +296,48 @@ interface WPACFPage extends Page {
       secondarybudgetticket: string;
       snapshotId: string;
       snapshotProposal: string;
-    }
-  }
+    };
+  };
 }
 
 interface SubPage extends Page {
-  type: 'SubPage';
+  type: "SubPage";
   data: {
-    component: (props : any) => JSX.Element
-  }
+    component: (props: any) => JSX.Element;
+  };
 }
 
-
-function useSubPage (protocolID: string, campaignID: string, tabUri: string) : SubPage | undefined {
-  if (campaignID === "") return undefined 
-  const parts = tabUri.split('/')
+function useSubPage(
+  protocolID: string,
+  campaignID: string,
+  tabUri: string
+): SubPage | undefined {
+  if (campaignID === "") return undefined;
+  const parts = tabUri.split("/");
   // not sure how to make this also undefined because if subpage key doesn't exist then Component will not
-  const tabKey = parts[parts.length - 1] || parts[parts.length - 2] 
+  const tabKey = parts[parts.length - 1] || parts[parts.length - 2];
   //if uri is /amplifi-pages/boost-calculator/ , then uri.split('/') will be ['amplifi-pages', 'boost-calculator', '']
   if (subpages[protocolID] && subpages[protocolID][campaignID]) {
-    const settings = subpages[protocolID][campaignID][tabKey]
+    const settings = subpages[protocolID][campaignID][tabKey];
     if (settings) {
       return {
         data: {
           component: () => {
-              return settings.Component(settings.props)
-          }
+            return settings.Component(settings.props);
+          },
         },
         error: false,
         loading: false,
-        type: 'SubPage'
-      }
+        type: "SubPage",
+      };
     }
   }
-  return undefined
+  return undefined;
 }
 
-function useWPPage (path: string | undefined) : WPACFPage | WPContentPage | undefined {
+function useWPPage(
+  path: string | undefined
+): WPACFPage | WPContentPage | undefined {
   const queryUriToContent = useWPUriQuery();
   const [res, setRes] = useState<ApolloQueryResult<any>>();
   useEffect(() => {
@@ -337,27 +345,31 @@ function useWPPage (path: string | undefined) : WPACFPage | WPContentPage | unde
       return;
     }
     setRes(undefined);
-    queryUriToContent(path).then((_res : any) => {
+    queryUriToContent(path).then((_res: any) => {
       setRes(_res);
     });
   }, [path, queryUriToContent]);
   if (!path || !res) {
-    return undefined
-  } 
+    return undefined;
+  }
   return getDisplayData(path, res);
-};
+}
 /**
  * Aggregates data sources for content
  * abstracting away the wp data and subpages
  * @param uri
  * @returns
  */
-function usePage (protocolID: string, campaignID: string, tabUri: string) : Page | undefined {
+function usePage(
+  protocolID: string,
+  campaignID: string,
+  tabUri: string
+): Page | undefined {
   const subpage = useSubPage(protocolID, campaignID, tabUri);
   //if subpage exists, skip WP query
   const wppage = useWPPage(subpage ? undefined : tabUri);
   return subpage || wppage;
-};
+}
 
 const getCampaignRoute = (protocolID: string, campaignID: string) => {
   return "/campaigns/" + protocolID + "/" + campaignID;
@@ -450,7 +462,7 @@ export const useCampaign = (
   const [activeCampaign, setActiveCampaign] = useActiveCampaign();
   const [activeProtocol] = useActiveProtocol();
   useEffect(() => {
-    if (!page || page.type !== 'WPACFPage' || !campaignID || !activeProtocol) {
+    if (!page || page.type !== "WPACFPage" || !campaignID || !activeProtocol) {
       return;
     }
     //todo : figure out what is causing the render loops when removing this
@@ -477,7 +489,7 @@ export const useCampaign = (
       whitelist: [],
       featuredImage: amplifiCampaignFields.featuredImage?.sourceUrl,
     });
-  }, [protocolID, page, campaignID, activeProtocol, setActiveCampaign]);
+  }, [protocolID, page, campaignID, activeProtocol, setActiveCampaign, activeCampaign?.id]);
 
   return {
     amplifiCampaigns,
@@ -486,6 +498,6 @@ export const useCampaign = (
     uriToRouteMap,
     routeToUriMap,
     page,
-    tabUri
+    tabUri,
   };
 };

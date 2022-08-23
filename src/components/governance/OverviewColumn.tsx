@@ -1,12 +1,10 @@
 import React from "react";
-import { ButtonCustom } from "../Button";
-import { ChevronLeft } from "react-feather";
 import styled from "styled-components";
 import { useActiveProtocol } from "../../state/governance/hooks";
 import { AutoColumn } from "../Column";
 import { TYPE } from "../../theme";
-import { SingleTab, TabOption } from "../governance/Tabs";
-import { Link, useLocation } from "react-router-dom";
+import { SingleTab } from "../governance/Tabs";
+import { useLocation } from "react-router-dom";
 import config from "config";
 
 export const OVERVIEW_EXPANSION_WIDTH = 99;
@@ -41,17 +39,8 @@ const ButtonContainer = styled.div<{ expanded?: boolean }>`
   `};
 `;
 
-const IconButton = styled(ButtonCustom)`
-  padding: 0;
-  background: none;
-  cursor: pointer;
-  color: black;
-  width: auto;
-`;
-
 export default function OverviewColumn({
   expanded,
-  onToggleExpand,
 }: {
   expanded: boolean;
   onToggleExpand: () => void;
@@ -70,29 +59,29 @@ export default function OverviewColumn({
         </IconButton> */}
       </ButtonContainer>
       <AutoColumn
-        gap="md"
+        gap='md'
         style={{
           opacity: expanded ? 1 : 0,
         }}
       >
         <TYPE.main
-          fontSize="24px"
-          fontWeight="700"
+          fontSize='24px'
+          fontWeight='700'
           color={activeProtocol?.primaryColor}
           style={{ marginBottom: "1rem" }}
         >
           {activeProtocol?.name}
         </TYPE.main>
-        {config.protocol.tabs.map(({title, routePrefix}) => {
+        {config.protocol.tabs.map(({ title, routePrefix }) => {
           return (
             <SingleTab
-              key={title} 
-              title={title} 
-              routePrefix={routePrefix} 
-              activeProtocol={activeProtocol} 
+              key={title}
+              title={title}
+              routePrefix={routePrefix}
+              activeProtocol={activeProtocol}
               location={location}
             />
-          )
+          );
         })}
       </AutoColumn>
     </Wrapper>

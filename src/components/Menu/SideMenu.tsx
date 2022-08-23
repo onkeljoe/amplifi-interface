@@ -6,7 +6,6 @@ import Column, { AutoColumn } from "../Column";
 import { ButtonBasic } from "../Button";
 import { GitHub, ChevronLeft, X, HelpCircle } from "react-feather";
 import "../../theme/extraFonts.css";
-import MenuBG from "../../assets/images/menu-bg.png";
 import Logo from "../../assets/svg/AmpliFi.svg";
 import { Break } from "../../pages/DelegateInfo";
 import { useActiveProtocol } from "../../state/governance/hooks";

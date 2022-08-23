@@ -117,11 +117,11 @@ export default function DelegateModal({
   return (
     <Modal isOpen={isOpen} onDismiss={wrappedOndismiss} maxHeight={90}>
       {!attempting && !hash && (
-        <ContentWrapper gap="lg">
-          <AutoColumn gap="lg" justify="center">
+        <ContentWrapper gap='lg'>
+          <AutoColumn gap='lg' justify='center'>
             <RowBetween>
               <TYPE.mediumHeader fontWeight={500}>{title}</TYPE.mediumHeader>
-              <StyledClosed stroke="black" onClick={wrappedOndismiss} />
+              <StyledClosed stroke='black' onClick={wrappedOndismiss} />
             </RowBetween>
             <TYPE.body>
               {activeProtocol?.token?.symbol} tokens represent voting shares in{" "}
@@ -138,7 +138,7 @@ export default function DelegateModal({
               disabled={!isAddress(parsedAddress ?? "")}
               onClick={onDelegate}
             >
-              <TYPE.mediumHeader color="white">
+              <TYPE.mediumHeader color='white'>
                 {usingDelegate ? "Delegate Votes" : "Self Delegate"}
               </TYPE.mediumHeader>
             </ButtonPrimary>
@@ -152,7 +152,7 @@ export default function DelegateModal({
       )}
       {attempting && !hash && (
         <LoadingView onDismiss={wrappedOndismiss}>
-          <AutoColumn gap="12px" justify={"center"}>
+          <AutoColumn gap='12px' justify={"center"}>
             <TYPE.largeHeader>
               {usingDelegate ? "Delegating votes" : "Unlocking Votes"}
             </TYPE.largeHeader>
@@ -164,9 +164,9 @@ export default function DelegateModal({
       )}
       {hash && (
         <SubmittedView onDismiss={wrappedOndismiss} hash={hash}>
-          <AutoColumn gap="12px" justify={"center"}>
+          <AutoColumn gap='12px' justify={"center"}>
             <TYPE.largeHeader>Transaction Submitted</TYPE.largeHeader>
-            <TYPE.main fontSize={36} textAlign="center">
+            <TYPE.main fontSize={36} textAlign='center'>
               {govTokenBalance?.toSignificant(4)} Votes Delegated
             </TYPE.main>
             <ButtonPrimary

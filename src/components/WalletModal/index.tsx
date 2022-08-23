@@ -350,7 +350,7 @@ export default function WalletModal({
           <CloseColor />
         </CloseIcon>
         {walletView !== WALLET_VIEWS.ACCOUNT ? (
-          <HeaderRow color="blue">
+          <HeaderRow color='blue'>
             <HoverText
               onClick={() => {
                 setPendingError(false);
@@ -379,7 +379,7 @@ export default function WalletModal({
           {walletView !== WALLET_VIEWS.PENDING && (
             <Blurb>
               <span>New to Ethereum? &nbsp;</span>{" "}
-              <ExternalLink href="https://ethereum.org/wallets/">
+              <ExternalLink href='https://ethereum.org/wallets/'>
                 Learn more about wallets
               </ExternalLink>
             </Blurb>

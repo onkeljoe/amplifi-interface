@@ -5,8 +5,8 @@ const config = {
   },
   airdrop: {
     excel: {
-      id: "1u8IBLhr3Bk9MUkDquCEq2_q-IE-1KRiVYfo1la4nV_Y"
-    }
+      id: "1u8IBLhr3Bk9MUkDquCEq2_q-IE-1KRiVYfo1la4nV_Y",
+    },
   },
   campaign: {
     toast: "", //"Campaigns are still in testing phase and are subject to change. Please check back soon."
@@ -14,12 +14,12 @@ const config = {
   protocol: {
     tabs: [
       {
-        title: 'Campaigns',
-        routePrefix: '/campaigns/'
+        title: "Campaigns",
+        routePrefix: "/campaigns/",
       },
       {
-        title: 'Payouts',
-        routePrefix: '/payouts/'
+        title: "Payouts",
+        routePrefix: "/payouts/",
       },
       // {
       //   title: 'Delegates',
@@ -29,8 +29,8 @@ const config = {
       //   title: 'Proposals',
       //   routePrefix: '/proposals/'
       // }
-    ]
-  }
-}
+    ],
+  },
+};
 
-export default config
+export default config;
