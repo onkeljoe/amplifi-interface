@@ -121,9 +121,6 @@ export default function TwitterFlow({ onDismiss }: { onDismiss: () => void }) {
     activeProtocol?.id
   } \n addr:${account} \n sig:${sig ?? ""}`;
 
-
-
-
   const tweetCopyForLink = encodeURIComponent(readableTweetCopy);
 
   // watch for user tweet
@@ -178,10 +175,10 @@ export default function TwitterFlow({ onDismiss }: { onDismiss: () => void }) {
   return (
     <ModalContentWrapper>
       {!twitterHandle ? (
-        <AutoColumn gap="lg">
+        <AutoColumn gap='lg'>
           <RowBetween>
             <RowFixed>
-              <TYPE.mediumHeader ml="6px">Connect Twitter</TYPE.mediumHeader>
+              <TYPE.mediumHeader ml='6px'>Connect Twitter</TYPE.mediumHeader>
             </RowFixed>
             <CloseIcon onClick={onDismiss} />
           </RowBetween>
@@ -190,13 +187,13 @@ export default function TwitterFlow({ onDismiss }: { onDismiss: () => void }) {
             handle.
           </TYPE.black>
           <TwitterAccountPreview />
-          <TwitterLoginButton text="Connect Twitter" />
+          <TwitterLoginButton text='Connect Twitter' />
         </AutoColumn>
       ) : !sig ? (
-        <AutoColumn gap="lg">
+        <AutoColumn gap='lg'>
           <RowBetween>
             <RowFixed>
-              <TYPE.mediumHeader ml="6px">
+              <TYPE.mediumHeader ml='6px'>
                 Step 1: Sign Message
               </TYPE.mediumHeader>
             </RowFixed>
@@ -211,11 +208,11 @@ export default function TwitterFlow({ onDismiss }: { onDismiss: () => void }) {
           {sigError && <TYPE.error error={true}>{sigError}</TYPE.error>}
         </AutoColumn>
       ) : !tweetID ? (
-        <AutoColumn gap="lg">
+        <AutoColumn gap='lg'>
           <RowBetween>
             <RowFixed>
               <BackArrowSimple onClick={() => setSig(undefined)} />
-              <TYPE.mediumHeader ml="6px">Step 2: Announce</TYPE.mediumHeader>
+              <TYPE.mediumHeader ml='6px'>Step 2: Announce</TYPE.mediumHeader>
             </RowFixed>
             <CloseIcon onClick={onDismiss} />
           </RowBetween>
@@ -233,7 +230,7 @@ export default function TwitterFlow({ onDismiss }: { onDismiss: () => void }) {
           {tweetError && <TYPE.error error={true}>{tweetError}</TYPE.error>}
         </AutoColumn>
       ) : !verified && !attempting ? (
-        <AutoColumn gap="lg">
+        <AutoColumn gap='lg'>
           <RowBetween>
             <RowFixed>
               <BackArrowSimple
@@ -243,7 +240,7 @@ export default function TwitterFlow({ onDismiss }: { onDismiss: () => void }) {
                   setWatch(false);
                 }}
               />
-              <TYPE.mediumHeader ml="6px">Step 3: Submit</TYPE.mediumHeader>
+              <TYPE.mediumHeader ml='6px'>Step 3: Submit</TYPE.mediumHeader>
             </RowFixed>
             <CloseIcon onClick={onDismiss} />
           </RowBetween>

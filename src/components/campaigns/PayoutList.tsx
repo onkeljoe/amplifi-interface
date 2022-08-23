@@ -1,55 +1,25 @@
-
-import React, { useMemo, useState } from "react";
-import styled from "styled-components";
-import { AutoColumn } from "../Column";
-import {
-  TYPE,
-  BlankInternalLink,
-  OnlyAboveExtraSmall,
-  OnlyAboveSmall,
-  OnlyAboveLarge,
-} from "../../theme";
-import Row, { AutoRow, RowBetween, RowFixed } from "../Row";
-import EmptyProfile from "../../assets/images/emptyprofile.png";
-import { shortenAddress } from "../../utils";
-import useENSName from "../../hooks/useENSName";
-import {
-  useActiveProtocol,
-  useGlobalData,
-  useGovernanceToken,
-  useFilterActive,
-  useTopDelegates,
-  useUserDelegatee,
-  useVerifiedDelegates,
-  DelegateData,
-  useMaxFetched,
-} from "../../state/governance/hooks";
-import {
-  WrappedListLogo,
-  RoundedProfileImage,
-  DelegateButton,
-  EmptyWrapper,
-} from "../governance/styled";
-import Card from "../Card";
-import { useActiveWeb3React } from "../../hooks";
-import {
-  useToggleModal,
-  useModalDelegatee,
-} from "../../state/application/hooks";
-import { ApplicationModal } from "../../state/application/actions";
-import { Percent, JSBI } from "@uniswap/sdk";
-import { LoadingRows } from "../Loader";
-import { BIG_INT_ZERO } from "../../constants";
-import { useTokenBalance } from "../../state/wallet/hooks";
-import {
-  useAllIdentities,
-  useTwitterProfileData,
-} from "../../state/social/hooks";
-import { nameOrAddress } from "../../utils/getName";
-import { FETCHING_INTERVAL } from "../../state/governance/reducer";
+import React, { useState } from "react";
 import Toggle from "components/Toggle";
 import useList from "hooks/useList";
-import { boostedBribesToPayoutListFormat } from "./utils/dataConverter";
+import styled from "styled-components";
+import EmptyProfile from "../../assets/images/emptyprofile.png";
+import {
+  useActiveProtocol,
+  useFilterActive,
+} from "../../state/governance/hooks";
+import { FETCHING_INTERVAL } from "../../state/governance/reducer";
+import {
+  BlankInternalLink,
+  OnlyAboveLarge,
+  OnlyAboveSmall,
+  TYPE,
+} from "../../theme";
+import { shortenAddress } from "../../utils";
+import Card from "../Card";
+import { AutoColumn } from "../Column";
+import { EmptyWrapper, WrappedListLogo } from "../governance/styled";
+import { LoadingRows } from "../Loader";
+import Row, { AutoRow, RowBetween, RowFixed } from "../Row";
 
 const ColumnLabel = styled(TYPE.darkGray)`
   white-space: no-wrap;
@@ -138,23 +108,6 @@ const FixedRankWidth = styled.div`
   margin-right: 0px;
 `;
 
-const PageButtons = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 2em;
-  margin-bottom: 0.5em;
-`;
-const Arrow = styled.div<{ faded?: boolean }>`
-  color: ${({ theme }) => theme.primary1};
-  opacity: ${(props) => (props.faded ? 0.3 : 1)};
-  padding: 0 20px;
-  user-select: none;
-  :hover {
-    cursor: pointer;
-  }
-`;
-
 const HiddenBelow1080 = styled.span`
   @media (max-width: 1080px) {
     display: none;
@@ -174,60 +127,65 @@ export const Break = styled.div`
   margin: 12px 0;
 `;
 
-export default function PayoutList({ hideZero, title, description, url, dataConverter }: { hideZero: boolean, title?: string, description?: string, url: string, dataConverter: any }) {
-  const { chainId, account } = useActiveWeb3React();
+export default function PayoutList({
+  title,
+  description,
+  url,
+  dataConverter,
+}: {
+  hideZero: boolean;
+  title?: string;
+  description?: string;
+  url: string;
+  dataConverter: any;
+}) {
   const [filter, setFilter] = useFilterActive();
   const [activeProtocol] = useActiveProtocol();
 
-  const [page, setPage] = useState(1);
-  const [maxFetched, setMaxFetched] = useMaxFetched();
-  const boostedBribeList = useList(
-    {
-      idOrUrl: url, // config.airdrop.excel.id,
-      source: "url-json",
-      type: "payout"
-    }
-  );
+  const [page] = useState(1);
+  const boostedBribeList = useList({
+    idOrUrl: url, // config.airdrop.excel.id,
+    source: "url-json",
+    type: "payout",
+  });
   let data;
 
   //refactor to useMemo
   if (boostedBribeList) {
-    data = dataConverter(boostedBribeList)
+    data = dataConverter(boostedBribeList);
   }
 
   const PayoutRow = ({ d, index }: { d: any; index: number }) => {
-    const name = null
-    const percentOfVotes = 1
-    const votes = d.delegatedVotes
-    const payoutCre8rUSD = d.payoutUSD
+    const votes = d.delegatedVotes;
+    const payoutCre8rUSD = d.payoutUSD;
     return (
       <AutoColumn>
         <DataRow>
-          <AutoRow gap="10px" style={{ flexWrap: "nowrap" }}>
+          <AutoRow gap='10px' style={{ flexWrap: "nowrap" }}>
             <HiddenBelow1080>
               <FixedRankWidth>
                 <NoWrap>{(page - 1) * FETCHING_INTERVAL + (index + 1)}</NoWrap>
               </FixedRankWidth>
             </HiddenBelow1080>
             <BlankInternalLink to={activeProtocol?.id + "/" + d.id}>
-              <AccountLinkGroup gap="10px" width="initial">
+              <AccountLinkGroup gap='10px' width='initial'>
                 <HiddenBelow1080>
                   <WrappedListLogo
                     src={EmptyProfile}
-                    alt="profile"
+                    alt='profile'
                     style={{ opacity: "0.2" }}
                   />
                 </HiddenBelow1080>
-                <AutoColumn gap="6px">
+                <AutoColumn gap='6px'>
                   <ResponsiveText style={{ fontWeight: 500 }}>
                     {shortenAddress(d.id)}
                   </ResponsiveText>
                   {false ? (
-                    <TYPE.black fontSize="12px">
+                    <TYPE.black fontSize='12px'>
                       {shortenAddress(d.id)}
                     </TYPE.black>
                   ) : (
-                    <TYPE.black fontSize="12px" style={{ opacity: "0.6" }}>
+                    <TYPE.black fontSize='12px' style={{ opacity: "0.6" }}>
                       {true ? "👤 EOA" : " 📜 Smart Contract"}
                     </TYPE.black>
                   )}
@@ -235,14 +193,14 @@ export default function PayoutList({ hideZero, title, description, url, dataConv
               </AccountLinkGroup>
             </BlankInternalLink>
           </AutoRow>
-          <NoWrap textAlign="end">
-            {/* {votes !== "0.00" ? 1 : 0} */}
+          <NoWrap textAlign='end'>{/* {votes !== "0.00" ? 1 : 0} */}</NoWrap>
+          <NoWrap textAlign='end'>
+            {!payoutCre8rUSD
+              ? "0 $AMP IN USD"
+              : payoutCre8rUSD + (true ? " $CRE8R IN USD" : " $CRE8R IN USD")}
           </NoWrap>
-          <NoWrap textAlign="end">{!payoutCre8rUSD
-                ? "0 $AMP IN USD"
-                : payoutCre8rUSD + (true ? " $CRE8R IN USD" : " $CRE8R IN USD")}</NoWrap>
           <Row style={{ justifyContent: "flex-end" }}>
-            <VoteText textAlign="end">
+            <VoteText textAlign='end'>
               {!votes
                 ? "0 $AMP IN USD"
                 : votes + (true ? " $AMP IN USD" : " $AMP IN USD")}
@@ -254,8 +212,8 @@ export default function PayoutList({ hideZero, title, description, url, dataConv
     );
   };
 
-  return activeProtocol && activeProtocol.id !== 'CRE8R' ? (
-    <Card padding="20px">
+  return activeProtocol && activeProtocol.id !== "CRE8R" ? (
+    <Card padding='20px'>
       <EmptyWrapper>
         <TYPE.body style={{ marginBottom: "8px" }}>No payouts yet.</TYPE.body>
         <TYPE.subHeader>
@@ -264,16 +222,18 @@ export default function PayoutList({ hideZero, title, description, url, dataConv
       </EmptyWrapper>
     </Card>
   ) : (
-    <Card padding="0">
+    <Card padding='0'>
       <OnlyAboveLarge>
         <RowBetween style={{ marginBottom: "32px", alignItems: "flex-start" }}>
           <div>
-            <TYPE.body fontSize="16px" fontWeight="600">
+            <TYPE.body fontSize='16px' fontWeight='600'>
               {title}
             </TYPE.body>
-            {description && <TYPE.body fontSize="10px" fontWeight={"400"} paddingTop={"10px"}>
-              {description}
-            </TYPE.body>}
+            {description && (
+              <TYPE.body fontSize='10px' fontWeight={"400"} paddingTop={"10px"}>
+                {description}
+              </TYPE.body>
+            )}
           </div>
           <OnlyAboveSmall>
             <RowFixed>
@@ -282,25 +242,24 @@ export default function PayoutList({ hideZero, title, description, url, dataConv
           </OnlyAboveSmall>
         </RowBetween>
       </OnlyAboveLarge>
-      <AutoColumn gap="0">
+      <AutoColumn gap='0'>
         <DataRow>
           <ColumnLabel>Rank</ColumnLabel>
-          <ColumnLabel textAlign="end">
-            {/* Proposals Voted */}
-          </ColumnLabel>
-          <ColumnLabel textAlign="end">Total CRE8R Rewards</ColumnLabel>
-          <ColumnLabel textAlign="end">Total AMP Bonus</ColumnLabel>
+          <ColumnLabel textAlign='end'>{/* Proposals Voted */}</ColumnLabel>
+          <ColumnLabel textAlign='end'>Total CRE8R Rewards</ColumnLabel>
+          <ColumnLabel textAlign='end'>Total AMP Bonus</ColumnLabel>
         </DataRow>
         <Break />
         {data ? (
-          data.map((j : any, i : any) => {
+          data.map((j: any, i: any) => {
             return (
-              <PayoutRow 
-              index={i}
-              //ts-ignore
-              d={j} 
-              key={j.id}
-            />)
+              <PayoutRow
+                index={i}
+                //ts-ignore
+                d={j}
+                key={j.id}
+              />
+            );
           })
         ) : (
           <LoadingRows>

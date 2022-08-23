@@ -1,4 +1,3 @@
-
 import React from "react";
 import { LoadingRows } from "components/Loader";
 import Tabs from "components/Tabs";
@@ -15,9 +14,7 @@ import CampaignContent from "./CampaignContent";
 import CampaignOverview from "./CampaignOverview";
 import CampaignBanner from "./CampaignBanner";
 
-
-const Wrapper = styled.div<{ backgroundColor?: string }>`
-`;
+const Wrapper = styled.div<{ backgroundColor?: string }>``;
 
 export const CardSection = styled(AutoColumn)<{ disabled?: boolean }>`
   padding: 1rem;
@@ -53,11 +50,11 @@ function CampaignDetails({
 
   return (
     <Wrapper>
-      <Column gap="10px" style={{ width: "100%" }}>
+      <Column gap='10px' style={{ width: "100%" }}>
         <CampaignBanner />
         <CampaignContent />
         {amplifiCampaignsTabData.length > 0 && (
-          <div style={{paddingBottom: 10}}>
+          <div style={{ paddingBottom: 10 }}>
             <Tabs
               data={amplifiCampaignsTabData}
               value={tabUri}
@@ -68,7 +65,7 @@ function CampaignDetails({
                 history.replace(uriToRouteMap[value]);
               }}
             />
-          </ div>
+          </div>
         )}
         {page && (
           <>

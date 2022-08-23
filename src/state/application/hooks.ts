@@ -184,10 +184,7 @@ export function useSubgraphClient() {
 
 export function useSubgraphClientSnapshot() {
   const [activeProtocol] = useActiveProtocol();
-  if (
-    activeProtocol &&
-    activeProtocol.spaceSnapshot
-  ) {
+  if (activeProtocol && activeProtocol.spaceSnapshot) {
     return { snapshotClient, spaceSnapshot: activeProtocol.spaceSnapshot };
   }
   return { snapshotClient: undefined, spaceSnapshot: undefined };

@@ -48,13 +48,18 @@ const TabsCardStyled = styled.div`
   `};
 `;
 
-export function SingleTab({title, routePrefix, activeProtocol, location}: any) {
+export function SingleTab({
+  title,
+  routePrefix,
+  activeProtocol,
+  location,
+}: any) {
   return (
     <TabOption
       as={Link}
       to={routePrefix + activeProtocol?.id}
       // Note: This assumes that the title will be the same as the pathname so if the title has spaces this may not work
-      selected={location.pathname.includes(title.toLowerCase())} 
+      selected={location.pathname.includes(title.toLowerCase())}
       color={activeProtocol?.primaryColor}
       color2={activeProtocol?.secondaryColor}
     >
@@ -62,7 +67,7 @@ export function SingleTab({title, routePrefix, activeProtocol, location}: any) {
         {title}
       </TYPE.main>
     </TabOption>
-  )
+  );
 }
 
 function Tabs() {
@@ -73,17 +78,17 @@ function Tabs() {
     <Card padding={"0px"}>
       <TabsCardStyled>
         <RowBetween>
-          <AutoRow gap="8px" width="fit-content">
-            {config.protocol.tabs.map(({title, routePrefix}) => {
+          <AutoRow gap='8px' width='fit-content'>
+            {config.protocol.tabs.map(({ title, routePrefix }) => {
               return (
                 <SingleTab
-                  key={title} 
-                  title={title} 
-                  routePrefix={routePrefix} 
-                  activeProtocol={activeProtocol} 
+                  key={title}
+                  title={title}
+                  routePrefix={routePrefix}
+                  activeProtocol={activeProtocol}
                   location={location}
                 />
-              )
+              );
             })}
             {/* <TabOption
               as={Link}
