@@ -11,6 +11,10 @@ import "@wordpress/block-library/build-style/style.css";
 import "@wordpress/block-library/build-style/theme.css";
 import TwitterIcon from "assets/svg/twitter.svg";
 import getTextToTwitter from "utils/getTextToTwitter";
+import { ApplicationModal } from "state/application/actions";
+import { useToggleModal } from "state/application/hooks";
+import { ButtonBasic } from "components/Button";
+import { TYPE } from "theme";
 
 const Logo = styled.img`
   height: 20px;
@@ -29,7 +33,7 @@ export const Break = styled.div`
 const RoundedLinkLoggedOut = styled.div<{ numOfLinks?: number }>`
   font-size: 15px;
   padding: 15px;
-  background-color: #ffbc7d;
+  background-color: #fff;
   border-radius: 12px;
   border: solid #ff3700;
   border-width: 1px;
@@ -95,10 +99,17 @@ const RoundedLinkTweetintent = styled.a`
   }
 `;
 
+const ButtonText = styled(TYPE.white)`
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    font-size: 12px;
+  `};
+`;
+
 export default function ReferralLinksCard() {
-  const [activeProtocol] = useActiveProtocol();
   const [activeCampaign] = useActiveCampaign();
   const referralLink = useReferralLink();
+  const toggleWalletModal = useToggleModal(ApplicationModal.WALLET);
+  const { account } = useActiveWeb3React();
   const twitterIntentUrl = useMemo(() => {
     if (activeCampaign?.tweetIntent && referralLink) {
       return getTextToTwitter(activeCampaign.tweetIntent, referralLink);
@@ -106,13 +117,28 @@ export default function ReferralLinksCard() {
     return undefined;
   }, [activeCampaign?.tweetIntent, referralLink]);
 
-  const { account } = useActiveWeb3React();
-  const verifiedHandleEntry = useVerifiedHandle(account);
   return (
     <>
+      {!account && (
+        <>
+          <>
+            <RoundedLinkLoggedOut style={{ marginBottom: "15px" }}>
+              <div style={{ padding: 10, color: "#FF3700" }}>
+                <div style={{ paddingBottom: 10 }}>
+                  To check airdrop and generate referral links you must connect
+                  your wallet:
+                </div>
+                <ButtonBasic width='fit-content' onClick={toggleWalletModal}>
+                  <ButtonText>Connect wallet</ButtonText>
+                </ButtonBasic>
+              </div>
+            </RoundedLinkLoggedOut>
+          </>
+        </>
+      )}
       {/* <AutoColumn> */}
-      {activeProtocol && verifiedHandleEntry ? (
-        referralLink ? (
+      {activeCampaign &&
+        (referralLink && account ? (
           <>
             <div
               style={{
@@ -161,35 +187,8 @@ export default function ReferralLinksCard() {
             </div>
           </>
         ) : (
-          <>{/* <Loader /> */}</>
-        )
-      ) : (
-        <RoundedLinkLoggedOut>
-          <div style={{ padding: 10, color: "#fff" }}>
-            <div style={{ paddingBottom: 10 }}>
-              To check airdrop and generate referral links you must:
-            </div>
-            <ul style={{ paddingLeft: 20, margin: 0 }}>
-              <li>
-                Connect your wallet{" "}
-                {account ? (
-                  <span style={{ color: "green" }}>✔ Done</span>
-                ) : (
-                  <span style={{ color: "red" }}>❌ Incomplete</span>
-                )}
-              </li>
-              <li>
-                Connect your Twitter{" "}
-                {verifiedHandleEntry ? (
-                  `-Done`
-                ) : (
-                  <span style={{ color: "red" }}>❌ Incomplete</span>
-                )}
-              </li>
-            </ul>
-          </div>
-        </RoundedLinkLoggedOut>
-      )}
+          <></>
+        ))}
       {/* </AutoColumn> */}
     </>
   );

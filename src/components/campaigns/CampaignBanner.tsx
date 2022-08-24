@@ -36,9 +36,11 @@ function CampaignDetails({
 
   return (
     <>
-      <TYPE.body fontSize='12px' fontWeight='600' mb='1rem' mt='1rem'>
-        {config.campaign.toast}
-      </TYPE.body>
+      {config.campaign.toast && (
+        <TYPE.body fontSize='12px' fontWeight='600' mb='1rem' mt='1rem'>
+          {config.campaign.toast}
+        </TYPE.body>
+      )}
     </>
   );
 }
