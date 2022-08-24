@@ -170,7 +170,7 @@ export default function Profile() {
 
   const ConnectPitch = ({ stageText }: { stageText: string }) => (
     <TYPE.blue fontSize='12px' paddingTop={"10px"}>
-      Connecting your{` ${stageText} `}allows you to check your{" "}
+      Connect your{` ${stageText} `} to view your{" "}
       <StyledInternalLink
         to={"/campaigns/amplifi/amplifi-publisher-airdrop"}
         style={{
@@ -180,7 +180,7 @@ export default function Profile() {
       >
         airdrop
       </StyledInternalLink>{" "}
-      &amp; generate your unique referral link
+      💰
     </TYPE.blue>
   );
   const ProfileContent = () => (

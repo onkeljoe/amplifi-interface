@@ -46,13 +46,19 @@ export function useSignedHandle(twitterHandle: string | undefined): {
       message,
     });
 
+    const signMessageAmplifi = `EIP712Domain
+Amplifi Twitter Verifier v1
+primaryType: Permit
+
+Hi! Nice to have you. Sign this message so we can verify your @${twitterHandle} twitter handle.`;
+
     /**
      * Need to use personal_sign as eth typed data is not
      * supported by most hardware wallets yet.
      */
     if (account) {
-      //format as hex
-      const message = new Buffer(data).toString("hex");
+      //format as hex, new Buffer is @deprecated — since v10.0.0;
+      const message = Buffer.from(signMessageAmplifi, "utf8").toString("hex");
 
       // need to manually prefix with 0x for wallet connect
       library
