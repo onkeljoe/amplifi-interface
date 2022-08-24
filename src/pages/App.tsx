@@ -4,7 +4,7 @@ import toast from "components/Toast";
 import styled from "styled-components";
 import GoogleAnalyticsReporter from "../components/analytics/GoogleAnalyticsReporter";
 import OverviewColumn, {
-  OVERVIEW_EXPANSION_WIDTH
+  OVERVIEW_EXPANSION_WIDTH,
 } from "../components/governance/OverviewColumn";
 import ProposalDetails from "../components/governance/ProposalDetails";
 import Polling from "../components/Header/Polling";
@@ -25,7 +25,8 @@ import Delegates from "./Delegates";
 import { RedirectWithUpdatedGovernance } from "./Governance/redirect";
 import Identities from "./Identities";
 import Proposals from "./Proposals";
-
+import WidgetBot from "@widgetbot/react-embed";
+import { useEffect } from "react";
 
 const FIRST_2_COLS_WIDTH = 320;
 
@@ -82,6 +83,20 @@ export default function App() {
   const identityOnlyFlow = identityOnlyPath(useLocation().pathname);
   const [expandedOverview, setExpandedOverview] = React.useState(true);
 
+  // useEffect(() => {
+  //   async function loadCrate() {
+  //     const result = await import("@widgetbot/crate");
+  //     const Crate = await result.cdn();
+
+  //     new Crate({
+  //       server: "1012065955309957222",
+  //       channel: "1012074933326712974",
+  //     });
+  //   }
+
+  //   loadCrate();
+  // }, []);
+
   return (
     <Suspense fallback={null}>
       <Route component={GoogleAnalyticsReporter} />
@@ -98,6 +113,7 @@ export default function App() {
             <Web3Status />
             <Popups />
             <Polling />
+
             <TopLevelModals />
             <Web3ReactManager>
               <Switch>
@@ -173,7 +189,7 @@ export default function App() {
           </Web3ReactManager>
         </div>
       )}
-    <toast.Toaster />
+      <toast.Toaster />
     </Suspense>
   );
 }
