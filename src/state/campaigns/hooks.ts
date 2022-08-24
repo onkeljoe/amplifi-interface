@@ -27,21 +27,19 @@ function useUtm() {
 export function useReferralLink(): string | undefined {
   const dispatch = useDispatch<AppDispatch>();
   const { account } = useActiveWeb3React();
-  const verifiedHandleEntry = useVerifiedHandle(account);
   const [activeProtocol] = useActiveProtocol();
   const [activeCampaign] = useActiveCampaign();
   const links = useUtm();
 
   useEffect(() => {
     if (
-      !verifiedHandleEntry ||
-      !verifiedHandleEntry.handle ||
+      !account ||
       !activeCampaign ||
       !activeProtocol
     )
       return;
     getUrl(
-      verifiedHandleEntry.handle,
+      account,
       activeCampaign.baseUrl,
       activeCampaign.id,
       activeProtocol.id,
@@ -65,12 +63,12 @@ export function useReferralLink(): string | undefined {
       );
     });
   }, [
-    verifiedHandleEntry,
     dispatch,
     activeCampaign,
     activeProtocol,
     links?.shortUtm,
     links?.utm,
+    account
   ]);
   if (
     activeProtocol &&

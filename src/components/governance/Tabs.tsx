@@ -59,7 +59,7 @@ export function SingleTab({
       as={Link}
       to={routePrefix + activeProtocol?.id}
       // Note: This assumes that the title will be the same as the pathname so if the title has spaces this may not work
-      selected={location.pathname.includes(title.toLowerCase())}
+      selected={location.pathname.includes(routePrefix)}
       color={activeProtocol?.primaryColor}
       color2={activeProtocol?.secondaryColor}
     >
@@ -76,7 +76,7 @@ function Tabs() {
   const location = useLocation();
   return (
     <Card padding={"0px"}>
-      <TabsCardStyled>
+      <TabsCardStyled style={{ marginBottom: "10px" }}>
         <RowBetween>
           <AutoRow gap='8px' width='fit-content'>
             {config.protocol.tabs.map(({ title, routePrefix }) => {
