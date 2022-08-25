@@ -23,6 +23,14 @@ const ResponsiveText = styled(TYPE.black)`
   `};
 `;
 
+const ProposalItem = styled.div`
+  text-decoration: none;
+  :hover {
+    cursor: pointer;
+    opacity: 0.7;
+  }
+`;
+
 export const Break = styled.div`
   width: 100%;
   border-top: 1px solid;
@@ -62,11 +70,11 @@ function CampaignList({
         <AutoColumn gap='0'>
           <TYPE.mediumHeader marginTop='1rem'>Campaigns</TYPE.mediumHeader>
           <Break />
-          <AutoColumn gap='md'>
+          <AutoColumn gap='0'>
             {amplifiCampaigns ? (
               amplifiCampaigns.map((v, _i) => {
                 return (
-                  <div key={v.id}>
+                  <ProposalItem key={v.id} as={Link} to={uriToRouteMap[v.uri]}>
                     <RowBetween>
                       <ResponsiveText mr='10px'>{v.title}</ResponsiveText>
                       <StyledInternalLink to={uriToRouteMap[v.uri]}>
@@ -74,7 +82,7 @@ function CampaignList({
                       </StyledInternalLink>
                     </RowBetween>
                     <Break />
-                  </div>
+                  </ProposalItem>
                 );
               })
             ) : (
