@@ -70,7 +70,7 @@ function CampaignList({
         <AutoColumn gap='0'>
           <TYPE.mediumHeader marginTop='1rem'>Campaigns</TYPE.mediumHeader>
           <Break />
-          <AutoColumn gap='md'>
+          <AutoColumn gap='0'>
             {amplifiCampaigns ? (
               amplifiCampaigns.map((v, _i) => {
                 return (
