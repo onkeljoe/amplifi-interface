@@ -72,6 +72,10 @@ export function colors(darkMode: boolean): Colors {
     secondary2: darkMode ? "#17000b26" : "#F6DDE8",
     secondary3: darkMode ? "#17000b26" : "#FDEAF1",
 
+    // AmplifiDAO (we don't have dark mode yet)
+    amplifiPrimary: darkMode ? "none" : "#ff3700",
+    amplifiSecondary: darkMode ? "none" : "#ffbc7d",
+
     // other
     red1: "#FF6871",
     red2: "#F82D3A",
