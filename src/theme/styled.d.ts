@@ -41,6 +41,10 @@ export interface Colors {
   secondary2: Color;
   secondary3: Color;
 
+  // AmplifiDAO
+  amplifiPrimary: Color;
+  amplifiSecondary: Color;
+
   // other
   red1: Color;
   red2: Color;

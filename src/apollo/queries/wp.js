@@ -1,26 +1,26 @@
 import { gql } from "@apollo/client";
 export const NAVIGATION_QUERY = gql`
-  query Menus($slug: String!) {
-    menus(where: { slug: $slug }, first: 5) {
-      __typename
-      nodes {
-        slug
-        id
-        databaseId
-        name
-        menuItems(first: 100000) {
-          __typename
-          nodes {
-            title
-            label
-            id
-            parentId
-            uri
-          }
+query Menus($slug: String!) {
+  menus(where: { slug: $slug }, first: 5) {
+    __typename
+    nodes {
+      slug
+      id
+      databaseId
+      name
+      menuItems(first: 100000) {
+        __typename
+        nodes {
+          title
+          label
+          id
+          parentId
+          uri
         }
       }
     }
   }
+}
 `;
 
 export const URI_QUERY = gql`
@@ -79,4 +79,5 @@ export const URI_QUERY = gql`
       }
     }
   }
+}
 `;

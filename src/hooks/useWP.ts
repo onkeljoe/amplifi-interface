@@ -25,9 +25,8 @@ export const useWPNav = () => {
   const cmsClient = useCre8rCmsClient();
   const [nav, setNav] = useState<Array<MenuTreeItem>>();
   useEffect(() => {
-    if (!cmsClient) return;
-    fetchWPNav(cmsClient, "amplifi")
-      .then((res) => {
+    fetchWPNav(cmsClient, 'amplifi')
+      .then((res : any) => {
         const navigationData = processWPNav(res)
         setNav(navigationData);
       });
