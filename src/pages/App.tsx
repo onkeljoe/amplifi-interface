@@ -118,15 +118,11 @@ export default function App() {
       <Route component={TwitterAccountQueryParamReader} />
       {!identityOnlyFlow && (
         <SiteWrapper expandedOverview={expandedOverview} isLanding={isLanding}>
-          {!isLanding && (
-            <>
-              <SideMenu />
-              <OverviewColumn
-                expanded={expandedOverview}
-                onToggleExpand={() => setExpandedOverview(!expandedOverview)}
-              />
-            </>
-          )}
+          <SideMenu />
+          <OverviewColumn
+            expanded={expandedOverview}
+            onToggleExpand={() => setExpandedOverview(!expandedOverview)}
+          />
           <ContentWrapper>
             <Web3Status />
             <Popups />
