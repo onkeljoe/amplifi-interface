@@ -1,3 +1,59 @@
+a {
+  color: #ff3700!important;
+}
+/* makes two icons stay on same row.. kinda fucked up tho */
+/* .wp-container-1.is-content-justification-center.is-nowrap.wp-block-group {
+  display: flex;
+  gap: 0.5em;
+  flex-wrap: nowrap;
+  align-items: center;
+} */
+
+.twoIconsOneRow {
+  display: flex;
+  gap: 0.5em;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
+}
+
+.is-vertical {
+  display: flex;
+  gap: 0.5em;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: center;
+}
+.wp-block-columns {
+  display: flex;
+  margin-bottom: 1.75em;
+  box-sizing: border-box;
+  flex-wrap: wrap !important;
+  align-items: initial !important;
+  column-gap: 2px;
+}
+.ReferrerIncentivesColumn{
+  
+  background-color: #ffbc7d!important;
+  padding: 10px;
+  color: #ff3700!important;
+
+}
+.ReferreeIncentivesColumn{
+  background-color: #ffbc7d!important;
+  padding: 10px;
+  color: #ff3700!important;
+  display: flex;
+    gap: 0.5em;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+}
+.KPIColumn{
+  background-color: #ffbc7d!important;
+  padding: 10px;
+  color: #ff3700!important;
+}
 .wp-container-1.is-content-justification-center.is-nowrap.wp-block-group.MetaReferalRow.has-small-font-size {
   flex-flow: row wrap!important;
   display: flex;
@@ -50,7 +106,7 @@ body {
   min-width: 0px;
   font-weight: 600;
   font-size: 11px;
-  color: red;
+  color: #ff3700!important;
   background-color: black;
 }
 /* // make link warning box way smaller and remove some padding */
@@ -77,12 +133,12 @@ body {
   justify-content: center;
 }
 .icon-container > svg {
-  background-color: rgb(231, 228, 228);
+  /* background-color: rgb(231, 228, 228); */
   border-radius: 12px;
 }
 
 .icon-container > svg {
-  background-color: rgb(231, 228, 228);
+  /* background-color: rgb(231, 228, 228); */
   border-radius: 12px;
 }
 /* // plus icon */
@@ -108,37 +164,9 @@ div#ampBlockColumn {
   column-gap: 10px;
   column-rule: double;
 }
-.wp-container-2.wp-block-group {
-  padding: 10px 5px 5px 10px;
-  /* border-radius: 20px; */
-  background-color: #edeef2;
-  background-color: #edeef226;
-    border-radius: 0;
-    padding: 10px;
-    border: solid #dcd4d4;
-    border-width: 1px 0 1px 0;
-}
-.wp-container-4.wp-block-column {
-  padding: 10px 5px 5px 10px;
-  /* border-radius: 20px; */
-  background-color: #edeef2;
-  background-color: #edeef226;
-    border-radius: 0;
-    padding: 10px;
-    border: solid #dcd4d4;
-    border-width: 1px 0 1px 0;
 
-}
-.wp-container-2.wp-block-column {
-  padding: 10px 5px 5px 10px;
-  /* border-radius: 20px; */
-  background-color: #edeef2;
-  background-color: #edeef226;
-    border-radius: 0;
-    padding: 10px;
-    border: solid #dcd4d4;
-    border-width: 1px 0 1px 0;
-}
+
+
 /* .wp-container-1.is-nowrap.wp-block-group.has-small-font-size {
   background-color: #edeef2;
   border-radius: 20px;
@@ -166,13 +194,14 @@ div#ampBlockColumn {
 
 p.ampLabel.has-text-color {
   display: block;
-  margin-left: 15px;
+  
   /* box-sizing: border-box; */
-    margin: 0px;
+    margin-bottom: 10px;
     min-width: 0px;
     font-weight: 500;
     font-size: 12px;
-    opacity: 0.6;
+    
+    color: #ff3700!important;
   
 }
 
