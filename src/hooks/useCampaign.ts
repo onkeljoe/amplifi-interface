@@ -127,7 +127,7 @@ const getAmplifiCampaignTabsData = (
     return [];
   }
   return [
-    { tab: "overview", content: "", uri: campaignUri },
+    { tab: "Overview", content: "", uri: campaignUri },
     ...filteredCampaignNav.map((n) => {
       return {
         tab: n.label || "no label",

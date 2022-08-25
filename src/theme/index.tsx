@@ -138,6 +138,7 @@ const createMuiTheme = (darkMode: boolean) => {
             fontSize: "12px",
             color: gray1,
             fontFamily: FONT_FAMILY,
+            textTransform: "none",
             "&.Mui-selected": {
               color: primary1,
             },
