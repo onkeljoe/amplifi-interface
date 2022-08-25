@@ -46,18 +46,18 @@ function ConfirmationPendingContent({
           <CloseIcon onClick={onDismiss} />
         </RowBetween>
         <ConfirmedIcon>
-          <CustomLightSpinner src={Circle} alt="loader" size={"90px"} />
+          <CustomLightSpinner src={Circle} alt='loader' size={"90px"} />
         </ConfirmedIcon>
-        <AutoColumn gap="12px" justify={"center"}>
+        <AutoColumn gap='12px' justify={"center"}>
           <Text fontWeight={500} fontSize={20}>
             Waiting For Confirmation
           </Text>
-          <AutoColumn gap="12px" justify={"center"}>
-            <Text fontWeight={600} fontSize={14} color="" textAlign="center">
+          <AutoColumn gap='12px' justify={"center"}>
+            <Text fontWeight={600} fontSize={14} color='' textAlign='center'>
               {pendingText}
             </Text>
           </AutoColumn>
-          <Text fontSize={12} color="#565A69" textAlign="center">
+          <Text fontSize={12} color='#565A69' textAlign='center'>
             Confirm this transaction in your wallet
           </Text>
         </AutoColumn>
@@ -89,7 +89,7 @@ export function TransactionSubmittedContent({
         <ConfirmedIcon>
           <ArrowUpCircle strokeWidth={0.5} size={90} color={theme.primary1} />
         </ConfirmedIcon>
-        <AutoColumn gap="12px" justify={"center"}>
+        <AutoColumn gap='12px' justify={"center"}>
           <Text fontWeight={500} fontSize={20}>
             {confirmationText ?? "Transaction Submitted"}
           </Text>
@@ -133,7 +133,7 @@ export function ConfirmationModalContent({
         </RowBetween>
         {topContent()}
       </Section>
-      <BottomSection gap="12px">{bottomContent()}</BottomSection>
+      <BottomSection gap='12px'>{bottomContent()}</BottomSection>
     </Wrapper>
   );
 }
@@ -157,8 +157,8 @@ export function TransactionErrorContent({
         </RowBetween>
         <AutoColumn
           style={{ marginTop: 20, padding: "2rem 0" }}
-          gap="24px"
-          justify="center"
+          gap='24px'
+          justify='center'
         >
           <AlertTriangle
             color={theme.red1}
@@ -175,7 +175,7 @@ export function TransactionErrorContent({
           </Text>
         </AutoColumn>
       </Section>
-      <BottomSection gap="12px">
+      <BottomSection gap='12px'>
         <ButtonPrimary onClick={onDismiss}>Dismiss</ButtonPrimary>
       </BottomSection>
     </Wrapper>
@@ -243,7 +243,7 @@ export function OffChainRequestModal({
         <ConfirmedIcon>
           <CheckCircle strokeWidth={0.5} size={90} color={theme.primary1} />
         </ConfirmedIcon>
-        <AutoColumn gap="12px" justify={"center"}>
+        <AutoColumn gap='12px' justify={"center"}>
           <Text fontWeight={500} fontSize={20}>
             Verification Successful
           </Text>
@@ -263,10 +263,10 @@ export function OffChainRequestModal({
           <CloseIcon onClick={onDismiss} />
         </RowBetween>
         <ConfirmedIcon>
-          <CustomLightSpinner src={Circle} alt="loader" size={"90px"} />
+          <CustomLightSpinner src={Circle} alt='loader' size={"90px"} />
         </ConfirmedIcon>
-        <AutoColumn gap="12px" justify={"center"}>
-          <Text fontWeight={500} fontSize={16} color="" textAlign="center">
+        <AutoColumn gap='12px' justify={"center"}>
+          <Text fontWeight={500} fontSize={16} color='' textAlign='center'>
             Attempting Verification
           </Text>
         </AutoColumn>

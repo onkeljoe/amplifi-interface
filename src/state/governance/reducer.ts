@@ -44,7 +44,6 @@ export interface GovernanceInfo {
   social: string;
   emoji?: string;
   baseUrl?: string;
-  hasSnapshot?: boolean;
   spaceSnapshot?: string;
 }
 
@@ -73,8 +72,6 @@ export const BILLI_GOVERNANCE: GovernanceInfo = {
   social: "@DropBilli",
   emoji: "🐐",
   baseUrl: "https://amplifi.cre8r.vip?",
-  hasSnapshot: true,
-  spaceSnapshot: "cre8r.eth",
   // featuredImage: AmpliFiLogo,
 };
 
@@ -131,10 +128,9 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   governanceAlphaAddresses: [],
   governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
   migrationProposalId: 8,
-  social: "@CRE8RDAO",
-  emoji: "🔊",
+  social: "@AmpliFiDAO",
+  emoji: "📡",
   baseUrl: "https://amplifi.cre8r.vip?",
-  hasSnapshot: true,
   spaceSnapshot: "amplifidao.eth",
   // featuredImage: AmpliFiLogo,
 };
@@ -161,9 +157,7 @@ export const DEVO_GOVERNANCE: GovernanceInfo = {
   social: "@DEVO",
   emoji: "🔊",
   baseUrl: "https://amplifi.cre8r.vip?",
-  hasSnapshot: true,
   spaceSnapshot: "devo.eth",
-  // featuredImage: AmpliFiLogo,
 };
 
 export const COMP_GOVERNANCE_ADDRESS_BRAVO =
@@ -212,7 +206,6 @@ export const HND_GOVERNANCE: GovernanceInfo = {
   social: "@HundredFinance",
   emoji: "💯",
   baseUrl: "https://amplifi.cre8r.vip/#/amplifi/HND?",
-  hasSnapshot: true,
   spaceSnapshot: "hundredfinance.eth",
 };
 export const AAVE_GOVERNANCE_ADDRESS =
@@ -355,9 +348,10 @@ export const CRE8R_GOVERNANCE: GovernanceInfo = {
   secondaryColor: "#B0B0B0",
   token: serializeToken(CRE8R),
   governanceAlphaAddresses: [RADICLE_GOVERNANCE_ADDRESS],
-  social: "@cre8rAmpliFi",
+  social: "@CRE8RDAO",
   emoji: "🧱",
   baseUrl: "https://cre8r.vip/client-discover-call-booking-form/?",
+  spaceSnapshot: "cre8r.eth",
 };
 
 export const ACWI_GOVERNANCE_ADDRESS =
@@ -411,13 +405,13 @@ const GMX_ARBITRUM = new Token(
   "GMX",
   "GMX Token Arbitrum"
 );
-const GMX_AVALANCHE = new Token(
-  ChainId.MAINNET, // not true, but typings dont allow to change
-  GMX_ADDRESS_AVALANCHE,
-  18,
-  "GMX",
-  "GMX Token Avalanche"
-);
+// const GMX_AVALANCHE = new Token(
+//   ChainId.MAINNET, // not true, but typings dont allow to change
+//   GMX_ADDRESS_AVALANCHE,
+//   18,
+//   "GMX",
+//   "GMX Token Avalanche"
+// );
 
 export const GMX_GOVERNANCE: GovernanceInfo = {
   id: "GMX",

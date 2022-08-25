@@ -83,7 +83,7 @@ export default function WalletSummary() {
   const profileData = useTwitterProfileData(verifiedHandleEntry?.handle);
 
   return (
-    <WhiteCard padding="10px">
+    <WhiteCard padding='10px'>
       <RowBetween>
         <BlankInternalLink to={`/delegates/${activeProtocol?.id}/${account}`}>
           <RowFixed>
@@ -103,16 +103,16 @@ export default function WalletSummary() {
             ) : (
               chainId &&
               (verifiedHandleEntry?.handle ? (
-                <AutoColumn gap="4px">
-                  <LogoText type="twitter">
+                <AutoColumn gap='4px'>
+                  <LogoText type='twitter'>
                     @{verifiedHandleEntry.handle}
                   </LogoText>
-                  <TYPE.main fontSize="12px">
+                  <TYPE.main fontSize='12px'>
                     {ensName ?? shortenAddress(account)}
                   </TYPE.main>
                 </AutoColumn>
               ) : (
-                <TYPE.main mr="10px" color={theme.text1}>
+                <TYPE.main mr='10px' color={theme.text1}>
                   {ensName ?? shortenAddress(account)}
                 </TYPE.main>
               ))
@@ -120,7 +120,7 @@ export default function WalletSummary() {
           </RowFixed>
         </BlankInternalLink>
         {!account ? (
-          <ButtonBasic width="fit-content" onClick={toggleWalletModal}>
+          <ButtonBasic width='fit-content' onClick={toggleWalletModal}>
             <ButtonText>Connect wallet</ButtonText>
           </ButtonBasic>
         ) : (

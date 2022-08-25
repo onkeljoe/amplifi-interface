@@ -5,7 +5,7 @@ import { useActiveWeb3React } from "../../hooks";
 import { clearAllTransactions } from "../../state/transactions/actions";
 import { shortenAddress } from "../../utils";
 import { AutoRow } from "../Row";
-import Copy from "./Copy";
+import CopyHelper from "./Copy";
 import Transaction from "./Transaction";
 
 import { SUPPORTED_WALLETS } from "../../constants/wallet";
@@ -335,7 +335,7 @@ export default function AccountDetails({
                   </WalletAction>
                 </div>
               </AccountGroupingRow>
-              <AccountGroupingRow id="web3-account-identifier-row">
+              <AccountGroupingRow id='web3-account-identifier-row'>
                 <AccountControl>
                   {ENSName ? (
                     <>
@@ -360,11 +360,15 @@ export default function AccountDetails({
                     <AccountControl>
                       <div>
                         {account && (
-                          <Copy toCopy={account}>
+                          <CopyHelper
+                            toCopy={account}
+                            minHeight='26px'
+                            minWidth='141px'
+                          >
                             <span style={{ marginLeft: "4px" }}>
                               Copy Address
                             </span>
-                          </Copy>
+                          </CopyHelper>
                         )}
                         {chainId && account && (
                           <AddressLink
@@ -389,11 +393,15 @@ export default function AccountDetails({
                     <AccountControl>
                       <div>
                         {account && (
-                          <Copy toCopy={account}>
+                          <CopyHelper
+                            toCopy={account}
+                            minHeight='26px'
+                            minWidth='141px'
+                          >
                             <span style={{ marginLeft: "4px" }}>
                               Copy Address
                             </span>
-                          </Copy>
+                          </CopyHelper>
                         )}
                         {chainId && account && (
                           <AddressLink

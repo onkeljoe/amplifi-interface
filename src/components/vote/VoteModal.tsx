@@ -98,17 +98,17 @@ export default function VoteModal({
   return (
     <Modal isOpen={isOpen} onDismiss={wrappedOndismiss} maxHeight={90}>
       {!attempting && !hash && (
-        <ContentWrapper gap="lg">
-          <AutoColumn gap="lg" justify="center">
+        <ContentWrapper gap='lg'>
+          <AutoColumn gap='lg' justify='center'>
             <RowBetween>
               <TYPE.mediumHeader fontWeight={500}>{title}</TYPE.mediumHeader>
-              <StyledClosed stroke="black" onClick={wrappedOndismiss} />
+              <StyledClosed stroke='black' onClick={wrappedOndismiss} />
             </RowBetween>
             <TYPE.largeHeader>
               {availableVotes?.toSignificant(4)} Votes
             </TYPE.largeHeader>
             <ButtonError error={!support} onClick={onVote}>
-              <TYPE.mediumHeader color="white">{`Vote ${
+              <TYPE.mediumHeader color='white'>{`Vote ${
                 support ? "for " : "against"
               } proposal #${proposalId}`}</TYPE.mediumHeader>
             </ButtonError>
@@ -122,10 +122,10 @@ export default function VoteModal({
             <StyledClosed onClick={wrappedOndismiss} />
           </RowBetween>
           <ConfirmedIcon>
-            <CustomLightSpinner src={Circle} alt="loader" size={"90px"} />
+            <CustomLightSpinner src={Circle} alt='loader' size={"90px"} />
           </ConfirmedIcon>
-          <AutoColumn gap="100px" justify={"center"}>
-            <AutoColumn gap="12px" justify={"center"}>
+          <AutoColumn gap='100px' justify={"center"}>
+            <AutoColumn gap='12px' justify={"center"}>
               <TYPE.largeHeader>Submitting Vote</TYPE.largeHeader>
             </AutoColumn>
             <TYPE.subHeader>
@@ -143,8 +143,8 @@ export default function VoteModal({
           <ConfirmedIcon>
             <ArrowUpCircle strokeWidth={0.5} size={90} color={theme.primary1} />
           </ConfirmedIcon>
-          <AutoColumn gap="100px" justify={"center"}>
-            <AutoColumn gap="12px" justify={"center"}>
+          <AutoColumn gap='100px' justify={"center"}>
+            <AutoColumn gap='12px' justify={"center"}>
               <TYPE.largeHeader>Transaction Submitted</TYPE.largeHeader>
             </AutoColumn>
             {chainId && (

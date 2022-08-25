@@ -38,7 +38,7 @@ const BlankRow = styled(Shimmer)`
 export default function CardLoader() {
   return (
     <Card>
-      <Row align="center" justify="space-between">
+      <Row align='center' justify='space-between'>
         <Circle />
         <BlankRow />
       </Row>

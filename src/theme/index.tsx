@@ -8,15 +8,17 @@ import styled, {
 import { useIsDarkMode } from "../state/user/hooks";
 import { Text, TextProps } from "rebass";
 import { Colors } from "./styled";
+import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material";
 
 export * from "./components";
 
+const FONT_FAMILY = "'Inter', sans-serif";
 const MEDIA_WIDTHS = {
   upToExtraSmall: 500,
   upToSmall: 720,
-  upToMedium: 1484, //960
-  upToLarge: 1484, //1280
-  upToExtraLarge: 1484, //1484
+  upToMedium: 960, //960
+  upToLarge: 1480, //1280
+  upToExtraLarge: 1684, //1484
 };
 
 const mediaWidthTemplates: {
@@ -38,7 +40,7 @@ export function colors(darkMode: boolean): Colors {
     // base
     white,
     black,
-    special: 'linear-gradient(90deg,#FF3700 0%,#FF3700 100%)',
+    special: "linear-gradient(90deg,#FF3700 0%,#FF3700 100%)",
     // text
     text1: darkMode ? "#FFFFFF" : "#000000",
     text2: darkMode ? "#C3C5CB" : "#565A69",
@@ -58,7 +60,7 @@ export function colors(darkMode: boolean): Colors {
     advancedBG: darkMode ? "rgba(0,0,0,0.1)" : "rgba(255,255,255,0.6)",
 
     //primary colors
-    primary1: darkMode ? "#2172E5" : "#2172E5",
+    primary1: darkMode ? "#FF3700" : "#FF3700",
     primary2: darkMode ? "#3680E7" : "#3680E7",
     primary3: darkMode ? "#4D8FEA" : "#FF99C9",
     primary4: darkMode ? "#376bad70" : "#F6DDE8",
@@ -68,7 +70,7 @@ export function colors(darkMode: boolean): Colors {
     primaryText1: darkMode ? "#6da8ff" : "#ff007a",
 
     // secondary colors
-    secondary1: darkMode ? "#2172E5" : "#ff007a",
+    secondary1: darkMode ? "##FF3700" : "#ff007a",
     secondary2: darkMode ? "#17000b26" : "#F6DDE8",
     secondary3: darkMode ? "#17000b26" : "#FDEAF1",
 
@@ -118,6 +120,35 @@ export function theme(darkMode: boolean): DefaultTheme {
   };
 }
 
+const createMuiTheme = (darkMode: boolean) => {
+  const { primary1, gray1 } = colors(darkMode);
+  return createTheme({
+    components: {
+      // Name of the component
+      MuiButtonBase: {
+        defaultProps: {
+          // The props to change the default for.
+          disableRipple: true, // No more ripple, on the whole application 💣!
+        },
+      },
+
+      MuiTab: {
+        styleOverrides: {
+          root: {
+            fontSize: "12px",
+            color: gray1,
+            fontFamily: FONT_FAMILY,
+            textTransform: "none",
+            "&.Mui-selected": {
+              color: primary1,
+            },
+          },
+        },
+      },
+    },
+  });
+};
+
 export default function ThemeProvider({
   children,
 }: {
@@ -126,11 +157,13 @@ export default function ThemeProvider({
   const darkMode = useIsDarkMode();
 
   const themeObject = useMemo(() => theme(darkMode), [darkMode]);
-
+  const muiThemeObject = useMemo(() => createMuiTheme(darkMode), [darkMode]);
   return (
-    <StyledComponentsThemeProvider theme={themeObject}>
-      {children}
-    </StyledComponentsThemeProvider>
+    <MuiThemeProvider theme={muiThemeObject}>
+      <StyledComponentsThemeProvider theme={themeObject}>
+        {children}
+      </StyledComponentsThemeProvider>
+    </MuiThemeProvider>
   );
 }
 
@@ -210,7 +243,7 @@ export const TYPE = {
 
 export const FixedGlobalStyle = createGlobalStyle`
 html, input, textarea, button {
-  font-family: 'Inter', sans-serif;
+  font-family: ${FONT_FAMILY};
   font-display: fallback;
 }
 

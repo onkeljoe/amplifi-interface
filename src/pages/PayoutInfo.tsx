@@ -12,7 +12,7 @@ import {
 import { RouteComponentProps } from "react-router-dom";
 import { useActiveWeb3React } from "../hooks";
 import { ChainId, Token, JSBI } from "@uniswap/sdk";
-import { GreyCard, OutlineCard } from "../components/Card";
+import Card, { GreyCard, OutlineCard } from "../components/Card";
 import { useProtocolUpdate } from "../hooks/useProtocolUpdate";
 import styled from "styled-components";
 import { RowBetween, AutoRow, RowFixed } from "../components/Row";
@@ -24,6 +24,7 @@ import {
   WrappedListLogo,
   ProposalStatusSmall,
   DelegateButton,
+  EmptyWrapper,
 } from "../components/governance/styled";
 import {
   getTwitterProfileLink,
@@ -44,7 +45,7 @@ import {
   useTwitterProfileData,
   useAllIdentities,
 } from "../state/social/hooks";
-import { useTokenBalance } from "../state/wallet/hooks";
+import { useTokenBalance } from "state/wallet/hooks";
 import Loader from "../components/Loader";
 import { enumerateProposalState } from "../data/governance";
 import CopyHelper from "../components/AccountDetails/Copy";
@@ -108,7 +109,7 @@ function localNumber(val: number) {
   return parseFloat(parseFloat(val.toString()).toFixed(0)).toLocaleString();
 }
 
-function DelegateInfo({
+function PayoutInfo({
   match: {
     params: { protocolID, delegateAddress },
   },
@@ -254,7 +255,7 @@ function DelegateInfo({
                       </TYPE.black>
                     </ExternalLink>
                     {!twitterHandle && !delegateInfo?.autonomous && (
-                      <CopyHelper toCopy={formattedAddress} minHeight='26px' />
+                      <CopyHelper toCopy={formattedAddress} />
                     )}
                   </RowFixed>
                   {twitterHandle ||
@@ -272,7 +273,7 @@ function DelegateInfo({
                           {shortenAddress(delegateAddress)}
                         </TYPE.black>
                       </ExternalLink>
-                      <CopyHelper toCopy={formattedAddress} minHeight='26px' />
+                      <CopyHelper toCopy={formattedAddress} />
                     </RowFixed>
                   ) : (
                     <TYPE.black fontSize='12px'>
@@ -415,10 +416,18 @@ function DelegateInfo({
           </GreyCard>
         </AutoColumn>
       ) : (
-        <Loader />
+        // <Loader />
+        <Card padding='20px'>
+          <EmptyWrapper>
+            <TYPE.body style={{ marginBottom: "8px" }}>Coming soon</TYPE.body>
+            <TYPE.subHeader>
+              <i>This page is under construction.</i>
+            </TYPE.subHeader>
+          </EmptyWrapper>
+        </Card>
       )}
     </BodyWrapper>
   );
 }
 
-export default withRouter(DelegateInfo);
+export default withRouter(PayoutInfo);

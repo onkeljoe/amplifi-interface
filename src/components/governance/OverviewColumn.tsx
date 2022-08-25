@@ -1,12 +1,11 @@
 import React from "react";
-import { ButtonCustom } from "../Button";
-import { ChevronLeft } from "react-feather";
 import styled from "styled-components";
 import { useActiveProtocol } from "../../state/governance/hooks";
 import { AutoColumn } from "../Column";
 import { TYPE } from "../../theme";
-import { TabOption } from "../governance/Tabs";
-import { Link, useLocation } from "react-router-dom";
+import { SingleTab } from "../governance/Tabs";
+import { useLocation } from "react-router-dom";
+import config from "config";
 
 export const OVERVIEW_EXPANSION_WIDTH = 99;
 
@@ -40,17 +39,8 @@ const ButtonContainer = styled.div<{ expanded?: boolean }>`
   `};
 `;
 
-const IconButton = styled(ButtonCustom)`
-  padding: 0;
-  background: none;
-  cursor: pointer;
-  color: black;
-  width: auto;
-`;
-
 export default function OverviewColumn({
   expanded,
-  onToggleExpand,
 }: {
   expanded: boolean;
   onToggleExpand: () => void;
@@ -63,52 +53,36 @@ export default function OverviewColumn({
       backgroundColor={activeProtocol?.secondaryColor}
       expanded={expanded}
     >
-      <ButtonContainer expanded={expanded}>
-        <IconButton bgColor="white" onClick={onToggleExpand}>
+      <ButtonContainer expanded={true}>
+        {/* <IconButton bgColor="white" onClick={onToggleExpand}>
           <ChevronLeft />
-        </IconButton>
+        </IconButton> */}
       </ButtonContainer>
       <AutoColumn
-        gap="md"
+        gap='md'
         style={{
           opacity: expanded ? 1 : 0,
         }}
       >
         <TYPE.main
-          fontSize="24px"
-          fontWeight="700"
+          fontSize='24px'
+          fontWeight='700'
           color={activeProtocol?.primaryColor}
           style={{ marginBottom: "1rem" }}
         >
           {activeProtocol?.name}
         </TYPE.main>
-        <TabOption
-          as={Link}
-          to={"/campaigns/" + activeProtocol?.id}
-          selected={location.pathname.includes("/campaigns/")}
-          color={activeProtocol?.primaryColor}
-          color2={activeProtocol?.secondaryColor}
-        >
-          Amplifi Campaigns
-        </TabOption>
-        {/* <TabOption
-          as={Link}
-          to={"/delegates/" + activeProtocol?.id}
-          selected={location.pathname.includes("/delegates/")}
-          color={activeProtocol?.primaryColor}
-          color2={activeProtocol?.secondaryColor}
-        >
-          Delegates
-        </TabOption> */}
-        {/* <TabOption
-          as={Link}
-          to={"/proposals/" + activeProtocol?.id}
-          selected={location.pathname.includes("/proposals/")}
-          color={activeProtocol?.primaryColor}
-          color2={activeProtocol?.secondaryColor}
-        >
-          View Proposals
-        </TabOption> */}
+        {config.protocol.tabs.map(({ title, routePrefix }) => {
+          return (
+            <SingleTab
+              key={title}
+              title={title}
+              routePrefix={routePrefix}
+              activeProtocol={activeProtocol}
+              location={location}
+            />
+          );
+        })}
       </AutoColumn>
     </Wrapper>
   );
