@@ -10,12 +10,14 @@ import Logo from "../../assets/svg/AmpliFi.svg";
 import { Break } from "../../pages/DelegateInfo";
 import { useActiveProtocol } from "../../state/governance/hooks";
 import { SUPPORTED_PROTOCOLS } from "../../state/governance/reducer";
+import { updateActiveCampaign } from "state/campaigns/actions";
+import { useDispatch } from "react-redux";
 
 const Wrapper = styled.div<{ open: boolean }>`
   height: 100vh;
   position: absolute;
   z-index: 2;
-  width: ${({ open }) => (open ? "350px" : "82px")};
+  width: ${({ open }) => (open ? "350px" : "88px")};
   background-color: #fff;
   padding: 1rem 0rem;
   display: flex;
@@ -34,6 +36,29 @@ const Wrapper = styled.div<{ open: boolean }>`
 
   @media (max-width: 1080px) {
     display: none;
+  }
+
+  @media (min-width: 1081px) {
+    ::-webkit-scrollbar {
+      height: 5px;
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      opacity: 0.1;
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      background-color: #c0c1c1;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      cursor: default;
+    }
   }
 `;
 
@@ -98,7 +123,7 @@ export default function SideMenu(): JSX.Element {
   const [open, setOpen] = useState(false);
   const [faqOpen, setfaqOpen] = useState(false);
   const [activeProtocol] = useActiveProtocol();
-
+  const dispatch = useDispatch();
   function closeBoth() {
     setOpen(!open);
     setfaqOpen(false);

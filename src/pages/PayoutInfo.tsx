@@ -12,7 +12,7 @@ import {
 import { RouteComponentProps } from "react-router-dom";
 import { useActiveWeb3React } from "../hooks";
 import { ChainId, Token, JSBI } from "@uniswap/sdk";
-import { GreyCard, OutlineCard } from "../components/Card";
+import Card, { GreyCard, OutlineCard } from "../components/Card";
 import { useProtocolUpdate } from "../hooks/useProtocolUpdate";
 import styled from "styled-components";
 import { RowBetween, AutoRow, RowFixed } from "../components/Row";
@@ -24,6 +24,7 @@ import {
   WrappedListLogo,
   ProposalStatusSmall,
   DelegateButton,
+  EmptyWrapper,
 } from "../components/governance/styled";
 import {
   getTwitterProfileLink,
@@ -44,7 +45,7 @@ import {
   useTwitterProfileData,
   useAllIdentities,
 } from "../state/social/hooks";
-import { useTokenBalance } from "../state/wallet/hooks";
+import { useTokenBalance } from "state/wallet/hooks";
 import Loader from "../components/Loader";
 import { enumerateProposalState } from "../data/governance";
 import CopyHelper from "../components/AccountDetails/Copy";
@@ -415,7 +416,15 @@ function PayoutInfo({
           </GreyCard>
         </AutoColumn>
       ) : (
-        <Loader />
+        // <Loader />
+        <Card padding='20px'>
+          <EmptyWrapper>
+            <TYPE.body style={{ marginBottom: "8px" }}>Coming soon</TYPE.body>
+            <TYPE.subHeader>
+              <i>This page is under construction.</i>
+            </TYPE.subHeader>
+          </EmptyWrapper>
+        </Card>
       )}
     </BodyWrapper>
   );
