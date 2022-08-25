@@ -29,8 +29,8 @@ const config = {
       //   title: 'Proposals',
       //   routePrefix: '/proposals/'
       // }
-    ],
-  },
-};
+    ]
+  }
+}
 
 export default config;

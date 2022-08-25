@@ -15,6 +15,8 @@ import DevoLogo from "../../assets/images/IMG_5812.png";
 import BilliLogo from "../../assets/images/billilogo.jpg";
 import ACWILogo from "../../assets/images/new-altcoinswi.png";
 import GMXLogo from "../../assets/images/GMX-logo.jpg";
+import ChainBetLogo from "../../assets/images/ChainBetLogo.svg";
+import PoolLogo from "../../assets/images/pooltogether-icon.png";
 import { SerializedToken } from "./../user/actions";
 import {
   updateActiveProtocol,
@@ -126,8 +128,8 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   governanceAlphaAddresses: [],
   governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
   migrationProposalId: 8,
-  social: "@CRE8RDAO",
-  emoji: "🔊",
+  social: "@AmpliFiDAO",
+  emoji: "📡",
   baseUrl: "https://amplifi.cre8r.vip?",
   spaceSnapshot: "amplifidao.eth",
   // featuredImage: AmpliFiLogo,
@@ -346,7 +348,7 @@ export const CRE8R_GOVERNANCE: GovernanceInfo = {
   secondaryColor: "#B0B0B0",
   token: serializeToken(CRE8R),
   governanceAlphaAddresses: [RADICLE_GOVERNANCE_ADDRESS],
-  social: "@cre8rAmpliFi",
+  social: "@CRE8RDAO",
   emoji: "🧱",
   baseUrl: "https://cre8r.vip/client-discover-call-booking-form/?",
   spaceSnapshot: "cre8r.eth",
@@ -363,6 +365,28 @@ export const ACWI_GOVERNANCE: GovernanceInfo = {
   secondaryColor: "#ccc", // placeholder
   token: serializeToken(ENS), // placeholder
   social: "@twitter", // placeholder
+};
+
+export const CHAINBET_GOVERNANCE_ADDRESS =
+  "0x92562944916b586262121F98FdAaE958275c7d03";
+export const CHAINBET_ADDRESS = "0x92562944916b586262121F98FdAaE958275c7d03"; // placeholder!!
+const BET = new Token(
+  ChainId.MAINNET, // ?
+  CHAINBET_ADDRESS,
+  18,
+  "BET",
+  "BET ChainBet"
+);
+export const CHAINBET_GOVERNANCE: GovernanceInfo = {
+  id: "BET",
+  name: "ChainBet",
+  logo: ChainBetLogo,
+  governanceAlphaAddresses: [CHAINBET_GOVERNANCE_ADDRESS],
+  primaryColor: "#000",
+  secondaryColor: "#ccc",
+  token: serializeToken(BET),
+  social: "@0xChainBet",
+  baseUrl: "https://app.chainbet.gg?",
 };
 
 export const GMX_GOVERNANCE_ADDRESS_AVALANCHE =
@@ -404,16 +428,38 @@ export const GMX_GOVERNANCE: GovernanceInfo = {
   baseUrl: "https://amplifi.cre8r.vip?",
 };
 
+export const POOL_TOGETHER_GOVERNANCE_ADDRESS =
+  "0xB3a87172F555ae2a2AB79Be60B336D2F7D0187f0";
+export const POOL_ADDRESS = "0x0cEC1A9154Ff802e7934Fc916Ed7Ca50bDE6844e";
+const POOL = new Token(
+  ChainId.MAINNET,
+  POOL_ADDRESS,
+  18,
+  "POOL",
+  "PoolTogether"
+);
+export const POOL_TOGETHER_GOVERNANCE: GovernanceInfo = {
+  id: "pool-together",
+  name: "PoolTogether Governance",
+  logo: PoolLogo,
+  primaryColor: "#48289f",
+  secondaryColor: "#E6e3f3",
+  token: serializeToken(POOL),
+  governanceAlphaAddresses: [POOL_TOGETHER_GOVERNANCE_ADDRESS],
+  social: "@PoolTogether",
+  emoji: "🏆",
+};
+
 // mapping for routing
 export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   CRE8R: CRE8R_GOVERNANCE,
-
   //  DEVO: DEVO_GOVERNANCE, //demo
   BilliDrop: BILLI_GOVERNANCE, //demo
   AMPLIFI: AMPLIFI_GOVERNANCE,
-  //  ACWI: ACWI_GOVERNANCE, //demo
-  // GMX: GMX_GOVERNANCE,
+  // ACWI: ACWI_GOVERNANCE, //demo
   // GMX: GMX_GOVERNANCE, //demo
+  // BET: CHAINBET_GOVERNANCE, //demo
+  // POOL: POOL_TOGETHER_GOVERNANCE, //demo
   // connect: CONNECT_CONFIG,
 };
 

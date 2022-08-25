@@ -10,6 +10,7 @@ import Logo from "../../assets/svg/AmpliFi.svg";
 import { Break } from "../../pages/DelegateInfo";
 import { useActiveProtocol } from "../../state/governance/hooks";
 import { SUPPORTED_PROTOCOLS } from "../../state/governance/reducer";
+import { useDispatch } from "react-redux";
 
 const Wrapper = styled.div<{ open: boolean }>`
   height: 100vh;
@@ -52,6 +53,10 @@ const Wrapper = styled.div<{ open: boolean }>`
       -webkit-border-radius: 10px;
       border-radius: 10px;
       background-color: #c0c1c1;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      cursor: default;
     }
   }
 `;
@@ -117,7 +122,7 @@ export default function SideMenu(): JSX.Element {
   const [open, setOpen] = useState(false);
   const [faqOpen, setfaqOpen] = useState(false);
   const [activeProtocol] = useActiveProtocol();
-
+  const dispatch = useDispatch();
   function closeBoth() {
     setOpen(!open);
     setfaqOpen(false);

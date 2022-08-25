@@ -15,7 +15,6 @@ import CampaignList from "components/campaigns/CampaignList";
 import CampaignDetails from "components/campaigns/CampaignDetails";
 import { useActiveCampaign } from "state/campaigns/hooks";
 import CRE8RPriceCard from "components/CRE8RPriceCard";
-import ReferralLinksCard from "components/ReferralLinksCard";
 
 export default function Amplifi({
   match: {
@@ -66,7 +65,6 @@ export default function Amplifi({
             <Tabs />
           </AutoColumn>
         </MediumHeaderWrapper>
-        <ReferralLinksCard />
         <Column>{campaignID ? <CampaignDetails /> : <CampaignList />}</Column>
       </Column>
     </BodyWrapper>

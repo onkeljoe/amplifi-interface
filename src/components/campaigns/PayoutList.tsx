@@ -8,12 +8,7 @@ import {
   useFilterActive,
 } from "../../state/governance/hooks";
 import { FETCHING_INTERVAL } from "../../state/governance/reducer";
-import {
-  BlankInternalLink,
-  OnlyAboveLarge,
-  OnlyAboveSmall,
-  TYPE,
-} from "../../theme";
+import { OnlyAboveLarge, OnlyAboveSmall, TYPE } from "../../theme";
 import { shortenAddress } from "../../utils";
 import Card from "../Card";
 import { AutoColumn } from "../Column";
@@ -85,7 +80,7 @@ const DataRow = styled.div`
     }
   `};
 `;
-
+ 
 const AccountLinkGroup = styled(AutoRow)`
   :hover {
     /* opacity: 0.5; */

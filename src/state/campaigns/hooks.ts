@@ -2,7 +2,6 @@ import { getUrl } from "data/url";
 import { useCallback, useEffect, useMemo } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useActiveProtocol } from "state/governance/hooks";
-import { useVerifiedHandle } from "state/social/hooks";
 import { useActiveWeb3React } from "../../hooks";
 import { AppDispatch, AppState } from "./../index";
 import { updateActiveCampaign, updateMaxFetched, updateUtm } from "./actions";
@@ -27,21 +26,19 @@ function useUtm() {
 export function useReferralLink(): string | undefined {
   const dispatch = useDispatch<AppDispatch>();
   const { account } = useActiveWeb3React();
-  const verifiedHandleEntry = useVerifiedHandle(account);
   const [activeProtocol] = useActiveProtocol();
   const [activeCampaign] = useActiveCampaign();
   const links = useUtm();
 
   useEffect(() => {
     if (
-      !verifiedHandleEntry ||
-      !verifiedHandleEntry.handle ||
+      !account ||
       !activeCampaign ||
       !activeProtocol
     )
       return;
     getUrl(
-      verifiedHandleEntry.handle,
+      account,
       activeCampaign.baseUrl,
       activeCampaign.id,
       activeProtocol.id,
@@ -65,12 +62,12 @@ export function useReferralLink(): string | undefined {
       );
     });
   }, [
-    verifiedHandleEntry,
     dispatch,
     activeCampaign,
     activeProtocol,
     links?.shortUtm,
     links?.utm,
+    account
   ]);
   if (
     activeProtocol &&
