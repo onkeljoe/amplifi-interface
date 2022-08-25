@@ -80,7 +80,7 @@ const DataRow = styled.div`
     }
   `};
 `;
-
+ 
 const AccountLinkGroup = styled(AutoRow)`
   :hover {
     /* opacity: 0.5; */
