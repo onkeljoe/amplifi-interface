@@ -106,3 +106,11 @@ export const ChainBetClient = new ApolloClient({
   cache: new InMemoryCache(),
   shouldBatch: true,
 });
+
+export const PaladinClient = new ApolloClient({
+  link: new HttpLink({
+    uri: "https://hub.snapshot.org/graphql", // their snapshot id: "palvote.eth"
+  }),
+  cache: new InMemoryCache(),
+  shouldBatch: true,
+});

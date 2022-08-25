@@ -24,6 +24,8 @@ import {
   ACWI_GOVERNANCE,
   GMX_GOVERNANCE,
   CHAINBET_GOVERNANCE,
+  POOL_TOGETHER_GOVERNANCE,
+  PALADIN_GOVERNANCE,
 } from "../governance/reducer";
 import {
   uniswapClient,
@@ -39,6 +41,7 @@ import {
   ACWIClient,
   GMXClient,
   ChainBetClient,
+  PaladinClient,
 } from "../../apollo/client";
 
 export function useBlockNumber(): number | undefined {
@@ -177,6 +180,14 @@ export function useSubgraphClient() {
 
   if (activeProtocol?.id === CHAINBET_GOVERNANCE.id) {
     return ChainBetClient;
+  }
+
+  if (activeProtocol?.id === POOL_TOGETHER_GOVERNANCE.id) {
+    return poolClient;
+  }
+
+  if (activeProtocol?.id === PALADIN_GOVERNANCE.id) {
+    return PaladinClient;
   }
 
   return uniswapClient;
