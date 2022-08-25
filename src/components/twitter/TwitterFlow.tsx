@@ -121,31 +121,39 @@ export default function TwitterFlow({ onDismiss }: { onDismiss: () => void }) {
     }
   }
 
-  // check if we need to add a custom emoji to tweet
-  const protocolEmojiFunc = (): string => {
+  /**
+   * This checks the useful emoji for tweet
+   * @returns {string} emoji of the protocol or '👀' or '' if the protocol is Amplifi
+   */
+  const getProtocolEmoji = (): string => {
     if (!activeProtocol || !activeProtocol.emoji) return "👀";
     if (activeProtocol.id === "AMPLIFI") return "";
     return activeProtocol.emoji;
   };
-  const protocolEmoji = protocolEmojiFunc();
+  const protocolEmoji = getProtocolEmoji();
 
-  // check if protocol has social or if it's APMPLIFI
-  const socialTagsFunc = (): string => {
-    // because if you just start with @AmplifiDAO tweeter treats it like a response
-    // and app can't fetch it
+  /**
+   * This returns useful social tag or via for tweet
+   * @returns {string} social protocal tags or via, because if you just start
+   with '@AmplifiDAO' tweeter treats it like a response and app can't fetch it
+   */
+  const getSocialTags = (): string => {
     if (!activeProtocol || !activeProtocol.social) return "via";
     if (activeProtocol.id === "AMPLIFI") return "via ";
     return activeProtocol.social + " X ";
   };
-  const socialTags = socialTagsFunc();
+  const socialTags = getSocialTags();
 
-  //check if we need additional hashtags
-  const socialHashtagFunc = (): string => {
+  /**
+   * This return useful hashtags for the tweet
+   * @returns {string} either two hashtags: protocol,CRE8R or one hashtag: CRE8R
+   */
+  const getHashtags = (): string => {
     if (!activeProtocol || !activeProtocol.token) return "CRE8R";
     if (activeProtocol.token.symbol === "CRE8R") return "CRE8R";
     return `${activeProtocol?.token.symbol},CRE8R`;
   };
-  const socialHashtag = socialHashtagFunc();
+  const socialHashtag = getHashtags();
 
   const tweetText = `${protocolEmoji} ${socialTags}@AmpliFiDAO 📡
 address: ${account}
