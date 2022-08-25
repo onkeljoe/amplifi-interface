@@ -116,6 +116,7 @@ export default function App() {
             <Web3Status />
             <Popups />
             <Polling />
+
             <TopLevelModals />
             <Web3ReactManager>
               <Switch>

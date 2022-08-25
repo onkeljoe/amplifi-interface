@@ -10,7 +10,6 @@ import Logo from "../../assets/svg/AmpliFi.svg";
 import { Break } from "../../pages/DelegateInfo";
 import { useActiveProtocol } from "../../state/governance/hooks";
 import { SUPPORTED_PROTOCOLS } from "../../state/governance/reducer";
-import { updateActiveCampaign } from "state/campaigns/actions";
 import { useDispatch } from "react-redux";
 
 const Wrapper = styled.div<{ open: boolean }>`

@@ -2,9 +2,7 @@ import React, { useMemo } from "react";
 import { CopyBtn } from "components/AccountDetails/Copy";
 import { useActiveWeb3React } from "hooks";
 import { useActiveCampaign, useReferralLink } from "state/campaigns/hooks";
-import { useVerifiedHandle } from "state/social/hooks";
 import styled from "styled-components";
-import { useActiveProtocol } from "../../state/governance/hooks";
 // gutenberg basic styles
 import "@wordpress/block-library/build-style/common.css";
 import "@wordpress/block-library/build-style/style.css";

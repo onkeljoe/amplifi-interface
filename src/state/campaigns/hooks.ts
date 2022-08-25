@@ -2,7 +2,6 @@ import { getUrl } from "data/url";
 import { useCallback, useEffect, useMemo } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useActiveProtocol } from "state/governance/hooks";
-import { useVerifiedHandle } from "state/social/hooks";
 import { useActiveWeb3React } from "../../hooks";
 import { AppDispatch, AppState } from "./../index";
 import { updateActiveCampaign, updateMaxFetched, updateUtm } from "./actions";
