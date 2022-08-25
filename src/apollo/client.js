@@ -82,3 +82,27 @@ export const cre8rCmsClient = new ApolloClient({
   }),
   shouldBatch: true,
 });
+
+export const ACWIClient = new ApolloClient({
+  link: new HttpLink({
+    uri: "https://api.thegraph.com/subgraphs/name/arr00/uniswap-governance-v2", // what should i put in here?
+  }),
+  cache: new InMemoryCache(),
+  shouldBatch: true,
+});
+
+export const GMXClient = new ApolloClient({
+  link: new HttpLink({
+    uri: "https://api.thegraph.com/subgraphs/name/arr00/uniswap-governance-v2", // what should i put in here?
+  }),
+  cache: new InMemoryCache(),
+  shouldBatch: true,
+});
+
+export const ChainBetClient = new ApolloClient({
+  link: new HttpLink({
+    uri: "https://cre8r.vip/graphql", // what should i put in here?
+  }),
+  cache: new InMemoryCache(),
+  shouldBatch: true,
+});
