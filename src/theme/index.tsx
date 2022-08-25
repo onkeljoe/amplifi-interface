@@ -70,13 +70,9 @@ export function colors(darkMode: boolean): Colors {
     primaryText1: darkMode ? "#6da8ff" : "#ff007a",
 
     // secondary colors
-    secondary1: darkMode ? "##FF3700" : "#ff007a",
+    secondary1: darkMode ? "#ffbc7d" : "#ffbc7d",
     secondary2: darkMode ? "#17000b26" : "#F6DDE8",
     secondary3: darkMode ? "#17000b26" : "#FDEAF1",
-
-    // AmplifiDAO (we don't have dark mode yet)
-    amplifiPrimary: darkMode ? "none" : "#ff3700",
-    amplifiSecondary: darkMode ? "none" : "#ffbc7d",
 
     // other
     red1: "#FF6871",
@@ -176,6 +172,9 @@ const TextWrapper = styled(Text)<{ color: keyof Colors }>`
 `;
 
 export const TYPE = {
+  custom(props: TextProps) {
+    return <TextWrapper {...props} />;
+  },
   main(props: TextProps) {
     return <TextWrapper fontWeight={500} color={"text2"} {...props} />;
   },
