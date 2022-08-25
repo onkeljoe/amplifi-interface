@@ -69,7 +69,7 @@ export const ReferralCardLink = styled.a`
   :hover {
     cursor: pointer;
     /* opacity: 0.8; */
-    color: #ff3700;
+    color: #ff3700 !important;
   }
 `;
 
@@ -85,12 +85,14 @@ const RoundedLinkTweetintent = styled.a`
   justify-content: space-around;
   align-items: center;
   transition: all 0.2s;
+  color: white !important;
   ${({ theme }) => theme.mediaWidth.upToSmall`
   width: 100%;
 `};
   :hover {
     text-decoration: none;
     background-color: #ffbc7d;
+    color: #ff3700 !important;
   }
   :active {
     transform: scale(0.95) translateY(4px);
