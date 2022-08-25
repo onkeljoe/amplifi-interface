@@ -8,9 +8,11 @@ import styled, {
 import { useIsDarkMode } from "../state/user/hooks";
 import { Text, TextProps } from "rebass";
 import { Colors } from "./styled";
+import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material";
 
 export * from "./components";
 
+const FONT_FAMILY = "'Inter', sans-serif";
 const MEDIA_WIDTHS = {
   upToExtraSmall: 500,
   upToSmall: 720,
@@ -118,6 +120,34 @@ export function theme(darkMode: boolean): DefaultTheme {
   };
 }
 
+const createMuiTheme = (darkMode: boolean) => {
+  const { primary1, gray1 } = colors(darkMode);
+  return createTheme({
+    components: {
+      // Name of the component
+      MuiButtonBase: {
+        defaultProps: {
+          // The props to change the default for.
+          disableRipple: true, // No more ripple, on the whole application 💣!
+        },
+      },
+
+      MuiTab: {
+        styleOverrides: {
+          root: {
+            fontSize: "12px",
+            color: gray1,
+            fontFamily: FONT_FAMILY,
+            "&.Mui-selected": {
+              color: primary1,
+            },
+          },
+        },
+      },
+    },
+  });
+};
+
 export default function ThemeProvider({
   children,
 }: {
@@ -126,11 +156,13 @@ export default function ThemeProvider({
   const darkMode = useIsDarkMode();
 
   const themeObject = useMemo(() => theme(darkMode), [darkMode]);
-
+  const muiThemeObject = useMemo(() => createMuiTheme(darkMode), [darkMode]);
   return (
-    <StyledComponentsThemeProvider theme={themeObject}>
-      {children}
-    </StyledComponentsThemeProvider>
+    <MuiThemeProvider theme={muiThemeObject}>
+      <StyledComponentsThemeProvider theme={themeObject}>
+        {children}
+      </StyledComponentsThemeProvider>
+    </MuiThemeProvider>
   );
 }
 
@@ -210,7 +242,7 @@ export const TYPE = {
 
 export const FixedGlobalStyle = createGlobalStyle`
 html, input, textarea, button {
-  font-family: 'Inter', sans-serif;
+  font-family: ${FONT_FAMILY};
   font-display: fallback;
 }
 
