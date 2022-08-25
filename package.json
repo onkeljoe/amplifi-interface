@@ -104,6 +104,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "prefetch": "node scripts/generate-wpData",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "integration-test": "start-server-and-test 'serve build -l 3000' http://localhost:3000 'cypress run'",
