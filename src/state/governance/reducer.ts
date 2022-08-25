@@ -130,8 +130,8 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   governanceAlphaAddresses: [],
   governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
   migrationProposalId: 8,
-  social: "@CRE8RDAO",
-  emoji: "🔊",
+  social: "@AmpliFiDAO",
+  emoji: "📡",
   baseUrl: "https://amplifi.cre8r.vip?",
   spaceSnapshot: "amplifidao.eth",
   // featuredImage: AmpliFiLogo,
@@ -350,7 +350,7 @@ export const CRE8R_GOVERNANCE: GovernanceInfo = {
   secondaryColor: "#B0B0B0",
   token: serializeToken(CRE8R),
   governanceAlphaAddresses: [RADICLE_GOVERNANCE_ADDRESS],
-  social: "@cre8rAmpliFi",
+  social: "@CRE8RDAO",
   emoji: "🧱",
   baseUrl: "https://cre8r.vip/client-discover-call-booking-form/?",
   spaceSnapshot: "cre8r.eth",
@@ -486,7 +486,7 @@ export const ARGENT_GOVERNANCE: GovernanceInfo = {
 // mapping for routing
 export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   CRE8R: CRE8R_GOVERNANCE,
-   DEVO: DEVO_GOVERNANCE, //demo
+  DEVO: DEVO_GOVERNANCE, //demo
   BilliDrop: BILLI_GOVERNANCE, //demo
   ACWI: ACWI_GOVERNANCE, //demo
   GMX: GMX_GOVERNANCE, //demo

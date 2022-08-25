@@ -254,7 +254,7 @@ function DelegateInfo({
                       </TYPE.black>
                     </ExternalLink>
                     {!twitterHandle && !delegateInfo?.autonomous && (
-                      <CopyHelper toCopy={formattedAddress} />
+                      <CopyHelper toCopy={formattedAddress} minHeight='26px' />
                     )}
                   </RowFixed>
                   {twitterHandle ||
@@ -272,7 +272,7 @@ function DelegateInfo({
                           {shortenAddress(delegateAddress)}
                         </TYPE.black>
                       </ExternalLink>
-                      <CopyHelper toCopy={formattedAddress} />
+                      <CopyHelper toCopy={formattedAddress} minHeight='26px' />
                     </RowFixed>
                   ) : (
                     <TYPE.black fontSize='12px'>

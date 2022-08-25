@@ -71,6 +71,23 @@ const ContentWrapper = styled.div`
     padding-top: 1rem;
     padding-bottom: 120px;
   }
+
+  ::-webkit-scrollbar {
+    height: 5px;
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    opacity: 0.1;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #c0c1c1;
+  }
 `;
 
 function TopLevelModals() {
@@ -99,6 +116,7 @@ export default function App() {
             <Web3Status />
             <Popups />
             <Polling />
+
             <TopLevelModals />
             <Web3ReactManager>
               <Switch>

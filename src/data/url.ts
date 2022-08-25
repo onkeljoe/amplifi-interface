@@ -1,6 +1,6 @@
 import config from "config";
 export async function getUrl(
-  twitterHandle: string,
+  userIdentifier: string,
   roughBaseUrl: string,
   campaignId: string,
   protocolId: string,
@@ -23,7 +23,7 @@ export async function getUrl(
   ) {
     baseUrl = roughBaseUrl + "/?";
   }
-  const utm_content = twitterHandle;
+  const utm_content = userIdentifier;
   const utm_campaign = campaignId; //todo- make id campaign specific rather than protocol specific
   const utm_source = protocolId;
   const domain = {

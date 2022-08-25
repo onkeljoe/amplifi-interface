@@ -176,8 +176,8 @@ p.ampLabel.has-text-color {
   
 }
 
-.ampColumns {
-  max-width: 800px;
+.amp-columns {
+  max-width: 800%;
   font-size: 13px!important;
 }
 
