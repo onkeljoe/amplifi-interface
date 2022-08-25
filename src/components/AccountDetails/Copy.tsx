@@ -16,6 +16,7 @@ const RoundedLink = styled(LinkStyledButton)<{ numOfLinks?: number }>`
   justify-content: center;
   align-items: center;
   transition: all 0.2s;
+  color: white !important;
   min-width: ${({ numOfLinks }) => (numOfLinks === 2 ? "342px" : "100%")};
   ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 100%;
@@ -30,6 +31,7 @@ const RoundedLink = styled(LinkStyledButton)<{ numOfLinks?: number }>`
   }
   :hover {
     background-color: #ffbc7d;
+    color: #ff3700 !important;
   }
   :active {
     transform: scale(0.95) translateY(4px);
