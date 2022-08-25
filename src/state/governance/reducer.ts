@@ -15,6 +15,10 @@ import DevoLogo from "../../assets/images/IMG_5812.png";
 import BilliLogo from "../../assets/images/billilogo.jpg";
 import ACWILogo from "../../assets/images/new-altcoinswi.png";
 import GMXLogo from "../../assets/images/GMX-logo.jpg";
+import ChainBetLogo from "../../assets/images/ChainBetLogo.svg";
+import PoolLogo from "../../assets/images/pooltogether-icon.png";
+import PaladinLogo from "../../assets/images/paladin.jpg";
+import ArgentLogo from "../../assets/images/argent-logo.svg";
 import { SerializedToken } from "./../user/actions";
 import {
   updateActiveProtocol,
@@ -42,7 +46,6 @@ export interface GovernanceInfo {
   social: string;
   emoji?: string;
   baseUrl?: string;
-  hasSnapshot?: boolean;
   spaceSnapshot?: string;
 }
 
@@ -56,20 +59,14 @@ export interface GlobaData {
 }
 
 export const CHEESE_ADDRESS = "0x238d82a35e69d7c10fe69a649134171c63e57522";
-const GOAT = new Token(
-  ChainId.MAINNET,
-  CHEESE_ADDRESS,
-  18,
-  "GOAT",
-  "GOAT"
-);
+const GOAT = new Token(ChainId.MAINNET, CHEESE_ADDRESS, 18, "GOAT", "GOAT");
 
 export const BILLI_GOVERNANCE: GovernanceInfo = {
   id: "BilliDrop",
   name: "BilliDrop",
   logo: BilliLogo,
-  primaryColor: "#283e32",
-  secondaryColor: "#FFFFFF",
+  primaryColor: "#1b3125",
+  secondaryColor: "#e1f5ea",
   token: serializeToken(GOAT),
   governanceAlphaAddresses: [],
   // governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
@@ -77,8 +74,6 @@ export const BILLI_GOVERNANCE: GovernanceInfo = {
   social: "@DropBilli",
   emoji: "🐐",
   baseUrl: "https://amplifi.cre8r.vip?",
-  hasSnapshot: true,
-  spaceSnapshot: "cre8r.eth",
   // featuredImage: AmpliFiLogo,
 };
 
@@ -135,10 +130,9 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   governanceAlphaAddresses: [],
   governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
   migrationProposalId: 8,
-  social: "@CRE8RDAO",
-  emoji: "🔊",
+  social: "@AmpliFiDAO",
+  emoji: "📡",
   baseUrl: "https://amplifi.cre8r.vip?",
-  hasSnapshot: true,
   spaceSnapshot: "amplifidao.eth",
   // featuredImage: AmpliFiLogo,
 };
@@ -165,9 +159,7 @@ export const DEVO_GOVERNANCE: GovernanceInfo = {
   social: "@DEVO",
   emoji: "🔊",
   baseUrl: "https://amplifi.cre8r.vip?",
-  hasSnapshot: true,
   spaceSnapshot: "devo.eth",
-  // featuredImage: AmpliFiLogo,
 };
 
 export const COMP_GOVERNANCE_ADDRESS_BRAVO =
@@ -216,7 +208,6 @@ export const HND_GOVERNANCE: GovernanceInfo = {
   social: "@HundredFinance",
   emoji: "💯",
   baseUrl: "https://amplifi.cre8r.vip/#/amplifi/HND?",
-  hasSnapshot: true,
   spaceSnapshot: "hundredfinance.eth",
 };
 export const AAVE_GOVERNANCE_ADDRESS =
@@ -359,9 +350,10 @@ export const CRE8R_GOVERNANCE: GovernanceInfo = {
   secondaryColor: "#B0B0B0",
   token: serializeToken(CRE8R),
   governanceAlphaAddresses: [RADICLE_GOVERNANCE_ADDRESS],
-  social: "@cre8rAmpliFi",
+  social: "@CRE8RDAO",
   emoji: "🧱",
   baseUrl: "https://cre8r.vip/client-discover-call-booking-form/?",
+  spaceSnapshot: "cre8r.eth",
 };
 
 export const ACWI_GOVERNANCE_ADDRESS =
@@ -375,6 +367,28 @@ export const ACWI_GOVERNANCE: GovernanceInfo = {
   secondaryColor: "#ccc", // placeholder
   token: serializeToken(ENS), // placeholder
   social: "@twitter", // placeholder
+};
+
+export const CHAINBET_GOVERNANCE_ADDRESS =
+  "0x92562944916b586262121F98FdAaE958275c7d03";
+export const CHAINBET_ADDRESS = "0x92562944916b586262121F98FdAaE958275c7d03"; // placeholder!!
+const BET = new Token(
+  ChainId.MAINNET, // ?
+  CHAINBET_ADDRESS,
+  18,
+  "BET",
+  "BET ChainBet"
+);
+export const CHAINBET_GOVERNANCE: GovernanceInfo = {
+  id: "BET",
+  name: "ChainBet",
+  logo: ChainBetLogo,
+  governanceAlphaAddresses: [CHAINBET_GOVERNANCE_ADDRESS],
+  primaryColor: "#000",
+  secondaryColor: "#ccc",
+  token: serializeToken(BET),
+  social: "@0xChainBet",
+  baseUrl: "https://app.chainbet.gg?",
 };
 
 export const GMX_GOVERNANCE_ADDRESS_AVALANCHE =
@@ -393,13 +407,13 @@ const GMX_ARBITRUM = new Token(
   "GMX",
   "GMX Token Arbitrum"
 );
-const GMX_AVALANCHE = new Token(
-  ChainId.MAINNET, // not true, but typings dont allow to change
-  GMX_ADDRESS_AVALANCHE,
-  18,
-  "GMX",
-  "GMX Token Avalanche"
-);
+// const GMX_AVALANCHE = new Token(
+//   ChainId.MAINNET, // not true, but typings dont allow to change
+//   GMX_ADDRESS_AVALANCHE,
+//   18,
+//   "GMX",
+//   "GMX Token Avalanche"
+// );
 
 export const GMX_GOVERNANCE: GovernanceInfo = {
   id: "GMX",
@@ -410,22 +424,77 @@ export const GMX_GOVERNANCE: GovernanceInfo = {
     GMX_GOVERNANCE_ADDRESS_AVALANCHE,
     GMX_GOVERNANCE_ADDRESS_ARBITRUM,
   ],
-  primaryColor: "#000", // placeholder
-  secondaryColor: "#ccc", // placeholder
+  primaryColor: "#2d42fc",
+  secondaryColor: "#d6efff",
   social: "@GMX_IO",
   baseUrl: "https://amplifi.cre8r.vip?",
 };
 
+export const POOL_TOGETHER_GOVERNANCE_ADDRESS =
+  "0xB3a87172F555ae2a2AB79Be60B336D2F7D0187f0";
+export const POOL_ADDRESS = "0x0cEC1A9154Ff802e7934Fc916Ed7Ca50bDE6844e";
+const POOL = new Token(
+  ChainId.MAINNET,
+  POOL_ADDRESS,
+  18,
+  "POOL",
+  "PoolTogether"
+);
+export const POOL_TOGETHER_GOVERNANCE: GovernanceInfo = {
+  id: "POOL",
+  name: "PoolTogether Governance",
+  logo: PoolLogo,
+  primaryColor: "#48289f",
+  secondaryColor: "#E6e3f3",
+  token: serializeToken(POOL),
+  governanceAlphaAddresses: [POOL_TOGETHER_GOVERNANCE_ADDRESS],
+  social: "@PoolTogether",
+  emoji: "🏆",
+};
+
+export const PALADIN_GOVERNANCE_ADDRESS =
+  "0x12Cb3F4e80b795bc77090A7c412B1f804Ee085a8";
+export const PAL_ADDRESS = "0xAB846Fb6C81370327e784Ae7CbB6d6a6af6Ff4BF";
+const PAL = new Token(ChainId.MAINNET, PAL_ADDRESS, 18, "PAL", "Paladin");
+export const PALADIN_GOVERNANCE: GovernanceInfo = {
+  id: "PALADIN",
+  name: "Paladin Governance",
+  logo: PaladinLogo,
+  primaryColor: "#ec2223",
+  secondaryColor: "#FFE3E3",
+  token: serializeToken(PAL),
+  governanceAlphaAddresses: [PALADIN_GOVERNANCE_ADDRESS],
+  social: "@Paladin_vote",
+  emoji: "🗳️",
+};
+
+export const ARGENT_GOVERNANCE_ADDRESS =
+  "0x12Cb3F4e80b795bc77090A7c412B1f804Ee085a8"; //placeholder
+export const ARG_ADDRESS = "0xAB846Fb6C81370327e784Ae7CbB6d6a6af6Ff4BF"; //place
+const ARG = new Token(ChainId.MAINNET, ARG_ADDRESS, 18, "ARG", "Argent");
+export const ARGENT_GOVERNANCE: GovernanceInfo = {
+  id: "ARGENT",
+  name: "Argent Governance",
+  logo: ArgentLogo,
+  primaryColor: "#ec2223",
+  secondaryColor: "#fde9e9",
+  token: serializeToken(ARG), //placeholder
+  governanceAlphaAddresses: [ARGENT_GOVERNANCE_ADDRESS], //placeholder
+  social: "@ArgentHQ",
+};
+
 // mapping for routing
 export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
- // fuji: FUJI_GOVERNANCE,
   CRE8R: CRE8R_GOVERNANCE,
-
-//  DEVO: DEVO_GOVERNANCE, //demo
+  // DEVO: DEVO_GOVERNANCE, //demo
   BilliDrop: BILLI_GOVERNANCE, //demo
+  // ACWI: ACWI_GOVERNANCE, //demo
+  // GMX: GMX_GOVERNANCE, //demo
+  // BET: CHAINBET_GOVERNANCE, //demo
+  // POOL: POOL_TOGETHER_GOVERNANCE, //demo
   AMPLIFI: AMPLIFI_GOVERNANCE,
-//  ACWI: ACWI_GOVERNANCE, //demo
-//  GMX: GMX_GOVERNANCE, //demo
+  // PALADIN: PALADIN_GOVERNANCE,
+  // ARGENT: ARGENT_GOVERNANCE,
   // connect: CONNECT_CONFIG,
 };
 

@@ -4,6 +4,7 @@ import { TabContext } from "@mui/lab";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import { Tabs as MuiTabs } from "@mui/material";
+import { useTheme } from "styled-components";
 
 export interface TabsData {
   tab: string;
@@ -24,9 +25,7 @@ export default function Tabs({
   data,
   onClick,
 }: TabsProps): JSX.Element {
-  // useEffect(() => {
-  //   setPath(data[0].uri || '/')
-  // }, [data])
+  const theme = useTheme();
   return (
     <TabContext value={value || data[0].uri}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -35,8 +34,13 @@ export default function Tabs({
           onChange={(e: any) => {
             onChange(e.target.innerText.toLowerCase());
           }}
-          variant="scrollable"
-          aria-label="amplifi campaign tabs"
+          variant='scrollable'
+          aria-label='amplifi campaign tabs'
+          sx={{
+            ".MuiTabs-indicator": {
+              backgroundColor: theme.primary1,
+            },
+          }}
         >
           {data.map((d, i) => (
             <Tab
@@ -50,13 +54,6 @@ export default function Tabs({
           ))}
         </MuiTabs>
       </Box>
-      {/* {data.map((d, i) => {
-        return (
-        <TabPanel value={d.tab} key={i}>
-          <div dangerouslySetInnerHTML={{__html: d.content}} />
-        </TabPanel>
-      )
-      })} */}
     </TabContext>
   );
 }

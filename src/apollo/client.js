@@ -9,14 +9,6 @@ export const uniswapClient = new ApolloClient({
   shouldBatch: true,
 });
 
-export const devoClient = new ApolloClient({
-  link: new HttpLink({
-    uri: "https://api.thegraph.com/subgraphs/name/arr00/uniswap-governance-v2",
-  }),
-  cache: new InMemoryCache(),
-  shouldBatch: true,
-});
-
 export const billiClient = new ApolloClient({
   link: new HttpLink({
     uri: "https://api.thegraph.com/subgraphs/name/arr00/uniswap-governance-v2",
@@ -102,6 +94,22 @@ export const ACWIClient = new ApolloClient({
 export const GMXClient = new ApolloClient({
   link: new HttpLink({
     uri: "https://api.thegraph.com/subgraphs/name/arr00/uniswap-governance-v2", // what should i put in here?
+  }),
+  cache: new InMemoryCache(),
+  shouldBatch: true,
+});
+
+export const ChainBetClient = new ApolloClient({
+  link: new HttpLink({
+    uri: "https://cre8r.vip/graphql", // what should i put in here?
+  }),
+  cache: new InMemoryCache(),
+  shouldBatch: true,
+});
+
+export const PaladinClient = new ApolloClient({
+  link: new HttpLink({
+    uri: "https://hub.snapshot.org/graphql", // their snapshot id: "palvote.eth"
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,

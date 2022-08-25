@@ -1,29 +1,18 @@
-import Copy from "components/AccountDetails/Copy";
-import Card from "components/Card";
-import Loader from "components/Loader";
-import { useActiveWeb3React } from "hooks";
-import { useReferralLink } from "state/campaigns/hooks";
-import { useVerifiedHandle } from "state/social/hooks";
-import styled from "styled-components";
-import { useActiveProtocol } from "../../state/governance/hooks";
 import React, { useMemo } from "react";
-import { useActiveCampaign } from "state/campaigns/hooks";
-import parse from "html-react-parser";
+import { CopyBtn } from "components/AccountDetails/Copy";
+import { useActiveWeb3React } from "hooks";
+import { useActiveCampaign, useReferralLink } from "state/campaigns/hooks";
+import styled from "styled-components";
 // gutenberg basic styles
 import "@wordpress/block-library/build-style/common.css";
 import "@wordpress/block-library/build-style/style.css";
 import "@wordpress/block-library/build-style/theme.css";
-import { AutoColumn } from "../Column";
-import Row, { AutoRow, RowBetween, RowFixed } from "../Row";
-import {
-  TYPE,
-  BlankInternalLink,
-  OnlyAboveExtraSmall,
-  OnlyAboveSmall,
-  OnlyAboveLarge,
-} from "../../theme";
-import getTextToTwitter from "utils/getTextToTwitter";
 import TwitterIcon from "assets/svg/twitter.svg";
+import getTextToTwitter from "utils/getTextToTwitter";
+import { ApplicationModal } from "state/application/actions";
+import { useToggleModal } from "state/application/hooks";
+import { ButtonBasic } from "components/Button";
+import { TYPE } from "theme";
 
 const Logo = styled.img`
   height: 20px;
@@ -39,39 +28,86 @@ export const Break = styled.div`
   margin: 0;
 `;
 
-const RoundedLink = styled.div`
-  padding: 5px;
-  font-size: 12px;
-  background-image: ${({ theme }) => theme.special};
-  color: ${({ theme }) => theme.white};
+const RoundedLinkLoggedOut = styled.div<{ numOfLinks?: number }>`
+  font-size: 15px;
+  padding: 15px;
+  background-color: #fff;
   border-radius: 12px;
-  border: solid #dcd4d4;
+  border: solid #ff3700;
   border-width: 1px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-`;
-const Item = styled.div`
-  display: flex;
-  justify-content: center;
-  // padding: .3rem;
+  width: ${({ numOfLinks }) =>
+    numOfLinks ? (99 / numOfLinks).toString() + "%" : "100%"};
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    width: 100%;
+    flex-gap: 10px;
+    margin-bottom: 10px;
+  `};
+  /* :hover {
+    text-decoration: none;
+    color: ${({ theme }) => theme.text3};
+    background-color: #ff3700;
+  }
+
+  a:hover {
+    color: #ffbc7d;
+  } */
 `;
 
-const Grid = styled.div`
-  display: grid;
-  // grid-template-columns: 1fr 1fr;
-  grid-template-rows: 20px;
-  // grid-gap: 5px;
-  padding: 0.3rem;
-`;
-const ColumnLabel = styled(TYPE.darkGray)`
-  white-space: no-wrap;
+export const ReferralCardLink = styled.a`
+  color: ${({ theme }) => theme.white};
+  max-height: 65px;
+  padding: 8px;
+  outline: none;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  text-decoration: none;
   font-size: 15px;
+  transition: color 0.2s;
+  :hover {
+    cursor: pointer;
+    /* opacity: 0.8; */
+    color: #ff3700;
+  }
 `;
+
+const RoundedLinkTweetintent = styled.a`
+  font-size: 15px;
+  background-color: #ff3700;
+  max-height: 65px;
+  text-decoration: none;
+  border-radius: 12px;
+  border: solid #ff3700;
+  border-width: 1px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  transition: all 0.2s;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  width: 100%;
+`};
+  :hover {
+    text-decoration: none;
+    background-color: #ffbc7d;
+  }
+  :active {
+    transform: scale(0.95) translateY(4px);
+  }
+`;
+
+const ButtonText = styled(TYPE.white)`
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    font-size: 12px;
+  `};
+`;
+
 export default function ReferralLinksCard() {
-  const [activeProtocol] = useActiveProtocol();
   const [activeCampaign] = useActiveCampaign();
   const referralLink = useReferralLink();
+  const toggleWalletModal = useToggleModal(ApplicationModal.WALLET);
+  const { account } = useActiveWeb3React();
   const twitterIntentUrl = useMemo(() => {
     if (activeCampaign?.tweetIntent && referralLink) {
       return getTextToTwitter(activeCampaign.tweetIntent, referralLink);
@@ -79,64 +115,78 @@ export default function ReferralLinksCard() {
     return undefined;
   }, [activeCampaign?.tweetIntent, referralLink]);
 
-  const { account } = useActiveWeb3React();
-  const verifiedHandleEntry = useVerifiedHandle(account);
   return (
     <>
-      {/* <AutoColumn> */}
-      {activeProtocol && verifiedHandleEntry ? (
-        referralLink ? (
+      {!account && (
+        <>
           <>
-            <RoundedLink>
-              {twitterIntentUrl && (
-                <a href={twitterIntentUrl}>
-                  <Logo src={TwitterIcon} alt="twitter logo" />
-                </a>
-              )}
-              <Copy toCopy={"https://" + referralLink}>
-                <div>
-                  <div style={{ paddingLeft: 10 }}>
+            <RoundedLinkLoggedOut style={{ marginBottom: "15px" }}>
+              <div style={{ padding: 10, color: "#FF3700" }}>
+                <div style={{ paddingBottom: 10 }}>
+                  To check airdrop and generate referral links you must connect
+                  your wallet:
+                </div>
+                <ButtonBasic width='fit-content' onClick={toggleWalletModal}>
+                  <ButtonText>Connect wallet</ButtonText>
+                </ButtonBasic>
+              </div>
+            </RoundedLinkLoggedOut>
+          </>
+        </>
+      )}
+      {/* <AutoColumn> */}
+      {activeCampaign &&
+        (referralLink && account ? (
+          <>
+            <div
+              style={{
+                padding: 10,
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "space-between",
+                gap: "10px",
+              }}
+            >
+              <CopyBtn
+                toCopy={"https://" + referralLink}
+                numOfLinks={twitterIntentUrl ? 2 : 1}
+              >
+                <div style={{ padding: "5px" }}>
+                  <div>
                     {"  "}
                     Copy your unique link &amp; start earning
                     {/* {utmLinks[activeProtocol?.id]} */}
                   </div>
                   {activeCampaign && (
-                    <div
-                      style={{ fontSize: 8, color: "lightGrey", padding: 1 }}
-                    >
+                    <div style={{ fontSize: "9px", padding: "2px" }}>
                       {activeCampaign.baseUrl.replace("?", "")}
                     </div>
                   )}
                 </div>
-              </Copy>
-            </RoundedLink>
+              </CopyBtn>
+              {twitterIntentUrl && (
+                <RoundedLinkTweetintent
+                  style={{ padding: "20px" }}
+                  href={twitterIntentUrl}
+                  // numOfLinks={twitterIntentUrl ? 2 : 1}
+                >
+                  <ReferralCardLink style={{ textDecoration: "none" }}>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <div style={{ flex: "0 1 auto" }}>
+                        Tweet your unique link
+                      </div>
+                      <div style={{ flex: "0 1 auto" }}>
+                        <Logo src={TwitterIcon} alt='twitter logo' />
+                      </div>
+                    </div>
+                  </ReferralCardLink>
+                </RoundedLinkTweetintent>
+              )}
+            </div>
           </>
         ) : (
-          <>{/* <Loader /> */}</>
-        )
-      ) : (
-        <RoundedLink>
-          <Grid>
-            <Item>To check airdrop / generate referral links you must:</Item>
-            <Item>
-              <ul style={{ padding: 0, margin: 0 }}>
-                <li>
-                  Connect your wallet{" "}
-                  {account ? (
-                    <span style={{ color: "green" }}>✔ Done</span>
-                  ) : (
-                    <span style={{ color: "red" }}>❌ Incomplete</span>
-                  )}
-                </li>
-                <li>
-                  Connect your Twitter{" "}
-                  {verifiedHandleEntry ? `-Done` : `❌ Incomplete`}
-                </li>
-              </ul>
-            </Item>
-          </Grid>
-        </RoundedLink>
-      )}
+          <></>
+        ))}
       {/* </AutoColumn> */}
     </>
   );

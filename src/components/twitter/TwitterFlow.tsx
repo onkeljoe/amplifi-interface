@@ -27,7 +27,27 @@ import { CONNECT_CONFIG } from "state/governance/reducer";
 const ModalContentWrapper = styled.div`
   padding: 2rem;
   width: 100%;
+
   overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    opacity: 0.1;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #c0c1c1;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    cursor: default;
+  }
 `;
 
 const TweetWrapper = styled.div`
@@ -100,31 +120,59 @@ export default function TwitterFlow({ onDismiss }: { onDismiss: () => void }) {
       setVerified(true);
     }
   }
-  //todo  make it so we can customise tweet for each protocol..
-  // tweet data
 
-  // const tweetCopyForLink = `${activeProtocol?.emoji ? `${activeProtocol?.emoji} ` : ''}Verifying myself for ${
-  //   activeProtocol?.social
-  // } X @CRE8RDAO AmpliFi 🧱 ${
-  //   activeProtocol?.id == CONNECT_CONFIG.id ? 'user' : `%23${activeProtocol?.token?.symbol}`
-  // } %0A%0Aamplifi.cre8r.vip%2F%23%2Famplifi/%0A%0Aaddr:${account}%0A%0Asig:${sig ??
-  //   ''}`
+  /**
+   * This checks the useful emoji for tweet
+   * @returns {string} emoji of the protocol or '👀' or '' if the protocol is Amplifi
+   */
+  const getProtocolEmoji = (): string => {
+    if (!activeProtocol || !activeProtocol.emoji) return "👀";
+    if (activeProtocol.id === "AMPLIFI") return "";
+    return activeProtocol.emoji;
+  };
+  const protocolEmoji = getProtocolEmoji();
 
-  // used just for display in UI
-  const readableTweetCopy = `${activeProtocol?.emoji ?? ""}👀${
-    activeProtocol?.social
-  } X @AmpliFiDAO 📡   ${
-    activeProtocol?.id == CONNECT_CONFIG.id
-      ? "user"
-      : `#${activeProtocol?.token?.symbol}`
-  } \n https://amplifi.cre8r.vip/#/amplifi/${
-    activeProtocol?.id
-  } \n addr:${account} \n sig:${sig ?? ""}`;
+  /**
+   * This returns useful social tag or via for tweet
+   * @returns {string} social protocal tags or via, because if you just start
+   with '@AmplifiDAO' tweeter treats it like a response and app can't fetch it
+   */
+  const getSocialTags = (): string => {
+    if (!activeProtocol || !activeProtocol.social) return "via";
+    if (activeProtocol.id === "AMPLIFI") return "via ";
+    return activeProtocol.social + " X ";
+  };
+  const socialTags = getSocialTags();
 
+  /**
+   * This return useful hashtags for the tweet
+   * @returns {string} either two hashtags: protocol,CRE8R or one hashtag: CRE8R
+   */
+  const getHashtags = (): string => {
+    if (!activeProtocol || !activeProtocol.token) return "CRE8R";
+    if (activeProtocol.token.symbol === "CRE8R") return "CRE8R";
+    return `${activeProtocol?.token.symbol},CRE8R`;
+  };
+  const socialHashtag = getHashtags();
 
+  const tweetText = `${protocolEmoji} ${socialTags}@AmpliFiDAO 📡
+address: ${account}
+${sig ? `sig: ${sig}` : ""}`;
+  const urlProtocol = encodeURI(
+    `https://amplifi.cre8r.vip/#/campaigns/${activeProtocol?.id}`
+  );
 
+  // then it goes here to make a good looking tweet
+  const tweetCopyForLink = encodeURI(
+    `https://twitter.com/intent/tweet?text=${tweetText}&hashtags=${socialHashtag}&url=${urlProtocol}`
+  );
 
-  const tweetCopyForLink = encodeURIComponent(readableTweetCopy);
+  // used just for display in UI of amplifi interface (pre-tweet)
+  const readableTweetText = `${protocolEmoji} ${socialTags}@AmpliFiDAO 📡
+  <address>
+  <sig>
+  #${activeProtocol?.token.symbol ?? "CRE8R"}`;
+  const readableTweetCopy = `${readableTweetText}\nhttps://amplifi.cre8r.vip/#/campaigns/${activeProtocol?.id}`;
 
   // watch for user tweet
   const [tweetError, setTweetError] = useState<string | undefined>();
@@ -144,7 +192,7 @@ export default function TwitterFlow({ onDismiss }: { onDismiss: () => void }) {
     setWatch(true); // restart watcher
     setTweetError(undefined); // reset error
     window.open(
-      `https://twitter.com/intent/tweet?text=${tweetCopyForLink}`,
+      `${tweetCopyForLink}`,
       "tweetWindow",
       "height=400,width=800,top=400px,left=400px"
     );
@@ -158,7 +206,7 @@ export default function TwitterFlow({ onDismiss }: { onDismiss: () => void }) {
           if (res?.data[0]) {
             const tweetData = res?.data?.[0];
             // check that tweet contains correct data
-            const passedRegex = tweetData.text.includes("sig:" + sig);
+            const passedRegex = tweetData.text.includes("sig: " + sig);
             if (passedRegex) {
               setTweetID(tweetData.id);
               setTweetError(undefined);
@@ -178,10 +226,10 @@ export default function TwitterFlow({ onDismiss }: { onDismiss: () => void }) {
   return (
     <ModalContentWrapper>
       {!twitterHandle ? (
-        <AutoColumn gap="lg">
+        <AutoColumn gap='lg'>
           <RowBetween>
             <RowFixed>
-              <TYPE.mediumHeader ml="6px">Connect Twitter</TYPE.mediumHeader>
+              <TYPE.mediumHeader ml='6px'>Connect Twitter</TYPE.mediumHeader>
             </RowFixed>
             <CloseIcon onClick={onDismiss} />
           </RowBetween>
@@ -190,13 +238,13 @@ export default function TwitterFlow({ onDismiss }: { onDismiss: () => void }) {
             handle.
           </TYPE.black>
           <TwitterAccountPreview />
-          <TwitterLoginButton text="Connect Twitter" />
+          <TwitterLoginButton text='Connect Twitter' />
         </AutoColumn>
       ) : !sig ? (
-        <AutoColumn gap="lg">
+        <AutoColumn gap='lg'>
           <RowBetween>
             <RowFixed>
-              <TYPE.mediumHeader ml="6px">
+              <TYPE.mediumHeader ml='6px'>
                 Step 1: Sign Message
               </TYPE.mediumHeader>
             </RowFixed>
@@ -211,11 +259,11 @@ export default function TwitterFlow({ onDismiss }: { onDismiss: () => void }) {
           {sigError && <TYPE.error error={true}>{sigError}</TYPE.error>}
         </AutoColumn>
       ) : !tweetID ? (
-        <AutoColumn gap="lg">
+        <AutoColumn gap='lg'>
           <RowBetween>
             <RowFixed>
               <BackArrowSimple onClick={() => setSig(undefined)} />
-              <TYPE.mediumHeader ml="6px">Step 2: Announce</TYPE.mediumHeader>
+              <TYPE.mediumHeader ml='6px'>Step 2: Announce</TYPE.mediumHeader>
             </RowFixed>
             <CloseIcon onClick={onDismiss} />
           </RowBetween>
@@ -233,7 +281,7 @@ export default function TwitterFlow({ onDismiss }: { onDismiss: () => void }) {
           {tweetError && <TYPE.error error={true}>{tweetError}</TYPE.error>}
         </AutoColumn>
       ) : !verified && !attempting ? (
-        <AutoColumn gap="lg">
+        <AutoColumn gap='lg'>
           <RowBetween>
             <RowFixed>
               <BackArrowSimple
@@ -243,7 +291,7 @@ export default function TwitterFlow({ onDismiss }: { onDismiss: () => void }) {
                   setWatch(false);
                 }}
               />
-              <TYPE.mediumHeader ml="6px">Step 3: Submit</TYPE.mediumHeader>
+              <TYPE.mediumHeader ml='6px'>Step 3: Submit</TYPE.mediumHeader>
             </RowFixed>
             <CloseIcon onClick={onDismiss} />
           </RowBetween>

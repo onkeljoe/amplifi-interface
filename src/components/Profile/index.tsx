@@ -8,7 +8,7 @@ import { useActiveWeb3React, useTheme } from "../../hooks";
 import ReactGA from "react-ga";
 import { ApplicationModal } from "../../state/application/actions";
 import Card from "../Card";
-import { RowFixed, RowBetween, RowFlat } from "../Row";
+import { RowFixed, RowBetween, RowFlat, Row } from "../Row";
 import { TYPE, BlankInternalLink, StyledInternalLink } from "../../theme";
 import { ButtonBasic, ButtonCustom } from "../Button";
 import { shortenAddress } from "../../utils";
@@ -83,7 +83,7 @@ const RoundedProfileImage = styled.div`
   }
 `;
 
-const Above1080Only = styled.span`
+const Above1080Only = styled.div`
   display: initial;
   @media (max-width: 1080px) {
     display: none;
@@ -109,19 +109,19 @@ const WhiteCard = styled.div`
   background: white;
   padding: 10px;
   border-radius: 12px;
-`
+`;
 
 const AirdropGreyBox = styled.div`
   min-width: 25%;
   // width: 120px;
   border-radius: 12px;
-  background: ${({theme}) => theme.bg2};
+  background: ${({ theme }) => theme.bg2};
   height: 38px;
   margin-left: 5px;
   :hover {
     cursor: help;
   }
-`
+`;
 
 export default function Profile() {
   const theme = useTheme();
@@ -168,17 +168,21 @@ export default function Profile() {
   // toggle for mobile view
   const [showProfileModal, setShowProfileModal] = useState(false);
 
-  const ConnectPitch = ({stageText} : {stageText: string}) => (
-    <TYPE.blue fontSize="12px" paddingTop={"10px"}>
-      Connecting your{` ${stageText} `}allows you to check your 
-      {" "}<StyledInternalLink to={"/campaigns/amplifi/amplifi-publisher-airdrop"} style={{
-        textDecoration: "underline",
-        color: "black"
-
-      }}>airdrop</StyledInternalLink>
-      {" "} &amp; generate your unique referral link
+  const ConnectPitch = ({ stageText }: { stageText: string }) => (
+    <TYPE.blue fontSize='12px' paddingTop={"10px"}>
+      Connect your{` ${stageText} `} to view your{" "}
+      <StyledInternalLink
+        to={"/campaigns/amplifi/amplifi-publisher-airdrop"}
+        style={{
+          textDecoration: "underline",
+          color: "black",
+        }}
+      >
+        airdrop
+      </StyledInternalLink>{" "}
+      💰
     </TYPE.blue>
-  )
+  );
   const ProfileContent = () => (
     <SectionWrapper>
       <BackgroundWrapper
@@ -198,11 +202,11 @@ export default function Profile() {
           <Above1080Only>
             <TYPE.body
               fontWeight={500}
-              fontSize="14px"
+              fontSize='14px'
               color={activeProtocol?.primaryColor}
-              mb="1rem"
+              mb='1rem'
             >
-              <ConnectPitch stageText="Wallet and Twitter" />
+              <ConnectPitch stageText='Wallet and Twitter' />
             </TYPE.body>
             {activeProtocol && (
               <ButtonCustom
@@ -219,18 +223,16 @@ export default function Profile() {
             )}
           </Above1080Only>
         ) : (
-          <AutoColumn gap="16px">
-            
+          <AutoColumn gap='16px'>
             {!verifiedHandleEntry && account ? (
               !twitterAccount ? (
                 <WhiteCard>
                   <RowFlat>
-                    <MysteryAmplifiCard width={'140px'}/>
-                    <div style={{ width: '5px'}}/>
-                    <TwitterLoginButton text="Add a public identity" />
+                    <MysteryAmplifiCard width={"140px"} />
+                    <div style={{ width: "5px" }} />
+                    <TwitterLoginButton text='Add a public identity' />
                   </RowFlat>
-                  <ConnectPitch stageText={'Twitter'}/>
-
+                  <ConnectPitch stageText={"Twitter"} />
                 </WhiteCard>
               ) : (
                 <TwitterButton
@@ -244,7 +246,7 @@ export default function Profile() {
                   }}
                 >
                   <RowBetween>
-                    <TYPE.white fontSize="14px">
+                    <TYPE.white fontSize='14px'>
                       Add a public identity
                     </TYPE.white>
                     <TwitterLogo src={TwitterIcon} />
@@ -252,15 +254,17 @@ export default function Profile() {
                 </TwitterButton>
               )
             ) : null}
-            {account && verifiedHandleEntry &&<WhiteCard>
-              <RowFlat>
-                <MysteryAmplifiCard />
-                <AirdropGreyBox />
-                <AirdropGreyBox />
-              </RowFlat>
-            </WhiteCard>}
+            {account && verifiedHandleEntry && (
+              <WhiteCard>
+                <RowFlat>
+                  <MysteryAmplifiCard />
+                  <AirdropGreyBox />
+                  <AirdropGreyBox />
+                </RowFlat>
+              </WhiteCard>
+            )}
             <WalletSummary />
-            <TYPE.main mb="16px">
+            <TYPE.main mb='16px'>
               Your{" "}
               <span style={{ color: activeProtocol?.primaryColor }}>
                 {" "}
@@ -290,12 +294,12 @@ export default function Profile() {
         >
           <ProfileContent />
         </Modal>
-        <Card padding="10px">
+        <Card padding='10px'>
           <RowBetween>
             <BlankInternalLink
               to={`/delegates/${activeProtocol?.id}/${account}`}
             >
-              <RowFixed>
+              <Row>
                 <RoundedProfileImage>
                   <img
                     src={
@@ -310,26 +314,27 @@ export default function Profile() {
                 ) : (
                   chainId &&
                   (verifiedHandleEntry?.handle ? (
-                    <AutoColumn gap="4px">
-                      <LogoText type="twitter">
+                    <AutoColumn gap='4px'>
+                      <LogoText type='twitter'>
                         @{verifiedHandleEntry.handle}
                       </LogoText>
-                      <TYPE.main fontSize="12px">
+                      <TYPE.main fontSize='12px'>
                         {shortenAddress(account)}
                       </TYPE.main>
                     </AutoColumn>
                   ) : (
-                    <TYPE.main mr="10px" color={theme.text1}>
+                    <TYPE.main mr='10px' color={theme.text1}>
                       {shortenAddress(account)}
                     </TYPE.main>
                   ))
                 )}
-              </RowFixed>
+              </Row>
             </BlankInternalLink>
             {!account ? (
-              <ButtonBasic width="fit-content" onClick={toggleWalletModal}>
+              <ButtonBasic width='fit-content' onClick={toggleWalletModal}>
                 <ButtonText>Connect wallet</ButtonText>
-                <ConnectPitch stageText="Wallet and Twitter" />
+                {/* <ConnectPitch stageText="Wallet and Twitter" /> */}{" "}
+                {/* I'm not sure if we need this! */}
               </ButtonBasic>
             ) : (
               <RowFixed>

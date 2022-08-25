@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { RowBetween, RowFixed } from "../Row";
+import { RowBetween, RowFixed, RowFlat } from "../Row";
 import { TYPE, ExternalLink, BlankInternalLink } from "../../theme";
-import { AutoColumn } from "../Column";
+import Column, { AutoColumn } from "../Column";
 import { ButtonBasic } from "../Button";
 import { GitHub, ChevronLeft, X, HelpCircle } from "react-feather";
 import "../../theme/extraFonts.css";
-import MenuBG from "../../assets/images/menu-bg.png";
 import Logo from "../../assets/svg/AmpliFi.svg";
 import { Break } from "../../pages/DelegateInfo";
 import { useActiveProtocol } from "../../state/governance/hooks";
 import { SUPPORTED_PROTOCOLS } from "../../state/governance/reducer";
+import { useDispatch } from "react-redux";
 
 const Wrapper = styled.div<{ open: boolean }>`
   height: 100vh;
   position: absolute;
   z-index: 2;
-  width: ${({ open }) => (open ? "350px" : "82px")};
+  width: ${({ open }) => (open ? "350px" : "88px")};
   background-color: #fff;
   padding: 1rem 0rem;
   display: flex;
@@ -36,18 +36,54 @@ const Wrapper = styled.div<{ open: boolean }>`
   @media (max-width: 1080px) {
     display: none;
   }
+
+  @media (min-width: 1081px) {
+    ::-webkit-scrollbar {
+      height: 5px;
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      opacity: 0.1;
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      background-color: #c0c1c1;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      cursor: default;
+    }
+  }
 `;
 
 const MobileHeader = styled.div`
+  box-sizing: border-box;
+  min-height: 82px;
   width: 100%;
-  background-color: red;
+  background-color: rgba(198, 225, 255, 76);
   display: none;
   padding: 1rem;
-  background: url(${MenuBG});
-
+  position: relative;
   @media (max-width: 1080px) {
     display: initial;
   }
+`;
+
+const MobileFAQWrapper = styled.div`
+  width: 100%;
+  padding: 0 1.25rem;
+  padding-bottom: 1rem;
+  top: 82px;
+  position: absolute;
+  margin-left: -1rem;
+  box-shadow: 0px 8px 8px 2px rgb(71 156 251 / 50%);
+  z-index: 5;
+  background-color: rgba(198, 225, 255, 76);
 `;
 
 const SybilLogo = styled.div`
@@ -86,7 +122,7 @@ export default function SideMenu(): JSX.Element {
   const [open, setOpen] = useState(false);
   const [faqOpen, setfaqOpen] = useState(false);
   const [activeProtocol] = useActiveProtocol();
-
+  const dispatch = useDispatch();
   function closeBoth() {
     setOpen(!open);
     setfaqOpen(false);
@@ -95,25 +131,97 @@ export default function SideMenu(): JSX.Element {
   return (
     <>
       <MobileHeader>
-        <RowBetween>
-          <BlankInternalLink to="/">
-            <RowFixed style={{ gap: "8px" }}>
-              <SybilLogo />
-              <SybilWorkmark>CRE8R AmpliFi</SybilWorkmark>
-            </RowFixed>
-          </BlankInternalLink>
-          <ExternalLink href="https://github.com/Uniswap/sybil-list">
-            <GitHub size={20} style={{ stroke: "black" }} />
-          </ExternalLink>
-        </RowBetween>
+        {!faqOpen ? (
+          <RowBetween alignItems='center'>
+            <BlankInternalLink to='/'>
+              <RowFixed style={{ gap: "8px" }}>
+                <SybilLogo />
+                <SybilWorkmark>CRE8R AmpliFi</SybilWorkmark>
+              </RowFixed>
+            </BlankInternalLink>
+            <RowFlat style={{ gap: "8px" }}>
+              <ExternalLink
+                href='https://github.com/CRE8RDAO/sybil-interface'
+                style={{ display: "flex" }}
+              >
+                <GitHub size={20} style={{ stroke: "black" }} />
+              </ExternalLink>
+              <ButtonBasic
+                onClick={() => setfaqOpen(!faqOpen)}
+                style={{
+                  backgroundColor: "rgba(255,255,255,0.4)",
+                  color: "#000",
+                  padding: 0,
+                }}
+              >
+                <HelpCircle size={20} />
+              </ButtonBasic>
+            </RowFlat>
+          </RowBetween>
+        ) : (
+          <RowBetween>
+            <ButtonBasic
+              onClick={() => setfaqOpen(!faqOpen)}
+              style={{
+                backgroundColor: "rgba(255,255,255,0.4)",
+                color: "#000",
+                gap: 12,
+              }}
+            >
+              <HelpCircle size={20} />
+              <TYPE.black style={{ lineHeight: "125%", fontWeight: 400 }}>
+                Help and Info
+              </TYPE.black>
+            </ButtonBasic>
+            <ButtonBasic
+              onClick={() => setfaqOpen(!faqOpen)}
+              style={{
+                cursor: "pointer",
+                backgroundColor: "rgba(255,255,255,0.4)",
+                color: "#000",
+              }}
+            >
+              <X />
+            </ButtonBasic>
+          </RowBetween>
+        )}
+        {faqOpen && (
+          <MobileFAQWrapper>
+            <AutoColumn gap='1.5rem'>
+              <AutoColumn gap='0.5rem'>
+                <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
+                <TYPE.main>
+                  Boost CRE8R DAO content marketing campaigns reach. And
+                  facilitate KPI based marketing campaigns for web3
+                </TYPE.main>
+              </AutoColumn>
+              <AutoColumn gap='0.5rem'>
+                <TYPE.body fontWeight={600}>
+                  I don’t have Twitter, can I use AmpliFi?
+                </TYPE.body>
+                <TYPE.main>
+                  Soon Discord, but yes if you DM @CRE8RDAO we can set you
+                  up..&nbsp;
+                  <ExternalLink href=''>Twitter Link</ExternalLink>.
+                </TYPE.main>
+              </AutoColumn>
+              <AutoColumn gap='0.5rem'>
+                <TYPE.body fontWeight={600}>Can I use AmpliFi?</TYPE.body>
+                <TYPE.main>
+                  Yep, dm @CRE8RDAO on twitter and lets chat!
+                </TYPE.main>
+              </AutoColumn>
+            </AutoColumn>
+          </MobileFAQWrapper>
+        )}
       </MobileHeader>
       <Wrapper open={open} onClick={() => !open && setOpen(!open)}>
-        <AutoColumn gap="24px">
+        <AutoColumn gap='24px'>
           <div style={{ padding: "0px 5px 55px 5px", height: "28px" }}>
             {!open ? (
               <SybilLogo />
             ) : (
-              <RowBetween align="flex-start">
+              <RowBetween align='flex-start'>
                 <RowFixed style={{ gap: "8px" }}>
                   <SybilLogo />
                   <SybilWorkmark style={{ fontSize: "40px" }}>
@@ -163,7 +271,7 @@ export default function SideMenu(): JSX.Element {
                     <WrappedListLogo src={p.logo} color={p.primaryColor} />
                     {open && (
                       <TYPE.mediumHeader
-                        fontSize="16px"
+                        fontSize='16px'
                         ml={"12px"}
                         color={p.primaryColor}
                       >
@@ -179,7 +287,7 @@ export default function SideMenu(): JSX.Element {
 
         {!faqOpen ? (
           <AutoColumn
-            gap="16px"
+            gap='16px'
             style={{
               justifySelf: "flex-end",
               alignItems: "flex-start",
@@ -188,7 +296,7 @@ export default function SideMenu(): JSX.Element {
           >
             <ButtonBasic
               as={ExternalLink}
-              href="https://github.com/Uniswap/sybil-list"
+              href='https://github.com/CRE8RDAO/sybil-interface'
               style={{
                 backgroundColor: "rgba(255,255,255,0.4)",
                 color: "#000",
@@ -200,7 +308,7 @@ export default function SideMenu(): JSX.Element {
             </ButtonBasic>
             <ButtonBasic
               onClick={() => setfaqOpen(!faqOpen)}
-              href="https://github.com/Uniswap/sybil-list"
+              href='https://github.com/CRE8RDAO/sybil-interface'
               style={{
                 backgroundColor: "rgba(255,255,255,0.4)",
                 color: "#000",
@@ -210,7 +318,7 @@ export default function SideMenu(): JSX.Element {
               <HelpCircle size={20} />
             </ButtonBasic>
             {open && (
-              <AutoColumn gap="1rem" style={{ justifySelf: "flex-start" }}>
+              <AutoColumn gap='1rem' style={{ justifySelf: "flex-start" }}>
                 <TYPE.black
                   style={{
                     lineHeight: "125%",
@@ -222,7 +330,7 @@ export default function SideMenu(): JSX.Element {
                   A{" "}
                   <ExternalLink
                     style={{ color: "#ff007a" }}
-                    href="https://cre8r.vip/"
+                    href='https://cre8r.vip/'
                   >
                     CRE8R DAO
                   </ExternalLink>{" "}
@@ -232,59 +340,64 @@ export default function SideMenu(): JSX.Element {
             )}
           </AutoColumn>
         ) : (
-          <RowBetween style={{ padding: "0 1rem" }}>
-            <ButtonBasic
-              onClick={() => setfaqOpen(!faqOpen)}
-              href="https://GitHub.com/CRE8RDAO"
-              style={{
-                backgroundColor: "rgba(255,255,255,0.4)",
-                color: "#000",
-                gap: 12,
-              }}
-            >
-              <HelpCircle size={20} />
-              <TYPE.black style={{ lineHeight: "125%", fontWeight: 400 }}>
-                Help and Info
-              </TYPE.black>
-            </ButtonBasic>
-            <ButtonBasic
-              onClick={() => setfaqOpen(!faqOpen)}
-              style={{
-                cursor: "pointer",
-                backgroundColor: "rgba(255,255,255,0.4)",
-                color: "#000",
-              }}
-            >
-              <X />
-            </ButtonBasic>
-          </RowBetween>
+          <Column justify='flex-end'>
+            <RowBetween style={{ padding: "0 1rem" }}>
+              <ButtonBasic
+                onClick={() => setfaqOpen(!faqOpen)}
+                href='https://GitHub.com/CRE8RDAO'
+                style={{
+                  backgroundColor: "rgba(255,255,255,0.4)",
+                  color: "#000",
+                  gap: 12,
+                }}
+              >
+                <HelpCircle size={20} />
+                <TYPE.black style={{ lineHeight: "125%", fontWeight: 400 }}>
+                  Help and Info
+                </TYPE.black>
+              </ButtonBasic>
+              <ButtonBasic
+                onClick={() => setfaqOpen(!faqOpen)}
+                style={{
+                  cursor: "pointer",
+                  backgroundColor: "rgba(255,255,255,0.4)",
+                  color: "#000",
+                }}
+              >
+                <X />
+              </ButtonBasic>
+            </RowBetween>
+            <AutoColumn gap='1.5rem' style={{ padding: "0 1.25rem" }}>
+              <AutoColumn gap='0.5rem'>
+                <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
+                <TYPE.main>
+                  Boost CRE8R DAO content marketing campaigns reach. And
+                  facilitate KPI based marketing campaigns for web3
+                </TYPE.main>
+              </AutoColumn>
+              <AutoColumn gap='0.5rem'>
+                <TYPE.body fontWeight={600}>
+                  I don’t have Twitter, can I use AmpliFi?
+                </TYPE.body>
+                <TYPE.main>
+                  Soon Discord, but yes if you DM @CRE8RDAO we can set you
+                  up..&nbsp;
+                  <ExternalLink href=''>Twitter Link</ExternalLink>.
+                </TYPE.main>
+              </AutoColumn>
+              <AutoColumn gap='0.5rem'>
+                <TYPE.body fontWeight={600}>Can I use AmpliFi?</TYPE.body>
+                <TYPE.main>
+                  Yep, dm @CRE8RDAO on twitter and lets chat!
+                </TYPE.main>
+              </AutoColumn>
+            </AutoColumn>
+          </Column>
         )}
 
-        {faqOpen && (
-          <AutoColumn gap="1.5rem" style={{ padding: "0 1.25rem" }}>
-            <AutoColumn gap="0.5rem">
-              <TYPE.body fontWeight={600}>Why build AmpliFi?</TYPE.body>
-              <TYPE.main>
-                Boost CRE8R DAO content marketing campaigns reach. And
-                facilitate KPI based marketing campaigns for web3
-              </TYPE.main>
-            </AutoColumn>
-            <AutoColumn gap="0.5rem">
-              <TYPE.body fontWeight={600}>
-                I don’t have Twitter, can I use AmpliFi?
-              </TYPE.body>
-              <TYPE.main>
-                Soon Discord, but yes if you DM @CRE8RDAO we can set you
-                up..&nbsp;
-                <ExternalLink href="">Twitter Link</ExternalLink>.
-              </TYPE.main>
-            </AutoColumn>
-            <AutoColumn gap="0.5rem">
-              <TYPE.body fontWeight={600}>Can I use AmpliFi?</TYPE.body>
-              <TYPE.main>Yep, dm @CRE8RDAO on twitter and lets chat!</TYPE.main>
-            </AutoColumn>
-          </AutoColumn>
-        )}
+        {/* {faqOpen && (
+          
+        )} */}
       </Wrapper>
     </>
   );

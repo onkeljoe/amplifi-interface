@@ -4,7 +4,7 @@ import { useActivePopups } from "../../state/application/hooks";
 import { AutoColumn } from "../Column";
 import PopupItem from "./PopupItem";
 import { useURLWarningVisible } from "../../state/user/hooks";
-import { toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 
 const MobilePopupWrapper = styled.div<{ height: string | number }>`
   position: relative;
@@ -53,13 +53,14 @@ export default function Popups(): JSX.Element {
   //refactor to use other popup system
   useEffect(() => {
     if (process.env.REACT_APP_TOAST) {
-      toast.info(process.env.REACT_APP_TOAST);
+      toast(process.env.REACT_APP_TOAST);
     }
   }, []);
 
   return (
     <>
-      <FixedPopupColumn gap="20px" extraPadding={urlWarningActive}>
+      <Toaster />
+      <FixedPopupColumn gap='20px' extraPadding={urlWarningActive}>
         {activePopups.map((item) => (
           <PopupItem
             key={item.key}

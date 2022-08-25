@@ -1,40 +1,39 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import {
-  useProposalData,
-  useActiveProtocol,
-  useProposalStatus,
-  useUserVotes,
-} from "../../state/governance/hooks";
-import ReactMarkdown from "react-markdown";
-import { RowBetween, RowFixed } from "../Row";
-import { AutoColumn } from "../Column";
-import { TYPE, ExternalLink } from "../../theme";
-import { ChevronRight } from "react-feather";
-import { ProposalStatus } from "./styled";
+import Breadcrumb from "components/Breadcrumb";
+import { BigNumber } from "ethers";
 import { DateTime } from "luxon";
-import { AVERAGE_BLOCK_TIME_IN_SECS, BIG_INT_ZERO } from "../../constants";
-import { isAddress, getEtherscanLink } from "../../utils";
-import { useActiveWeb3React } from "../../hooks";
-import VoterList from "./VoterList";
-import VoteModal from "../vote/VoteModal";
-import { RouteComponentProps, withRouter } from "react-router-dom";
-import { BodyWrapper } from "../../pages/AppBody";
+import ReactMarkdown from "react-markdown";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../state";
-import { SUPPORTED_PROTOCOLS } from "../../state/governance/reducer";
+import { RouteComponentProps, withRouter } from "react-router-dom";
+import styled from "styled-components";
+import { ButtonError } from "../../components/Button";
+import { AVERAGE_BLOCK_TIME_IN_SECS, BIG_INT_ZERO } from "../../constants";
+import { useActiveWeb3React } from "../../hooks";
 import useCurrentBlockTimestamp from "../../hooks/useCurrentBlockTimestamp";
+import { BodyWrapper } from "../../pages/AppBody";
+import { AppDispatch } from "../../state";
 import { ApplicationModal } from "../../state/application/actions";
 import {
   useBlockNumber,
   useModalOpen,
   useToggleModal,
 } from "../../state/application/hooks";
-import { BigNumber } from "ethers";
-import { nameOrAddress } from "../../utils/getName";
+import {
+  useActiveProtocol,
+  useProposalData,
+  useProposalStatus,
+  useUserVotes,
+} from "../../state/governance/hooks";
+import { SUPPORTED_PROTOCOLS } from "../../state/governance/reducer";
 import { useAllIdentities } from "../../state/social/hooks";
-import { ButtonError } from "../../components/Button";
-
+import { ExternalLink, TYPE } from "../../theme";
+import { getEtherscanLink, isAddress } from "../../utils";
+import { nameOrAddress } from "../../utils/getName";
+import { AutoColumn } from "../Column";
+import { RowBetween } from "../Row";
+import VoteModal from "../vote/VoteModal";
+import { ProposalStatus } from "./styled";
+import VoterList from "./VoterList";
 const Wrapper = styled.div<{ backgroundColor?: string }>``;
 
 const ProposalInfo = styled(AutoColumn)`
@@ -42,21 +41,6 @@ const ProposalInfo = styled(AutoColumn)`
   position: relative;
 `;
 
-const ArrowWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: ${({ theme }) => theme.text1};
-
-  a {
-    color: ${({ theme }) => theme.text1};
-    text-decoration: none;
-  }
-  :hover {
-    text-decoration: none;
-    cursor: pointer;
-  }
-`;
 const CardWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -184,26 +168,14 @@ function ProposalDetails({
         proposalTitle={proposalData?.title}
       />
       <Wrapper>
-        <ProposalInfo gap="lg" justify="start">
+        <ProposalInfo gap='lg' justify='start'>
           <RowBetween style={{ width: "100%", alignItems: "flex-start" }}>
-            <RowFixed>
-              <ArrowWrapper
-                onClick={() => {
-                  history?.length === 1 ? history.push("/") : history.goBack();
-                }}
-                style={{ alignItems: "flex-start" }}
-              >
-                <TYPE.body fontWeight="600">Proposals</TYPE.body>
-              </ArrowWrapper>
-              <ChevronRight size={16} />
-              <TYPE.body>{"Proposal #" + proposalID}</TYPE.body>
-            </RowFixed>
-
+            <Breadcrumb title={"Proposal #" + proposalID} history={history} />
             {proposalData && (
               <ProposalStatus status={status ?? ""}>{status}</ProposalStatus>
             )}
           </RowBetween>
-          <AutoColumn gap="10px" style={{ width: "100%" }}>
+          <AutoColumn gap='10px' style={{ width: "100%" }}>
             <TYPE.largeHeader style={{ marginBottom: ".5rem" }}>
               {proposalData?.title}
             </TYPE.largeHeader>
@@ -223,18 +195,18 @@ function ProposalDetails({
             {proposalData && !proposalData.snapshot ? (
               <>
                 <VoterList
-                  title="For"
+                  title='For'
                   amount={proposalData?.forCount}
                   percentage={forPercentage}
                   voters={proposalData?.forVotes.slice(
                     0,
                     Math.min(10, Object.keys(proposalData?.forVotes)?.length)
                   )}
-                  support="for"
+                  support='for'
                   id={proposalData?.id}
                 />
                 <VoterList
-                  title="Against"
+                  title='Against'
                   amount={proposalData?.againstCount}
                   percentage={againstPercentage}
                   voters={proposalData?.againstVotes.slice(
@@ -330,7 +302,7 @@ function ProposalDetails({
               </>
             )}
           </CardWrapper>
-          <AutoColumn gap="md">
+          <AutoColumn gap='md'>
             <TYPE.mediumHeader fontWeight={600}>Details</TYPE.mediumHeader>
             {proposalData?.details?.map((d, i) => {
               return (
@@ -349,7 +321,7 @@ function ProposalDetails({
               );
             })}
           </AutoColumn>
-          <AutoColumn gap="md">
+          <AutoColumn gap='md'>
             <MarkDownWrapper>
               <ReactMarkdown
                 source={proposalData?.description}
@@ -357,7 +329,7 @@ function ProposalDetails({
               />
             </MarkDownWrapper>
           </AutoColumn>
-          <AutoColumn gap="md">
+          <AutoColumn gap='md'>
             <TYPE.mediumHeader fontWeight={600}>Proposer</TYPE.mediumHeader>
             <AddressWrapper>
               <ExternalLink

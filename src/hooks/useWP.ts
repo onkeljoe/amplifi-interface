@@ -177,9 +177,8 @@ export const getPostsFromNavItems = async (
   queryUriToContent: (path: any) => Promise<ApolloQueryResult<any>>
 ) => {
   const res_1 = await Promise.allSettled(
-    nav.map(async (res: any) => {
-      const f = await queryUriToContent(res.uri);
-      return f;
+    nav.map((res: any) => {
+      return queryUriToContent(res.uri);
     })
   );
   const _posts = res_1.map((f_1: any) => {

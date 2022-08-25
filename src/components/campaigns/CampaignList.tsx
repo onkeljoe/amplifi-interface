@@ -71,8 +71,8 @@ function CampaignList({
           </TYPE.subHeader>
         </EmptyWrapper>
       ) : (
-        <AutoColumn gap="0">
-          <TYPE.body fontSize="16px" fontWeight="600" mb="1rem">
+        <AutoColumn gap='0'>
+          <TYPE.body fontSize='16px' fontWeight='600' mb='1rem'>
             Campaigns
           </TYPE.body>
           <Break style={{}} />
@@ -84,11 +84,11 @@ function CampaignList({
                     <RowBetween>
                       <RowFixed>
                         <OnlyAboveSmall>
-                          <TYPE.darkGray mr="8px">
+                          <TYPE.darkGray mr='8px'>
                             {amplifiCampaigns.length - i + "."}
                           </TYPE.darkGray>
                         </OnlyAboveSmall>
-                        <ResponsiveText mr="10px">{v.title}</ResponsiveText>
+                        <ResponsiveText mr='10px'>{v.title}</ResponsiveText>
                       </RowFixed>
                       <Loader />
                     </RowBetween>
@@ -98,7 +98,7 @@ function CampaignList({
               );
             })
           ) : (
-            <LoadingRows style={{paddingTop: 10}}>
+            <LoadingRows style={{ paddingTop: 10 }}>
               <div />
               <div />
               <div />

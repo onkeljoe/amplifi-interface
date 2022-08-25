@@ -24,7 +24,6 @@ import { CloseIcon, StyledInternalLink } from "../../theme/components";
 import { useAllIdentities } from "../../state/social/hooks";
 import { nameOrAddress } from "../../utils/getName";
 import { Break } from "../../pages/DelegateInfo";
-import useAirdrop from "hooks/useAirdrop";
 import useList from "hooks/useList";
 import { nFormatter } from "utils/format";
 import { useActiveCampaign } from "state/campaigns/hooks";
@@ -47,14 +46,29 @@ export default function VoteContent() {
   const [activeProtocol] = useActiveProtocol();
   const [activeCampaign] = useActiveCampaign();
   //todo: refactor
-  const isBeetsCampaign = activeCampaign && pathname.includes('campaigns/CRE8R/beets-boosted-bribes') //&& activeCampaign.id === 'beets-boosted-bribes' && activeProtocol?.id === 'CRE8R'
+  const isBeetsCampaign =
+    activeCampaign && pathname.includes("campaigns/CRE8R/beets-boosted-bribes"); //&& activeCampaign.id === 'beets-boosted-bribes' && activeProtocol?.id === 'CRE8R'
   //todo: refactor
-  const isInCampaign = pathname.split("/").length - 1 > 2
-  const airdropAmount = useAirdrop();
-  const payoutsAMP = useList();
-  const payoutBasicBoostAMP = payoutsAMP && account ? payoutsAMP[0][account] ? payoutsAMP[0][account] : 0 : undefined
-  const payoutBoostedBonusAMP = payoutsAMP && account ? payoutsAMP[1][account] ? payoutsAMP[1][account] : 0 : undefined
-  const totalAMP = payoutBasicBoostAMP + payoutBoostedBonusAMP
+  const isInCampaign = pathname.split("/").length - 1 > 2;
+  const payoutsAMP = useList({
+    idOrUrl: "1b7UGQy62ysOwhUcH5uPFPDlINGMUyK7uEhZwqjoBSXo", // config.airdrop.excel.id,
+    source: "excel",
+    type: "payout", //todo - currently this field is ignored
+    excelSheetName: "Bribes Payout",
+  });
+  const payoutBasicBoostAMP =
+    payoutsAMP && account
+      ? payoutsAMP[0][account]
+        ? payoutsAMP[0][account]
+        : 0
+      : undefined;
+  const payoutBoostedBonusAMP =
+    payoutsAMP && account
+      ? payoutsAMP[1][account]
+        ? payoutsAMP[1][account]
+        : 0
+      : undefined;
+  const totalAMP = payoutBasicBoostAMP + payoutBoostedBonusAMP;
   // UI views
   const toggelDelegateModal = useToggleModal(ApplicationModal.DELEGATE);
 
@@ -99,43 +113,60 @@ export default function VoteContent() {
   // starting to thinking about making a copy of this file but for showing earnings... Obv need to keep showing voting delegation etc
 
   return (
-    <AutoColumn gap="16px">
-      {!isBeetsCampaign ? <>
-        {isInCampaign ? 'This campaign currently does not having an metrics to show.' : 'Please view a campaign to view your rewards.'}
-      </> : <>
-      <WhiteCard
-        border={`1px solid ${theme.bg3}`}
-        style={{ zIndex: 2 }}
-        padding="1rem"
-      >
-        <RowBetween>
-          <TYPE.black color={theme.text1}>
-            {" "}
-            $AMP Basic Boost Rewards:
-          </TYPE.black>{" "}
-          {/* changed from votes to earnings for demo/dummy  */}
-          <TYPE.main color={activeProtocol?.primaryColor}>
-            {payoutBasicBoostAMP !== undefined ? "$" + nFormatter(payoutBasicBoostAMP, 1) : account ? <Loader /> : "-"}
-          </TYPE.main>
-        </RowBetween>
-      </WhiteCard>
-      <WhiteCard
-        border={`1px solid ${theme.bg3}`}
-        style={{ zIndex: 2 }}
-        padding="1rem"
-      >
-        <RowBetween>
-          <TYPE.black color={theme.text1}>
-            {" "}
-            $AMP Boosted Bonus Rewards:
-          </TYPE.black>{" "}
-          {/* changed from votes to earnings for demo/dummy  */}
-          <TYPE.main color={activeProtocol?.primaryColor}>
-            {payoutBoostedBonusAMP !== undefined ? "$" + nFormatter(payoutBoostedBonusAMP, 1) : account ? <Loader /> : "-"}
-          </TYPE.main>
-        </RowBetween>
-      </WhiteCard>
-      {/* <WhiteCard
+    <AutoColumn gap='16px'>
+      {!isBeetsCampaign ? (
+        <>
+          {isInCampaign
+            ? "This campaign currently does not having an metrics to show."
+            : "Please view a campaign to view your rewards."}
+        </>
+      ) : (
+        <>
+          <WhiteCard
+            border={`1px solid ${theme.bg3}`}
+            style={{ zIndex: 2 }}
+            padding='1rem'
+          >
+            <RowBetween>
+              <TYPE.black color={theme.text1}>
+                {" "}
+                $AMP Basic Boost Rewards:
+              </TYPE.black>{" "}
+              {/* changed from votes to earnings for demo/dummy  */}
+              <TYPE.main color={activeProtocol?.primaryColor}>
+                {payoutBasicBoostAMP !== undefined ? (
+                  "$" + nFormatter(payoutBasicBoostAMP, 1)
+                ) : account ? (
+                  <Loader />
+                ) : (
+                  "-"
+                )}
+              </TYPE.main>
+            </RowBetween>
+          </WhiteCard>
+          <WhiteCard
+            border={`1px solid ${theme.bg3}`}
+            style={{ zIndex: 2 }}
+            padding='1rem'
+          >
+            <RowBetween>
+              <TYPE.black color={theme.text1}>
+                {" "}
+                $AMP Boosted Bonus Rewards:
+              </TYPE.black>{" "}
+              {/* changed from votes to earnings for demo/dummy  */}
+              <TYPE.main color={activeProtocol?.primaryColor}>
+                {payoutBoostedBonusAMP !== undefined ? (
+                  "$" + nFormatter(payoutBoostedBonusAMP, 1)
+                ) : account ? (
+                  <Loader />
+                ) : (
+                  "-"
+                )}
+              </TYPE.main>
+            </RowBetween>
+          </WhiteCard>
+          {/* <WhiteCard
         border={`1px solid ${theme.bg3}`}
         style={{ zIndex: 2 }}
         padding="1rem"
@@ -150,87 +181,87 @@ export default function VoteContent() {
           </TYPE.main>
         </RowBetween>
       </WhiteCard> */}
-      {userDelegatee && userDelegatee !== ZERO_ADDRESS && (
-        <OffsetCard bgColor={activeProtocol?.secondaryColor}>
-          {userDelegatee === account ? (
-            <RowBetween>
-              <TYPE.body
-                fontSize="14px"
-                fontWeight={500}
-                color={activeProtocol?.primaryColor}
-              >
-                Self delegated
-              </TYPE.body>
-              <ButtonCustom
-                bgColor={theme.bg4}
-                padding="4px 8px"
-                borderRadius="8px"
-                color={theme.text1}
-                style={{ fontSize: "14px", width: "fit-content" }}
-                onClick={() => toggelDelegateModal()}
-              >
-                Update
-              </ButtonCustom>
-            </RowBetween>
-          ) : (
-            <RowBetween>
-              <RowFixed>
-                <CornerDownRight
-                  size="14px"
-                  stroke={activeProtocol?.primaryColor}
-                />{" "}
-                <TYPE.main
-                  ml="2px"
-                  fontSize="14px"
-                  color={activeProtocol?.primaryColor}
-                >
-                  Delegating to
-                </TYPE.main>
-              </RowFixed>
-              <RowFixed
-                style={{
-                  backgroundColor: theme.bg1,
-                  borderRadius: "20px",
-                  padding: "0.25rem 0.5rem",
-                }}
-              >
-                <StyledInternalLink
-                  to={`/delegates/${activeProtocol?.id}/${userDelegatee}`}
-                >
-                  <TYPE.main fontSize="14px" mr="2px" color={theme.blue1}>
-                    {userDelegatee !== account
-                      ? nameOrAddress(userDelegatee, allIdentities, true)
-                      : "self"}
-                  </TYPE.main>
-                </StyledInternalLink>
-                <CloseIcon
-                  stroke={theme.text2}
-                  size="16px"
-                  onClick={() => toggelDelegateModal()}
-                />
-              </RowFixed>
-            </RowBetween>
+          {userDelegatee && userDelegatee !== ZERO_ADDRESS && (
+            <OffsetCard bgColor={activeProtocol?.secondaryColor}>
+              {userDelegatee === account ? (
+                <RowBetween>
+                  <TYPE.body
+                    fontSize='14px'
+                    fontWeight={500}
+                    color={activeProtocol?.primaryColor}
+                  >
+                    Self delegated
+                  </TYPE.body>
+                  <ButtonCustom
+                    bgColor={theme.bg4}
+                    padding='4px 8px'
+                    borderRadius='8px'
+                    color={theme.text1}
+                    style={{ fontSize: "14px", width: "fit-content" }}
+                    onClick={() => toggelDelegateModal()}
+                  >
+                    Update
+                  </ButtonCustom>
+                </RowBetween>
+              ) : (
+                <RowBetween>
+                  <RowFixed>
+                    <CornerDownRight
+                      size='14px'
+                      stroke={activeProtocol?.primaryColor}
+                    />{" "}
+                    <TYPE.main
+                      ml='2px'
+                      fontSize='14px'
+                      color={activeProtocol?.primaryColor}
+                    >
+                      Delegating to
+                    </TYPE.main>
+                  </RowFixed>
+                  <RowFixed
+                    style={{
+                      backgroundColor: theme.bg1,
+                      borderRadius: "20px",
+                      padding: "0.25rem 0.5rem",
+                    }}
+                  >
+                    <StyledInternalLink
+                      to={`/delegates/${activeProtocol?.id}/${userDelegatee}`}
+                    >
+                      <TYPE.main fontSize='14px' mr='2px' color={theme.blue1}>
+                        {userDelegatee !== account
+                          ? nameOrAddress(userDelegatee, allIdentities, true)
+                          : "self"}
+                      </TYPE.main>
+                    </StyledInternalLink>
+                    <CloseIcon
+                      stroke={theme.text2}
+                      size='16px'
+                      onClick={() => toggelDelegateModal()}
+                    />
+                  </RowFixed>
+                </RowBetween>
+              )}
+            </OffsetCard>
           )}
-        </OffsetCard>
-      )}
-      {userDelegatee &&
-        userDelegatee === ZERO_ADDRESS &&
-        govTokenBalance &&
-        govTokenBalance.greaterThan(BIG_INT_ZERO) && (
-          <OffsetCard bgColor={theme.blue3}>
-            <RowBetween>
-              <RowFixed>
-                <TYPE.blue ml="4px" fontSize="14px">
-                  {govTokenBalance.toFixed(0)} inactive votes
-                </TYPE.blue>
-              </RowFixed>
-              <ButtonBasic onClick={() => toggelDelegateModal()}>
-                <TYPE.white fontSize="14px">Set up voting</TYPE.white>
-              </ButtonBasic>
-            </RowBetween>
-          </OffsetCard>
-        )}
-      {/* <WhiteCard
+          {userDelegatee &&
+            userDelegatee === ZERO_ADDRESS &&
+            govTokenBalance &&
+            govTokenBalance.greaterThan(BIG_INT_ZERO) && (
+              <OffsetCard bgColor={theme.blue3}>
+                <RowBetween>
+                  <RowFixed>
+                    <TYPE.blue ml='4px' fontSize='14px'>
+                      {govTokenBalance.toFixed(0)} inactive votes
+                    </TYPE.blue>
+                  </RowFixed>
+                  <ButtonBasic onClick={() => toggelDelegateModal()}>
+                    <TYPE.white fontSize='14px'>Set up voting</TYPE.white>
+                  </ButtonBasic>
+                </RowBetween>
+              </OffsetCard>
+            )}
+          {/* <WhiteCard
         border={`1px solid ${theme.bg3}`}
         padding="16px"
         opacity={receivedVotes?.greaterThan(BIG_INT_ZERO) ? "1" : "0.5"}
@@ -251,41 +282,47 @@ export default function VoteContent() {
           </TYPE.main>
         </RowBetween>
       </WhiteCard> */}
-      {delegatorsCount > 0 && (
-        <OffsetCard bgColor={theme.green2}>
-          <TYPE.main fontWeight={500} color={theme.green1} fontSize="14px">
-            {delegatorsCount}{" "}
-            {delegatorsCount > 1 ? "addresses have" : "address has"} delegated
-            to you
-          </TYPE.main>
-        </OffsetCard>
-      )}
-      <Break />
-      <Card
-        backgroundColor={activeProtocol?.secondaryColor}
-        color={activeProtocol?.primaryColor}
-        fontWeight={500}
-        padding="16px"
-      >
-        {userDelegatee &&
-        userDelegatee !== ZERO_ADDRESS &&
-        userDelegatee !== account &&
-        receivedVotes?.equalTo(BIG_INT_ZERO) ? (
-          "You are delegating all your voting power"
-        ) : (
-          <RowBetween
-            style={{ color: activeProtocol?.primaryColor, fontWeight: 600 }}
+          {delegatorsCount > 0 && (
+            <OffsetCard bgColor={theme.green2}>
+              <TYPE.main fontWeight={500} color={theme.green1} fontSize='14px'>
+                {delegatorsCount}{" "}
+                {delegatorsCount > 1 ? "addresses have" : "address has"}{" "}
+                delegated to you
+              </TYPE.main>
+            </OffsetCard>
+          )}
+          <Break />
+          <Card
+            backgroundColor={activeProtocol?.secondaryColor}
+            color={activeProtocol?.primaryColor}
+            fontWeight={500}
+            padding='16px'
           >
-            {/* <span>Total ${activeProtocol?.token.symbol}</span>{" "} */}
-            <span>Total $AMP</span>{" "}
-            {/* Was Total Votes */}
-            <span>
-              {totalAMP !== undefined ? "$" + nFormatter(totalAMP, 1) : account ? <Loader /> : "-"}
-            </span>
-          </RowBetween>
-        )}
-      </Card>
-    </>}
+            {userDelegatee &&
+            userDelegatee !== ZERO_ADDRESS &&
+            userDelegatee !== account &&
+            receivedVotes?.equalTo(BIG_INT_ZERO) ? (
+              "You are delegating all your voting power"
+            ) : (
+              <RowBetween
+                style={{ color: activeProtocol?.primaryColor, fontWeight: 600 }}
+              >
+                {/* <span>Total ${activeProtocol?.token.symbol}</span>{" "} */}
+                <span>Total $AMP</span> {/* Was Total Votes */}
+                <span>
+                  {totalAMP !== undefined ? (
+                    "$" + nFormatter(totalAMP, 1)
+                  ) : account ? (
+                    <Loader />
+                  ) : (
+                    "-"
+                  )}
+                </span>
+              </RowBetween>
+            )}
+          </Card>
+        </>
+      )}
     </AutoColumn>
   );
 }
