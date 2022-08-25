@@ -1,6 +1,5 @@
 import { ApolloQueryResult } from "@apollo/client";
 import { fetchWPNav, fetchWPUri, processWPNav } from "data/campaigns";
-import gql from "graphql-tag";
 import { useCallback, useEffect, useState } from "react";
 import { useCre8rCmsClient } from "state/application/hooks";
 
@@ -62,10 +61,13 @@ export const getPostsFromNavItems = async (
   const _posts = res_1.map((f_1: any) => {
     if (f_1.status == "fulfilled") {
       const post = nav.find((v: any) => f_1.value.data.nodeByUri.uri == v.uri)
+      if (!post) {
+        throw 'something is wrong in useWP.ts'
+      }
       return {
         ...post,
         ...f_1.value.data.nodeByUri,
-        id: post!.id,
+        id: post.id,
       }; //need id of menu for hierachy
     }
     throw "something is wrong status is " + f_1.status;

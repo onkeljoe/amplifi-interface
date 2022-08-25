@@ -72,7 +72,7 @@ function CampaignList({
           <Break />
           <AutoColumn gap='0'>
             {amplifiCampaigns ? (
-              amplifiCampaigns.map((v, _i) => {
+              amplifiCampaigns.map((v) => {
                 return (
                   <ProposalItem key={v.id} as={Link} to={uriToRouteMap[v.uri]}>
                     <RowBetween>
