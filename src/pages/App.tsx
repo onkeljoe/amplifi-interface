@@ -54,7 +54,7 @@ const SiteWrapper = styled.div<{
   ${({ isLanding }) =>
     isLanding &&
     `
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr !important;
   `};
   @media (max-width: 1080px) {
     display: flex;
@@ -110,7 +110,7 @@ export default function App() {
   const [expandedOverview, setExpandedOverview] = React.useState(true);
   const { pathname } = useLocation();
   const isLanding = pathname === "/";
-  console.log(isLanding);
+  // console.log(isLanding); no console.log
   return (
     <Suspense fallback={null}>
       <Route component={GoogleAnalyticsReporter} />
@@ -119,10 +119,12 @@ export default function App() {
       {!identityOnlyFlow && (
         <SiteWrapper expandedOverview={expandedOverview} isLanding={isLanding}>
           <SideMenu />
-          <OverviewColumn
-            expanded={expandedOverview}
-            onToggleExpand={() => setExpandedOverview(!expandedOverview)}
-          />
+          {!isLanding && (
+            <OverviewColumn
+              expanded={expandedOverview}
+              onToggleExpand={() => setExpandedOverview(!expandedOverview)}
+            />
+          )}
           <ContentWrapper>
             <Web3Status />
             <Popups />
