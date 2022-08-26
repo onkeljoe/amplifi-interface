@@ -79,5 +79,4 @@ export const URI_QUERY = gql`
       }
     }
   }
-}
 `;
