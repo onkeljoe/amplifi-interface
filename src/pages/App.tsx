@@ -25,7 +25,7 @@ import Delegates from "./Delegates";
 import { RedirectWithUpdatedGovernance } from "./Governance/redirect";
 import Identities from "./Identities";
 import Proposals from "./Proposals";
-import WidgetBot from "@widgetbot/react-embed";
+import DiscordBot from "../components/discord/DiscordBot";
 import { useEffect } from "react";
 
 const FIRST_2_COLS_WIDTH = 320;
@@ -190,6 +190,7 @@ export default function App() {
         </div>
       )}
       <toast.Toaster />
+      <DiscordBot />
     </Suspense>
   );
 }
