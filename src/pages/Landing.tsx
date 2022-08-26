@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useActiveWeb3React } from "hooks";
 import { ApplicationModal } from "state/application/actions";
 import { useToggleModal } from "state/application/hooks";
@@ -9,6 +9,7 @@ import { Below1080Only } from "../theme/components";
 import { ButtonBasic } from "components/Button";
 import Dropdown from "../components/governance/Dropdown";
 import { useWindowSize } from "hooks/useWindowSize";
+import toast, { Toaster } from "react-hot-toast";
 
 // landing config (what to show in 4 boxes)
 
@@ -52,12 +53,14 @@ const landingInfo: string[] = [
 //   },
 // ];
 
+// landing page wrapper
 const LandingWrapper = styled.div`
-  padding: 0;
+  padding: 0 16px;
   margin: 0;
   max-height: 72vh;
   overflow: scroll;
   @media (min-width: 1081px) {
+    padding: 0;
     padding-left: 88px;
   }
   ::-webkit-scrollbar {
@@ -76,6 +79,7 @@ const LandingWrapper = styled.div`
   }
 `;
 
+// wtf Amplifi wrapper
 const SectionsWrapper = styled.div`
   display: grid;
   gap: 24px;
@@ -83,6 +87,7 @@ const SectionsWrapper = styled.div`
   grid-template-columns: repeat(6, 1fr);
 `;
 
+// wtf Amplifi each block wrapper
 const SectionWrapper = styled.div<{ position?: number }>`
   background-color: ${({ theme }) => theme.primary1};
   box-shadow: -15px -15px 0px 0px rgba(0, 0, 0, 1);
@@ -104,6 +109,7 @@ const StepWrapper = styled.div`
   will-change: opacity, transform;
 `;
 
+// got from RefferalLinksCard
 const ButtonText = styled(TYPE.white)`
   ${({ theme }) => theme.mediaWidth.upToSmall`
     font-size: 12px;
@@ -125,7 +131,7 @@ export default function Landing() {
       <TYPE.largeHeader color='primary1' marginTop='2rem'>
         Here&apos;s what you need to get started
       </TYPE.largeHeader>
-      <Fade direction='up' triggerOnce>
+      <Fade direction='up' triggerOnce fraction={1}>
         <LandingStep
           step={1}
           heading='Connect to the Amplifi App with your crypto wallet'
@@ -135,7 +141,7 @@ export default function Landing() {
           <ConnectWalletButton />
         </LandingStep>
       </Fade>
-      <Fade direction='up' triggerOnce>
+      <Fade direction='up' triggerOnce fraction={1}>
         <LandingStep
           step={2}
           heading='Pick the project'
@@ -147,7 +153,7 @@ export default function Landing() {
           </Below1080Only>
         </LandingStep>
       </Fade>
-      <Fade direction='up' triggerOnce>
+      <Fade direction='up' triggerOnce fraction={1}>
         <LandingStep
           step={3}
           heading='Pick the campaign'
@@ -157,7 +163,7 @@ export default function Landing() {
           media'
         />
       </Fade>
-      <Fade direction='up' triggerOnce>
+      <Fade direction='up' triggerOnce fraction={1}>
         <LandingStep
           step={4}
           heading='Share'
@@ -165,6 +171,8 @@ export default function Landing() {
           audience. If your audience clicks the link, we know it came from you!
           Make sure they've done that KPI"
         />
+      </Fade>
+      <Fade triggerOnce fraction={1}>
         <TYPE.largeHeader color='primary1' marginTop='2rem'>
           All set! Yes, it&apos;s that easy.
         </TYPE.largeHeader>
@@ -204,6 +212,11 @@ function LandingStep(props: {
 function ConnectWalletButton() {
   const toggleWalletModal = useToggleModal(ApplicationModal.WALLET);
   const { account } = useActiveWeb3React();
+  useEffect(() => {
+    if (account) {
+      toast("Congrats! You are now connected and almost ready to use the app!");
+    }
+  }, [account]);
   return (
     <>
       <ButtonBasic onClick={toggleWalletModal}>

@@ -127,7 +127,7 @@ export default function App() {
           )}
           <ContentWrapper>
             <Web3Status />
-            <Popups />
+            <Popups landing={isLanding} />
             <Polling />
 
             <TopLevelModals />
