@@ -10,6 +10,7 @@ import { ButtonBasic } from "components/Button";
 import Dropdown from "../components/governance/Dropdown";
 import { useWindowSize } from "hooks/useWindowSize";
 import toast, { Toaster } from "react-hot-toast";
+import { relative } from "path";
 
 // landing config (what to show in 4 boxes)
 
@@ -153,7 +154,12 @@ export default function Landing() {
           </Below1080Only>
         </LandingStep>
       </Fade>
-      <Fade direction='up' triggerOnce fraction={1}>
+      <Fade
+        direction='up'
+        triggerOnce
+        fraction={1}
+        style={{ position: "relative", zIndex: "-5" }}
+      >
         <LandingStep
           step={3}
           heading='Pick the campaign'
@@ -198,9 +204,10 @@ function LandingStep(props: {
   heading: string;
   description: string;
   children?: React.ReactNode;
+  style?: React.CSSProperties;
 }): JSX.Element {
   return (
-    <StepWrapper>
+    <StepWrapper style={props.style}>
       <TYPE.mediumHeader>Step {props.step}</TYPE.mediumHeader>
       <TYPE.subHeader>{props.heading}</TYPE.subHeader>
       <TYPE.black>{props.description}</TYPE.black>
