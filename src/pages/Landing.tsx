@@ -158,7 +158,7 @@ export default function Landing() {
         direction='up'
         triggerOnce
         fraction={1}
-        style={{ position: "relative", zIndex: "-5" }}
+        style={{ position: "relative", zIndex: -5 }}
       >
         <LandingStep
           step={3}
