@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloQueryResult } from "@apollo/client";
+import { ApolloClient } from "@apollo/client";
 import { NAVIGATION_QUERY, URI_QUERY } from "apollo/queries/wp";
 import { flatListToHierarchical } from "utils/wp";
 import wp from 'wp-data.json';

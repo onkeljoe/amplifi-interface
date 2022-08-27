@@ -78,9 +78,13 @@ export const Button = styled.button.attrs<
   color: ${({ theme }) => theme.white};
   width: 100%;
 
-  :hover,
-  :focus {
+  :hover {
     background-color: ${({ backgroundColor }) => darken(0.05, backgroundColor)};
+  }
+
+  :focus {
+    outline-style: solid;
+    outline-color: ${({ theme }) => darken(0.05, theme.secondary1)};
   }
 
   :active {
@@ -130,7 +134,7 @@ export const LinkStyledButton = styled.button<{ disabled?: boolean }>`
 export const StyledInternalLink = styled(Link)`
   text-decoration: none;
   cursor: pointer;
-  color: ${({ theme }) => theme.amplifiPrimary};
+  color: ${({ theme }) => theme.primary1};
   font-weight: 400;
 
   :hover {
@@ -170,10 +174,10 @@ export const BlankInternalLink = styled(Link)`
   }
 `;
 
-const StyledLink = styled.a`
+const StyledLink = styled.a<{ color?: string }>`
   text-decoration: none;
   cursor: pointer;
-  color: ${({ theme }) => theme.primary1};
+  color: ${({ theme, color }) => color ?? theme.primary1};
   font-weight: 500;
 
   :hover {
