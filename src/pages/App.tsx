@@ -193,8 +193,8 @@ export default function App() {
                   path='/delegates/:protocolID/:delegateAddress'
                   component={DelegateInfo}
                 />
-                {/* <Route path='/' component={RedirectWithUpdatedGovernance} /> */}
-                <Route path='/' component={Landing} />
+                <Route path='/' component={RedirectWithUpdatedGovernance} />
+                {/* <Route path='/' component={Landing} /> */}
               </Switch>
             </Web3ReactManager>
           </ContentWrapper>
