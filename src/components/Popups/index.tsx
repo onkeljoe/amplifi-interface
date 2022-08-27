@@ -44,7 +44,7 @@ const FixedPopupColumn = styled(AutoColumn)<{ extraPadding: boolean }>`
   `};
 `;
 
-export default function Popups(): JSX.Element {
+export default function Popups(props: { landing: boolean }): JSX.Element {
   // get all popups
   const activePopups = useActivePopups();
 
@@ -52,10 +52,10 @@ export default function Popups(): JSX.Element {
 
   //refactor to use other popup system
   useEffect(() => {
-    if (process.env.REACT_APP_TOAST) {
+    if (process.env.REACT_APP_TOAST && !props.landing) {
       toast(process.env.REACT_APP_TOAST);
     }
-  }, []);
+  }, [props.landing]);
 
   return (
     <>
