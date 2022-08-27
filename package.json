@@ -132,7 +132,7 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "@apollo/client": "^3.6.9",
-    "@emotion/react": "^11.9.3",
+    "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.9.3",
     "@mui/lab": "^5.0.0-alpha.87",
     "@mui/material": "^5.8.5",
@@ -152,6 +152,7 @@
     "html-react-parser": "^1.4.11",
     "moment": "^2.29.1",
     "react-apollo": "^3.1.5",
+    "react-awesome-reveal": "^4.0.0",
     "react-hot-toast": "^2.3.0",
     "react-twitter-auth": "^0.0.13",
     "react-twitter-embed": "^3.0.3",
