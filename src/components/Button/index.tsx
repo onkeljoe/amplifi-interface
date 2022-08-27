@@ -39,16 +39,17 @@ export const ButtonPrimary = styled(Base)`
   background-color: ${({ theme }) => theme.primary1};
   color: white;
   font-size: 20px;
-  &:focus {
-    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.05, theme.primary1)};
-    background-color: ${({ theme }) => darken(0.05, theme.primary1)};
-  }
+  transition: all 0.2s;
   &:hover {
     background-color: ${({ theme }) => darken(0.05, theme.primary1)};
+    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.05, theme.primary1)};
   }
   &:active {
-    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.1, theme.primary1)};
-    background-color: ${({ theme }) => darken(0.1, theme.primary1)};
+    transform: translateY(4px) scale(0.95);
+  }
+  &:focus {
+    outline-style: solid;
+    outline-color: ${({ theme }) => darken(0.05, theme.secondary1)};
   }
   &:disabled {
     background-color: ${({ theme, altDisabledStyle }) =>

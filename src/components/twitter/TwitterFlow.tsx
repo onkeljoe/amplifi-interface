@@ -22,7 +22,7 @@ import { OffChainRequestModal } from "../TransactionConfirmationModal";
 import { useSignedHandle } from "../../hooks/useSignedHandle";
 import { fetchLatestTweet, LatestTweetResponse } from "../../data/social";
 import { Identities } from "../../state/social/reducer";
-import { CONNECT_CONFIG } from "state/governance/reducer";
+import {} from "state/governance/reducer";
 
 const ModalContentWrapper = styled.div`
   padding: 2rem;
