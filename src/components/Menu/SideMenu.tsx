@@ -1,10 +1,16 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { RowBetween, RowFixed, RowFlat } from "../Row";
-import { TYPE, ExternalLink, BlankInternalLink } from "../../theme";
+import {
+  TYPE,
+  ExternalLink,
+  BlankInternalLink,
+  StyledInternalLink,
+} from "../../theme";
 import Column, { AutoColumn } from "../Column";
 import { ButtonBasic } from "../Button";
-import { GitHub, ChevronLeft, X, HelpCircle } from "react-feather";
+import { GitHub, ChevronLeft, X, HelpCircle, Home } from "react-feather";
 import "../../theme/extraFonts.css";
 import Logo from "../../assets/svg/AmpliFi.svg";
 import { Break } from "../../pages/DelegateInfo";
@@ -137,7 +143,10 @@ export default function SideMenu(): JSX.Element {
                 <SybilWorkmark>CRE8R AmpliFi</SybilWorkmark>
               </RowFixed>
             </BlankInternalLink>
-            <RowFlat style={{ gap: "8px" }}>
+            <RowFlat style={{ gap: "8px", alignItems: "center" }}>
+              <StyledInternalLink to='/'>
+                <Home size={20} style={{ stroke: "black" }} />
+              </StyledInternalLink>
               <ExternalLink
                 href='https://github.com/CRE8RDAO/sybil-interface'
                 style={{ display: "flex" }}
@@ -195,7 +204,7 @@ export default function SideMenu(): JSX.Element {
               </AutoColumn>
               <AutoColumn gap='0.5rem'>
                 <TYPE.body fontWeight={600}>
-                  I don’t have Twitter, can I use AmpliFi?
+                  I don&apos;t have Twitter, can I use AmpliFi?
                 </TYPE.body>
                 <TYPE.main>
                   Soon Discord, but yes if you DM @CRE8RDAO we can set you
@@ -292,6 +301,9 @@ export default function SideMenu(): JSX.Element {
               padding: "0 1.25rem",
             }}
           >
+            <StyledInternalLink to='/'>
+              <Home size={20} style={{ stroke: "black" }} />
+            </StyledInternalLink>
             <ButtonBasic
               as={ExternalLink}
               href='https://github.com/CRE8RDAO/sybil-interface'
@@ -306,7 +318,6 @@ export default function SideMenu(): JSX.Element {
             </ButtonBasic>
             <ButtonBasic
               onClick={() => setfaqOpen(!faqOpen)}
-              href='https://github.com/CRE8RDAO/sybil-interface'
               style={{
                 backgroundColor: "rgba(255,255,255,0.4)",
                 color: "#000",
