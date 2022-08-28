@@ -9,17 +9,10 @@ import { Below1080Only } from "../theme/components";
 import { ButtonBasic } from "components/Button";
 import Dropdown from "../components/governance/Dropdown";
 import { useWindowSize } from "hooks/useWindowSize";
-import toast, { Toaster } from "react-hot-toast";
-import { relative } from "path";
+import toast from "react-hot-toast";
+import "./../theme/extraFonts.css";
 
 // landing config (what to show in 4 boxes)
-
-const landingInfo: string[] = [
-  "Join first Web3 marketing agency working with biggest projects and earn by sharing quality products with your audience",
-  "We are a referral and affiliate marketing platform - AmplifiDAO",
-  "Over 50% of the Amplifi is owned by contributors who earn $AMP on every KPI achieved",
-  "$AMP and $veAMP is what makes us a DAO. We scale because our affiliates own the platform",
-];
 
 // config for steps. Not using now
 
@@ -63,6 +56,7 @@ const LandingWrapper = styled.div`
   @media (min-width: 1081px) {
     padding: 0;
     padding-left: 88px;
+    padding-right: 9px;
   }
   ::-webkit-scrollbar {
     height: 0;
@@ -92,10 +86,13 @@ const SectionsWrapper = styled.div`
 const SectionWrapper = styled.div<{ position?: number }>`
   background-color: ${({ theme }) => theme.primary1};
   box-shadow: -15px -15px 0px 0px rgba(0, 0, 0, 1);
+  //  box-shadow: -15px -15px 0px 0px rgba(255, 188, 125, 1);
   color: ${({ theme }) => theme.white};
   padding: 32px;
   box-sizing: border-box;
   max-width: 720px;
+  font-weight: bolder;
+  letter-spacing: 0.5px;
   grid-area: ${({ position }) =>
     position ? `${position} / ${position} / span 1 / span 3` : null};
 `;
@@ -117,19 +114,43 @@ const ButtonText = styled(TYPE.white)`
   `};
 `;
 
+const landingInfo: string[] = [
+  "AmplifiDAO secures the best comissions for affiliates, builds out tracking systems, supports your content creation process & handles payouts.",
+  "Discover new protocols with huge commissions dropping regularly.",
+  "$AMP is distributed dollar for dollar inline with platform earnings. AmpliFi is & always will be 100% community owned.",
+  "All you need to get started earning is an Ethereum wallet.",
+];
+
 export default function Landing() {
   const { width } = useWindowSize();
   const lookAtText =
     width && width <= 1080 ? "dropdown menu right here" : "left sidebar";
   return (
     <LandingWrapper>
-      <TYPE.largeHeader color='primary1' marginBottom='2rem' textAlign='center'>
-        Earn money in web3 by sharing a link with your audince
+      <TYPE.largeHeader
+        color='primary1'
+        textAlign='left'
+        fontFamily='GT Haptik Medium'
+        fontSize={36}
+        mb='1rem'
+      >
+        PERMISSIONLESS AFFILIATE MARKETING <br></br> FOR WEB3
+      </TYPE.largeHeader>
+      <TYPE.largeHeader
+        color='black'
+        textAlign='left'
+        fontFamily='GT Haptik Medium'
+        fontSize={20}
+        mb='4rem'
+      >
+        $800,000 already paid out to content creators. <br></br>
+        $600,000+ in commissions up for grabs on the platform currently - with
+        15+ protocols on the way...
       </TYPE.largeHeader>
       <Fade direction='right' triggerOnce>
         <LandingInfo landingInfo={landingInfo} />
       </Fade>
-      <TYPE.largeHeader color='primary1' marginTop='2rem'>
+      <TYPE.largeHeader color='primary1' marginTop='2rem' marginBottom='.5rem'>
         Here&apos;s what you need to get started
       </TYPE.largeHeader>
       <Fade direction='up' triggerOnce fraction={1}>
@@ -158,7 +179,7 @@ export default function Landing() {
         direction='up'
         triggerOnce
         fraction={1}
-        style={{ position: "relative", zIndex: "-5" }}
+        style={{ position: "relative", zIndex: -5 }}
       >
         <LandingStep
           step={3}
@@ -191,7 +212,7 @@ function LandingInfo({ landingInfo }: { landingInfo: string[] }) {
   return (
     <SectionsWrapper>
       {landingInfo.map((v: string, i: number) => (
-        <SectionWrapper key={v.slice(0, 1)} position={i + 1}>
+        <SectionWrapper key={v.slice(0, 9)} position={i + 1}>
           {v}
         </SectionWrapper>
       ))}
@@ -237,10 +258,3 @@ function ConnectWalletButton() {
     </>
   );
 }
-
-// function AnimatedSection(props: {
-//   children: React.ReactNode;
-// }): JSX.Element {
-//   return <section>{props.children}</section>;
-// }
-// react-animate-on-scroll
