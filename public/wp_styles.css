@@ -37,6 +37,7 @@ a {
   background-color: #ffbc7d!important;
   padding: 10px;
   color: #ff3700!important;
+  margin-bottom: 2px;
 
 }
 .ReferreeIncentivesColumn{
@@ -48,11 +49,13 @@ a {
     flex-wrap: nowrap;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 2px;
 }
 .KPIColumn{
   background-color: #ffbc7d!important;
   padding: 10px;
   color: #ff3700!important;
+  margin-bottom: 2px;
 }
 .wp-container-1.is-content-justification-center.is-nowrap.wp-block-group.MetaReferalRow.has-small-font-size {
   flex-flow: row wrap!important;
