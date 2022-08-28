@@ -11,7 +11,6 @@ import Dropdown from "../components/governance/Dropdown";
 import { useWindowSize } from "hooks/useWindowSize";
 import toast from "react-hot-toast";
 import "./../theme/extraFonts.css";
-import { Break } from "components/governance/ProposalList";
 
 // landing config (what to show in 4 boxes)
 
@@ -57,6 +56,7 @@ const LandingWrapper = styled.div`
   @media (min-width: 1081px) {
     padding: 0;
     padding-left: 88px;
+    padding-right: 9px;
   }
   ::-webkit-scrollbar {
     height: 0;
@@ -91,6 +91,8 @@ const SectionWrapper = styled.div<{ position?: number }>`
   padding: 32px;
   box-sizing: border-box;
   max-width: 720px;
+  font-weight: bolder;
+  letter-spacing: 0.5px;
   grid-area: ${({ position }) =>
     position ? `${position} / ${position} / span 1 / span 3` : null};
 `;
@@ -127,7 +129,6 @@ export default function Landing() {
     <LandingWrapper>
       <TYPE.largeHeader
         color='primary1'
-        marginBottom='2rem'
         textAlign='left'
         fontFamily='GT Haptik Medium'
         fontSize={36}
@@ -137,7 +138,6 @@ export default function Landing() {
       </TYPE.largeHeader>
       <TYPE.largeHeader
         color='black'
-        marginBottom='2rem'
         textAlign='left'
         fontFamily='GT Haptik Medium'
         fontSize={20}
@@ -212,8 +212,8 @@ function LandingInfo({ landingInfo }: { landingInfo: string[] }) {
   return (
     <SectionsWrapper>
       {landingInfo.map((v: string, i: number) => (
-        <SectionWrapper key={v.slice(0, 1)} position={i + 1}>
-          <p style={{ fontWeight: "bolder" }}>{v}</p>
+        <SectionWrapper key={v.slice(0, 9)} position={i + 1}>
+          {v}
         </SectionWrapper>
       ))}
     </SectionsWrapper>
@@ -258,10 +258,3 @@ function ConnectWalletButton() {
     </>
   );
 }
-
-// function AnimatedSection(props: {
-//   children: React.ReactNode;
-// }): JSX.Element {
-//   return <section>{props.children}</section>;
-// }
-// react-animate-on-scroll
