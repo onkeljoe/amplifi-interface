@@ -50,7 +50,7 @@ import "./../theme/extraFonts.css";
 const LandingWrapper = styled.div`
   padding: 0 16px;
   margin: 0;
-  max-height: 80vh;
+  max-height: 100vh;
   overflow: scroll;
   @media (min-width: 1081px) {
     padding: 0;
@@ -148,25 +148,31 @@ export default function Landing() {
         >
           PERMISSIONLESS AFFILIATE MARKETING FOR WEB3
         </TYPE.largeHeader>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "2rem" }}>
-          <TYPE.largeHeader
-            color='black'
-            textAlign='left'
-            fontFamily='GT Haptik Medium'
-            fontSize={20}
-            mb='4rem'
-          >
-            $800,000 already paid out to content creators. <br />
-            $600,000+ in commissions up for grabs on the platform currently -
-            with 15+ protocols on the way...
-          </TYPE.largeHeader>
+        <TYPE.largeHeader
+          color='black'
+          textAlign='left'
+          fontFamily='GT Haptik Medium'
+          fontSize={20}
+          mb='4rem'
+        >
+          $800,000 already paid out to content creators. <br />
+          $600,000+ in commissions up for grabs on the platform currently - with
+          15+ protocols on the way...
+        </TYPE.largeHeader>
+        <Fade direction='right' triggerOnce>
+          <LandingInfo landingInfo={landingInfo} />
+        </Fade>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "2rem",
+          }}
+        >
           <AttentionSeeker effect='shakeY' duration={5000}>
             <ArrowDown color='#ff3700' size={30} />
           </AttentionSeeker>
         </div>
-        <Fade direction='right' triggerOnce>
-          <LandingInfo landingInfo={landingInfo} />
-        </Fade>
       </InitialViewportMatcher>
       <TYPE.largeHeader color='primary1' marginTop='2rem' marginBottom='.5rem'>
         Here&apos;s what you need to get started
