@@ -2,64 +2,39 @@ import React from "react";
 import styled from "styled-components";
 import useCopyClipboard from "../../hooks/useCopyClipboard";
 import { CheckCircle, Copy as CopyIcon } from "react-feather";
-import { LinkStyledButton } from "../../theme";
+import { LinkStyledButton, Button } from "../../theme";
 
-const RoundedLink = styled(LinkStyledButton)<{ numOfLinks?: number }>`
-  font-size: 15px;
-  max-height: 65px;
-  padding: 15px;
-  background-color: #ff3700;
+const CopyButton = styled(Button)<{ numOfLinks?: number }>`
+  max-width: ${({ numOfLinks }) => (numOfLinks === 2 ? "342px" : "100%")};
   border-radius: 12px;
-  border: solid #ff3700;
-  border-width: 1px;
+  border: 1px solid;
+  border-color: ${({ theme }) => theme.primary1};
+  max-height: 65px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 15px;
+  text-decoration: none;
+  font-size: 15px;
   transition: all 0.2s;
-  color: white !important;
-  min-width: ${({ numOfLinks }) => (numOfLinks === 2 ? "342px" : "100%")};
   ${({ theme }) => theme.mediaWidth.upToSmall`
-    width: 100%;
-    gap: 10px;
-    margin-bottom: 10px;
-  `};
-  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-    min-width: fit-content;
+     max-width: 100%;
+     gap: 10px;
+     margin-bottom: 10px;
   `}
-  a {
-    text-decoration: none;
-  }
   :hover {
-    background-color: #ffbc7d;
-    color: #ff3700 !important;
+    background-color: ${({ theme }) => theme.secondary1};
+    color: ${({ theme }) => theme.primary1};
+    svg {
+      fill: ${({ theme }) => theme.primary1};
+    }
   }
   :active {
     transform: scale(0.95) translateY(4px);
   }
-`;
-
-const CopyButton = styled(RoundedLink)`
-  color: ${({ theme }) => theme.white};
-  min-height: 46px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  font-size: 15px;
-  transition: all 0.2s !important;
   :focus {
     text-decoration: none;
-  }
-  :active {
-    text-decoration: none;
-  }
-  :hover {
-    color: #ff3700;
-    text-decoration: none;
-  }
-  text-decoration: none;
-  span span svg {
-    fill: #ff3700;
   }
 `;
 
@@ -94,6 +69,7 @@ const Copy = styled(LinkStyledButton)<{
 
 // to now show copy icon on mobile (takes precious space)
 const CopyIconWrapper = styled.span`
+  margin-right: 0.5rem;
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
   display: none;
   `}
@@ -161,6 +137,7 @@ export const CopyBtn = (props: {
           <CopyIconWrapper>
             <CopyIcon size={"20"} />
           </CopyIconWrapper>
+          Copy your unique link &amp; start earning
         </TransactionStatusText>
       )}
       {isCopied ? "" : props.children}

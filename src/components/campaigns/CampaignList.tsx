@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import Loader, { LoadingRows } from "components/Loader";
-import { RowBetween, RowFixed } from "components/Row";
+import { LoadingRows } from "components/Loader";
+import { RowBetween } from "components/Row";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import styled from "styled-components";
-import { OnlyAboveSmall, TYPE } from "theme";
-
+import { TYPE } from "theme";
+import { StyledInternalLink } from "../../theme";
 import { AutoColumn } from "components/Column";
 import { EmptyWrapper } from "components/governance/styled";
 import { useCampaign } from "hooks/useCampaign";
@@ -17,29 +17,25 @@ const Wrapper = styled.div<{ backgroundColor?: string }>`
   width: 100%;
 `;
 
-const ProposalItem = styled.div`
-  border-radius: 12px;
-  padding: 1rem 0;
-  margin: 1rem;
-  text-decoration: none;
-
-  :hover {
-    cursor: pointer;
-    opacity: 0.7;
-  }
-`;
-
 const ResponsiveText = styled(TYPE.black)`
   ${({ theme }) => theme.mediaWidth.upToSmall`
     font-size: 14px;
   `};
 `;
 
+const ProposalItem = styled.div`
+  text-decoration: none;
+  :hover {
+    cursor: pointer;
+    opacity: 0.7;
+  }
+`;
+
 export const Break = styled.div`
   width: 100%;
-  background-color: ${({ theme }) => theme.bg3};
-  height: 1px;
-  margin: 0;
+  border-top: 1px solid;
+  border-color: ${({ theme }) => theme.bg3};
+  margin: 1rem 0;
 `;
 
 function CampaignList({
@@ -63,56 +59,49 @@ function CampaignList({
     <Wrapper>
       {amplifiCampaigns && amplifiCampaigns.length === 0 ? (
         <EmptyWrapper>
-          <TYPE.body style={{ marginBottom: "8px" }}>
+          <TYPE.mediumHeader style={{ marginBottom: "8px" }}>
             No campaigns found.
-          </TYPE.body>
+          </TYPE.mediumHeader>
           <TYPE.subHeader>
             <i>Please contact CRE8RDAO if you have any inquiries</i>
           </TYPE.subHeader>
         </EmptyWrapper>
       ) : (
         <AutoColumn gap='0'>
-          <TYPE.body fontSize='16px' fontWeight='600' mb='1rem'>
-            Campaigns
-          </TYPE.body>
-          <Break style={{}} />
-          {amplifiCampaigns ? (
-            amplifiCampaigns.map((v, i) => {
-              return (
-                <div key={v.id}>
-                  <ProposalItem as={Link} to={uriToRouteMap[v.uri]}>
+          <TYPE.mediumHeader marginTop='1rem'>Campaigns</TYPE.mediumHeader>
+          <Break />
+          <AutoColumn gap='0'>
+            {amplifiCampaigns ? (
+              amplifiCampaigns.map((v) => {
+                return (
+                  <ProposalItem key={v.id} as={Link} to={uriToRouteMap[v.uri]}>
                     <RowBetween>
-                      <RowFixed>
-                        <OnlyAboveSmall>
-                          <TYPE.darkGray mr='8px'>
-                            {amplifiCampaigns.length - i + "."}
-                          </TYPE.darkGray>
-                        </OnlyAboveSmall>
-                        <ResponsiveText mr='10px'>{v.title}</ResponsiveText>
-                      </RowFixed>
-                      <Loader />
+                      <ResponsiveText mr='10px'>{v.title}</ResponsiveText>
+                      <StyledInternalLink to={uriToRouteMap[v.uri]}>
+                        View Campaign
+                      </StyledInternalLink>
                     </RowBetween>
+                    <Break />
                   </ProposalItem>
-                  <Break />
-                </div>
-              );
-            })
-          ) : (
-            <LoadingRows style={{ paddingTop: 10 }}>
-              <div />
-              <div />
-              <div />
-              <div />
-              <div />
-              <div />
-              <div />
-              <div />
-              <div />
-              <div />
-              <div />
-              <div />
-            </LoadingRows>
-          )}
+                );
+              })
+            ) : (
+              <LoadingRows style={{ paddingTop: 10 }}>
+                <div />
+                <div />
+                <div />
+                <div />
+                <div />
+                <div />
+                <div />
+                <div />
+                <div />
+                <div />
+                <div />
+                <div />
+              </LoadingRows>
+            )}
+          </AutoColumn>
         </AutoColumn>
       )}
 

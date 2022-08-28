@@ -90,34 +90,6 @@ function Tabs() {
                 />
               );
             })}
-            {/* <TabOption
-              as={Link}
-              to={"/delegates/" + activeProtocol?.id}
-              selected={location.pathname.includes("delegates")}
-              color={activeProtocol?.primaryColor}
-              color2={activeProtocol?.secondaryColor}
-            >
-              <TYPE.black
-                fontSize={"16px"}
-                color={activeProtocol?.primaryColor}
-              >
-                Delegates
-              </TYPE.black>
-            </TabOption>
-            <TabOption
-              as={Link}
-              to={"/proposals/" + activeProtocol?.id}
-              selected={location.pathname.includes("proposals")}
-              color={activeProtocol?.primaryColor}
-              color2={activeProtocol?.secondaryColor}
-            >
-              <TYPE.black
-                fontSize={"16px"}
-                color={activeProtocol?.primaryColor}
-              >
-                Proposals
-              </TYPE.black>
-            </TabOption> */}
           </AutoRow>
           {location.pathname.includes("delegates") && (
             <AboveSmall>

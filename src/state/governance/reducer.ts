@@ -1,25 +1,26 @@
-import { createReducer } from '@reduxjs/toolkit'
-import { ChainId, Token } from '@uniswap/sdk'
-import AddAccount from '../../assets/images/AddAccount.png'
-import BeanLogo from '../../assets/images/bean-logo.jpg'
-import CompLogo from '../../assets/images/compLogo.png'
-import Cre8rLogo from '../../assets/images/cre8r-logo.png'
-import AmpliFiLogo from '../../assets/images/cre8ramplifi-final.svg'
-import ENSLogo from '../../assets/images/ens.jpeg'
-import FujiLogo from '../../assets/images/fujidao_logo.png'
-import HundredLogo from '../../assets/images/hundred-logo.png'
-import NounsLogo from '../../assets/images/nouns-logo.png'
-import RadicleLogo from '../../assets/images/radicle-logo.svg'
-import UniLogo from '../../assets/images/uni-logo.png'
-import DevoLogo from '../../assets/images/IMG_5812.png'
-import BilliLogo from '../../assets/images/billilogo.jpg'
-import ACWILogo from '../../assets/images/new-altcoinswi.png'
-import GMXLogo from '../../assets/images/GMX-logo.jpg'
-import ChainBetLogo from '../../assets/images/ChainBetLogo.svg'
-import PoolLogo from '../../assets/images/pooltogether-icon.png'
-import PaladinLogo from '../../assets/images/paladin.jpg'
-import ArgentLogo from '../../assets/images/argent-logo.svg'
-import { SerializedToken } from './../user/actions'
+import { createReducer } from "@reduxjs/toolkit";
+import { ChainId, Token } from "@uniswap/sdk";
+import AddAccount from "../../assets/images/AddAccount.png";
+import BeanLogo from "../../assets/images/bean-logo.jpg";
+import CompLogo from "../../assets/images/compLogo.png";
+import Cre8rLogo from "../../assets/images/cre8r-logo.png";
+import AmpliFiLogo from "../../assets/images/cre8ramplifi-final.svg";
+import ENSLogo from "../../assets/images/ens.jpeg";
+import FujiLogo from "../../assets/images/fujidao_logo.png";
+import HundredLogo from "../../assets/images/hundred-logo.png";
+import NounsLogo from "../../assets/images/nouns-logo.png";
+import RadicleLogo from "../../assets/images/radicle-logo.svg";
+import UniLogo from "../../assets/images/uni-logo.png";
+import DevoLogo from "../../assets/images/IMG_5812.png";
+import BilliLogo from "../../assets/images/billilogo.jpg";
+import ACWILogo from "../../assets/images/new-altcoinswi.png";
+import GMXLogo from "../../assets/images/GMX-logo.jpg";
+import ChainBetLogo from "../../assets/images/ChainBetLogo.svg";
+import PoolLogo from "../../assets/images/pooltogether-icon.png";
+import PaladinLogo from "../../assets/images/paladin.jpg";
+import ArgentLogo from "../../assets/images/argent-logo.svg";
+import { SerializedToken } from "./../user/actions";
+
 import {
   updateActiveProtocol,
   updateFilterActive,
@@ -440,8 +441,8 @@ const POOL = new Token(
   'PoolTogether'
 )
 export const POOL_TOGETHER_GOVERNANCE: GovernanceInfo = {
-  id: 'pool-together',
-  name: 'PoolTogether Governance',
+  id: "POOL",
+  name: "PoolTogether Governance",
   logo: PoolLogo,
   primaryColor: '#48289f',
   secondaryColor: '#E6e3f3',
@@ -482,22 +483,50 @@ export const ARGENT_GOVERNANCE: GovernanceInfo = {
   social: '@ArgentHQ'
 }
 
+export const PALADIN_GOVERNANCE_ADDRESS =
+  "0x12Cb3F4e80b795bc77090A7c412B1f804Ee085a8";
+export const PAL_ADDRESS = "0xAB846Fb6C81370327e784Ae7CbB6d6a6af6Ff4BF";
+const PAL = new Token(ChainId.MAINNET, PAL_ADDRESS, 18, "PAL", "Paladin");
+export const PALADIN_GOVERNANCE: GovernanceInfo = {
+  id: "PALADIN",
+  name: "Paladin Governance",
+  logo: PaladinLogo,
+  primaryColor: "#ec2223",
+  secondaryColor: "#FFE3E3",
+  token: serializeToken(PAL),
+  governanceAlphaAddresses: [PALADIN_GOVERNANCE_ADDRESS],
+  social: "@Paladin_vote",
+  emoji: "🗳️",
+};
+
+export const ARGENT_GOVERNANCE_ADDRESS =
+  "0x12Cb3F4e80b795bc77090A7c412B1f804Ee085a8"; //placeholder
+export const ARG_ADDRESS = "0xAB846Fb6C81370327e784Ae7CbB6d6a6af6Ff4BF"; //place
+const ARG = new Token(ChainId.MAINNET, ARG_ADDRESS, 18, "ARG", "Argent");
+export const ARGENT_GOVERNANCE: GovernanceInfo = {
+  id: "ARGENT",
+  name: "Argent Governance",
+  logo: ArgentLogo,
+  primaryColor: "#ec2223",
+  secondaryColor: "#fde9e9",
+  token: serializeToken(ARG), //placeholder
+  governanceAlphaAddresses: [ARGENT_GOVERNANCE_ADDRESS], //placeholder
+  social: "@ArgentHQ",
+};
+
 // mapping for routing
 export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
   CRE8R: CRE8R_GOVERNANCE,
-  //  DEVO: DEVO_GOVERNANCE, //demo
+  // DEVO: DEVO_GOVERNANCE, //demo
   BilliDrop: BILLI_GOVERNANCE, //demo
-  // ACWI: ACWI_GOVERNANCE, //demo
-  // GMX: GMX_GOVERNANCE, //demo
-  // BET: CHAINBET_GOVERNANCE, //demo
-  // POOL: POOL_TOGETHER_GOVERNANCE, //demo
+  ACWI: ACWI_GOVERNANCE, //demo
+  GMX: GMX_GOVERNANCE, //demo
+  BET: CHAINBET_GOVERNANCE, //demo
+  POOL: POOL_TOGETHER_GOVERNANCE, //demo
   AMPLIFI: AMPLIFI_GOVERNANCE,
-
   PALADIN: PALADIN_GOVERNANCE,
   ARGENT: ARGENT_GOVERNANCE,
   connect: CONNECT_CONFIG
-
-  // connect: CONNECT_CONFIG,
 }
 
 export const FETCHING_INTERVAL = 50

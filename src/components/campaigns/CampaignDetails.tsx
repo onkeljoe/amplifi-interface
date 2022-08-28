@@ -13,6 +13,7 @@ import Column, { AutoColumn } from "../Column";
 import CampaignContent from "./CampaignContent";
 import CampaignOverview from "./CampaignOverview";
 import CampaignBanner from "./CampaignBanner";
+import ReferralLinksCard from "components/ReferralLinksCard";
 
 const Wrapper = styled.div<{ backgroundColor?: string }>``;
 
@@ -52,6 +53,7 @@ function CampaignDetails({
     <Wrapper>
       <Column gap='10px' style={{ width: "100%" }}>
         <CampaignBanner />
+        <ReferralLinksCard />
         <CampaignContent />
         {amplifiCampaignsTabData.length > 0 && (
           <div style={{ paddingBottom: 10 }}>

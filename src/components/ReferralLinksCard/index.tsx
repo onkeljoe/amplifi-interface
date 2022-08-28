@@ -2,26 +2,19 @@ import React, { useMemo } from "react";
 import { CopyBtn } from "components/AccountDetails/Copy";
 import { useActiveWeb3React } from "hooks";
 import { useActiveCampaign, useReferralLink } from "state/campaigns/hooks";
-import { useVerifiedHandle } from "state/social/hooks";
 import styled from "styled-components";
-import { useActiveProtocol } from "../../state/governance/hooks";
+import { darken } from "polished";
 // gutenberg basic styles
 import "@wordpress/block-library/build-style/common.css";
 import "@wordpress/block-library/build-style/style.css";
 import "@wordpress/block-library/build-style/theme.css";
-import TwitterIcon from "assets/svg/twitter.svg";
+import { Twitter as TwitterIcon } from "react-feather";
 import getTextToTwitter from "utils/getTextToTwitter";
 import { ApplicationModal } from "state/application/actions";
 import { useToggleModal } from "state/application/hooks";
 import { ButtonBasic } from "components/Button";
 import { TYPE } from "theme";
-
-const Logo = styled.img`
-  height: 20px;
-  width: 20px;
-  margin-left: 4px;
-  margin: 10px;
-`;
+import { ExternalLink } from "../../theme/components";
 
 export const Break = styled.div`
   width: 800px;
@@ -30,71 +23,54 @@ export const Break = styled.div`
   margin: 0;
 `;
 
-const RoundedLinkLoggedOut = styled.div<{ numOfLinks?: number }>`
+const LoggedOutCard = styled.div<{ numOfLinks?: number }>`
   font-size: 15px;
-  padding: 15px;
-  background-color: #fff;
+  padding: 25px;
+  background-color: ${({ theme }) => theme.white};
   border-radius: 12px;
-  border: solid #ff3700;
-  border-width: 1px;
+  border: 1px solid;
+  border-color: ${({ theme }) => theme.primary1};
+  color: ${({ theme }) => theme.primary1};
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 15px;
   width: ${({ numOfLinks }) =>
     numOfLinks ? (99 / numOfLinks).toString() + "%" : "100%"};
   ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 100%;
     flex-gap: 10px;
-    margin-bottom: 10px;
   `};
-  /* :hover {
-    text-decoration: none;
-    color: ${({ theme }) => theme.text3};
-    background-color: #ff3700;
-  }
-
-  a:hover {
-    color: #ffbc7d;
-  } */
 `;
 
-export const ReferralCardLink = styled.a`
-  color: ${({ theme }) => theme.white};
-  max-height: 65px;
-  padding: 8px;
-  outline: none;
-  border: 1px solid transparent;
-  border-radius: 12px;
-  text-decoration: none;
-  font-size: 15px;
-  transition: color 0.2s;
-  :hover {
-    cursor: pointer;
-    /* opacity: 0.8; */
-    color: #ff3700 !important;
-  }
-`;
-
-const RoundedLinkTweetintent = styled.a`
-  font-size: 15px;
-  background-color: #ff3700;
+const RoundedLinkTweetintent = styled(ExternalLink)`
+  padding: 15px;
+  background-color: ${({ theme }) => theme.primary1};
   max-height: 65px;
   text-decoration: none;
   border-radius: 12px;
-  border: solid #ff3700;
-  border-width: 1px;
+  border: 1px solid;
+  border-color: ${({ theme }) => theme.primary1};
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   transition: all 0.2s;
-  color: white !important;
   ${({ theme }) => theme.mediaWidth.upToSmall`
-  width: 100%;
-`};
+     width: 100%;
+  `}
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+     min-width: fit-content;
+  `}
   :hover {
     text-decoration: none;
-    background-color: #ffbc7d;
-    color: #ff3700 !important;
+    background-color: ${({ theme }) => theme.secondary1};
+    color: ${({ theme }) => theme.primary1};
+  }
+  :focus {
+    text-decoration: none;
+    outline-style: solid;
+    outline-color: ${({ theme }) => darken(0.05, theme.secondary1)};
   }
   :active {
     transform: scale(0.95) translateY(4px);
@@ -122,21 +98,15 @@ export default function ReferralLinksCard() {
   return (
     <>
       {!account && (
-        <>
-          <>
-            <RoundedLinkLoggedOut style={{ marginBottom: "15px" }}>
-              <div style={{ padding: 10, color: "#FF3700" }}>
-                <div style={{ paddingBottom: 10 }}>
-                  To check airdrop and generate referral links you must connect
-                  your wallet:
-                </div>
-                <ButtonBasic width='fit-content' onClick={toggleWalletModal}>
-                  <ButtonText>Connect wallet</ButtonText>
-                </ButtonBasic>
-              </div>
-            </RoundedLinkLoggedOut>
-          </>
-        </>
+        <LoggedOutCard>
+          <TYPE.blue style={{ paddingBottom: 10 }}>
+            To check airdrop and generate referral links you must connect your
+            wallet:
+          </TYPE.blue>
+          <ButtonBasic onClick={toggleWalletModal}>
+            <ButtonText>Connect wallet</ButtonText>
+          </ButtonBasic>
+        </LoggedOutCard>
       )}
       {/* <AutoColumn> */}
       {activeCampaign &&
@@ -155,35 +125,22 @@ export default function ReferralLinksCard() {
                 toCopy={"https://" + referralLink}
                 numOfLinks={twitterIntentUrl ? 2 : 1}
               >
-                <div style={{ padding: "5px" }}>
-                  <div>
-                    {"  "}
-                    Copy your unique link &amp; start earning
-                    {/* {utmLinks[activeProtocol?.id]} */}
+                {activeCampaign && (
+                  <div style={{ fontSize: "9px", padding: "2px" }}>
+                    {activeCampaign.baseUrl.replace("?", "")}
                   </div>
-                  {activeCampaign && (
-                    <div style={{ fontSize: "9px", padding: "2px" }}>
-                      {activeCampaign.baseUrl.replace("?", "")}
-                    </div>
-                  )}
-                </div>
+                )}
               </CopyBtn>
               {twitterIntentUrl && (
-                <RoundedLinkTweetintent
-                  style={{ padding: "20px" }}
-                  href={twitterIntentUrl}
-                  // numOfLinks={twitterIntentUrl ? 2 : 1}
-                >
-                  <ReferralCardLink style={{ textDecoration: "none" }}>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <div style={{ flex: "0 1 auto" }}>
-                        Tweet your unique link
-                      </div>
-                      <div style={{ flex: "0 1 auto" }}>
-                        <Logo src={TwitterIcon} alt='twitter logo' />
-                      </div>
-                    </div>
-                  </ReferralCardLink>
+                <RoundedLinkTweetintent href={twitterIntentUrl} color='white'>
+                  <TYPE.custom
+                    fontSize='0.825rem'
+                    fontWeight={400}
+                    marginRight='8px'
+                  >
+                    Tweet your unique link
+                  </TYPE.custom>
+                  <TwitterIcon size={20} fill='#fff' />
                 </RoundedLinkTweetintent>
               )}
             </div>

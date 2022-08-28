@@ -27,10 +27,14 @@ import Identities from "./Identities";
 import Proposals from "./Proposals";
 import Payouts from "./Payouts";
 import PayoutInfo from "./PayoutInfo";
+import Landing from "./Landing";
 
 const FIRST_2_COLS_WIDTH = 320;
 
-const SiteWrapper = styled.div<{ expandedOverview?: boolean }>`
+const SiteWrapper = styled.div<{
+  expandedOverview?: boolean;
+  isLanding?: boolean;
+}>`
   height: 100vh;
   width: 100%;
   display: grid;
@@ -47,6 +51,11 @@ const SiteWrapper = styled.div<{ expandedOverview?: boolean }>`
   grid-template-columns: ${FIRST_2_COLS_WIDTH}px 1fr 376px;
   `};
 
+  ${({ isLanding }) =>
+    isLanding &&
+    `
+  grid-template-columns: 1fr !important;
+  `};
   @media (max-width: 1080px) {
     display: flex;
     flex-flow: column;
@@ -99,23 +108,28 @@ function TopLevelModals() {
 export default function App() {
   const identityOnlyFlow = identityOnlyPath(useLocation().pathname);
   const [expandedOverview, setExpandedOverview] = React.useState(true);
-
+  const { pathname } = useLocation();
+  const isLanding = pathname === "/";
+  // console.log(isLanding); no console.log
   return (
     <Suspense fallback={null}>
       <Route component={GoogleAnalyticsReporter} />
       <Route component={DarkModeQueryParamReader} />
       <Route component={TwitterAccountQueryParamReader} />
       {!identityOnlyFlow && (
-        <SiteWrapper expandedOverview={expandedOverview}>
+        <SiteWrapper expandedOverview={expandedOverview} isLanding={isLanding}>
           <SideMenu />
-          <OverviewColumn
-            expanded={expandedOverview}
-            onToggleExpand={() => setExpandedOverview(!expandedOverview)}
-          />
+          {!isLanding && (
+            <OverviewColumn
+              expanded={expandedOverview}
+              onToggleExpand={() => setExpandedOverview(!expandedOverview)}
+            />
+          )}
           <ContentWrapper>
             <Web3Status />
-            <Popups />
+            <Popups landing={isLanding} />
             <Polling />
+
             <TopLevelModals />
             <Web3ReactManager>
               <Switch>
@@ -179,11 +193,12 @@ export default function App() {
                   path='/delegates/:protocolID/:delegateAddress'
                   component={DelegateInfo}
                 />
-                <Route path='/' component={RedirectWithUpdatedGovernance} />
+                {/* <Route path='/' component={RedirectWithUpdatedGovernance} /> */}
+                <Route path='/' component={Landing} />
               </Switch>
             </Web3ReactManager>
           </ContentWrapper>
-          <Profile />
+          {!isLanding && <Profile />}
         </SiteWrapper>
       )}
       {identityOnlyFlow && (
