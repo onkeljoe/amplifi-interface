@@ -11,15 +11,9 @@ import Dropdown from "../components/governance/Dropdown";
 import { useWindowSize } from "hooks/useWindowSize";
 import toast from "react-hot-toast";
 import "./../theme/extraFonts.css";
+import { Break } from "components/governance/ProposalList";
 
 // landing config (what to show in 4 boxes)
-
-const landingInfo: string[] = [
-  "Join first Web3 marketing agency working with biggest projects and earn by sharing quality products with your audience",
-  "We are a referral and affiliate marketing platform - AmplifiDAO",
-  "Over 50% of the Amplifi is owned by contributors who earn $AMP on every KPI achieved",
-  "$AMP and $veAMP is what makes us a DAO. We scale because our affiliates own the platform",
-];
 
 // config for steps. Not using now
 
@@ -118,6 +112,13 @@ const ButtonText = styled(TYPE.white)`
   `};
 `;
 
+const landingInfo: string[] = [
+  "AmplifiDAO secures the best comissions for affiliates, builds out tracking systems, supports your content creation process & handles payouts.",
+  "Discover new protocols with huge commissions dropping regularly.",
+  "$AMP is distributed dollar for dollar inline with platform earnings. AmpliFi is & always will be 100% community owned.",
+  "All you need to get started earning is an Ethereum wallet.",
+];
+
 export default function Landing() {
   const { width } = useWindowSize();
   const lookAtText =
@@ -127,17 +128,29 @@ export default function Landing() {
       <TYPE.largeHeader
         color='primary1'
         marginBottom='2rem'
-        textAlign='center'
+        textAlign='left'
         fontFamily='GT Haptik Medium'
         fontSize={36}
+        mb='1rem'
+      >
+        PERMISSIONLESS AFFILIATE MARKETING <br></br> FOR WEB3
+      </TYPE.largeHeader>
+      <TYPE.largeHeader
+        color='black'
+        marginBottom='2rem'
+        textAlign='left'
+        fontFamily='GT Haptik Medium'
+        fontSize={20}
         mb='4rem'
       >
-        Earn money in web3 by sharing a link with your audince
+        $800,000 already paid out to content creators. <br></br>
+        $600,000+ in commissions up for grabs on the platform currently - with
+        15+ protocols on the way...
       </TYPE.largeHeader>
       <Fade direction='right' triggerOnce>
         <LandingInfo landingInfo={landingInfo} />
       </Fade>
-      <TYPE.largeHeader color='primary1' marginTop='2rem'>
+      <TYPE.largeHeader color='primary1' marginTop='2rem' marginBottom='.5rem'>
         Here&apos;s what you need to get started
       </TYPE.largeHeader>
       <Fade direction='up' triggerOnce fraction={1}>
@@ -200,7 +213,7 @@ function LandingInfo({ landingInfo }: { landingInfo: string[] }) {
     <SectionsWrapper>
       {landingInfo.map((v: string, i: number) => (
         <SectionWrapper key={v.slice(0, 1)} position={i + 1}>
-          {v}
+          <p style={{ fontWeight: "bolder" }}>{v}</p>
         </SectionWrapper>
       ))}
     </SectionsWrapper>
