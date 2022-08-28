@@ -80,6 +80,9 @@ const SectionsWrapper = styled.div`
   gap: 24px;
   grid-template-rows: repeat(4, 1fr);
   grid-template-columns: repeat(6, 1fr);
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+  grid-template-columns: 1fr;
+  `}
 `;
 
 // wtf Amplifi each block wrapper
@@ -95,6 +98,9 @@ const SectionWrapper = styled.div<{ position?: number }>`
   letter-spacing: 0.5px;
   grid-area: ${({ position }) =>
     position ? `${position} / ${position} / span 1 / span 3` : null};
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+  grid-area: unset;
+  `}
 `;
 
 const StepWrapper = styled.div`
