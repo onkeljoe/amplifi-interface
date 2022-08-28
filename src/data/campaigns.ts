@@ -3,8 +3,11 @@ import { NAVIGATION_QUERY, URI_QUERY } from "apollo/queries/wp";
 import { flatListToHierarchical } from "utils/wp";
 import wp from 'wp-data.json';
 
+const USE_PREFETCH = process.env.REACT_APP_USE_PREFETCH
+
 export async function fetchWPNav(client: ApolloClient<any>, slug: string) {
-  if (wp.nav) {
+  console.log("prefetch enabled:", USE_PREFETCH)
+  if (USE_PREFETCH && wp.nav) {
     return wp.nav
   }
   const res = await client.query({
@@ -39,7 +42,7 @@ export function processWPNav(res: {data: any}) {
 
 export async function fetchWPUri (client: ApolloClient<any>, uri: string) {
   // @ts-ignore
-  if (wp.uris[uri]) {
+  if (USE_PREFETCH && wp.uris[uri]) {
     // @ts-ignore
     return wp.uris[uri]
   }
