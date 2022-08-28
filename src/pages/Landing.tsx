@@ -9,8 +9,8 @@ import { Below1080Only } from "../theme/components";
 import { ButtonBasic } from "components/Button";
 import Dropdown from "../components/governance/Dropdown";
 import { useWindowSize } from "hooks/useWindowSize";
-import toast, { Toaster } from "react-hot-toast";
-import { relative } from "path";
+import toast from "react-hot-toast";
+import "./../theme/extraFonts.css";
 
 // landing config (what to show in 4 boxes)
 
@@ -92,6 +92,7 @@ const SectionsWrapper = styled.div`
 const SectionWrapper = styled.div<{ position?: number }>`
   background-color: ${({ theme }) => theme.primary1};
   box-shadow: -15px -15px 0px 0px rgba(0, 0, 0, 1);
+  //  box-shadow: -15px -15px 0px 0px rgba(255, 188, 125, 1);
   color: ${({ theme }) => theme.white};
   padding: 32px;
   box-sizing: border-box;
@@ -123,7 +124,14 @@ export default function Landing() {
     width && width <= 1080 ? "dropdown menu right here" : "left sidebar";
   return (
     <LandingWrapper>
-      <TYPE.largeHeader color='primary1' marginBottom='2rem' textAlign='center'>
+      <TYPE.largeHeader
+        color='primary1'
+        marginBottom='2rem'
+        textAlign='center'
+        fontFamily='GT Haptik Medium'
+        fontSize={36}
+        mb='4rem'
+      >
         Earn money in web3 by sharing a link with your audince
       </TYPE.largeHeader>
       <Fade direction='right' triggerOnce>
@@ -158,7 +166,7 @@ export default function Landing() {
         direction='up'
         triggerOnce
         fraction={1}
-        style={{ position: "relative", zIndex: "-5" }}
+        style={{ position: "relative", zIndex: -5 }}
       >
         <LandingStep
           step={3}
