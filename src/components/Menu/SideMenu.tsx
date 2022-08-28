@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { RowBetween, RowFixed, RowFlat } from "../Row";
 import {
@@ -304,8 +303,7 @@ export default function SideMenu(): JSX.Element {
             <StyledInternalLink to='/'>
               <Home size={20} style={{ stroke: "black" }} />
             </StyledInternalLink>
-            <ButtonBasic
-              as={ExternalLink}
+            <ExternalLink
               href='https://github.com/CRE8RDAO/sybil-interface'
               style={{
                 backgroundColor: "rgba(255,255,255,0.4)",
@@ -315,7 +313,7 @@ export default function SideMenu(): JSX.Element {
               }}
             >
               <GitHub size={20} />
-            </ButtonBasic>
+            </ExternalLink>
             <ButtonBasic
               onClick={() => setfaqOpen(!faqOpen)}
               style={{
@@ -353,7 +351,6 @@ export default function SideMenu(): JSX.Element {
             <RowBetween style={{ padding: "0 1rem" }}>
               <ButtonBasic
                 onClick={() => setfaqOpen(!faqOpen)}
-                href='https://GitHub.com/CRE8RDAO'
                 style={{
                   backgroundColor: "rgba(255,255,255,0.4)",
                   color: "#000",
