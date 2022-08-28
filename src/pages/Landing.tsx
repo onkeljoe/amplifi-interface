@@ -3,7 +3,8 @@ import { useActiveWeb3React } from "hooks";
 import { ApplicationModal } from "state/application/actions";
 import { useToggleModal } from "state/application/hooks";
 import styled from "styled-components";
-import { Fade } from "react-awesome-reveal";
+import { Fade, AttentionSeeker } from "react-awesome-reveal";
+import { ArrowDown } from "react-feather";
 import { TYPE } from "theme";
 import { Below1080Only } from "../theme/components";
 import { ButtonBasic } from "components/Button";
@@ -11,8 +12,6 @@ import Dropdown from "../components/governance/Dropdown";
 import { useWindowSize } from "hooks/useWindowSize";
 import toast from "react-hot-toast";
 import "./../theme/extraFonts.css";
-
-// landing config (what to show in 4 boxes)
 
 // config for steps. Not using now
 
@@ -51,12 +50,13 @@ import "./../theme/extraFonts.css";
 const LandingWrapper = styled.div`
   padding: 0 16px;
   margin: 0;
-  max-height: 72vh;
+  max-height: 80vh;
   overflow: scroll;
   @media (min-width: 1081px) {
     padding: 0;
     padding-left: 88px;
     padding-right: 9px;
+    width: 100%;
   }
   ::-webkit-scrollbar {
     height: 0;
@@ -72,6 +72,10 @@ const LandingWrapper = styled.div`
     border-radius: 10px;
     background-color: #c0c1c1;
   }
+`;
+
+const InitialViewportMatcher = styled.div`
+  min-height: 80vh;
 `;
 
 // wtf Amplifi wrapper
@@ -120,6 +124,7 @@ const ButtonText = styled(TYPE.white)`
   `};
 `;
 
+// landing config (what to show in 4 boxes)
 const landingInfo: string[] = [
   "AmplifiDAO secures the best comissions for affiliates, builds out tracking systems, supports your content creation process & handles payouts.",
   "Discover new protocols with huge commissions dropping regularly.",
@@ -133,29 +138,36 @@ export default function Landing() {
     width && width <= 1080 ? "dropdown menu right here" : "left sidebar";
   return (
     <LandingWrapper>
-      <TYPE.largeHeader
-        color='primary1'
-        textAlign='left'
-        fontFamily='GT Haptik Medium'
-        fontSize={36}
-        mb='1rem'
-      >
-        PERMISSIONLESS AFFILIATE MARKETING <br></br> FOR WEB3
-      </TYPE.largeHeader>
-      <TYPE.largeHeader
-        color='black'
-        textAlign='left'
-        fontFamily='GT Haptik Medium'
-        fontSize={20}
-        mb='4rem'
-      >
-        $800,000 already paid out to content creators. <br></br>
-        $600,000+ in commissions up for grabs on the platform currently - with
-        15+ protocols on the way...
-      </TYPE.largeHeader>
-      <Fade direction='right' triggerOnce>
-        <LandingInfo landingInfo={landingInfo} />
-      </Fade>
+      <InitialViewportMatcher>
+        <TYPE.largeHeader
+          color='primary1'
+          textAlign='left'
+          fontFamily='GT Haptik Medium'
+          fontSize={36}
+          mb='1rem'
+        >
+          PERMISSIONLESS AFFILIATE MARKETING FOR WEB3
+        </TYPE.largeHeader>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "2rem" }}>
+          <TYPE.largeHeader
+            color='black'
+            textAlign='left'
+            fontFamily='GT Haptik Medium'
+            fontSize={20}
+            mb='4rem'
+          >
+            $800,000 already paid out to content creators. <br />
+            $600,000+ in commissions up for grabs on the platform currently -
+            with 15+ protocols on the way...
+          </TYPE.largeHeader>
+          <AttentionSeeker effect='shakeY' duration={5000}>
+            <ArrowDown color='#ff3700' size={30} />
+          </AttentionSeeker>
+        </div>
+        <Fade direction='right' triggerOnce>
+          <LandingInfo landingInfo={landingInfo} />
+        </Fade>
+      </InitialViewportMatcher>
       <TYPE.largeHeader color='primary1' marginTop='2rem' marginBottom='.5rem'>
         Here&apos;s what you need to get started
       </TYPE.largeHeader>
