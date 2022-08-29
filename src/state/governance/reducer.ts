@@ -27,386 +27,387 @@ import {
   updateGlobalData,
   updateMaxFetched,
   updateTopDelegates,
-  updateVerifiedDelegates
-} from './actions'
-import { DelegateData } from './hooks'
+  updateVerifiedDelegates,
+} from "./actions";
+import { DelegateData } from "./hooks";
 //featured images
 
-import { serializeToken } from '../user/hooks'
+import { serializeToken } from "../user/hooks";
 
 export interface GovernanceInfo {
-  id: string
-  name: string
-  logo: string
-  primaryColor: string
-  secondaryColor: string
-  token: SerializedToken
-  governanceAlphaAddresses: string[]
-  governanceAddressBravo?: string
-  migrationProposalId?: number
-  social: string
-  emoji?: string
-  baseUrl?: string
-  spaceSnapshot?: string
+  id: string;
+  name: string;
+  logo: string;
+  primaryColor: string;
+  secondaryColor: string;
+  token: SerializedToken;
+  governanceAlphaAddresses: string[];
+  governanceAddressBravo?: string;
+  migrationProposalId?: number;
+  social: string;
+  emoji?: string;
+  baseUrl?: string;
+  spaceSnapshot?: string;
 }
 
 // protocol wide data
 export interface GlobaData {
-  id: string
-  totalTokenHolders: number
-  totalDelegates: number
-  delegatedVotes: number
-  delegatedVotesRaw: number
+  id: string;
+  totalTokenHolders: number;
+  totalDelegates: number;
+  delegatedVotes: number;
+  delegatedVotesRaw: number;
 }
 
-export const CHEESE_ADDRESS = '0x238d82a35e69d7c10fe69a649134171c63e57522'
-const GOAT = new Token(ChainId.MAINNET, CHEESE_ADDRESS, 18, 'GOAT', 'GOAT')
+export const CHEESE_ADDRESS = "0x238d82a35e69d7c10fe69a649134171c63e57522";
+const GOAT = new Token(ChainId.MAINNET, CHEESE_ADDRESS, 18, "GOAT", "GOAT");
 
 export const BILLI_GOVERNANCE: GovernanceInfo = {
-  id: 'BilliDrop',
-  name: 'BilliDrop',
+  id: "BilliDrop",
+  name: "BilliDrop",
   logo: BilliLogo,
-  primaryColor: '#1b3125',
-  secondaryColor: '#e1f5ea',
+  primaryColor: "#1b3125",
+  secondaryColor: "#e1f5ea",
   token: serializeToken(GOAT),
   governanceAlphaAddresses: [],
   // governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
   migrationProposalId: 8,
-  social: '@DropBilli',
-  emoji: '🐐',
-  baseUrl: 'https://amplifi.cre8r.vip?'
+  social: "@DropBilli",
+  emoji: "🐐",
+  baseUrl: "https://amplifi.cre8r.vip?",
   // featuredImage: AmpliFiLogo,
-}
+};
 
 // constant addresses for supported protocols
 export const UNI_GOVERNANCE_ADDRESS_ALPHA_V0 =
-  '0x5e4be8Bc9637f0EAA1A755019e06A68ce081D58F'
+  "0x5e4be8Bc9637f0EAA1A755019e06A68ce081D58F";
 export const UNI_GOVERNANCE_ADDRESS_ALPHA_V1 =
-  '0xC4e172459f1E7939D522503B81AFAaC1014CE6F6'
+  "0xC4e172459f1E7939D522503B81AFAaC1014CE6F6";
 export const UNI_GOVERNANCE_ADDRESS_BRAVO =
-  '0x408ED6354d4973f66138C91495F2f2FCbd8724C3'
+  "0x408ED6354d4973f66138C91495F2f2FCbd8724C3";
 
-export const UNI_ADDRESS = '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984'
+export const UNI_ADDRESS = "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984";
 const UNI_TOKEN = new Token(
   ChainId.MAINNET,
   UNI_ADDRESS,
   18,
-  'UNI',
-  'Uniswap Governance Token'
-)
+  "UNI",
+  "Uniswap Governance Token"
+);
 export const UNISWAP_GOVERNANCE: GovernanceInfo = {
-  id: 'uniswap',
-  name: 'Uniswap',
+  id: "uniswap",
+  name: "Uniswap",
   logo: UniLogo,
-  primaryColor: '#FF007A',
-  secondaryColor: '#FDEEF5',
+  primaryColor: "#FF007A",
+  secondaryColor: "#FDEEF5",
   token: serializeToken(UNI_TOKEN),
   governanceAlphaAddresses: [
     UNI_GOVERNANCE_ADDRESS_ALPHA_V0,
-    UNI_GOVERNANCE_ADDRESS_ALPHA_V1
+    UNI_GOVERNANCE_ADDRESS_ALPHA_V1,
   ],
   governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
   migrationProposalId: 8,
-  social: '@Uniswap',
-  emoji: '🔊',
-  baseUrl: 'https://amplifi.cre8r.vip?'
-}
+  social: "@Uniswap",
+  emoji: "🔊",
+  baseUrl: "https://amplifi.cre8r.vip?",
+};
 
-export const AMPLIFI_ADDRESS = '0x238d82a35e69d7c10fe69a649134171c63e57522'
+export const AMPLIFI_ADDRESS = "0x238d82a35e69d7c10fe69a649134171c63e57522";
 const AMPLIFI = new Token(
   ChainId.MAINNET,
   AMPLIFI_ADDRESS,
   18,
-  'AMPLIFI',
-  'AMPLIFI GOVERNANCE TOKEN'
-)
+  "AMPLIFI",
+  "AMPLIFI GOVERNANCE TOKEN"
+);
 
 export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
-  id: 'AMPLIFI',
-  name: 'AmpliFi',
+  id: "AMPLIFI",
+  name: "AmpliFi",
   logo: AmpliFiLogo,
-  primaryColor: '#383838',
-  secondaryColor: '#B0B0B0',
+  primaryColor: "#ff3700",
+  secondaryColor: "#ffbc7d",
   token: serializeToken(AMPLIFI),
   governanceAlphaAddresses: [],
   governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
   migrationProposalId: 8,
-  social: '@AmpliFiDAO',
-  emoji: '📡',
-  baseUrl: 'https://amplifi.cre8r.vip?',
-  spaceSnapshot: 'amplifidao.eth'
+  social: "@AmpliFiDAO",
+  emoji: "📡",
+  baseUrl: "https://amplifi.cre8r.vip?",
+  spaceSnapshot: "amplifidao.eth",
   // featuredImage: AmpliFiLogo,
-}
+};
 
-export const DEVO_ADDRESS = '0x238d82a35e69d7c10fe69a649134171c63e57522'
+export const DEVO_ADDRESS = "0x238d82a35e69d7c10fe69a649134171c63e57522";
 const DEVO = new Token(
   ChainId.MAINNET,
   DEVO_ADDRESS,
   18,
-  'DEVO',
-  'DEVO GOVERNANCE TOKEN'
-)
+  "DEVO",
+  "DEVO GOVERNANCE TOKEN"
+);
 
 export const DEVO_GOVERNANCE: GovernanceInfo = {
-  id: 'DEVO',
-  name: 'DEVO',
+  id: "DEVO",
+  name: "DEVO",
   logo: DevoLogo,
-  primaryColor: '#383838',
-  secondaryColor: '#B0B0B0',
+  primaryColor: "#383838",
+  secondaryColor: "#B0B0B0",
   token: serializeToken(DEVO),
   governanceAlphaAddresses: [],
   governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
   migrationProposalId: 8,
-  social: '@DEVO',
-  emoji: '🔊',
-  baseUrl: 'https://amplifi.cre8r.vip?',
-  spaceSnapshot: 'devo.eth'
-}
+  social: "@DEVO",
+  emoji: "🔊",
+  baseUrl: "https://amplifi.cre8r.vip?",
+  spaceSnapshot: "devo.eth",
+};
 
 export const COMP_GOVERNANCE_ADDRESS_BRAVO =
-  '0xc0da02939e1441f497fd74f78ce7decb17b66529'
+  "0xc0da02939e1441f497fd74f78ce7decb17b66529";
 export const COMP_GOVERNANCE_ADDRESS =
-  '0xc0dA01a04C3f3E0be433606045bB7017A7323E38'
-export const COMP_ADDRESS = '0xc00e94cb662c3520282e6f5717214004a7f26888'
+  "0xc0dA01a04C3f3E0be433606045bB7017A7323E38";
+export const COMP_ADDRESS = "0xc00e94cb662c3520282e6f5717214004a7f26888";
 const COMP = new Token(
   ChainId.MAINNET,
   COMP_ADDRESS,
   18,
-  'COMP',
-  'Compound Governance Token'
-)
+  "COMP",
+  "Compound Governance Token"
+);
 export const COMPOUND_GOVERNANCE: GovernanceInfo = {
-  id: 'compound',
-  name: 'Compound Governance',
+  id: "compound",
+  name: "Compound Governance",
   logo: CompLogo,
-  primaryColor: '#00D395',
-  secondaryColor: '#E1F9F1',
+  primaryColor: "#00D395",
+  secondaryColor: "#E1F9F1",
   token: serializeToken(COMP),
   governanceAlphaAddresses: [COMP_GOVERNANCE_ADDRESS],
   governanceAddressBravo: COMP_GOVERNANCE_ADDRESS_BRAVO,
   migrationProposalId: 42,
-  social: '@compoundfinance',
-  emoji: '🏦'
-}
+  social: "@compoundfinance",
+  emoji: "🏦",
+};
 
 const HND = new Token(
   ChainId.MAINNET,
   COMP_ADDRESS,
   18,
-  'HND',
-  'Hundred Governance Token'
-)
+  "HND",
+  "Hundred Governance Token"
+);
 export const HND_GOVERNANCE: GovernanceInfo = {
-  id: 'HND', // Protocol URI should be set to this
-  name: 'Hundred Finance',
+  id: "HND", // Protocol URI should be set to this
+  name: "Hundred Finance",
   logo: HundredLogo,
-  primaryColor: '#000000',
-  secondaryColor: '#E1F9F1',
+  primaryColor: "#000000",
+  secondaryColor: "#E1F9F1",
   token: serializeToken(HND),
   governanceAlphaAddresses: [],
   governanceAddressBravo: COMP_GOVERNANCE_ADDRESS_BRAVO,
   migrationProposalId: 42,
-  social: '@HundredFinance',
-  emoji: '💯',
-  baseUrl: 'https://amplifi.cre8r.vip/#/amplifi/HND?',
-  spaceSnapshot: 'hundredfinance.eth'
-}
+  social: "@HundredFinance",
+  emoji: "💯",
+  baseUrl: "https://amplifi.cre8r.vip/#/amplifi/HND?",
+  spaceSnapshot: "hundredfinance.eth",
+};
 export const AAVE_GOVERNANCE_ADDRESS =
-  '0xEC568fffba86c094cf06b22134B23074DFE2252c'
-export const AAVE_ADDRESS = '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9'
-const BEAN = new Token(ChainId.MAINNET, AAVE_ADDRESS, 18, 'BEAN', 'BEAN Token')
+  "0xEC568fffba86c094cf06b22134B23074DFE2252c";
+export const AAVE_ADDRESS = "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9";
+const BEAN = new Token(ChainId.MAINNET, AAVE_ADDRESS, 18, "BEAN", "BEAN Token");
 export const AAVE_GOVERNANCE: GovernanceInfo = {
-  id: 'BEAN',
-  name: 'Beanstalk Protocol',
+  id: "BEAN",
+  name: "Beanstalk Protocol",
   logo: BeanLogo,
-  primaryColor: '#00D395',
-  secondaryColor: '#E1F9F1',
+  primaryColor: "#00D395",
+  secondaryColor: "#E1F9F1",
   token: serializeToken(BEAN),
   governanceAlphaAddresses: [AAVE_GOVERNANCE_ADDRESS],
-  social: '@BeanstalkFarms',
-  emoji: '🌱',
-  baseUrl: 'https://amplifi.cre8r.vip/#/amplifi/BEAN?'
-}
+  social: "@BeanstalkFarms",
+  emoji: "🌱",
+  baseUrl: "https://amplifi.cre8r.vip/#/amplifi/BEAN?",
+};
 export const FUJI_GOVERNANCE_ADDRESS =
-  '0xB3a87172F555ae2a2AB79Be60B336D2F7D0187f0'
-export const FUJI_ADDRESS = '0x0cEC1A9154Ff802e7934Fc916Ed7Ca50bDE6844e'
+  "0xB3a87172F555ae2a2AB79Be60B336D2F7D0187f0";
+export const FUJI_ADDRESS = "0x0cEC1A9154Ff802e7934Fc916Ed7Ca50bDE6844e";
 const FUJI = new Token(
   ChainId.MAINNET,
   FUJI_ADDRESS,
   18,
-  'FUJI Pre Token Bonds',
-  'FUJI Pre-Token Bonds'
-)
+  "FUJI Pre Token Bonds",
+  "FUJI Pre-Token Bonds"
+);
 export const FUJI_GOVERNANCE: GovernanceInfo = {
-  id: 'fuji',
-  name: 'Fuji',
+  id: "fuji",
+  name: "Fuji",
   logo: FujiLogo,
-  primaryColor: '#FF007A',
-  secondaryColor: '#f2eeff',
+  primaryColor: "#FF007A",
+  secondaryColor: "#f2eeff",
   token: serializeToken(FUJI),
   governanceAlphaAddresses: [FUJI_GOVERNANCE_ADDRESS],
-  social: '@FujiDAO',
-  emoji: '🌋',
-  baseUrl: 'https://www.fujidao.org/#/dashboard/init-borrow?'
-}
+  social: "@FujiDAO",
+  emoji: "🌋",
+  baseUrl: "https://www.fujidao.org/#/dashboard/init-borrow?",
+};
 
 export const RADICLE_GOVERNANCE_ADDRESS =
-  '0x690e775361AD66D1c4A25d89da9fCd639F5198eD'
-export const RADICLE_ADDRESS = '0x31c8EAcBFFdD875c74b94b077895Bd78CF1E64A3'
+  "0x690e775361AD66D1c4A25d89da9fCd639F5198eD";
+export const RADICLE_ADDRESS = "0x31c8EAcBFFdD875c74b94b077895Bd78CF1E64A3";
 const RADICLE = new Token(
   ChainId.MAINNET,
   RADICLE_ADDRESS,
   18,
-  'RAD',
-  'Radicle'
-)
+  "RAD",
+  "Radicle"
+);
 export const RADICLE_GOVERNANCE: GovernanceInfo = {
-  id: 'radicle',
-  name: 'Radicle Governance',
+  id: "radicle",
+  name: "Radicle Governance",
   logo: RadicleLogo,
-  primaryColor: '#5555FF',
-  secondaryColor: '#E3E3FF',
+  primaryColor: "#5555FF",
+  secondaryColor: "#E3E3FF",
   token: serializeToken(RADICLE),
   governanceAlphaAddresses: [RADICLE_GOVERNANCE_ADDRESS],
-  social: '@radicle',
-  emoji: '🌱'
-}
+  social: "@radicle",
+  emoji: "🌱",
+};
 
 export const ENS_GOVERNANCE_ADDRESS =
-  '0x690e775361AD66D1c4A25d89da9fCd639F5198eD'
-export const ENS_ADDRESS = '0x31c8EAcBFFdD875c74b94b077895Bd78CF1E64A3'
+  "0x690e775361AD66D1c4A25d89da9fCd639F5198eD";
+export const ENS_ADDRESS = "0x31c8EAcBFFdD875c74b94b077895Bd78CF1E64A3";
 const ENS = new Token(
   ChainId.MAINNET,
   RADICLE_ADDRESS,
   18,
-  'ENS',
-  'Ethereum Name Service'
-)
+  "ENS",
+  "Ethereum Name Service"
+);
 export const ENS_GOVERNANCE: GovernanceInfo = {
-  id: 'ens',
-  name: 'ENS Governance',
+  id: "ens",
+  name: "ENS Governance",
   logo: ENSLogo,
-  primaryColor: '#5284ff',
-  secondaryColor: '#cfddff',
+  primaryColor: "#5284ff",
+  secondaryColor: "#cfddff",
   token: serializeToken(ENS),
   governanceAlphaAddresses: [ENS_GOVERNANCE_ADDRESS],
-  social: '@ensdomains',
-  emoji: '🌱'
-}
+  social: "@ensdomains",
+  emoji: "🌱",
+};
 
 export const CONNECT_CONFIG: GovernanceInfo = {
-  id: 'connect',
-  name: 'Connect Social Profile', // placeholder
+  id: "connect",
+  name: "Connect Social Profile", // placeholder
   logo: AddAccount, // placeholder
-  primaryColor: '#5284ff', // placeholder
-  secondaryColor: '#cfddff', // placeholder
+  primaryColor: "#5284ff", // placeholder
+  secondaryColor: "#cfddff", // placeholder
   token: serializeToken(ENS), //placeholder
   governanceAlphaAddresses: [ENS_GOVERNANCE_ADDRESS], //placeholder
-  social: '@twitter' // placeholder
-}
+  social: "@twitter", // placeholder
+};
 
 export const NOUNS_GOVERNANCE_ADDRESS_BRAVO =
-  '0x6f3E6272A167e8AcCb32072d08E0957F9c79223d'
-export const NOUNS_ADDRESS = '0x9C8fF314C9Bc7F6e59A9d9225Fb22946427eDC03'
-const NOUN = new Token(ChainId.MAINNET, NOUNS_ADDRESS, 0, 'NOUN', 'Nouns')
-const EMOJIS = ['🍕', '🤖', '🐶', '🍤', '🚘', '💍', '🐟', '👑', '🐋', '🐸']
+  "0x6f3E6272A167e8AcCb32072d08E0957F9c79223d";
+export const NOUNS_ADDRESS = "0x9C8fF314C9Bc7F6e59A9d9225Fb22946427eDC03";
+const NOUN = new Token(ChainId.MAINNET, NOUNS_ADDRESS, 0, "NOUN", "Nouns");
+const EMOJIS = ["🍕", "🤖", "🐶", "🍤", "🚘", "💍", "🐟", "👑", "🐋", "🐸"];
 export const NOUNS_GOVERNANCE: GovernanceInfo = {
-  id: 'nouns',
-  name: 'Nouns DAO Governance',
+  id: "nouns",
+  name: "Nouns DAO Governance",
   logo: NounsLogo,
-  primaryColor: '#D63C5E',
-  secondaryColor: '#E8ECEF',
+  primaryColor: "#D63C5E",
+  secondaryColor: "#E8ECEF",
   token: serializeToken(NOUN),
   governanceAlphaAddresses: [],
   governanceAddressBravo: NOUNS_GOVERNANCE_ADDRESS_BRAVO,
   migrationProposalId: 0,
-  social: '@nounsdao',
-  emoji: EMOJIS[Math.floor(Math.random() * EMOJIS.length)]
-}
+  social: "@nounsdao",
+  emoji: EMOJIS[Math.floor(Math.random() * EMOJIS.length)],
+};
 
 // #/connect or #/delegates/connect
 // show only identity flow e.g. link to twitter
-export function identityOnlyPath (pathname: string) {
+export function identityOnlyPath(pathname: string) {
   return (
-    pathname.split('/', 2)[1] == CONNECT_CONFIG.id ||
-    pathname.split('/', 3)[2] == CONNECT_CONFIG.id
-  )
+    pathname.split("/", 2)[1] == CONNECT_CONFIG.id ||
+    pathname.split("/", 3)[2] == CONNECT_CONFIG.id
+  );
 }
 
 export const CRE8R_GOVERNANCE_ADDRESS =
-  '0xa832ce1b31bfb0961e78350320ab4cb7f110e7e2'
-export const CRE8R_ADDRESS = '0x238d82a35e69d7c10fe69a649134171c63e57522'
+  "0xa832ce1b31bfb0961e78350320ab4cb7f110e7e2";
+export const CRE8R_ADDRESS = "0x238d82a35e69d7c10fe69a649134171c63e57522";
 const CRE8R = new Token(
   ChainId.MAINNET,
   CRE8R_ADDRESS,
   18,
-  'CRE8R',
-  'CRE8R Cash'
-)
+  "CRE8R",
+  "CRE8R Cash"
+);
 export const CRE8R_GOVERNANCE: GovernanceInfo = {
-  id: 'CRE8R',
-  name: 'CRE8R',
+  id: "CRE8R",
+  name: "CRE8R",
   logo: Cre8rLogo,
-  primaryColor: '#383838',
-  secondaryColor: '#B0B0B0',
+  primaryColor: "#383838",
+  secondaryColor: "#B0B0B0",
   token: serializeToken(CRE8R),
   governanceAlphaAddresses: [RADICLE_GOVERNANCE_ADDRESS],
-  social: '@CRE8RDAO',
-  emoji: '🧱',
-  baseUrl: 'https://cre8r.vip/client-discover-call-booking-form/?',
-  spaceSnapshot: 'cre8r.eth'
-}
+  social: "@CRE8RDAO",
+  emoji: "🧱",
+  baseUrl: "https://cre8r.vip/client-discover-call-booking-form/?",
+  spaceSnapshot: "cre8r.eth",
+};
 
 export const ACWI_GOVERNANCE_ADDRESS =
-  '0x389E3fe2D63C5092f0ceC7685a27416B80189262'
+  "0x389E3fe2D63C5092f0ceC7685a27416B80189262";
 export const ACWI_GOVERNANCE: GovernanceInfo = {
-  id: 'ACWI',
-  name: 'Alt Coins With Images',
+  id: "ACWI",
+  name: "Alt Coins With Images",
   logo: ACWILogo,
   governanceAlphaAddresses: [ACWI_GOVERNANCE_ADDRESS],
-  primaryColor: '#000', // placeholder
-  secondaryColor: '#ccc', // placeholder
+  primaryColor: "#000", // placeholder
+  secondaryColor: "#ccc", // placeholder
   token: serializeToken(ENS), // placeholder
-  social: '@twitter' // placeholder
-}
+  social: "@twitter", // placeholder
+};
 
 export const CHAINBET_GOVERNANCE_ADDRESS =
-  '0x92562944916b586262121F98FdAaE958275c7d03'
-export const CHAINBET_ADDRESS = '0x92562944916b586262121F98FdAaE958275c7d03' // placeholder!!
+  "0x92562944916b586262121F98FdAaE958275c7d03";
+export const CHAINBET_ADDRESS = "0x92562944916b586262121F98FdAaE958275c7d03"; // placeholder!!
 const BET = new Token(
   ChainId.MAINNET, // ?
   CHAINBET_ADDRESS,
   18,
-  'BET',
-  'BET ChainBet'
-)
+  "BET",
+  "BET ChainBet"
+);
 export const CHAINBET_GOVERNANCE: GovernanceInfo = {
-  id: 'BET',
-  name: 'ChainBet',
+  id: "BET",
+  name: "ChainBet",
   logo: ChainBetLogo,
   governanceAlphaAddresses: [CHAINBET_GOVERNANCE_ADDRESS],
-  primaryColor: '#000',
-  secondaryColor: '#ccc',
+  primaryColor: "#000",
+  secondaryColor: "#ccc",
   token: serializeToken(BET),
-  social: '@0xChainBet',
-  baseUrl: 'https://app.chainbet.gg?'
-}
+  social: "@0xChainBet",
+  baseUrl: "https://app.chainbet.gg?",
+};
 
 export const GMX_GOVERNANCE_ADDRESS_AVALANCHE =
-  '0x9ab2De34A33fB459b538c43f251eB825645e8595'
+  "0x9ab2De34A33fB459b538c43f251eB825645e8595";
 export const GMX_GOVERNANCE_ADDRESS_ARBITRUM =
-  '0x489ee077994B6658eAfA855C308275EAd8097C4A'
-export const GMX_ADDRESS_ARBITRUM = '0xfc5A1A6EB076a2C7aD06eD22C90d7E710E35ad0a'
+  "0x489ee077994B6658eAfA855C308275EAd8097C4A";
+export const GMX_ADDRESS_ARBITRUM =
+  "0xfc5A1A6EB076a2C7aD06eD22C90d7E710E35ad0a";
 export const GMX_ADDRESS_AVALANCHE =
-  '0x62edc0692BD897D2295872a9FFCac5425011c661'
+  "0x62edc0692BD897D2295872a9FFCac5425011c661";
 
 const GMX_ARBITRUM = new Token(
   ChainId.MAINNET, // not true, but typings dont allow to change
   GMX_ADDRESS_ARBITRUM,
   18,
-  'GMX',
-  'GMX Token Arbitrum'
-)
+  "GMX",
+  "GMX Token Arbitrum"
+);
 // const GMX_AVALANCHE = new Token(
 //   ChainId.MAINNET, // not true, but typings dont allow to change
 //   GMX_ADDRESS_AVALANCHE,
@@ -416,79 +417,48 @@ const GMX_ARBITRUM = new Token(
 // );
 
 export const GMX_GOVERNANCE: GovernanceInfo = {
-  id: 'GMX',
-  name: 'GMX',
+  id: "GMX",
+  name: "GMX",
   logo: GMXLogo,
   token: serializeToken(GMX_ARBITRUM),
   governanceAlphaAddresses: [
     GMX_GOVERNANCE_ADDRESS_AVALANCHE,
-    GMX_GOVERNANCE_ADDRESS_ARBITRUM
+    GMX_GOVERNANCE_ADDRESS_ARBITRUM,
   ],
-  primaryColor: '#2d42fc',
-  secondaryColor: '#d6efff',
-  social: '@GMX_IO',
-  baseUrl: 'https://amplifi.cre8r.vip?'
-}
+  primaryColor: "#2d42fc",
+  secondaryColor: "#d6efff",
+  social: "@GMX_IO",
+  baseUrl: "https://amplifi.cre8r.vip?",
+};
 
 export const POOL_TOGETHER_GOVERNANCE_ADDRESS =
-  '0xB3a87172F555ae2a2AB79Be60B336D2F7D0187f0'
-export const POOL_ADDRESS = '0x0cEC1A9154Ff802e7934Fc916Ed7Ca50bDE6844e'
+  "0xB3a87172F555ae2a2AB79Be60B336D2F7D0187f0";
+export const POOL_ADDRESS = "0x0cEC1A9154Ff802e7934Fc916Ed7Ca50bDE6844e";
 const POOL = new Token(
   ChainId.MAINNET,
   POOL_ADDRESS,
   18,
-  'POOL',
-  'PoolTogether'
-)
+  "POOL",
+  "PoolTogether"
+);
 export const POOL_TOGETHER_GOVERNANCE: GovernanceInfo = {
   id: "POOL",
   name: "PoolTogether Governance",
   logo: PoolLogo,
-  primaryColor: '#48289f',
-  secondaryColor: '#E6e3f3',
+  primaryColor: "#48289f",
+  secondaryColor: "#E6e3f3",
   token: serializeToken(POOL),
   governanceAlphaAddresses: [POOL_TOGETHER_GOVERNANCE_ADDRESS],
-  social: '@PoolTogether',
-  emoji: '🏆'
-}
-
-export const PALADIN_GOVERNANCE_ADDRESS =
-  '0x12Cb3F4e80b795bc77090A7c412B1f804Ee085a8'
-export const PAL_ADDRESS = '0xAB846Fb6C81370327e784Ae7CbB6d6a6af6Ff4BF'
-const PAL = new Token(ChainId.MAINNET, PAL_ADDRESS, 18, 'PAL', 'Paladin')
-export const PALADIN_GOVERNANCE: GovernanceInfo = {
-  id: 'paladin',
-  name: 'Paladin Governance',
-  logo: PaladinLogo,
-  primaryColor: '#ec2223',
-  secondaryColor: '#FFE3E3',
-  token: serializeToken(PAL),
-  governanceAlphaAddresses: [PALADIN_GOVERNANCE_ADDRESS],
-  social: '@Paladin_vote',
-  emoji: '🗳️'
-}
-
-export const ARGENT_GOVERNANCE_ADDRESS =
-  '0x12Cb3F4e80b795bc77090A7c412B1f804Ee085a8' //placeholder
-export const ARG_ADDRESS = '0xAB846Fb6C81370327e784Ae7CbB6d6a6af6Ff4BF' //place
-const ARG = new Token(ChainId.MAINNET, ARG_ADDRESS, 18, 'ARG', 'Argent')
-export const ARGENT_GOVERNANCE: GovernanceInfo = {
-  id: 'argent',
-  name: 'Argent Governance',
-  logo: ArgentLogo,
-  primaryColor: '#ec2223',
-  secondaryColor: '#fde9e9',
-  token: serializeToken(ARG), //placeholder
-  governanceAlphaAddresses: [ARGENT_GOVERNANCE_ADDRESS], //placeholder
-  social: '@ArgentHQ'
-}
+  social: "@PoolTogether",
+  emoji: "🏆",
+};
 
 export const PALADIN_GOVERNANCE_ADDRESS =
   "0x12Cb3F4e80b795bc77090A7c412B1f804Ee085a8";
 export const PAL_ADDRESS = "0xAB846Fb6C81370327e784Ae7CbB6d6a6af6Ff4BF";
 const PAL = new Token(ChainId.MAINNET, PAL_ADDRESS, 18, "PAL", "Paladin");
 export const PALADIN_GOVERNANCE: GovernanceInfo = {
-  id: "PALADIN",
+  id: "paladin",
   name: "Paladin Governance",
   logo: PaladinLogo,
   primaryColor: "#ec2223",
@@ -504,7 +474,7 @@ export const ARGENT_GOVERNANCE_ADDRESS =
 export const ARG_ADDRESS = "0xAB846Fb6C81370327e784Ae7CbB6d6a6af6Ff4BF"; //place
 const ARG = new Token(ChainId.MAINNET, ARG_ADDRESS, 18, "ARG", "Argent");
 export const ARGENT_GOVERNANCE: GovernanceInfo = {
-  id: "ARGENT",
+  id: "argent",
   name: "Argent Governance",
   logo: ArgentLogo,
   primaryColor: "#ec2223",
@@ -515,52 +485,59 @@ export const ARGENT_GOVERNANCE: GovernanceInfo = {
 };
 
 // mapping for routing
-export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
-  CRE8R: CRE8R_GOVERNANCE,
-  // DEVO: DEVO_GOVERNANCE, //demo
-  BilliDrop: BILLI_GOVERNANCE, //demo
-  ACWI: ACWI_GOVERNANCE, //demo
-  GMX: GMX_GOVERNANCE, //demo
-  BET: CHAINBET_GOVERNANCE, //demo
-  POOL: POOL_TOGETHER_GOVERNANCE, //demo
-  AMPLIFI: AMPLIFI_GOVERNANCE,
-  PALADIN: PALADIN_GOVERNANCE,
-  ARGENT: ARGENT_GOVERNANCE,
-  connect: CONNECT_CONFIG
-}
+export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = process.env
+  .REACT_APP_USE_DEMO
+  ? {
+      CRE8R: CRE8R_GOVERNANCE,
+      DEVO: DEVO_GOVERNANCE, //demo
+      BilliDrop: BILLI_GOVERNANCE, //demo
+      ACWI: ACWI_GOVERNANCE, //demo
+      GMX: GMX_GOVERNANCE, //demo
+      BET: CHAINBET_GOVERNANCE, //demo
+      POOL: POOL_TOGETHER_GOVERNANCE, //demo
+      AMPLIFI: AMPLIFI_GOVERNANCE,
+      PALADIN: PALADIN_GOVERNANCE,
+      ARGENT: ARGENT_GOVERNANCE,
+      connect: CONNECT_CONFIG,
+    }
+  : {
+      CRE8R: CRE8R_GOVERNANCE,
+      BilliDrop: BILLI_GOVERNANCE,
+      AMPLIFI: AMPLIFI_GOVERNANCE,
+    };
 
-export const FETCHING_INTERVAL = 50
+export const FETCHING_INTERVAL = 50;
 
 export interface GovernanceState {
   // the selected option from supported protocol options
-  activeProtocol: GovernanceInfo | undefined
+  activeProtocol: GovernanceInfo | undefined;
 
   // filter only verified delegates
-  filterActive: boolean
+  filterActive: boolean;
 
   // top delegates based on votes
   topDelegates: {
-    [protocolID: string]: DelegateData[] | undefined
-  }
+    [protocolID: string]: DelegateData[] | undefined;
+  };
 
   // used for paginated delegate lookup
   maxFetched: {
-    [protocolID: string]: number | undefined
-  }
+    [protocolID: string]: number | undefined;
+  };
 
   // only delegates with verified usernames
   verifiedDelegates: {
-    [protocolID: string]: DelegateData[] | undefined
-  }
+    [protocolID: string]: DelegateData[] | undefined;
+  };
 
   globalData: {
-    [protocolID: string]: GlobaData | undefined
-  }
+    [protocolID: string]: GlobaData | undefined;
+  };
 
   //utm links for delegates
   utm: {
-    [protocolID: string]: string
-  }
+    [protocolID: string]: string;
+  };
 }
 
 export const initialState: GovernanceState = {
@@ -573,29 +550,29 @@ export const initialState: GovernanceState = {
 
   verifiedDelegates: {},
   globalData: {},
-  utm: {}
-}
+  utm: {},
+};
 
-export default createReducer(initialState, builder =>
+export default createReducer(initialState, (builder) =>
   builder
     .addCase(updateActiveProtocol, (state, action) => {
-      state.activeProtocol = action.payload.activeProtocol
+      state.activeProtocol = action.payload.activeProtocol;
     })
     .addCase(updateFilterActive, (state, action) => {
-      state.filterActive = action.payload.filterActive
+      state.filterActive = action.payload.filterActive;
     })
     .addCase(updateTopDelegates, (state, action) => {
       state.topDelegates[action.payload.protocolID] =
-        action.payload.topDelegates
+        action.payload.topDelegates;
     })
     .addCase(updateVerifiedDelegates, (state, action) => {
       state.verifiedDelegates[action.payload.protocolID] =
-        action.payload.verifiedDelegates
+        action.payload.verifiedDelegates;
     })
     .addCase(updateGlobalData, (state, action) => {
-      state.globalData[action.payload.protocolID] = action.payload.data
+      state.globalData[action.payload.protocolID] = action.payload.data;
     })
     .addCase(updateMaxFetched, (state, action) => {
-      state.maxFetched[action.payload.protocolID] = action.payload.maxFetched
+      state.maxFetched[action.payload.protocolID] = action.payload.maxFetched;
     })
-)
+);
