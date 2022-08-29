@@ -8,11 +8,13 @@ export const Row = styled(Box)<{
   padding?: string;
   border?: string;
   borderRadius?: string;
+  gap?: string;
 }>`
   width: ${({ width }) => (width ? width : "100%")};
   display: flex;
   padding: 0;
   align-items: ${({ align }) => (align ? align : "center")};
+  gap: ${({ gap }) => (gap ? gap : "0")};
   justify-content: ${({ justify }) => (justify ? justify : "flex-start")};
   padding: ${({ padding }) => padding};
   border: ${({ border }) => border};

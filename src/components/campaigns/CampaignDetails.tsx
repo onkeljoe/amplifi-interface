@@ -13,6 +13,7 @@ import Column, { AutoColumn } from "../Column";
 import CampaignContent from "./CampaignContent";
 import CampaignOverview from "./CampaignOverview";
 import CampaignBanner from "./CampaignBanner";
+import IncentivesKPI from "./IncentivesKPI";
 import ReferralLinksCard from "components/ReferralLinksCard";
 
 const Wrapper = styled.div<{ backgroundColor?: string }>``;
@@ -54,7 +55,11 @@ function CampaignDetails({
       <Column gap='10px' style={{ width: "100%" }}>
         <CampaignBanner />
         <ReferralLinksCard />
-        <CampaignContent />
+        {protocolID === "AMPLIFI" ? (
+          <IncentivesKPI data={dataFromWP} />
+        ) : (
+          <CampaignContent />
+        )}
         {amplifiCampaignsTabData.length > 0 && (
           <div style={{ paddingBottom: 10 }}>
             <Tabs
@@ -106,3 +111,22 @@ function CampaignDetails({
 }
 
 export default withRouter(CampaignDetails);
+
+const dataFromWP = [
+  {
+    incentives: {
+      payoutTokenForRefereeName: "ETH",
+      payoutTokenForRefereeAmount: "5%",
+      AMPAmount: "matching $AMP",
+    },
+    KPIs: ["deposits ETH to Juicebox", "payouts happen monthly"],
+  },
+  {
+    incentives: {
+      payoutTokenForRefereeName: "USDC",
+      payoutTokenForRefereeAmount: "$60",
+      AMPAmount: "$60",
+    },
+    KPIs: ["votes on CRE8R/FTM pool", "holds bribe payments"],
+  },
+];
