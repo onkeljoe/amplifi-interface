@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
-import possibleTypes from "./possibleTypes.json";
+import possibleTypes from "../possibleTypes.json";
 
 export const cre8rCmsClient = new ApolloClient({
   link: new HttpLink({
