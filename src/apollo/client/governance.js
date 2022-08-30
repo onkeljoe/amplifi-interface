@@ -1,5 +1,12 @@
 import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
-import possibleTypes from "./possibleTypes.json";
+
+export const snapshotClient = new ApolloClient({
+  link: new HttpLink({
+    uri: "https://hub.snapshot.org/graphql", //note: testnet - https://testnet.snapshot.org
+  }),
+  cache: new InMemoryCache(),
+  shouldBatch: true,
+});
 
 export const uniswapClient = new ApolloClient({
   link: new HttpLink({
@@ -62,24 +69,6 @@ export const ensClient = new ApolloClient({
     uri: "https://api.thegraph.com/subgraphs/name/ianlapham/ens-governance",
   }),
   cache: new InMemoryCache(),
-  shouldBatch: true,
-});
-
-export const snapshotClient = new ApolloClient({
-  link: new HttpLink({
-    uri: "https://hub.snapshot.org/graphql", //note: testnet - https://testnet.snapshot.org
-  }),
-  cache: new InMemoryCache(),
-  shouldBatch: true,
-});
-
-export const cre8rCmsClient = new ApolloClient({
-  link: new HttpLink({
-    uri: "https://cre8r.vip/graphql",
-  }),
-  cache: new InMemoryCache({
-    possibleTypes,
-  }),
   shouldBatch: true,
 });
 
