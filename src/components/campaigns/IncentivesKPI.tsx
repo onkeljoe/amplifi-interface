@@ -1,45 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Info } from "react-feather";
 import { Row } from "components/Row";
 import { TYPE } from "theme";
 import USDC from "../../assets/svg/usdc-logo.svg";
 import Amplifi from "../../assets/images/amplifi-logo-no-text.png";
+import CRE8R from "../../assets/images/cre8r-logo.png";
 import ETH from "../../assets/svg/eth-logo.svg";
+import { IncentivesAndKPIs, Box, Icon, InfoBox } from "./typesIncetivesKPIs";
 
-//example of possible data entries interfaces
-
-interface Incentives {
-  payoutTokenForRefereeName: string;
-  payoutTokenForRefereeAmount: string;
-  AMPAmount: string;
-}
-
-interface IncentivesAndKPI {
-  incentives: Incentives;
-  KPIs: string[];
-}
-
-// const dataFromWP: IncentivesAndKPI[] = [
-//   {
-//     incentives: {
-//       payoutTokenForRefereeName: "ETH",
-//       payoutTokenForRefereeAmount: "5%",
-//       AMPAmount: "matching $AMP",
-//     },
-//     KPIs: ["deposits ETH to Juicebox", "payouts happen monthly"],
-//   },
-//   {
-//     incentives: {
-//       payoutTokenForRefereeName: "USDC",
-//       payoutTokenForRefereeAmount: "$60",
-//       AMPAmount: "$60",
-//     },
-//     KPIs: ["votes on CRE8R/FTM pool", "holds bribe payments"],
-//   },
-// ];
-
-const IncentivesWrapper = styled.div`
+const Wrapper = styled.div<{ name: string }>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -47,14 +17,10 @@ const IncentivesWrapper = styled.div`
   padding: 15px 20px;
   border: 2px solid #959595;
   border-radius: 26px;
-  width: fit-content;
+  width: ${({ name }) => (name === "KPIs" ? "100%" : "fit-content")};
 `;
 
-const KPIWrapper = styled(IncentivesWrapper)`
-  width: 100%;
-`;
-
-const TokenBox = styled.div`
+const StyledBox = styled.div`
   background-color: ${({ theme }) => theme.primary1};
   color: ${({ theme }) => theme.white};
   display: flex;
@@ -63,6 +29,23 @@ const TokenBox = styled.div`
   padding: 7px 12px;
   border-radius: 59px;
   white-space: nowrap;
+`;
+
+const StyledInfoBox = styled.div<{ display: boolean }>`
+  font-size: 12px;
+  visibility: ${({ display }) => (display ? "visible" : "hidden")};
+  opacity: ${({ display }) => (display ? "1" : "0")};
+  transition: scale 0.4s;
+  position: absolute;
+  top: calc(-100% - 24px);
+  left: calc(-100% - 48px);
+  z-index: 5;
+  background-color: ${({ theme }) => theme.white};
+  padding: 7px 12px;
+  border-radius: 26px;
+  border: 2px solid #959595;
+  color: ${({ theme }) => theme.primary1};
+  border-color: ${({ theme }) => theme.black};
 `;
 
 const USDCLogo = styled.div`
@@ -83,75 +66,110 @@ const AmplifiLogo = styled(USDCLogo)`
   border-radius: 50%;
 `;
 
-export default function IncentivesKPI(props: { data: IncentivesAndKPI[] }) {
+const CRE8RLogo = styled(USDCLogo)`
+  background-image: url(${CRE8R});
+  border-radius: 50%;
+`;
+
+export default function IncentivesKPI(props: { data: IncentivesAndKPIs }) {
   return (
     <Row gap='12px'>
-      <Incentives data={props.data[0].incentives} />
-      <KPI data={props.data[0].KPIs} />
+      <IncentivesORKPIs data={props.data.incentives} name='incentives' />
+      <IncentivesORKPIs data={props.data.KPIs} name='KPIs' />
     </Row>
   );
 }
 
-export function Incentives(props: { data: Incentives }) {
-  return (
-    <IncentivesWrapper>
-      <TYPE.custom color='#959595' fontSize={12}>
-        For every referral you will get
-      </TYPE.custom>
-      <Row gap='12px'>
-        <TokenBox>
-          {props.data.payoutTokenForRefereeName === "ETH" ? (
-            <ETHLogo />
-          ) : (
-            <USDCLogo />
-          )}
-          <TYPE.custom color='#ffffff' fontSize={12}>
-            {props.data.payoutTokenForRefereeAmount}
-          </TYPE.custom>
-        </TokenBox>
-        <TYPE.custom color='#959595' fontSize={12}>
-          AND
-        </TYPE.custom>
-        <TokenBox>
-          <AmplifiLogo />
-          <TYPE.custom color='#ffffff' fontSize={12}>
-            {props.data.AMPAmount}
-          </TYPE.custom>
-        </TokenBox>
-      </Row>
-    </IncentivesWrapper>
-  );
-}
+export function IncentivesORKPIs(props: {
+  data: Array<Box>;
+  name: "incentives" | "KPIs";
+}) {
+  // checks which logo to render
+  function renderLogo(name: Icon) {
+    switch (name) {
+      case "ETH":
+        return <ETHLogo />;
+      case "USDC":
+        return <USDCLogo />;
+      case "AMP":
+        return <AmplifiLogo />;
+      case "CRE8R":
+        return <CRE8RLogo />;
+      default:
+        return <AmplifiLogo />;
+    }
+  }
 
-export function KPI(props: { data: string[] }) {
-  return (
-    <KPIWrapper>
+  // checks if AND word needed or is it an end of the array
+  function renderAND(arr: Array<Box>, i: number) {
+    if (arr.length === 1) {
+      return;
+    }
+    if (!arr[i + 1]) {
+      return;
+    }
+    return (
       <TYPE.custom color='#959595' fontSize={12}>
-        Referral is generated when user
+        AND
       </TYPE.custom>
-      <Row gap='12px'>
-        {props.data.map((each) => (
-          <TokenBox key={each.slice(0, 9)}>
-            <TYPE.custom color='#ffffff' fontSize={12}>
-              {each}
-            </TYPE.custom>
-          </TokenBox>
-        ))}
-        {/* <TokenBox>
+    );
+  }
+
+  function InfoBoxComponent(props: { data: InfoBox }) {
+    const [displayInfo, setDisplayInfo] = useState<boolean>(false);
+    const { data } = props;
+    return (
+      <div
+        style={{
+          position: "relative",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Info
+          onMouseEnter={() => setDisplayInfo(true)}
+          onMouseLeave={() => setDisplayInfo(false)}
+          style={{ cursor: "help" }}
+          size={13}
+        />
+        <StyledInfoBox display={displayInfo}>
+          {data.startText ? data.startText : null}
+          {data.link ? (
+            <a href={data.link.url} target='_blank' rel='noreferrer'>
+              {data.link.text}
+            </a>
+          ) : null}
+          {data.endText ? data.endText : null}
+        </StyledInfoBox>
+      </div>
+    );
+  }
+
+  // variable for all the boxes of incentives or KPIs and neccessary "AND"s
+  const Boxes = props.data.map((each, i, arr) => {
+    return (
+      <>
+        <StyledBox>
+          {each.icon && renderLogo(each.icon)}
           <TYPE.custom color='#ffffff' fontSize={12}>
-            deposits ETH to Juicebox
+            {each.text}
           </TYPE.custom>
-        </TokenBox>
-        <TYPE.custom color='#959595' fontSize={12}>
-          AND
-        </TYPE.custom>
-        <TokenBox>
-          <TYPE.custom color='#ffffff' fontSize={12}>
-            payouts happen monthly
-          </TYPE.custom>
-          <Info size={13} fill='#fff' color='#ff3700' />
-        </TokenBox> */}
-      </Row>
-    </KPIWrapper>
+          {each.extraInfo && <InfoBoxComponent data={each.extraInfo} />}
+        </StyledBox>
+        {renderAND(arr, i)}
+      </>
+    );
+  });
+
+  return (
+    <Wrapper name={props.name}>
+      <TYPE.custom color='#959595' fontSize={12}>
+        {props.name === "incentives"
+          ? "For every referral you will get"
+          : "Referral is generated when user"}
+      </TYPE.custom>
+      <Row gap='12px'>{Boxes}</Row>
+    </Wrapper>
   );
 }

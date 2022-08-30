@@ -15,6 +15,7 @@ import CampaignOverview from "./CampaignOverview";
 import CampaignBanner from "./CampaignBanner";
 import IncentivesKPI from "./IncentivesKPI";
 import ReferralLinksCard from "components/ReferralLinksCard";
+import { IncentivesAndKPIs } from "./typesIncetivesKPIs";
 
 const Wrapper = styled.div<{ backgroundColor?: string }>``;
 
@@ -112,21 +113,26 @@ function CampaignDetails({
 
 export default withRouter(CampaignDetails);
 
-const dataFromWP = [
-  {
-    incentives: {
-      payoutTokenForRefereeName: "ETH",
-      payoutTokenForRefereeAmount: "5%",
-      AMPAmount: "matching $AMP",
+const dataFromWP: IncentivesAndKPIs = {
+  incentives: [
+    {
+      icon: "ETH",
+      text: "5%",
     },
-    KPIs: ["deposits ETH to Juicebox", "payouts happen monthly"],
-  },
-  {
-    incentives: {
-      payoutTokenForRefereeName: "USDC",
-      payoutTokenForRefereeAmount: "$60",
-      AMPAmount: "$60",
+    {
+      icon: "AMP",
+      text: "matching $AMP",
     },
-    KPIs: ["votes on CRE8R/FTM pool", "holds bribe payments"],
-  },
-];
+  ],
+  KPIs: [
+    {
+      text: "deposits ETH to Juicebox",
+    },
+    {
+      text: "payouts happen monthly",
+      extraInfo: {
+        startText: "Every 2 juicebox cycles",
+      },
+    },
+  ],
+};
