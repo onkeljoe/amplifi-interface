@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import { darken } from "polished";
 import { ArrowLeft, X } from "react-feather";
+import USDC from "../assets/svg/usdc-logo.svg";
+import Amplifi from "../assets/images/amplifi-logo-no-text.png";
+import CRE8R from "../assets/images/cre8r-logo.png";
+import ETH from "../assets/svg/eth-logo.svg";
 
 export const Above1080Only = styled.span`
   display: initial;
@@ -355,3 +359,79 @@ export const LoadingFlag = styled.div`
     opacity: 0.6;
   }
 `;
+
+// todo make it a switch component with name attribute
+export const USDCLogo = styled.div`
+  width: 13px;
+  height: 13px;
+  background-image: url(${USDC});
+  background-size: cover;
+  outline: none;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.25));
+`;
+
+export const ETHLogo = styled(USDCLogo)`
+  background-image: url(${ETH});
+`;
+
+export const AmplifiLogo = styled(USDCLogo)`
+  background-image: url(${Amplifi});
+  border-radius: 50%;
+`;
+
+export const CRE8RLogo = styled(USDCLogo)`
+  background-image: url(${CRE8R});
+  border-radius: 50%;
+`;
+
+export function HighlightIcon(props: {
+  type: "money" | "referree" | "calendar";
+}) {
+  switch (props.type) {
+    case "money":
+      return (
+        <svg
+          width='35'
+          height='25'
+          viewBox='0 0 35 25'
+          fill='none'
+          xmlns='http://www.w3.org/2000/svg'
+        >
+          <path
+            d='M5.25 4.0625C5.25 2.19834 6.81953 0.6875 8.75 0.6875H31.5C33.4305 0.6875 35 2.19834 35 4.0625V15.875C35 17.7365 33.4305 19.25 31.5 19.25H8.75C6.81953 19.25 5.25 17.7365 5.25 15.875V4.0625ZM8.75 15.875H12.25C12.25 14.0135 10.6805 12.5 8.75 12.5V15.875ZM8.75 4.0625V7.4375C10.6805 7.4375 12.25 5.92402 12.25 4.0625H8.75ZM31.5 12.5C29.5695 12.5 28 14.0135 28 15.875H31.5V12.5ZM28 4.0625C28 5.92402 29.5695 7.4375 31.5 7.4375V4.0625H28ZM20.125 5.75C17.7078 5.75 15.75 7.63789 15.75 9.96875C15.75 12.2996 17.7078 14.1875 20.125 14.1875C22.5422 14.1875 24.5 12.2996 24.5 9.96875C24.5 7.63789 22.5422 5.75 20.125 5.75ZM2.625 17.9844C2.625 20.0832 4.38812 21.7812 6.5625 21.7812H28.4375C29.1648 21.7812 29.75 22.3455 29.75 23.0469C29.75 23.7482 29.1648 24.3125 28.4375 24.3125H6.5625C2.93836 24.3125 0 21.4807 0 17.9844V5.32812C0 4.62676 0.587891 4.0625 1.3125 4.0625C2.03711 4.0625 2.625 4.62676 2.625 5.32812V17.9844Z'
+            fill='black'
+          />
+        </svg>
+      );
+    case "calendar":
+      return (
+        <svg
+          width='21'
+          height='24'
+          viewBox='0 0 21 24'
+          fill='none'
+          xmlns='http://www.w3.org/2000/svg'
+        >
+          <path
+            d='M4.5 1.5C4.5 0.671719 5.17031 0 6 0C6.82969 0 7.5 0.671719 7.5 1.5V3H13.5V1.5C13.5 0.671719 14.1703 0 15 0C15.8297 0 16.5 0.671719 16.5 1.5V3H18.75C19.9922 3 21 4.00734 21 5.25V7.5H0V5.25C0 4.00734 1.00734 3 2.25 3H4.5V1.5ZM21 21.75C21 22.9922 19.9922 24 18.75 24H2.25C1.00734 24 0 22.9922 0 21.75V9H21V21.75Z'
+            fill='black'
+          />
+        </svg>
+      );
+    case "referree":
+      return (
+        <svg
+          width='26'
+          height='21'
+          viewBox='0 0 26 21'
+          fill='none'
+          xmlns='http://www.w3.org/2000/svg'
+        >
+          <path
+            d='M13.975 1.96875H15.275C15.8153 1.96875 16.25 2.40967 16.25 2.95312C16.25 3.49658 15.8153 3.9375 15.275 3.9375H13.975V5.84062L18.5534 8.61328C19.1425 8.97012 19.5 9.60996 19.5 10.3031V21H15.6V17.0625C15.6 15.6146 14.4341 14.4375 13 14.4375C11.5659 14.4375 10.4 15.6146 10.4 17.0625V21H6.5V10.3031C6.5 9.60996 6.8575 8.97012 7.44656 8.61328L12.025 5.84062V3.9375H10.725C10.1847 3.9375 9.75 3.49658 9.75 2.95312C9.75 2.40967 10.1847 1.96875 10.725 1.96875H12.025V0.984375C12.025 0.440918 12.4597 0 13 0C13.5403 0 13.975 0.440918 13.975 0.984375V1.96875ZM1.01034 13.5475L5.2 11.2219V21H1.95C0.873031 21 0 20.1182 0 19.0312V15.2742C0 14.5564 0.387156 13.8961 1.01034 13.5475ZM24.05 21H20.8V11.2219L24.9884 13.5475C25.6141 13.8961 26 14.5564 26 15.2742V19.0312C26 20.1182 25.1266 21 24.05 21Z'
+            fill='black'
+          />
+        </svg>
+      );
+  }
+}

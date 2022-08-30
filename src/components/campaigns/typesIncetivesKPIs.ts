@@ -34,13 +34,12 @@ export interface IncentivesAndKPIs {
 
 // --------------------------------
 
-// we would check in the component what's the type of highlight and show matching ui
+// we would check in the component what's the type of highlight and show matching ui Icon
 type HighlightName = "money" | "calendar" | "referree";
 
 // base type for section underneath incentives and kpis
 interface Highlight {
   type: HighlightName;
-  mainIcon: Icon;
   subText: string;
   infoBox?: InfoBox;
 }
@@ -63,4 +62,4 @@ export interface Referree extends Highlight {
   mainText: string;
 }
 
-// we can add more highlightes in future
+// we can add more highlightes in future and what we give to component is an array of highlights

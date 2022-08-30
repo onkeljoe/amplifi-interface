@@ -14,8 +14,14 @@ import CampaignContent from "./CampaignContent";
 import CampaignOverview from "./CampaignOverview";
 import CampaignBanner from "./CampaignBanner";
 import IncentivesKPI from "./IncentivesKPI";
+import Highlights from "./Highlights";
 import ReferralLinksCard from "components/ReferralLinksCard";
-import { IncentivesAndKPIs } from "./typesIncetivesKPIs";
+import {
+  IncentivesAndKPIs,
+  Money,
+  Calendar,
+  Referree,
+} from "./typesIncetivesKPIs";
 
 const Wrapper = styled.div<{ backgroundColor?: string }>``;
 
@@ -57,7 +63,10 @@ function CampaignDetails({
         <CampaignBanner />
         <ReferralLinksCard />
         {protocolID === "AMPLIFI" ? (
-          <IncentivesKPI data={dataFromWP} />
+          <div>
+            <IncentivesKPI data={dataFromWP} />
+            <Highlights data={highlightData} />
+          </div>
         ) : (
           <CampaignContent />
         )}
@@ -136,3 +145,30 @@ const dataFromWP: IncentivesAndKPIs = {
     },
   ],
 };
+
+const highlightData: Array<Money | Calendar | Referree> = [
+  {
+    type: "money",
+    subText: "Currently Paid out",
+    mainText: "~$10k",
+    payoutKey: "payoutkey",
+    payoutTokens: ["USDC", "AMP"],
+  },
+  {
+    type: "calendar",
+    subText: "~48 hours after snapshot vote",
+    mainText: "Every 2 weeks",
+    infoBox: {
+      startText: "some calendar info",
+    },
+  },
+  {
+    type: "referree",
+    subText: "referrals get a bonus",
+    infoBox: {
+      endText: "some referree info",
+    },
+    mainText: "$60 ",
+    giveTokens: ["AMP"],
+  },
+];
