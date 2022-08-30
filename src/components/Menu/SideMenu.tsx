@@ -6,6 +6,7 @@ import {
   ExternalLink,
   BlankInternalLink,
   StyledInternalLink,
+  NoColorInternalLink,
 } from "../../theme";
 import Column, { AutoColumn } from "../Column";
 import { ButtonBasic } from "../Button";
@@ -228,12 +229,14 @@ export default function SideMenu(): JSX.Element {
               <SybilLogo />
             ) : (
               <RowBetween align='flex-start'>
-                <RowFixed style={{ gap: "8px" }}>
-                  <SybilLogo />
-                  <SybilWorkmark style={{ fontSize: "40px" }}>
-                    AmpliFi
-                  </SybilWorkmark>
-                </RowFixed>
+                <NoColorInternalLink to='/'>
+                  <RowFixed style={{ gap: "8px" }}>
+                    <SybilLogo />
+                    <SybilWorkmark style={{ fontSize: "40px" }}>
+                      AmpliFi
+                    </SybilWorkmark>
+                  </RowFixed>
+                </NoColorInternalLink>
                 <ButtonBasic
                   onClick={() => closeBoth()}
                   style={{
