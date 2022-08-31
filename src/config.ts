@@ -18,7 +18,7 @@ const config = {
         routePrefix: "/campaigns/",
       },
       {
-        title: "Payouts",
+        title: "Profile",
         routePrefix: "/payouts/",
       },
       // {
@@ -29,8 +29,8 @@ const config = {
       //   title: 'Proposals',
       //   routePrefix: '/proposals/'
       // }
-    ]
-  }
-}
+    ],
+  },
+};
 
 export default config;
