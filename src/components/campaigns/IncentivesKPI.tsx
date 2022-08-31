@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Info } from "react-feather";
 import { Row } from "components/Row";
-import { TYPE, USDCLogo, ETHLogo, AmplifiLogo, CRE8RLogo } from "theme";
-import { IncentivesAndKPIs, Box, Icon, InfoBox } from "./typesIncetivesKPIs";
+import { TYPE, TokenLogo } from "theme";
+import { IncentivesAndKPIs, Box, InfoBox } from "./typesIncetivesKPIs";
 
 const Wrapper = styled.div<{ name: string }>`
   display: flex;
@@ -59,22 +59,6 @@ export function IncentivesORKPIs(props: {
   data: Array<Box>;
   name: "incentives" | "KPIs";
 }) {
-  // checks which logo to render
-  function renderLogo(name: Icon) {
-    switch (name) {
-      case "ETH":
-        return <ETHLogo />;
-      case "USDC":
-        return <USDCLogo />;
-      case "AMP":
-        return <AmplifiLogo />;
-      case "CRE8R":
-        return <CRE8RLogo />;
-      default:
-        return <AmplifiLogo />;
-    }
-  }
-
   // checks if AND word needed or is it an end of the array
   function renderAND(arr: Array<Box>, i: number) {
     if (arr.length === 1) {
@@ -95,7 +79,7 @@ export function IncentivesORKPIs(props: {
     return (
       <>
         <StyledBox>
-          {each.icon && renderLogo(each.icon)}
+          {each.icon && <TokenLogo name={each.icon} />}
           <TYPE.custom color='#ffffff' fontSize={12}>
             {each.text}
           </TYPE.custom>
@@ -132,8 +116,7 @@ export function InfoBoxComponent(props: { data: InfoBox }) {
       }}
     >
       <Info
-        onMouseEnter={() => setDisplayInfo(true)}
-        onMouseLeave={() => setDisplayInfo(false)}
+        onClick={() => setDisplayInfo(!displayInfo)}
         style={{ cursor: "help" }}
         size={13}
       />

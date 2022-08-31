@@ -360,28 +360,27 @@ export const LoadingFlag = styled.div`
   }
 `;
 
-// todo make it a switch component with name attribute
-export const USDCLogo = styled.div`
+function switchLogo(name: string) {
+  switch (name) {
+    case "USDC":
+      return USDC;
+    case "ETH":
+      return ETH;
+    case "AMP":
+      return Amplifi;
+    case "CRE8R":
+      return CRE8R;
+    default:
+      return Amplifi;
+  }
+}
+export const TokenLogo = styled.div<{ name: string }>`
   width: 13px;
   height: 13px;
-  background-image: url(${USDC});
+  background-image: url(${({ name }) => switchLogo(name)});
   background-size: cover;
   outline: none;
   filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.25));
-`;
-
-export const ETHLogo = styled(USDCLogo)`
-  background-image: url(${ETH});
-`;
-
-export const AmplifiLogo = styled(USDCLogo)`
-  background-image: url(${Amplifi});
-  border-radius: 50%;
-`;
-
-export const CRE8RLogo = styled(USDCLogo)`
-  background-image: url(${CRE8R});
-  border-radius: 50%;
 `;
 
 export function HighlightIcon(props: {

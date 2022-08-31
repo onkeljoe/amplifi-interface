@@ -1,19 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  TYPE,
-  USDCLogo,
-  ETHLogo,
-  AmplifiLogo,
-  CRE8RLogo,
-  HighlightIcon,
-} from "theme";
 import { Row } from "components/Row";
-import Column from "components/Column";
-import { Money, Calendar, Referree, Icon } from "./typesIncetivesKPIs";
-import { InfoBoxComponent } from "./IncentivesKPI";
-
-type incomingHighlightes = Array<Money | Calendar | Referree>;
+import { incomingHighlightes } from "./typesIncetivesKPIs";
+import HighlightBox from "../HighlightBox/HighlightBox";
 
 const Break = styled.div`
   width: 1px;
@@ -23,97 +12,8 @@ const Break = styled.div`
   height: 26px;
 `;
 
-const BoxContainer = styled.div`
-  display: flex;
-  gap: 12px;
-  align-items: center;
-`;
-
 export default function Highlights(props: { data: incomingHighlightes }) {
   const { data } = props;
-
-  // todo: make this boxes as unique components in separate file so we have clearer code in here
-  // even make it one component which will have the layout logic for money calendar etc in it depending on type
-  const Boxes = data.map((each, i, arr) => {
-    switch (each.type) {
-      case "money":
-        return (
-          <BoxContainer>
-            <HighlightIcon type='money' />
-            <Column style={{ gap: "2px" }}>
-              <Row gap='22px'>
-                <TYPE.black fontWeight={500} fontSize={12}>
-                  {each.mainText}
-                </TYPE.black>
-                <Row gap='2px'>
-                  {(each as Money).payoutTokens.map((eachToken) =>
-                    renderLogo(eachToken)
-                  )}
-                </Row>
-              </Row>
-              <Row>
-                <TYPE.custom fontWeight={500} fontSize='8px' color='#959595'>
-                  {each.subText}
-                </TYPE.custom>
-              </Row>
-            </Column>
-            {renderBreak(arr, i)}
-          </BoxContainer>
-        );
-      case "calendar":
-        return (
-          <BoxContainer>
-            <HighlightIcon type='calendar' />
-            <Column style={{ gap: "2px" }}>
-              <Row gap='7px'>
-                <TYPE.black fontWeight={500} fontSize={12}>
-                  {each.mainText}
-                </TYPE.black>
-                {each.infoBox && <InfoBoxComponent data={each.infoBox} />}
-              </Row>
-              <Row>
-                <TYPE.custom fontWeight={500} fontSize='8px' color='#959595'>
-                  {each.subText}
-                </TYPE.custom>
-              </Row>
-            </Column>
-            {renderBreak(arr, i)}
-          </BoxContainer>
-        );
-      case "referree":
-        return (
-          <BoxContainer>
-            <HighlightIcon type='referree' />
-            <Column style={{ gap: "2px" }}>
-              <Row gap='7px'>
-                <Row gap='2px' width='fit-content'>
-                  {(each as Referree).giveTokens.map((eachToken) =>
-                    renderLogo(eachToken)
-                  )}
-                </Row>
-                <TYPE.black fontWeight={500} fontSize={12}>
-                  {each.mainText}
-                </TYPE.black>
-                {each.infoBox && <InfoBoxComponent data={each.infoBox} />}
-              </Row>
-              <Row>
-                <TYPE.custom fontWeight={500} fontSize='8px' color='#959595'>
-                  {each.subText}
-                </TYPE.custom>
-              </Row>
-            </Column>
-            {renderBreak(arr, i)}
-          </BoxContainer>
-        );
-      default:
-        return (
-          <BoxContainer>
-            <HighlightIcon type='money' />
-            {renderBreak(arr, i)}
-          </BoxContainer>
-        );
-    }
-  });
 
   return (
     <Row
@@ -124,24 +24,14 @@ export default function Highlights(props: { data: incomingHighlightes }) {
         padding: "22px 0 18px 0",
       }}
     >
-      {Boxes}
+      {data.map((each, i, arr) => (
+        <>
+          <HighlightBox data={each} key={each.type} />
+          {renderBreak(arr, i)}
+        </>
+      ))}
     </Row>
   );
-
-  function renderLogo(name: Icon) {
-    switch (name) {
-      case "ETH":
-        return <ETHLogo />;
-      case "USDC":
-        return <USDCLogo />;
-      case "AMP":
-        return <AmplifiLogo />;
-      case "CRE8R":
-        return <CRE8RLogo />;
-      default:
-        return <AmplifiLogo />;
-    }
-  }
 
   function renderBreak(arr: incomingHighlightes, i: number) {
     if (arr.length === 1) {

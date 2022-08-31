@@ -63,3 +63,4 @@ export interface Referree extends Highlight {
 }
 
 // we can add more highlightes in future and what we give to component is an array of highlights
+export type incomingHighlightes = Array<Money | Calendar | Referree>;
