@@ -42,6 +42,7 @@ import {
   GMXClient,
   ChainBetClient,
   PaladinClient,
+  payoutsClient,
 } from "../../apollo/client";
 
 export function useBlockNumber(): number | undefined {
@@ -201,7 +202,10 @@ export function useSubgraphClientSnapshot() {
   return { snapshotClient: undefined, spaceSnapshot: undefined };
 }
 
-// how are we going to use cre8rCmsClient as well? @Todo
 export function useCre8rCmsClient() {
   return cre8rCmsClient;
+}
+
+export function usePayoutClient() {
+  return payoutsClient;
 }

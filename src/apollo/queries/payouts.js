@@ -18,6 +18,8 @@ export const USER_PAYOUT_QUERY = gql`
             symbol
             name
             decimals
+            address
+            chainId
           }
         }
       }

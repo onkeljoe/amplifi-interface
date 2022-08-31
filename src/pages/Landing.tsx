@@ -1,17 +1,13 @@
-import React, { useEffect } from "react";
-import { useActiveWeb3React } from "hooks";
-import { ApplicationModal } from "state/application/actions";
-import { useToggleModal } from "state/application/hooks";
+import React from "react";
 import styled from "styled-components";
 import { Fade, AttentionSeeker } from "react-awesome-reveal";
 import { ArrowDown } from "react-feather";
 import { TYPE } from "theme";
 import { Below1080Only } from "../theme/components";
-import { ButtonBasic } from "components/Button";
 import Dropdown from "../components/governance/Dropdown";
 import { useWindowSize } from "hooks/useWindowSize";
-import toast from "react-hot-toast";
 import "./../theme/extraFonts.css";
+import ConnectWalletButton from "components/ConnectWallet";
 
 // config for steps. Not using now
 
@@ -115,13 +111,6 @@ const StepWrapper = styled.div`
   margin-bottom: 3rem;
   max-width: 720px;
   will-change: opacity, transform;
-`;
-
-// got from RefferalLinksCard
-const ButtonText = styled(TYPE.white)`
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    font-size: 12px;
-  `};
 `;
 
 // landing config (what to show in 4 boxes)
@@ -258,27 +247,5 @@ function LandingStep(props: {
       <TYPE.black>{props.description}</TYPE.black>
       {props.children}
     </StepWrapper>
-  );
-}
-
-function ConnectWalletButton() {
-  const toggleWalletModal = useToggleModal(ApplicationModal.WALLET);
-  const { account } = useActiveWeb3React();
-  useEffect(() => {
-    if (account) {
-      toast("Congrats! You are now connected and almost ready to use the app!");
-    }
-  }, [account]);
-  return (
-    <>
-      <ButtonBasic onClick={toggleWalletModal}>
-        <ButtonText>Connect wallet</ButtonText>
-      </ButtonBasic>
-      {account ? (
-        <TYPE.blue>
-          Congrats! You are now connected and almost ready to use the app!
-        </TYPE.blue>
-      ) : null}
-    </>
   );
 }

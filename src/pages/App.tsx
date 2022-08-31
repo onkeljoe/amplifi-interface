@@ -155,14 +155,14 @@ export default function App() {
                   exact
                   strict
                   path='/payouts/:protocolID'
-                  component={Payouts}
+                  component={PayoutInfo}
                 />
-                <Route
+                {/* <Route
                   exact
                   strict
                   path='/payouts/:protocolID/:address'
                   component={PayoutInfo}
-                />
+                /> */}
                 <Route
                   exact
                   strict
@@ -180,12 +180,6 @@ export default function App() {
                   strict
                   path='/proposals/:protocolID/:proposalID'
                   component={ProposalDetails}
-                />
-                <Route
-                  exact
-                  strict
-                  path='/delegates/:protocolID/:delegateAddress'
-                  component={DelegateInfo}
                 />
                 <Route
                   exact

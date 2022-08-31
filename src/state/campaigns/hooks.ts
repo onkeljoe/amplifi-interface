@@ -1,6 +1,9 @@
+import { ApolloQueryResult } from "@apollo/client";
+import { fetchUserPayout, UserPayoutData } from "data/payouts";
 import { getUrl } from "data/url";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { usePayoutClient } from "state/application/hooks";
 import { useActiveProtocol } from "state/governance/hooks";
 import { useActiveWeb3React } from "../../hooks";
 import { AppDispatch, AppState } from "./../index";
@@ -31,12 +34,7 @@ export function useReferralLink(): string | undefined {
   const links = useUtm();
 
   useEffect(() => {
-    if (
-      !account ||
-      !activeCampaign ||
-      !activeProtocol
-    )
-      return;
+    if (!account || !activeCampaign || !activeProtocol) return;
     getUrl(
       account,
       activeCampaign.baseUrl,
@@ -67,7 +65,7 @@ export function useReferralLink(): string | undefined {
     activeProtocol,
     links?.shortUtm,
     links?.utm,
-    account
+    account,
   ]);
   if (
     activeProtocol &&
@@ -157,4 +155,25 @@ export function useMaxFetched(): [
     activeProtocol ? maxFetched[activeProtocol.id] : undefined,
     setMaxFetched,
   ];
+}
+
+export function useUserPayout(account?: string) {
+  const payoutClient = usePayoutClient();
+  const [data, setData] = useState<ApolloQueryResult<UserPayoutData>>();
+  useEffect(() => {
+    if (!account) return;
+    fetchUserPayout(payoutClient, account).then((res) => {
+      setData(res);
+    });
+  }, [account]);
+
+  return data;
+}
+
+export function usePricesUSD(): { [symbol: string]: number } | undefined {
+  return {
+    veAMP: 0.01,
+    ETH: 1600,
+    USDC: 1,
+  };
 }
