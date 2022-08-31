@@ -155,6 +155,23 @@ export const StyledInternalLink = styled(Link)`
   }
 `;
 
+export const NoColorInternalLink = styled(Link)`
+  text-decoration: none;
+  cursor: pointer;
+  color: ${({ theme }) => theme.black};
+  font-weight: 500;
+  :hover {
+    text-decoration: underline;
+  }
+  :focus {
+    outline: none;
+    text-decoration: underline;
+  }
+  :active {
+    text-decoration: none;
+  }
+`;
+
 export const BlankInternalLink = styled(Link)`
   text-decoration: none;
   cursor: pointer;
