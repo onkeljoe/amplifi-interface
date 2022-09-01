@@ -16,7 +16,7 @@ const AMP_PRICE_USD = 0.001666666667;
 const PAYOUT_PER_TOTAL_PERCENT_USD = 664.34;
 const DATE_START = "Sep 1, 2022 3:00:00 GMT-07:00";
 const PROPOSAL_ID =
-  "0xf161196029cb7848d69154c87884de87c5c7a6d41686c9e7346bdc39d3620325";
+  "0xa043b7eea5b8714c80f8c7c0caf7b6246e3ee20f1474ce717ee3301d848bed2d";
 
 const hub = "https://hub.snapshot.org"; // or https://testnet.snapshot.org for testnet
 const lastPayoutUri =
@@ -109,8 +109,7 @@ function BoostCalculator() {
     DATE_START,
     "Vote 100% For CRE8R In F-Major"
   );
-  const active = activeText !== countdownText;
-
+  const active = activeText === countdownText;
   useEffect(() => {
     axios.get(lastPayoutUri).then((res) => {
       if (res.status === 200) {
@@ -299,7 +298,9 @@ function BoostCalculator() {
                       1
                     )})`}
                 </p>
-                {currentCS &&
+                {projectedPayout &&
+                  !projectedPayout.debug[0].boostedBribe &&
+                  currentCS &&
                   pastCS &&
                   cre8rPrice &&
                   accountLastPayout &&
