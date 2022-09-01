@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { RowBetween, RowFixed, RowFlat } from "../Row";
 import {
@@ -131,6 +131,10 @@ export default function SideMenu(): JSX.Element {
     setOpen(!open);
     setfaqOpen(false);
   }
+  const preventClickPropagration = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => e.stopPropagation(),
+    []
+  );
 
   return (
     <>
@@ -226,7 +230,9 @@ export default function SideMenu(): JSX.Element {
         <AutoColumn gap='24px'>
           <div style={{ padding: "0px 5px 55px 5px", height: "28px" }}>
             {!open ? (
-              <SybilLogo />
+              <NoColorInternalLink to='/' onClick={preventClickPropagration}>
+                <SybilLogo />
+              </NoColorInternalLink>
             ) : (
               <RowBetween align='flex-start'>
                 <NoColorInternalLink to='/'>
@@ -303,7 +309,7 @@ export default function SideMenu(): JSX.Element {
               padding: "0 1.25rem",
             }}
           >
-            <StyledInternalLink to='/'>
+            <StyledInternalLink to='/' onClick={preventClickPropagration}>
               <Home size={20} style={{ stroke: "black" }} />
             </StyledInternalLink>
             <ExternalLink

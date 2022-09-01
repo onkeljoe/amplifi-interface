@@ -22,7 +22,7 @@ import DarkModeQueryParamReader from "../theme/DarkModeQueryParamReader";
 import Campaigns from "./Campaigns";
 import DelegateInfo from "./DelegateInfo";
 import Delegates from "./Delegates";
-import { RedirectWithUpdatedGovernance } from "./Governance/redirect";
+// import { RedirectWithUpdatedGovernance } from "./Governance/redirect";
 import Identities from "./Identities";
 import Proposals from "./Proposals";
 import Payouts from "./Payouts";
