@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Info } from "react-feather";
 import { Row } from "components/Row";
-import { TYPE, TokenLogo } from "theme";
+import { TYPE } from "theme";
+import { TokenLogo } from "components/Icons/Icons";
 import { IncentivesAndKPIs, Box, InfoBox } from "./typesIncetivesKPIs";
 
 const MainWrapper = styled.div`

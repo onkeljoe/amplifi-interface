@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { TYPE, TokenLogo, HighlightIcon } from "theme";
+import { TYPE } from "theme";
 import { Row } from "components/Row";
 import Column from "components/Column";
+import { TokenLogo, HighlightIcon } from "components/Icons/Icons";
 import { Money, Calendar, Referree } from "../campaigns/typesIncetivesKPIs";
 import { InfoBoxComponent } from "../campaigns/IncentivesKPI";
 
