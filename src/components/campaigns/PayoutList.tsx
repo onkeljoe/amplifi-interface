@@ -80,7 +80,7 @@ const DataRow = styled.div`
     }
   `};
 `;
- 
+
 const AccountLinkGroup = styled(AutoRow)`
   :hover {
     /* opacity: 0.5; */
@@ -193,15 +193,11 @@ export default function PayoutList({
           </AutoRow>
           <NoWrap textAlign='end'>{/* {votes !== "0.00" ? 1 : 0} */}</NoWrap>
           <NoWrap textAlign='end'>
-            {!payoutCre8rUSD
-              ? "0 $AMP IN USD"
-              : payoutCre8rUSD + (true ? " $CRE8R IN USD" : " $CRE8R IN USD")}
+            {!payoutCre8rUSD ? "$0 AMP" : "$" + payoutCre8rUSD + " CRE8R"}
           </NoWrap>
           <Row style={{ justifyContent: "flex-end" }}>
             <VoteText textAlign='end'>
-              {!votes
-                ? "0 $AMP IN USD"
-                : votes + (true ? " $AMP IN USD" : " $AMP IN USD")}
+              {!votes ? "$0 AMP" : "$" + votes + " AMP"}
             </VoteText>
           </Row>
         </DataRow>
