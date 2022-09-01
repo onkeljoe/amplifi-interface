@@ -156,8 +156,8 @@ export default function TwitterFlow({ onDismiss }: { onDismiss: () => void }) {
   const socialHashtag = getHashtags();
 
   const tweetText = `${protocolEmoji} ${socialTags}@AmpliFiDAO 📡
-address: ${account}
-${sig ? `sig: ${sig}` : ""}`;
+address:${account}
+${sig ? `sig:${sig}` : ""}`;
   const urlProtocol = encodeURI(
     `https://amplifi.cre8r.vip/#/campaigns/${activeProtocol?.id}`
   );
@@ -206,7 +206,7 @@ ${sig ? `sig: ${sig}` : ""}`;
           if (res?.data[0]) {
             const tweetData = res?.data?.[0];
             // check that tweet contains correct data
-            const passedRegex = tweetData.text.includes("sig: " + sig);
+            const passedRegex = tweetData.text.includes("sig:" + sig);
             if (passedRegex) {
               setTweetID(tweetData.id);
               setTweetError(undefined);
