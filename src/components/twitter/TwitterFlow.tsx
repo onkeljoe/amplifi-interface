@@ -3,7 +3,7 @@ import { AutoColumn } from "../Column";
 import { ButtonPrimary } from "../Button";
 import { TYPE, CloseIcon, BackArrowSimple } from "../../theme";
 import { useActiveWeb3React } from "../../hooks";
-
+import { CONNECT_CONFIG } from "state/governance/reducer";
 import { RowBetween, RowFixed } from "../Row";
 import styled from "styled-components";
 import {
@@ -121,58 +121,28 @@ export default function TwitterFlow({ onDismiss }: { onDismiss: () => void }) {
     }
   }
 
-  /**
-   * This checks the useful emoji for tweet
-   * @returns {string} emoji of the protocol or '👀' or '' if the protocol is Amplifi
-   */
-  const getProtocolEmoji = (): string => {
-    if (!activeProtocol || !activeProtocol.emoji) return "👀";
-    if (activeProtocol.id === "AMPLIFI") return "";
-    return activeProtocol.emoji;
-  };
-  const protocolEmoji = getProtocolEmoji();
+  //todo  make it so we can customise tweet for each protocol..
+  // tweet data
 
-  /**
-   * This returns useful social tag or via for tweet
-   * @returns {string} social protocal tags or via, because if you just start
-   with '@AmplifiDAO' tweeter treats it like a response and app can't fetch it
-   */
-  const getSocialTags = (): string => {
-    if (!activeProtocol || !activeProtocol.social) return "via";
-    if (activeProtocol.id === "AMPLIFI") return "via ";
-    return activeProtocol.social + " X ";
-  };
-  const socialTags = getSocialTags();
+  // const tweetCopyForLink = `${activeProtocol?.emoji ? `${activeProtocol?.emoji} ` : ''}Verifying myself for ${
+  //   activeProtocol?.social
+  // } X @CRE8RDAO AmpliFi 🧱 ${
+  //   activeProtocol?.id == CONNECT_CONFIG.id ? 'user' : `%23${activeProtocol?.token?.symbol}`
+  // } %0A%0Aamplifi.cre8r.vip%2F%23%2Famplifi/%0A%0Aaddr:${account}%0A%0Asig:${sig ??
+  //   ''}`
 
-  /**
-   * This return useful hashtags for the tweet
-   * @returns {string} either two hashtags: protocol,CRE8R or one hashtag: CRE8R
-   */
-  const getHashtags = (): string => {
-    if (!activeProtocol || !activeProtocol.token) return "CRE8R";
-    if (activeProtocol.token.symbol === "CRE8R") return "CRE8R";
-    return `${activeProtocol?.token.symbol},CRE8R`;
-  };
-  const socialHashtag = getHashtags();
+  // used just for display in UI
+  const readableTweetCopy = `${activeProtocol?.emoji ?? ""}👀${
+    activeProtocol?.social
+  } X @AmpliFiDAO 📡   ${
+    activeProtocol?.id == CONNECT_CONFIG.id
+      ? "user"
+      : `#${activeProtocol?.token?.symbol}`
+  } \n https://amplifi.cre8r.vip/#/amplifi/${
+    activeProtocol?.id
+  } \n addr:${account} \n sig:${sig ?? ""}`;
 
-  const tweetText = `${protocolEmoji} ${socialTags}@AmpliFiDAO 📡
-address: ${account}
-${sig ? `sig: ${sig}` : ""}`;
-  const urlProtocol = encodeURI(
-    `https://amplifi.cre8r.vip/#/campaigns/${activeProtocol?.id}`
-  );
-
-  // then it goes here to make a good looking tweet
-  const tweetCopyForLink = encodeURI(
-    `https://twitter.com/intent/tweet?text=${tweetText}&hashtags=${socialHashtag}&url=${urlProtocol}`
-  );
-
-  // used just for display in UI of amplifi interface (pre-tweet)
-  const readableTweetText = `${protocolEmoji} ${socialTags}@AmpliFiDAO 📡
-  <address>
-  <sig>
-  #${activeProtocol?.token.symbol ?? "CRE8R"}`;
-  const readableTweetCopy = `${readableTweetText}\nhttps://amplifi.cre8r.vip/#/campaigns/${activeProtocol?.id}`;
+  const tweetCopyForLink = encodeURIComponent(readableTweetCopy);
 
   // watch for user tweet
   const [tweetError, setTweetError] = useState<string | undefined>();
@@ -192,7 +162,7 @@ ${sig ? `sig: ${sig}` : ""}`;
     setWatch(true); // restart watcher
     setTweetError(undefined); // reset error
     window.open(
-      `${tweetCopyForLink}`,
+      `https://twitter.com/intent/tweet?text=${tweetCopyForLink}`,
       "tweetWindow",
       "height=400,width=800,top=400px,left=400px"
     );
@@ -206,7 +176,7 @@ ${sig ? `sig: ${sig}` : ""}`;
           if (res?.data[0]) {
             const tweetData = res?.data?.[0];
             // check that tweet contains correct data
-            const passedRegex = tweetData.text.includes("sig: " + sig);
+            const passedRegex = tweetData.text.includes("sig:" + sig);
             if (passedRegex) {
               setTweetID(tweetData.id);
               setTweetError(undefined);

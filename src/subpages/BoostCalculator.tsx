@@ -15,6 +15,9 @@ import { calcChange, formatChange } from "./math";
 const AMP_PRICE_USD = 0.001666666667;
 const PAYOUT_PER_TOTAL_PERCENT_USD = 664.34;
 
+const PROPOSAL_ID =
+  "0xf161196029cb7848d69154c87884de87c5c7a6d41686c9e7346bdc39d3620325";
+
 const hub = "https://hub.snapshot.org"; // or https://testnet.snapshot.org for testnet
 const lastPayoutUri =
   "https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-45482115.json";
@@ -144,8 +147,7 @@ function BoostCalculator() {
               (client as any)
                 .vote(library as any, account, {
                   space: "beets.eth",
-                  proposal:
-                    "0xf161196029cb7848d69154c87884de87c5c7a6d41686c9e7346bdc39d3620325",
+                  proposal: PROPOSAL_ID,
                   type: "weighted",
                   choice: { "43": 1 },
                 })
