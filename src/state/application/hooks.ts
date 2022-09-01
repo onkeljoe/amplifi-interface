@@ -26,6 +26,7 @@ import {
   CHAINBET_GOVERNANCE,
   POOL_TOGETHER_GOVERNANCE,
   PALADIN_GOVERNANCE,
+  LENS_GOVERNANCE,
 } from "../governance/reducer";
 import {
   uniswapClient,
@@ -42,6 +43,7 @@ import {
   GMXClient,
   ChainBetClient,
   PaladinClient,
+  LensClient,
 } from "../../apollo/client";
 
 export function useBlockNumber(): number | undefined {
@@ -188,6 +190,10 @@ export function useSubgraphClient() {
 
   if (activeProtocol?.id === PALADIN_GOVERNANCE.id) {
     return PaladinClient;
+  }
+
+  if (activeProtocol?.id === LENS_GOVERNANCE.id) {
+    return LensClient;
   }
 
   return uniswapClient;
