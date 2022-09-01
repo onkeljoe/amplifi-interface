@@ -237,7 +237,7 @@ export function useMultipleTwitterProfileDatas(
 }
 
 // check for tweet every couple seconds after theyve kicked off flow
-const POLL_DURATION_MS = 11000; // length after which to check
+const POLL_DURATION_MS = 8000; // length after which to check
 export function useTweetWatcher(
   sig: string | undefined, // used to check regex
   twitterHandle: string | undefined, // handle to fetch tweet from
