@@ -5,6 +5,14 @@ import { Row } from "components/Row";
 import { TYPE, TokenLogo } from "theme";
 import { IncentivesAndKPIs, Box, InfoBox } from "./typesIncetivesKPIs";
 
+const MainWrapper = styled.div`
+  display: flex;
+  gap: 12px;
+  ${({ theme }) => theme.mediaWidth.upToLarge`
+  flex-wrap: wrap;
+  `}
+`;
+
 const Wrapper = styled.div<{ name: string }>`
   display: flex;
   flex-direction: column;
@@ -13,7 +21,18 @@ const Wrapper = styled.div<{ name: string }>`
   padding: 15px 20px;
   border: 2px solid #959595;
   border-radius: 26px;
-  width: ${({ name }) => (name === "KPIs" ? "100%" : "fit-content")};
+  flex: 50%;
+  ${({ theme }) => theme.mediaWidth.upToLarge`
+  flex: 100%;
+  `}
+`;
+
+const MobileWrapper = styled(Row)`
+  gap: 12px;
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+  flex-direction: column;
+  align-items: flex-start;
+  `}
 `;
 
 const StyledBox = styled.div`
@@ -48,10 +67,10 @@ const StyledInfoBox = styled.div<{ display: boolean }>`
 
 export default function IncentivesKPI(props: { data: IncentivesAndKPIs }) {
   return (
-    <Row gap='12px'>
+    <MainWrapper>
       <IncentivesORKPIs data={props.data.incentives} name='incentives' />
       <IncentivesORKPIs data={props.data.KPIs} name='KPIs' />
-    </Row>
+    </MainWrapper>
   );
 }
 
@@ -77,7 +96,7 @@ export function IncentivesORKPIs(props: {
   // variable for all the boxes of incentives or KPIs and neccessary "AND"s
   const Boxes = props.data.map((each, i, arr) => {
     return (
-      <>
+      <Row key={each.icon} gap='12px' width='unset'>
         <StyledBox>
           {each.icon && <TokenLogo name={each.icon} />}
           <TYPE.custom color='#ffffff' fontSize={12}>
@@ -86,7 +105,7 @@ export function IncentivesORKPIs(props: {
           {each.extraInfo && <InfoBoxComponent data={each.extraInfo} />}
         </StyledBox>
         {renderAND(arr, i)}
-      </>
+      </Row>
     );
   });
 
@@ -97,7 +116,7 @@ export function IncentivesORKPIs(props: {
           ? "For every referral you will get"
           : "Referral is generated when user"}
       </TYPE.custom>
-      <Row gap='12px'>{Boxes}</Row>
+      <MobileWrapper>{Boxes}</MobileWrapper>
     </Wrapper>
   );
 }
