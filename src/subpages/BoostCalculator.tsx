@@ -14,6 +14,9 @@ import { calcChange, formatChange } from "./math";
 
 const AMP_PRICE_USD = 0.001666666667;
 const PAYOUT_PER_TOTAL_PERCENT_USD = 664.34;
+const DATE_START = "Sep 1, 2022 3:00:00 GMT-07:00";
+const PROPOSAL_ID =
+  "0xf161196029cb7848d69154c87884de87c5c7a6d41686c9e7346bdc39d3620325";
 
 const hub = "https://hub.snapshot.org"; // or https://testnet.snapshot.org for testnet
 const lastPayoutUri =
@@ -103,7 +106,7 @@ function BoostCalculator() {
     (beetsChange || beetsChange == 0);
   const activeText = "Vote 100% For CRE8R In F-Major";
   const countdownText = useCountdown(
-    "Sep 2, 2022 3:00:00 GMT-07:00",
+    DATE_START,
     "Vote 100% For CRE8R In F-Major"
   );
   const active = activeText !== countdownText;
@@ -144,8 +147,7 @@ function BoostCalculator() {
               (client as any)
                 .vote(library as any, account, {
                   space: "beets.eth",
-                  proposal:
-                    "0xf161196029cb7848d69154c87884de87c5c7a6d41686c9e7346bdc39d3620325",
+                  proposal: PROPOSAL_ID,
                   type: "weighted",
                   choice: { "43": 1 },
                 })
