@@ -106,7 +106,7 @@ function BoostCalculator() {
     (beetsChange || beetsChange == 0);
   const activeText = "Vote 100% For CRE8R In F-Major";
   const countdownText = useCountdown(
-    "Sep 2, 2022 3:00:00 GMT-07:00",
+    "Sep 1, 2022 3:00:00 GMT-07:00",
     "Vote 100% For CRE8R In F-Major"
   );
   const active = activeText !== countdownText;
