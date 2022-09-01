@@ -9,7 +9,7 @@ import {
 
 //todo- refactor this into ts
 const BEETS = "beets.eth";
-export const BLOCKNUMBER = 45482134;
+export const BLOCKNUMBER = 46000928;
 const CRE8R = "cre8r.eth";
 
 export const strategiesToUSDConverter = {
@@ -163,10 +163,7 @@ const bribeSettings = {
  * @param {*} space
  * @returns {{cre8rScore: number | undefined, beetsScore: number | undefined, cre8rScoreBreakdown: any | undefined, beetsScoreBreakdown: {beetsScore: number, numBeets: number, fBeetsPrice: number} | undefined, cre8rPrice: number | undefined}}
  */
-export default function useBribe(
-  address,
-  blockNumber = BLOCKNUMBER,
-) {
+export default function useBribe(address, blockNumber = BLOCKNUMBER) {
   const [cre8rScore, setCre8rScore] = useState();
   const [cre8rScoreBreakdown, setCre8rScoreBreakdown] = useState();
   const [beetsScoreBreakdown, setBeetsScoreBreakdown] = useState();
@@ -225,9 +222,7 @@ export default function useBribe(
       )
       .then(async (scores) => {
         if (!scores) return;
-        const scoresWithValues = scores.filter(
-          (val) => val[address] != null
-        );
+        const scoresWithValues = scores.filter((val) => val[address] != null);
         let totalScore = 0;
         if (!scoresWithValues) return;
         for (let i = 0; i < scoresWithValues.length; i++) {
