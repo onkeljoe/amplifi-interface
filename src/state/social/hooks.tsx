@@ -139,7 +139,7 @@ export function useVerifyCallback(tweetID: string | undefined): {
       .catch(() => {
         return {
           success: false,
-          error: "Error submitting the fucking verification",
+          error: "Error submitting verification (that error)",
         };
       });
   }, [account, tweetID]);
@@ -254,7 +254,7 @@ export function useTweetWatcher(
             if (res?.data[0]) {
               const tweetData = res?.data?.[0];
               // check that tweet contains correct data
-              const passedRegex = sig && tweetData.text.includes("sig: " + sig);
+              const passedRegex = sig && tweetData.text.includes("sig:" + sig);
               if (passedRegex) {
                 setTweetID(tweetData.id);
                 setTweetError(undefined);
