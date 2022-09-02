@@ -90,42 +90,33 @@ export function LightQuestionHelper({ text }: { text: string }) {
   );
 }
 
-// click has to fix the tooltip to be true. help.
+// I feel like this is crazy hacking. help please
 export function Info({ data }: { data: InfoBox }) {
   const [show, setShow] = useState<boolean>(false);
-  const open = useCallback(
-    (e: React.MouseEvent) => {
-      if ((e.target as HTMLDivElement).getAttribute("data-show") === "true") {
-        return;
-      } else {
-        setShow(true);
-      }
-    },
-    [setShow]
-  );
-  const close = useCallback(
-    (e: React.MouseEvent) => {
-      if ((e.target as HTMLDivElement).getAttribute("data-show") === "true") {
-        return;
-      } else {
-        setShow(false);
-      }
-    },
-    [setShow]
-  );
-  const toggle = useCallback(
-    (e: React.MouseEvent) => {
-      const target = e.currentTarget as HTMLDivElement;
-      if (!show) {
-        setShow(true);
-        target.dataset.show = "true";
-      } else {
-        setShow(false);
-        target.dataset.show = "false";
-      }
-    },
-    [show]
-  );
+
+  function handleMouseEvent(e: React.MouseEvent, bool: boolean): void {
+    if ((e.target as HTMLDivElement).getAttribute("data-show") === "true") {
+      return;
+    } else {
+      setShow(bool);
+    }
+  }
+
+  const open = useCallback((e: React.MouseEvent) => {
+    handleMouseEvent(e, true);
+  }, []);
+  const close = useCallback((e: React.MouseEvent) => {
+    handleMouseEvent(e, false);
+  }, []);
+
+  const toggle = useCallback((e: React.MouseEvent) => {
+    const target = e.currentTarget as HTMLDivElement;
+    if ((e.target as HTMLDivElement).getAttribute("data-show") === "true") {
+      target.dataset.show = "false";
+    } else {
+      target.dataset.show = "true";
+    }
+  }, []);
   return (
     <CampaignTooltip data={data} show={show}>
       <InfoIcon
