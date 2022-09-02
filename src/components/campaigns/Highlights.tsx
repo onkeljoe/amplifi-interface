@@ -10,27 +10,33 @@ const Break = styled.div`
   margin-left: 14px;
   margin-right: 7px;
   height: 26px;
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+  display: none;
+  `}
+`;
+
+const ComponentWrapper = styled(Row)`
+  align-items: flex-start;
+  border-bottom: 1px solid #d7d7d7;
+  margin-bottom: 18px;
+  padding: 22px 0 18px 0;
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+  justify-content: center;
+  `}
 `;
 
 export default function Highlights(props: { data: incomingHighlightes }) {
   const { data } = props;
 
   return (
-    <Row
-      alignItems='flex-start'
-      style={{
-        borderBottom: "1px solid #D7D7D7",
-        marginBottom: "18px",
-        padding: "22px 0 18px 0",
-      }}
-    >
+    <ComponentWrapper>
       {data.map((each, i, arr) => (
         <>
           <HighlightBox data={each} key={each.type} />
           {renderBreak(arr, i)}
         </>
       ))}
-    </Row>
+    </ComponentWrapper>
   );
 
   function renderBreak(arr: incomingHighlightes, i: number) {

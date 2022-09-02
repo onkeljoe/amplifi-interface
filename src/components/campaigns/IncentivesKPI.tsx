@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Info } from "react-feather";
 import { Row } from "components/Row";
 import { TYPE } from "theme";
 import { TokenLogo } from "components/Icons/Icons";
-import { IncentivesAndKPIs, Box, InfoBox } from "./typesIncetivesKPIs";
+import { Info } from "components/QuestionHelper";
+import { IncentivesAndKPIs, Box } from "./typesIncetivesKPIs";
 
 const MainWrapper = styled.div`
   display: flex;
@@ -59,24 +59,6 @@ const StyledBox = styled.div`
   white-space: nowrap;
 `;
 
-const StyledInfoBox = styled.div<{ display: boolean }>`
-  font-size: 12px;
-  font-weight: 500;
-  visibility: ${({ display }) => (display ? "visible" : "hidden")};
-  opacity: ${({ display }) => (display ? "1" : "0")};
-  position: absolute;
-  top: -88px;
-  left: 0;
-  z-index: 5;
-  background: #959595;
-  border: 2px solid #959595;
-  border-radius: 8px;
-  padding: 9px;
-  color: ${({ theme }) => theme.white};
-  width: 216px;
-  height: 64px;
-`;
-
 export default function IncentivesKPI(props: { data: IncentivesAndKPIs }) {
   return (
     <div style={{ display: "flex", gap: "12px", flexDirection: "column" }}>
@@ -117,7 +99,7 @@ export function IncentivesORKPIs(props: {
           <TYPE.custom color='#ffffff' fontSize={12}>
             {each.text}
           </TYPE.custom>
-          {each.extraInfo && <InfoBoxComponent data={each.extraInfo} />}
+          {each.extraInfo && <Info data={each.extraInfo} />}
         </StyledBox>
         {renderAND(arr, i)}
       </BoxesWrapper>
@@ -133,38 +115,5 @@ export function IncentivesORKPIs(props: {
       </TYPE.custom>
       <MobileWrapper>{Boxes}</MobileWrapper>
     </Wrapper>
-  );
-}
-
-// todo: research how to make it more elegant (libraby? or smth)
-export function InfoBoxComponent(props: { data: InfoBox }) {
-  const [displayInfo, setDisplayInfo] = useState<boolean>(false);
-  const { data } = props;
-  return (
-    <div
-      style={{
-        position: "relative",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Info
-        onClick={() => setDisplayInfo(!displayInfo)}
-        style={{ cursor: "help" }}
-        size={13}
-      />
-      <StyledInfoBox display={displayInfo}>
-        {data.startText ? data.startText : null}
-        {data.link ? (
-          <span color='#FFD6CC'>
-            <a href={data.link.url} target='_blank' rel='noreferrer'>
-              {data.link.text}
-            </a>
-          </span>
-        ) : null}
-        {data.endText ? data.endText : null}
-      </StyledInfoBox>
-    </div>
   );
 }

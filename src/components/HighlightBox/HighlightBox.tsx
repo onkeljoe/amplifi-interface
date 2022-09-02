@@ -5,12 +5,15 @@ import { Row } from "components/Row";
 import Column from "components/Column";
 import { TokenLogo, HighlightIcon } from "components/Icons/Icons";
 import { Money, Calendar, Referree } from "../campaigns/typesIncetivesKPIs";
-import { InfoBoxComponent } from "../campaigns/IncentivesKPI";
+import { Info } from "components/QuestionHelper";
 
 const BoxContainer = styled.div`
   display: flex;
   gap: 12px;
   align-items: center;
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+  flex-direction: column;
+  `}
 `;
 
 export default function HighlightBox(props: {
@@ -50,7 +53,7 @@ export default function HighlightBox(props: {
               <TYPE.black fontWeight={500} fontSize={12}>
                 {data.mainText}
               </TYPE.black>
-              {data.infoBox && <InfoBoxComponent data={data.infoBox} />}
+              {data.infoBox && <Info data={data.infoBox} />}
             </Row>
             <Row>
               <TYPE.custom fontWeight={500} fontSize='8px' color='#959595'>
@@ -74,7 +77,7 @@ export default function HighlightBox(props: {
               <TYPE.black fontWeight={500} fontSize={12}>
                 {data.mainText}
               </TYPE.black>
-              {data.infoBox && <InfoBoxComponent data={data.infoBox} />}
+              {data.infoBox && <Info data={data.infoBox} />}
             </Row>
             <Row>
               <TYPE.custom fontWeight={500} fontSize='8px' color='#959595'>

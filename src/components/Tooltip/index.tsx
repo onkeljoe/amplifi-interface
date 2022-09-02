@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import Popover, { PopoverProps } from "../Popover";
+import { InfoBox } from "../campaigns/typesIncetivesKPIs";
 
 const TooltipContainer = styled.div`
   width: 228px;
@@ -11,6 +12,10 @@ const TooltipContainer = styled.div`
 
 interface TooltipProps extends Omit<PopoverProps, "content"> {
   text: string;
+}
+
+interface CampaignTooltipProps extends Omit<PopoverProps, "content"> {
+  data: InfoBox;
 }
 
 export default function Tooltip({ text, ...rest }: TooltipProps) {
@@ -32,5 +37,25 @@ export function MouseoverTooltip({
         {children}
       </div>
     </Tooltip>
+  );
+}
+
+export function CampaignTooltip({ data, ...rest }: CampaignTooltipProps) {
+  return (
+    <Popover
+      content={
+        <TooltipContainer>
+          {data.startText ? data.startText : null}
+          {data.link ? (
+            <span color='#FFD6CC'>
+              <a href={data.link.url} target='_blank' rel='noreferrer'>
+                {data.link.text}
+              </a>
+            </span>
+          ) : null}
+        </TooltipContainer>
+      }
+      {...rest}
+    />
   );
 }

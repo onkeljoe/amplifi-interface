@@ -175,42 +175,30 @@ const amplifiHighlights: Array<Money | Calendar | Referree> = [
       startText: "some calendar info",
     },
   },
-  {
-    type: "referree",
-    subText: "referrals get a bonus",
-    infoBox: {
-      endText: "some referree info",
-    },
-    mainText: "$60 ",
-    giveTokens: ["AMP"],
-  },
 ];
 
 const billidropIandK: IncentivesAndKPIs = {
   incentives: [
     {
-      icon: "ETH",
-      text: "5%",
+      icon: "USDC",
+      text: "$60",
     },
     {
       icon: "AMP",
-      text: "matching $AMP",
+      text: "$60",
     },
   ],
   bonus: [
     {
       icon: "AMP",
-      text: "2.5% $AMP",
+      text: "60$",
     },
   ],
   KPIs: [
     {
-      text: "deposits ETH to Juicebox",
-    },
-    {
-      text: "payouts happen monthly",
+      text: "referee mints an NFT",
       extraInfo: {
-        startText: "Every 2 juicebox cycles",
+        startText: "When an NFT is minted via referral link",
       },
     },
   ],
@@ -231,14 +219,5 @@ const billidropHighlights: Array<Money | Calendar | Referree> = [
     infoBox: {
       startText: "some calendar info",
     },
-  },
-  {
-    type: "referree",
-    subText: "referrals get a bonus",
-    infoBox: {
-      endText: "some referree info",
-    },
-    mainText: "$60 ",
-    giveTokens: ["AMP"],
   },
 ];

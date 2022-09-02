@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from "react";
-import { HelpCircle as Question } from "react-feather";
+import { HelpCircle as Question, Info as InfoIcon } from "react-feather";
 import styled from "styled-components";
-import Tooltip from "../Tooltip";
+import Tooltip, { CampaignTooltip } from "../Tooltip";
+import { InfoBox } from "components/campaigns/typesIncetivesKPIs";
 
 const QuestionWrapper = styled.div`
   display: flex;
@@ -86,5 +87,54 @@ export function LightQuestionHelper({ text }: { text: string }) {
         </LightQuestionWrapper>
       </Tooltip>
     </span>
+  );
+}
+
+// click has to fix the tooltip to be true. help.
+export function Info({ data }: { data: InfoBox }) {
+  const [show, setShow] = useState<boolean>(false);
+  const open = useCallback(
+    (e: React.MouseEvent) => {
+      if ((e.target as HTMLDivElement).getAttribute("data-show") === "true") {
+        return;
+      } else {
+        setShow(true);
+      }
+    },
+    [setShow]
+  );
+  const close = useCallback(
+    (e: React.MouseEvent) => {
+      if ((e.target as HTMLDivElement).getAttribute("data-show") === "true") {
+        return;
+      } else {
+        setShow(false);
+      }
+    },
+    [setShow]
+  );
+  const toggle = useCallback(
+    (e: React.MouseEvent) => {
+      const target = e.currentTarget as HTMLDivElement;
+      if (!show) {
+        setShow(true);
+        target.dataset.show = "true";
+      } else {
+        setShow(false);
+        target.dataset.show = "false";
+      }
+    },
+    [show]
+  );
+  return (
+    <CampaignTooltip data={data} show={show}>
+      <InfoIcon
+        size={13}
+        cursor='help'
+        onClick={toggle}
+        onMouseEnter={open}
+        onMouseLeave={close}
+      />
+    </CampaignTooltip>
   );
 }
