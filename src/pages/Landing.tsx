@@ -210,7 +210,7 @@ export default function Landing() {
           heading='Pick the campaign'
           description='After that, you will see the list of the ongoing campaigns for the
           project you chose. Pick one and read about how you can help it achieve
-          that KPI goals by sharing content or a compelling message on social
+          their KPI goals by sharing content or a compelling message on social
           media'
         />
       </Fade>
@@ -218,9 +218,8 @@ export default function Landing() {
         <LandingStep
           step={4}
           heading='Share'
-          description="Copy your unique link from the campaign page! Share link with your
-          audience. If your audience clicks the link, we know it came from you!
-          Make sure they've done that KPI"
+          description='Copy your unique link from the campaign page! Share link with your
+          audience. If your audience clicks the link, we know it came from you!'
         />
       </Fade>
       <Fade triggerOnce fraction={1}>
