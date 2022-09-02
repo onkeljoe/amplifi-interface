@@ -94,29 +94,46 @@ export function LightQuestionHelper({ text }: { text: string }) {
 export function Info({ data }: { data: InfoBox }) {
   const [show, setShow] = useState<boolean>(false);
 
-  function handleMouseEvent(e: React.MouseEvent, bool: boolean): void {
+  // function handleMouseEvent(e: React.MouseEvent, bool: boolean): void {
+  //   if ((e.target as HTMLDivElement).getAttribute("data-show") === "true") {
+  //     return;
+  //   } else {
+  //     setShow(bool);
+  //   }
+  // }
+
+  const handleMouseEvent = useCallback((e: React.MouseEvent, bool: boolean) => {
     if ((e.target as HTMLDivElement).getAttribute("data-show") === "true") {
       return;
     } else {
       setShow(bool);
     }
-  }
+  }, []);
 
-  const open = useCallback((e: React.MouseEvent) => {
-    handleMouseEvent(e, true);
-  }, []);
-  const close = useCallback((e: React.MouseEvent) => {
-    handleMouseEvent(e, false);
-  }, []);
+  const open = useCallback(
+    (e: React.MouseEvent) => {
+      handleMouseEvent(e, true);
+    },
+    [handleMouseEvent]
+  );
+  const close = useCallback(
+    (e: React.MouseEvent) => {
+      handleMouseEvent(e, false);
+    },
+    [handleMouseEvent]
+  );
 
   const toggle = useCallback((e: React.MouseEvent) => {
     const target = e.currentTarget as HTMLDivElement;
     if ((e.target as HTMLDivElement).getAttribute("data-show") === "true") {
       target.dataset.show = "false";
+      setShow(false);
     } else {
       target.dataset.show = "true";
+      setShow(true);
     }
   }, []);
+
   return (
     <CampaignTooltip data={data} show={show}>
       <InfoIcon
