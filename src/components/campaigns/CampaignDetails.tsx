@@ -62,12 +62,19 @@ function CampaignDetails({
       <Column gap='10px' style={{ width: "100%" }}>
         <CampaignBanner />
         <ReferralLinksCard />
-        {protocolID === "AMPLIFI" ? (
+        {protocolID === "AMPLIFI" && (
           <div>
-            <IncentivesKPI data={dataFromWP} />
-            <Highlights data={highlightData} />
+            <IncentivesKPI data={amplifiIandK} />
+            <Highlights data={amplifiHighlights} />
           </div>
-        ) : (
+        )}
+        {protocolID === "BilliDrop" && (
+          <div>
+            <IncentivesKPI data={billidropIandK} />
+            <Highlights data={billidropHighlights} />
+          </div>
+        )}{" "}
+        {protocolID !== "AMPLIFI" && protocolID !== "BilliDrop" && (
           <CampaignContent />
         )}
         {amplifiCampaignsTabData.length > 0 && (
@@ -122,7 +129,7 @@ function CampaignDetails({
 
 export default withRouter(CampaignDetails);
 
-const dataFromWP: IncentivesAndKPIs = {
+const amplifiIandK: IncentivesAndKPIs = {
   incentives: [
     {
       icon: "ETH",
@@ -131,6 +138,12 @@ const dataFromWP: IncentivesAndKPIs = {
     {
       icon: "AMP",
       text: "matching $AMP",
+    },
+  ],
+  bonus: [
+    {
+      icon: "AMP",
+      text: "2.5% $AMP",
     },
   ],
   KPIs: [
@@ -146,7 +159,64 @@ const dataFromWP: IncentivesAndKPIs = {
   ],
 };
 
-const highlightData: Array<Money | Calendar | Referree> = [
+const amplifiHighlights: Array<Money | Calendar | Referree> = [
+  {
+    type: "money",
+    subText: "Currently Paid out",
+    mainText: "~$10k",
+    payoutKey: "payoutkey",
+    payoutTokens: ["USDC", "AMP"],
+  },
+  {
+    type: "calendar",
+    subText: "~48 hours after snapshot vote",
+    mainText: "Every 2 weeks",
+    infoBox: {
+      startText: "some calendar info",
+    },
+  },
+  {
+    type: "referree",
+    subText: "referrals get a bonus",
+    infoBox: {
+      endText: "some referree info",
+    },
+    mainText: "$60 ",
+    giveTokens: ["AMP"],
+  },
+];
+
+const billidropIandK: IncentivesAndKPIs = {
+  incentives: [
+    {
+      icon: "ETH",
+      text: "5%",
+    },
+    {
+      icon: "AMP",
+      text: "matching $AMP",
+    },
+  ],
+  bonus: [
+    {
+      icon: "AMP",
+      text: "2.5% $AMP",
+    },
+  ],
+  KPIs: [
+    {
+      text: "deposits ETH to Juicebox",
+    },
+    {
+      text: "payouts happen monthly",
+      extraInfo: {
+        startText: "Every 2 juicebox cycles",
+      },
+    },
+  ],
+};
+
+const billidropHighlights: Array<Money | Calendar | Referree> = [
   {
     type: "money",
     subText: "Currently Paid out",

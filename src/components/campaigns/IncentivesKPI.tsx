@@ -9,7 +9,7 @@ import { IncentivesAndKPIs, Box, InfoBox } from "./typesIncetivesKPIs";
 const MainWrapper = styled.div`
   display: flex;
   gap: 12px;
-  ${({ theme }) => theme.mediaWidth.upToLarge`
+  ${({ theme }) => theme.mediaWidth.upToSmall`
   flex-wrap: wrap;
   `}
 `;
@@ -23,16 +23,28 @@ const Wrapper = styled.div<{ name: string }>`
   border: 2px solid #959595;
   border-radius: 26px;
   flex: 50%;
-  ${({ theme }) => theme.mediaWidth.upToLarge`
+  ${({ theme }) => theme.mediaWidth.upToSmall`
   flex: 100%;
+  align-items: center;
   `}
 `;
 
 const MobileWrapper = styled(Row)`
   gap: 12px;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  justify-content: center;
+  `}
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
   flex-direction: column;
   align-items: flex-start;
+  `}
+`;
+
+const BoxesWrapper = styled(Row)`
+  gap: 12px;
+  width: unset;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  justify-content: center;
   `}
 `;
 
@@ -49,35 +61,37 @@ const StyledBox = styled.div`
 
 const StyledInfoBox = styled.div<{ display: boolean }>`
   font-size: 12px;
+  font-weight: 500;
   visibility: ${({ display }) => (display ? "visible" : "hidden")};
   opacity: ${({ display }) => (display ? "1" : "0")};
-  transition: scale 0.4s;
   position: absolute;
   top: -88px;
   left: 0;
   z-index: 5;
-  background-color: ${({ theme }) => theme.white};
-  padding: 7px 12px;
+  background: #959595;
   border: 2px solid #959595;
-  color: ${({ theme }) => theme.primary1};
-  border-color: ${({ theme }) => theme.black};
+  border-radius: 8px;
+  padding: 9px;
+  color: ${({ theme }) => theme.white};
   width: 216px;
-  height: 78px;
-  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  height: 64px;
 `;
 
 export default function IncentivesKPI(props: { data: IncentivesAndKPIs }) {
   return (
-    <MainWrapper>
-      <IncentivesORKPIs data={props.data.incentives} name='incentives' />
+    <div style={{ display: "flex", gap: "12px", flexDirection: "column" }}>
+      <MainWrapper>
+        <IncentivesORKPIs data={props.data.incentives} name='incentives' />
+        <IncentivesORKPIs data={props.data.bonus} name='bonus' />
+      </MainWrapper>
       <IncentivesORKPIs data={props.data.KPIs} name='KPIs' />
-    </MainWrapper>
+    </div>
   );
 }
 
 export function IncentivesORKPIs(props: {
   data: Array<Box>;
-  name: "incentives" | "KPIs";
+  name: "incentives" | "KPIs" | "bonus";
 }) {
   // checks if AND word needed or is it an end of the array
   function renderAND(arr: Array<Box>, i: number) {
@@ -97,7 +111,7 @@ export function IncentivesORKPIs(props: {
   // variable for all the boxes of incentives or KPIs and neccessary "AND"s
   const Boxes = props.data.map((each, i, arr) => {
     return (
-      <Row key={each.icon} gap='12px' width='unset'>
+      <BoxesWrapper key={each.icon}>
         <StyledBox>
           {each.icon && <TokenLogo name={each.icon} />}
           <TYPE.custom color='#ffffff' fontSize={12}>
@@ -106,16 +120,16 @@ export function IncentivesORKPIs(props: {
           {each.extraInfo && <InfoBoxComponent data={each.extraInfo} />}
         </StyledBox>
         {renderAND(arr, i)}
-      </Row>
+      </BoxesWrapper>
     );
   });
 
   return (
     <Wrapper name={props.name}>
       <TYPE.custom color='#959595' fontSize={12}>
-        {props.name === "incentives"
-          ? "For every referral you will get"
-          : "Referral is generated when user"}
+        {props.name === "incentives" && "For each referral you recieve"}
+        {props.name === "bonus" && "Referrals bonus"}
+        {props.name === "KPIs" && "Referral is generated when user"}
       </TYPE.custom>
       <MobileWrapper>{Boxes}</MobileWrapper>
     </Wrapper>
@@ -143,9 +157,11 @@ export function InfoBoxComponent(props: { data: InfoBox }) {
       <StyledInfoBox display={displayInfo}>
         {data.startText ? data.startText : null}
         {data.link ? (
-          <a href={data.link.url} target='_blank' rel='noreferrer'>
-            {data.link.text}
-          </a>
+          <span color='#FFD6CC'>
+            <a href={data.link.url} target='_blank' rel='noreferrer'>
+              {data.link.text}
+            </a>
+          </span>
         ) : null}
         {data.endText ? data.endText : null}
       </StyledInfoBox>
