@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Row } from "components/Row";
-import { incomingHighlightes } from "./typesIncetivesKPIs";
+import { incomingHighlightes } from "./typesIncentivesKPIs";
 import HighlightBox from "../HighlightBox/HighlightBox";
 
 const Break = styled.div`

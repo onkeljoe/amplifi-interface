@@ -21,7 +21,7 @@ import {
   Money,
   Calendar,
   Referree,
-} from "./typesIncetivesKPIs";
+} from "./typesIncentivesKPIs";
 
 const Wrapper = styled.div<{ backgroundColor?: string }>``;
 
@@ -62,20 +62,15 @@ function CampaignDetails({
       <Column gap='10px' style={{ width: "100%" }}>
         <CampaignBanner />
         <ReferralLinksCard />
-        {protocolID === "AMPLIFI" && (
-          <div>
-            <IncentivesKPI data={amplifiIandK} />
-            <Highlights data={amplifiHighlights} />
-          </div>
-        )}
-        {protocolID === "BilliDrop" && (
-          <div>
-            <IncentivesKPI data={billidropIandK} />
-            <Highlights data={billidropHighlights} />
-          </div>
-        )}{" "}
-        {protocolID !== "AMPLIFI" && protocolID !== "BilliDrop" && (
-          <CampaignContent />
+        {protocolsIAndK[protocolID] ? (
+          <>
+            <IncentivesKPI data={protocolsIAndK[protocolID].ik} />
+            <Highlights data={protocolsIAndK[protocolID].highlights} />
+          </>
+        ) : (
+          <>
+            <CampaignContent />
+          </>
         )}
         {amplifiCampaignsTabData.length > 0 && (
           <div style={{ paddingBottom: 10 }}>
@@ -191,7 +186,7 @@ const billidropIandK: IncentivesAndKPIs = {
   bonus: [
     {
       icon: "AMP",
-      text: "60$",
+      text: "$60",
     },
   ],
   KPIs: [
@@ -221,3 +216,18 @@ const billidropHighlights: Array<Money | Calendar | Referree> = [
     },
   },
 ];
+const protocolsIAndK: {
+  [protocolID: string]: {
+    ik: IncentivesAndKPIs;
+    highlights: Array<Money | Calendar | Referree>;
+  };
+} = {
+  AMPLIFI: {
+    ik: amplifiIandK,
+    highlights: amplifiHighlights,
+  },
+  BilliDrop: {
+    ik: billidropIandK,
+    highlights: billidropHighlights,
+  },
+};

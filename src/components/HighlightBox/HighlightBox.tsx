@@ -4,7 +4,7 @@ import { TYPE } from "theme";
 import { Row } from "components/Row";
 import Column from "components/Column";
 import { TokenLogo, HighlightIcon } from "components/Icons/Icons";
-import { Money, Calendar, Referree } from "../campaigns/typesIncetivesKPIs";
+import { Money, Calendar, Referree } from "../campaigns/typesIncentivesKPIs";
 import { Info } from "components/QuestionHelper";
 
 const BoxContainer = styled.div`

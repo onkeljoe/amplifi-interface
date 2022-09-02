@@ -1,6 +1,6 @@
 {
-  "name": "@uniswap/interface",
-  "description": "Uniswap Interface",
+  "name": "@amplifi/interface",
+  "description": "Amplifi Interface",
   "homepage": ".",
   "private": true,
   "devDependencies": {
