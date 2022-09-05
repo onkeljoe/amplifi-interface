@@ -90,59 +90,16 @@ export function LightQuestionHelper({ text }: { text: string }) {
   );
 }
 
-// I feel like this is crazy hacking. help please
 export function Info({ data }: { data: InfoBox }) {
   const [show, setShow] = useState<boolean>(false);
 
-  // function handleMouseEvent(e: React.MouseEvent, bool: boolean): void {
-  //   if ((e.target as HTMLDivElement).getAttribute("data-show") === "true") {
-  //     return;
-  //   } else {
-  //     setShow(bool);
-  //   }
-  // }
-
-  const handleMouseEvent = useCallback((e: React.MouseEvent, bool: boolean) => {
-    if ((e.target as HTMLDivElement).getAttribute("data-show") === "true") {
-      return;
-    } else {
-      setShow(bool);
-    }
-  }, []);
-
-  const open = useCallback(
-    (e: React.MouseEvent) => {
-      handleMouseEvent(e, true);
-    },
-    [handleMouseEvent]
-  );
-  const close = useCallback(
-    (e: React.MouseEvent) => {
-      handleMouseEvent(e, false);
-    },
-    [handleMouseEvent]
-  );
-
-  const toggle = useCallback((e: React.MouseEvent) => {
-    const target = e.currentTarget as HTMLDivElement;
-    if ((e.target as HTMLDivElement).getAttribute("data-show") === "true") {
-      target.dataset.show = "false";
-      setShow(false);
-    } else {
-      target.dataset.show = "true";
-      setShow(true);
-    }
-  }, []);
+  const toggle = useCallback(() => {
+    setShow(!show);
+  }, [show]);
 
   return (
     <CampaignTooltip data={data} show={show}>
-      <InfoIcon
-        size={13}
-        cursor='help'
-        onClick={toggle}
-        onMouseEnter={open}
-        onMouseLeave={close}
-      />
+      <InfoIcon size={13} cursor='pointer' onClick={toggle} />
     </CampaignTooltip>
   );
 }

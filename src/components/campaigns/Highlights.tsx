@@ -25,27 +25,27 @@ const ComponentWrapper = styled(Row)`
   `}
 `;
 
+function renderBreak(arr: incomingHighlightes, i: number) {
+  if (arr.length === 1) {
+    return;
+  }
+  if (!arr[i + 1]) {
+    return;
+  }
+  return <Break />;
+}
+
 export default function Highlights(props: { data: incomingHighlightes }) {
   const { data } = props;
 
   return (
     <ComponentWrapper>
       {data.map((each, i, arr) => (
-        <>
-          <HighlightBox data={each} key={each.type} />
+        <React.Fragment key={each.type}>
+          <HighlightBox data={each} />
           {renderBreak(arr, i)}
-        </>
+        </React.Fragment>
       ))}
     </ComponentWrapper>
   );
-
-  function renderBreak(arr: incomingHighlightes, i: number) {
-    if (arr.length === 1) {
-      return;
-    }
-    if (!arr[i + 1]) {
-      return;
-    }
-    return <Break />;
-  }
 }
