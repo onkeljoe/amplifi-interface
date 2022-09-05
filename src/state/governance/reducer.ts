@@ -515,6 +515,7 @@ export const ACROSS_GOVERNANCE: GovernanceInfo = {
 export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = process.env
   .REACT_APP_USE_DEMO
   ? {
+      AMPLIFI: AMPLIFI_GOVERNANCE,
       CRE8R: CRE8R_GOVERNANCE,
       DEVO: DEVO_GOVERNANCE, //demo
       BilliDrop: BILLI_GOVERNANCE, //demo
@@ -522,7 +523,6 @@ export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = process.env
       GMX: GMX_GOVERNANCE, //demo
       BET: CHAINBET_GOVERNANCE, //demo
       POOL: POOL_TOGETHER_GOVERNANCE, //demo
-      AMPLIFI: AMPLIFI_GOVERNANCE,
       PALADIN: PALADIN_GOVERNANCE,
       ARGENT: ARGENT_GOVERNANCE,
       LENS: LENS_GOVERNANCE,
