@@ -4,7 +4,7 @@ import { Row } from "components/Row";
 import { TYPE } from "theme";
 import { TokenLogo } from "components/Icons/Icons";
 import { Info } from "components/QuestionHelper";
-import { IncentivesAndKPIs, Box } from "./typesIncetivesKPIs";
+import { IncentivesAndKPIs, Box } from "./typesIncentivesKPIs";
 
 const MainWrapper = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ const MainWrapper = styled.div`
   `}
 `;
 
-const Wrapper = styled.div<{ name: string }>`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -71,28 +71,25 @@ export default function IncentivesKPI(props: { data: IncentivesAndKPIs }) {
   );
 }
 
-export function IncentivesORKPIs(props: {
-  data: Array<Box>;
-  name: "incentives" | "KPIs" | "bonus";
-}) {
-  // checks if AND word needed or is it an end of the array
-  function renderAND(arr: Array<Box>, i: number) {
-    if (arr.length === 1) {
-      return;
-    }
-    if (!arr[i + 1]) {
-      return;
-    }
-    return (
-      <TYPE.custom color='#959595' fontSize={12}>
-        AND
-      </TYPE.custom>
-    );
+// checks if AND word needed or is it an end of the array
+function renderAND(arr: Array<Box>, i: number) {
+  if (arr.length === 1) {
+    return;
   }
+  if (!arr[i + 1]) {
+    return;
+  }
+  return (
+    <TYPE.custom color='#959595' fontSize={12}>
+      AND
+    </TYPE.custom>
+  );
+}
 
-  // variable for all the boxes of incentives or KPIs and neccessary "AND"s
-  const Boxes = props.data.map((each, i, arr) => {
-    return (
+// variable for all the boxes of incentives or KPIs and neccessary "AND"s
+const Boxes = (props: { data: Array<Box> }) => (
+  <>
+    {props.data.map((each, i, arr) => (
       <BoxesWrapper key={each.icon}>
         <StyledBox>
           {each.icon && <TokenLogo name={each.icon} />}
@@ -103,17 +100,29 @@ export function IncentivesORKPIs(props: {
         </StyledBox>
         {renderAND(arr, i)}
       </BoxesWrapper>
-    );
-  });
+    ))}
+  </>
+);
+
+export function IncentivesORKPIs(props: {
+  data: Array<Box>;
+  name: "incentives" | "KPIs" | "bonus";
+}) {
+  const titles = {
+    incentives: "For each referral you recieve",
+    bonus: "Referrals bonus",
+    KPIs: "Referral is generated when user",
+  };
 
   return (
-    <Wrapper name={props.name}>
+    <Wrapper>
+      {/* todo: add color to color scheme */}
       <TYPE.custom color='#959595' fontSize={12}>
-        {props.name === "incentives" && "For each referral you recieve"}
-        {props.name === "bonus" && "Referrals bonus"}
-        {props.name === "KPIs" && "Referral is generated when user"}
+        {titles[props.name]}
       </TYPE.custom>
-      <MobileWrapper>{Boxes}</MobileWrapper>
+      <MobileWrapper>
+        <Boxes data={props.data} />
+      </MobileWrapper>
     </Wrapper>
   );
 }

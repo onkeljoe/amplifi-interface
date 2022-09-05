@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { HelpCircle as Question, Info as InfoIcon } from "react-feather";
 import styled from "styled-components";
 import Tooltip, { CampaignTooltip } from "../Tooltip";
-import { InfoBox } from "components/campaigns/typesIncetivesKPIs";
+import { InfoBox } from "components/campaigns/typesIncentivesKPIs";
 
 const QuestionWrapper = styled.div`
   display: flex;
