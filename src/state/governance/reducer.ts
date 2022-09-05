@@ -530,9 +530,9 @@ export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = process.env
       connect: CONNECT_CONFIG,
     }
   : {
+      AMPLIFI: AMPLIFI_GOVERNANCE,
       CRE8R: CRE8R_GOVERNANCE,
       BilliDrop: BILLI_GOVERNANCE,
-      AMPLIFI: AMPLIFI_GOVERNANCE,
     };
 
 export const FETCHING_INTERVAL = 50;
