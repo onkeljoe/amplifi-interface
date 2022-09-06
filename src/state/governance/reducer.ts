@@ -512,28 +512,28 @@ export const ACROSS_GOVERNANCE: GovernanceInfo = {
 };
 
 // mapping for routing
-export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = process.env
-  .REACT_APP_USE_DEMO
-  ? {
-      AMPLIFI: AMPLIFI_GOVERNANCE,
-      CRE8R: CRE8R_GOVERNANCE,
-      DEVO: DEVO_GOVERNANCE, //demo
-      BilliDrop: BILLI_GOVERNANCE, //demo
-      ACWI: ACWI_GOVERNANCE, //demo
-      GMX: GMX_GOVERNANCE, //demo
-      BET: CHAINBET_GOVERNANCE, //demo
-      POOL: POOL_TOGETHER_GOVERNANCE, //demo
-      PALADIN: PALADIN_GOVERNANCE,
-      ARGENT: ARGENT_GOVERNANCE,
-      LENS: LENS_GOVERNANCE,
-      ACROSS: ACROSS_GOVERNANCE,
-      connect: CONNECT_CONFIG,
-    }
-  : {
-      AMPLIFI: AMPLIFI_GOVERNANCE,
-      CRE8R: CRE8R_GOVERNANCE,
-      BilliDrop: BILLI_GOVERNANCE,
-    };
+export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } =
+  process.env.REACT_APP_USE_DEMO === "TRUE"
+    ? {
+        AMPLIFI: AMPLIFI_GOVERNANCE,
+        CRE8R: CRE8R_GOVERNANCE,
+        DEVO: DEVO_GOVERNANCE, //demo
+        BilliDrop: BILLI_GOVERNANCE, //demo
+        ACWI: ACWI_GOVERNANCE, //demo
+        GMX: GMX_GOVERNANCE, //demo
+        BET: CHAINBET_GOVERNANCE, //demo
+        POOL: POOL_TOGETHER_GOVERNANCE, //demo
+        PALADIN: PALADIN_GOVERNANCE,
+        ARGENT: ARGENT_GOVERNANCE,
+        LENS: LENS_GOVERNANCE,
+        ACROSS: ACROSS_GOVERNANCE,
+        connect: CONNECT_CONFIG,
+      }
+    : {
+        AMPLIFI: AMPLIFI_GOVERNANCE,
+        CRE8R: CRE8R_GOVERNANCE,
+        BilliDrop: BILLI_GOVERNANCE,
+      };
 
 export const FETCHING_INTERVAL = 50;
 
