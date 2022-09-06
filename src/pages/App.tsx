@@ -28,6 +28,7 @@ import Proposals from "./Proposals";
 import Payouts from "./Payouts";
 import PayoutInfo from "./PayoutInfo";
 import Landing from "./Landing";
+import DiscordBot from "../components/discord/DiscordBot";
 
 const FIRST_2_COLS_WIDTH = 320;
 
@@ -219,6 +220,7 @@ export default function App() {
         </div>
       )}
       <toast.Toaster />
+      <DiscordBot />
     </Suspense>
   );
 }

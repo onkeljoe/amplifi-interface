@@ -2,33 +2,59 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="shortcut icon" type="image/png" href="%PUBLIC_URL%/favicon.svg" />
-    <link rel="apple-touch-icon" sizes="192x192" href="%PUBLIC_URL%/favicon.svg" />
-    <link rel="apple-touch-icon" sizes="512x512" href="%PUBLIC_URL%/favicon.svg" /> 
-    <script src="//cdn.jsdelivr.net/npm/amplifi.js@0/amplifi.min.js" defer></script>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="%PUBLIC_URL%/favicon.svg"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="192x192"
+      href="%PUBLIC_URL%/favicon.svg"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="512x512"
+      href="%PUBLIC_URL%/favicon.svg"
+    />
+    <!-- <script src="//cdn.jsdelivr.net/npm/amplifi.js@0/amplifi.min.js" defer ></script> -->
+    <script src="//cdn.jsdelivr.net/npm/amplifi.js@0.7.5/amplifi.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ff007a" />
     <meta name="fortmatic-site-verification" content="j93LgcVZk79qcgyo" />
     <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-WHZQXBQ');</script>
-  <!-- End Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-WHZQXBQ");
+    </script>
+    <!-- End Google Tag Manager -->
 
     <!-- Open graph meta tags https://ogp.me/-->
-    <meta name="twitter:card" content="summary_large_image"> 
-    <meta name="twitter:image" content="https://cre8r.vip/wp-content/uploads/2022/07/cropp-log-only.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image"
+      content="https://cre8r.vip/wp-content/uploads/2022/07/cropp-log-only.png"
+    />
     <!--  -->
     <!-- ^^ twitter specific -->
-    <meta name="og:site" content="@CRE8RDAO">
-    <meta name="og:creator" content="@CRE8RDAO">
-    <meta name="og:title" content="AmpliFi | Web3 KPI-based Affliate Marketplace">
+    <meta name="og:site" content="@CRE8RDAO" />
+    <meta name="og:creator" content="@CRE8RDAO" />
+    <meta
+      name="og:title"
+      content="AmpliFi | Web3 KPI-based Affliate Marketplace"
+    />
     <!-- <meta name="og:description" content="AmpliFi is an onchain KPI "> -->
     <!-- <meta name="og:image" content="https://test-amplifi.cre8r.vip/static/media/cre8ramplifi-final.jpg"> -->
 
-<!-- End of twitter meta tags -->
+    <!-- End of twitter meta tags -->
     <link rel="stylesheet" href="./wp_styles.css" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -45,18 +71,18 @@
     -->
 
     <title>AmpliFi</title>
-    <script src='https://cdn.jsdelivr.net/npm/@widgetbot/crate@3' async defer>
-      new Crate({
-          server: '1012065955309957222', // AmpliFi
-          channel: '1012079493701189732' // #verify
-      })
-  </script>
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WHZQXBQ"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-WHZQXBQ"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
@@ -68,26 +94,32 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <script>
-      window.twttr = (function(d, s, id) {
+      window.twttr = (function (d, s, id) {
         var js,
           fjs = d.getElementsByTagName(s)[0],
-          t = window.twttr || {}
-        if (d.getElementById(id)) return t
-        js = d.createElement(s)
-        js.id = id
-        js.src = 'https://platform.twitter.com/widgets.js'
-        fjs.parentNode.insertBefore(js, fjs)
-        t._e = []
-        t.ready = function(f) {
-          t._e.push(f)
-        }
-        return t
-      })(document, 'script', 'twitter-wjs')
+          t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+        t._e = [];
+        t.ready = function (f) {
+          t._e.push(f);
+        };
+        return t;
+      })(document, "script", "twitter-wjs");
     </script>
 
     <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PC69BZ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-5PC69BZ"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
   </body>
 </html>
