@@ -24,11 +24,10 @@ export const useWPNav = () => {
   const cmsClient = useCre8rCmsClient();
   const [nav, setNav] = useState<Array<MenuTreeItem>>();
   useEffect(() => {
-    fetchWPNav(cmsClient, 'amplifi')
-      .then((res : any) => {
-        const navigationData = processWPNav(res)
-        setNav(navigationData);
-      });
+    fetchWPNav(cmsClient, "amplifi").then((res: any) => {
+      const navigationData = processWPNav(res);
+      setNav(navigationData);
+    });
   }, [cmsClient]);
 
   return { nav };
@@ -42,7 +41,7 @@ export const useWPUriQuery = () => {
   const cmsClient = useCre8rCmsClient();
   const queryUriToContent = useCallback(
     (uri: string) => {
-      return fetchWPUri(cmsClient, uri)
+      return fetchWPUri(cmsClient, uri);
     },
     [cmsClient]
   );
@@ -60,9 +59,9 @@ export const getPostsFromNavItems = async (
   );
   const _posts = res_1.map((f_1: any) => {
     if (f_1.status == "fulfilled") {
-      const post = nav.find((v: any) => f_1.value.data.nodeByUri.uri == v.uri)
+      const post = nav.find((v: any) => f_1.value.data.nodeByUri.uri == v.uri);
       if (!post) {
-        throw 'something is wrong in useWP.ts'
+        throw "something is wrong in useWP.ts";
       }
       return {
         ...post,

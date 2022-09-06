@@ -2,6 +2,10 @@ import { updateUtm, updateMaxFetched, updateActiveCampaign } from "./actions";
 import { createReducer } from "@reduxjs/toolkit";
 import HundredFeatured from "../../assets/images/hundred-featured.png";
 import FujiFeatured from "../../assets/images/fuji-short.png";
+import {
+  incomingHighlightes,
+  IncentivesAndKPIs,
+} from "../../components/campaigns/typesIncentivesKPIs";
 
 //This is the one used by WP
 type HTML = string;
@@ -33,6 +37,8 @@ export interface CampaignInfo {
   isDemo: boolean;
   whitelist: Whitelist[];
   campaignBudget?: string;
+  iak?: IncentivesAndKPIs;
+  highlights?: incomingHighlightes;
 }
 
 export const AMPLIFI_CAMPAIGN: CampaignInfo = {

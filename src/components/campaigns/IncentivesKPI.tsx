@@ -66,7 +66,7 @@ export default function IncentivesKPI(props: { data: IncentivesAndKPIs }) {
         <IncentivesORKPIs data={props.data.incentives} name='incentives' />
         <IncentivesORKPIs data={props.data.bonus} name='bonus' />
       </MainWrapper>
-      <IncentivesORKPIs data={props.data.KPIs} name='KPIs' />
+      <IncentivesORKPIs data={props.data.kPIs} name='KPIs' />
     </div>
   );
 }

@@ -488,8 +488,17 @@ export const useCampaign = (
       tweetIntent: amplifiCampaignFields.tweetintent,
       whitelist: [],
       featuredImage: amplifiCampaignFields.featuredImage?.sourceUrl,
+      iak: amplifiCampaignFields.incentivesbonuskpis,
+      highlights: amplifiCampaignFields.highlights,
     });
-  }, [protocolID, page, campaignID, activeProtocol, setActiveCampaign, activeCampaign?.id]);
+  }, [
+    protocolID,
+    page,
+    campaignID,
+    activeProtocol,
+    setActiveCampaign,
+    activeCampaign?.id,
+  ]);
 
   return {
     amplifiCampaigns,

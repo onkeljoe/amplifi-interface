@@ -30,7 +30,7 @@ export interface Box {
 export interface IncentivesAndKPIs {
   incentives: Array<Box>;
   bonus: Array<Box>;
-  KPIs: Array<Box>;
+  kPIs: Array<Box>;
 }
 
 // --------------------------------

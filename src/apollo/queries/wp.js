@@ -76,45 +76,46 @@ export const URI_QUERY = gql`
           snapshotId
           snapshotProposal
           highlights {
-            maintext
-            payoutkey
-            subtext
+            mainText
+            payoutTokens
+            payoutKey
+            subText
             type
           }
           incentivesbonuskpis {
             incentives {
               icon
               text
-              extrainfo {
-                starttext
+              extraInfo {
+                startText
                 link {
                   url
                   text
                 }
-                endtext
+                endText
               }
             }
             bonus {
               icon
               text
-              extrainfo {
-                starttext
+              extraInfo {
+                startText
                 link {
                   url
                   text
                 }
-                endtext
+                endText
               }
             }
-            kpis {
+            kPIs {
               text
-              extrainfo {
-                starttext
+              extraInfo {
+                startText
                 link {
                   url
                   text
                 }
-                endtext
+                endText
               }
             }
           }
