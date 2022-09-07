@@ -55,14 +55,20 @@ function CampaignDetails({
     pathname,
     campaignID
   );
-
+  console.log(page && page.data);
   return (
     <Wrapper>
       <Column gap='10px' style={{ width: "100%" }}>
         <CampaignBanner />
         <ReferralLinksCard />
         {/* {protocolsIAndK[protocolID] ? ( */}
-        {page && page.data ? (
+        {page &&
+        page.data &&
+        page.data.amplifiCampaignFields &&
+        page.data.amplifiCampaignFields.incentivesbonuskpis &&
+        page.data.amplifiCampaignFields.incentivesbonuskpis.bonus &&
+        page.data.amplifiCampaignFields.incentivesbonuskpis.kPIs &&
+        page.data.amplifiCampaignFields.incentivesbonuskpis.incentives ? (
           <>
             <IncentivesKPI
               data={page.data.amplifiCampaignFields.incentivesbonuskpis}
