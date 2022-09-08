@@ -16,12 +16,12 @@ import CampaignBanner from "./CampaignBanner";
 import IncentivesKPI from "./IncentivesKPI";
 import Highlights from "./Highlights";
 import ReferralLinksCard from "components/ReferralLinksCard";
-// import {
-//   IncentivesAndKPIs,
-//   Money,
-//   Calendar,
-//   Referree,
-// } from "./typesIncentivesKPIs";
+import {
+  incomingHighlightes,
+  IncentivesAndKPIs,
+} from "../../components/campaigns/typesIncentivesKPIs";
+import { useActiveCampaign } from "state/campaigns/hooks";
+import { useIsOverflow } from "hooks/useIsOverflow";
 
 const Wrapper = styled.div<{ backgroundColor?: string }>``;
 
@@ -45,36 +45,61 @@ function CampaignDetails({
   // if valid protocol id passed in, update global active protocol
   const dispatch = useDispatch<AppDispatch>();
   const [, setActiveProtocol] = useActiveProtocol();
+  const [activeCampaign] = useActiveCampaign();
+
+  const ref = React.useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (protocolID && Object.keys(SUPPORTED_PROTOCOLS).includes(protocolID)) {
       setActiveProtocol(SUPPORTED_PROTOCOLS[protocolID]);
     }
   }, [dispatch, protocolID, setActiveProtocol]);
+
   const { amplifiCampaignsTabData, uriToRouteMap, page, tabUri } = useCampaign(
     protocolID,
     pathname,
     campaignID
   );
-  console.log(page && page.data);
+
+  const isOverflow = useIsOverflow(ref);
+  console.log(isOverflow);
+
+  let incentivesBonusKPIsData: IncentivesAndKPIs | undefined,
+    highlightsData: incomingHighlightes | undefined;
+  if (
+    page &&
+    page.data &&
+    page.data.amplifiCampaignFields &&
+    page.data.amplifiCampaignFields.highlights &&
+    page.data.amplifiCampaignFields.incentivesbonuskpis &&
+    page.data.amplifiCampaignFields.incentivesbonuskpis.kPIs &&
+    page.data.amplifiCampaignFields.incentivesbonuskpis.incentives
+  ) {
+    incentivesBonusKPIsData =
+      page.data.amplifiCampaignFields.incentivesbonuskpis;
+    highlightsData = page.data.amplifiCampaignFields.highlights;
+  } else if (
+    activeCampaign &&
+    activeCampaign.iak &&
+    activeCampaign.highlights
+  ) {
+    incentivesBonusKPIsData = activeCampaign.iak;
+    highlightsData = activeCampaign.highlights;
+  }
+
   return (
-    <Wrapper>
+    <Wrapper ref={ref}>
       <Column gap='10px' style={{ width: "100%" }}>
         <CampaignBanner />
         <ReferralLinksCard />
         {/* {protocolsIAndK[protocolID] ? ( */}
-        {page &&
-        page.data &&
-        page.data.amplifiCampaignFields &&
-        page.data.amplifiCampaignFields.highlights &&
-        page.data.amplifiCampaignFields.incentivesbonuskpis &&
-        page.data.amplifiCampaignFields.incentivesbonuskpis.bonus &&
-        page.data.amplifiCampaignFields.incentivesbonuskpis.kPIs &&
-        page.data.amplifiCampaignFields.incentivesbonuskpis.incentives ? (
+        {incentivesBonusKPIsData && highlightsData ? (
           <>
             <IncentivesKPI
-              data={page.data.amplifiCampaignFields.incentivesbonuskpis}
+              data={incentivesBonusKPIsData}
+              isOverflow={isOverflow}
             />
-            <Highlights data={page.data.amplifiCampaignFields.highlights} />
+            <Highlights data={highlightsData} />
           </>
         ) : (
           <CampaignContent />

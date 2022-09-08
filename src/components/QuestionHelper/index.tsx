@@ -97,8 +97,17 @@ export function Info({ data }: { data: string }) {
   }, [show]);
 
   return (
-    <CampaignTooltip data={data} show={show}>
-      <InfoIcon size={20} cursor='pointer' onClick={toggle} />
+    <CampaignTooltip data={data} show={show} setShow={setShow}>
+      <InfoIcon
+        size={20}
+        cursor='pointer'
+        onClick={toggle}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      />
     </CampaignTooltip>
   );
 }

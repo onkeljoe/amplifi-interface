@@ -1,8 +1,11 @@
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import Popover, { PopoverProps } from "../Popover";
+import { X } from "react-feather";
 
 const TooltipContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 228px;
   padding: 0.6rem 1rem;
   line-height: 150%;
@@ -16,6 +19,7 @@ interface TooltipProps extends Omit<PopoverProps, "content"> {
 
 interface CampaignTooltipProps extends Omit<PopoverProps, "content"> {
   data: string;
+  setShow: (value: boolean) => void;
 }
 
 export default function Tooltip({ text, ...rest }: TooltipProps) {
@@ -43,12 +47,20 @@ export function MouseoverTooltip({
 //   return <div dangerouslySetInnerHTML={{ __html: props.data }}></div>;
 // }
 
-export function CampaignTooltip({ data, ...rest }: CampaignTooltipProps) {
-  console.log("fishbag:", data);
+export function CampaignTooltip({
+  data,
+  setShow,
+  ...rest
+}: CampaignTooltipProps) {
   return (
     <Popover
       content={
         <TooltipContainer>
+          <X
+            onClick={() => setShow(false)}
+            cursor='pointer'
+            style={{ alignSelf: "flex-end" }}
+          />
           <div dangerouslySetInnerHTML={{ __html: data }}></div>
         </TooltipContainer>
       }

@@ -9,6 +9,15 @@ import { IncentivesAndKPIs, Box } from "./typesIncentivesKPIs";
 const MainWrapper = styled.div`
   display: flex;
   gap: 12px;
+  flex-direction: row;
+  @media (max-width: 2200px) {
+    flex-direction: column;
+  }
+`;
+
+const TwoBigBoxesWrapper = styled.div`
+  display: flex;
+  gap: 12px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
   flex-wrap: wrap;
   `}
@@ -57,17 +66,25 @@ const StyledBox = styled.div`
   padding: 7px 12px;
   border-radius: 59px;
   white-space: nowrap;
+  min-height: 34px;
+  box-sizing: border-box;
 `;
 
-export default function IncentivesKPI(props: { data: IncentivesAndKPIs }) {
+export default function IncentivesKPI(props: {
+  data: IncentivesAndKPIs;
+  isOverflow: boolean | undefined;
+}) {
+  const column: boolean = props.isOverflow ?? false;
   return (
-    <div style={{ display: "flex", gap: "12px", flexDirection: "column" }}>
-      <MainWrapper>
+    <MainWrapper>
+      <TwoBigBoxesWrapper
+        style={column ? { flexDirection: "column" } : { flexDirection: "row" }}
+      >
         <IncentivesORKPIs data={props.data.incentives} name='incentives' />
         <IncentivesORKPIs data={props.data.bonus} name='bonus' />
-      </MainWrapper>
+      </TwoBigBoxesWrapper>
       <IncentivesORKPIs data={props.data.kPIs} name='KPIs' />
-    </div>
+    </MainWrapper>
   );
 }
 

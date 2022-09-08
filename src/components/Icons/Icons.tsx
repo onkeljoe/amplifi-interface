@@ -52,13 +52,15 @@ export function HighlightIcon(props: {
   }
 }
 
-export function TokenLogo(props: { name: "USDC" | "ETH" | "AMP" | "CRE8R" }) {
+export function TokenLogo(props: {
+  name: "USDC" | "ETH" | "AMP" | "CRE8R" | "custom";
+}) {
   switch (props.name) {
     case "USDC":
       return (
         <svg
-          width='13px'
-          height='13px'
+          width='20px'
+          height='20px'
           data-name='86977684-12db-4850-8f30-233a7c267d11'
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 2000 2000'
@@ -80,8 +82,8 @@ export function TokenLogo(props: { name: "USDC" | "ETH" | "AMP" | "CRE8R" }) {
     case "ETH":
       return (
         <svg
-          width='13px'
-          height='13px'
+          width='20px'
+          height='20px'
           viewBox='0 0 32 32'
           xmlns='http://www.w3.org/2000/svg'
         >
@@ -110,7 +112,7 @@ export function TokenLogo(props: { name: "USDC" | "ETH" | "AMP" | "CRE8R" }) {
           height='494.000000pt'
           viewBox='0 0 687.000000 494.000000'
           preserveAspectRatio='xMidYMid meet'
-          style={{ width: "13px", height: "13px" }}
+          style={{ width: "20px", height: "20px" }}
         >
           <g
             transform='translate(0.000000,494.000000) scale(0.100000,-0.100000)'
@@ -184,13 +186,42 @@ export function TokenLogo(props: { name: "USDC" | "ETH" | "AMP" | "CRE8R" }) {
       );
     case "CRE8R":
       return (
-        <img
-          width='13px'
-          height='13px'
-          src='../assets/images/cre8r-logo.png'
-          alt='CRE8R token'
-        />
+        <svg
+          version='1.0'
+          xmlns='http://www.w3.org/2000/svg'
+          width='386.000000pt'
+          height='361.000000pt'
+          viewBox='0 0 386.000000 361.000000'
+          preserveAspectRatio='xMidYMid meet'
+          style={{ width: "20px", height: "20px" }}
+        >
+          <g
+            transform='translate(0.000000,361.000000) scale(0.100000,-0.100000)'
+            fill='#000000'
+            stroke='none'
+          >
+            <path
+              d='M1800 3434 c-404 -48 -621 -164 -647 -344 l-8 -54 -470 -176 c-273
+-103 -479 -185 -493 -198 l-22 -21 0 -961 c0 -902 1 -961 18 -978 9 -9 414
+-169 899 -354 l881 -338 869 327 c477 179 878 335 891 346 l22 20 0 962 0 962
+-22 20 c-13 11 -233 100 -490 198 l-468 178 0 54 c0 69 -25 118 -87 172 -86
+77 -233 134 -428 167 -88 15 -375 26 -445 18z m370 -144 c253 -31 475 -138
+455 -219 -9 -37 -38 -65 -103 -99 -218 -114 -628 -145 -932 -71 -161 39 -300
+123 -300 181 0 12 19 40 44 64 67 63 226 120 402 143 99 12 335 13 434 1z
+m-1020 -526 c0 -69 5 -145 11 -169 39 -156 296 -274 664 -305 331 -28 698 52
+854 186 69 60 81 95 81 258 0 134 1 138 20 133 64 -17 689 -262 682 -268 -4
+-4 -344 -134 -755 -289 l-748 -282 -765 292 c-420 161 -762 296 -758 299 6 6
+693 269 707 270 4 1 7 -56 7 -125z m1480 -9 c0 -81 -4 -124 -14 -144 -27 -52
+-136 -110 -275 -146 -78 -20 -257 -45 -328 -45 l-53 0 0 149 0 149 93 7 c205
+15 395 58 505 115 31 16 60 29 65 30 4 0 7 -52 7 -115z m970 -1118 l0 -863
+-785 -295 -785 -296 0 863 0 862 68 26 c131 50 1497 565 1500 566 1 0 2 -388
+2 -863z'
+            />
+          </g>
+        </svg>
       );
+    case "custom":
+      return null;
     default:
       return null;
   }

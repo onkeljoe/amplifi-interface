@@ -1,14 +1,8 @@
 type IconFA = string;
-type Token = "ETH" | "CRE8R" | "AMP" | "USDC";
+type Token = "ETH" | "CRE8R" | "AMP" | "USDC" | "custom";
 
 // either a general icon or a token icon
 export type Icon = IconFA & Token;
-
-// link with actual url for href and text for ui
-interface Link {
-  url: string;
-  text: string;
-}
 
 // optional info box on hover (link can be placed either in the start or
 // in the middle or in the end)
