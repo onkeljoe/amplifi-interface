@@ -103,13 +103,21 @@ function renderAND(arr: Array<Box>, i: number) {
   );
 }
 
-// variable for all the boxes of incentives or KPIs and neccessary "AND"s
 const Boxes = (props: { data: Array<Box> }) => (
   <>
     {props.data.map((each, i, arr) => (
       <BoxesWrapper key={each.icon}>
         <StyledBox>
-          {each.icon && <TokenLogo name={each.icon} />}
+          {each.icon && (
+            <TokenLogo
+              name={each.icon}
+              customURL={
+                each.iconImage && each.iconImage.link
+                  ? each.iconImage.link
+                  : undefined
+              }
+            />
+          )}
           <TYPE.custom color='#ffffff' fontSize={12}>
             {each.text}
           </TYPE.custom>

@@ -4,6 +4,10 @@ type Token = "ETH" | "CRE8R" | "AMP" | "USDC" | "custom";
 // either a general icon or a token icon
 export type Icon = IconFA & Token;
 
+interface IconImage {
+  link: string;
+}
+
 // optional info box on hover (link can be placed either in the start or
 // in the middle or in the end)
 // BIG question: how is the user going to click on the link if the box shows on hover??
@@ -19,6 +23,7 @@ export interface Box {
   icon?: Icon;
   text: string;
   extraInfo?: string;
+  iconImage?: IconImage;
 }
 
 // this what comes to the IncentivesKPI component
@@ -45,6 +50,7 @@ export interface Money extends Highlight {
   mainText: string; //todo - make dynamic
   payoutKey?: string; // this key will be passed into the server to get the actual paid out
   payoutTokens: Array<Icon>;
+  iconImage?: IconImage;
 }
 
 // says the frequency of payouts

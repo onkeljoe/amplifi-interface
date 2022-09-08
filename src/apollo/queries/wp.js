@@ -82,17 +82,26 @@ export const URI_QUERY = gql`
             subText
             type
             extraInfo
+            iconImage {
+              link
+            }
           }
           incentivesbonuskpis {
             incentives {
               icon
               text
               extraInfo
+              iconImage {
+                link
+              }
             }
             bonus {
               icon
               text
               extraInfo
+              iconImage {
+                link
+              }
             }
             kPIs {
               text

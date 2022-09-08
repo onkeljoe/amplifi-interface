@@ -61,8 +61,11 @@ function CampaignDetails({
     campaignID
   );
 
-  const isOverflow = useIsOverflow(ref);
-  console.log(isOverflow);
+  let isOverflow: boolean | undefined;
+  if (ref.current) {
+    isOverflow = ref.current?.scrollWidth > ref.current?.clientWidth;
+  }
+  console.log(isOverflow, ref.current?.scrollWidth, ref.current?.clientWidth);
 
   let incentivesBonusKPIsData: IncentivesAndKPIs | undefined,
     highlightsData: incomingHighlightes | undefined;
@@ -92,7 +95,6 @@ function CampaignDetails({
       <Column gap='10px' style={{ width: "100%" }}>
         <CampaignBanner />
         <ReferralLinksCard />
-        {/* {protocolsIAndK[protocolID] ? ( */}
         {incentivesBonusKPIsData && highlightsData ? (
           <>
             <IncentivesKPI
@@ -104,11 +106,6 @@ function CampaignDetails({
         ) : (
           <CampaignContent />
         )}
-        {/*) : (
-          <>
-            <CampaignContent />
-          </>
-        )} */}
         {amplifiCampaignsTabData.length > 0 && (
           <div style={{ paddingBottom: 10 }}>
             <Tabs

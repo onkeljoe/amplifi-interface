@@ -80,7 +80,7 @@ export default function HighlightBox(props: {
               {data.extraInfo && <Info data={data.extraInfo} />}
             </Row>
             <Row>
-              <TYPE.custom fontWeight={500} fontSize='8px' color='#959595'>
+              <TYPE.custom fontWeight={500} fontSize='10px' color='#959595'>
                 {data.subText}
               </TYPE.custom>
             </Row>

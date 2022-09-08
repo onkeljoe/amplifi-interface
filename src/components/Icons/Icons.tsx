@@ -54,6 +54,7 @@ export function HighlightIcon(props: {
 
 export function TokenLogo(props: {
   name: "USDC" | "ETH" | "AMP" | "CRE8R" | "custom";
+  customURL?: string;
 }) {
   switch (props.name) {
     case "USDC":
@@ -221,7 +222,14 @@ m-1020 -526 c0 -69 5 -145 11 -169 39 -156 296 -274 664 -305 331 -28 698 52
         </svg>
       );
     case "custom":
-      return null;
+      return (
+        <img
+          src={props.customURL}
+          alt='customLogo'
+          width='20px'
+          height='20px'
+        />
+      );
     default:
       return null;
   }
