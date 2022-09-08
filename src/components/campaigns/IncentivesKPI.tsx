@@ -71,11 +71,13 @@ const StyledBox = styled.div`
 `;
 
 export default function IncentivesKPI(props: { data: IncentivesAndKPIs }) {
+  const [isOverflow, setIsOverflow] = React.useState<boolean>(false);
   const ref = React.useRef<HTMLDivElement>(null);
-  let isOverflow: boolean | undefined;
-  if (ref.current) {
-    isOverflow = ref.current?.scrollWidth > ref.current?.clientWidth;
-  }
+  React.useLayoutEffect(() => {
+    if (ref.current) {
+      setIsOverflow(ref.current?.scrollWidth > ref.current?.clientWidth);
+    }
+  }, [props.data]);
   console.log(isOverflow, ref.current?.scrollWidth, ref.current?.clientWidth);
   return (
     <MainWrapper ref={ref}>
