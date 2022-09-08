@@ -21,7 +21,6 @@ import {
   IncentivesAndKPIs,
 } from "../../components/campaigns/typesIncentivesKPIs";
 import { useActiveCampaign } from "state/campaigns/hooks";
-import { useIsOverflow } from "hooks/useIsOverflow";
 
 const Wrapper = styled.div<{ backgroundColor?: string }>``;
 
@@ -47,8 +46,6 @@ function CampaignDetails({
   const [, setActiveProtocol] = useActiveProtocol();
   const [activeCampaign] = useActiveCampaign();
 
-  const ref = React.useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     if (protocolID && Object.keys(SUPPORTED_PROTOCOLS).includes(protocolID)) {
       setActiveProtocol(SUPPORTED_PROTOCOLS[protocolID]);
@@ -60,12 +57,6 @@ function CampaignDetails({
     pathname,
     campaignID
   );
-
-  let isOverflow: boolean | undefined;
-  if (ref.current) {
-    isOverflow = ref.current?.scrollWidth > ref.current?.clientWidth;
-  }
-  console.log(isOverflow, ref.current?.scrollWidth, ref.current?.clientWidth);
 
   let incentivesBonusKPIsData: IncentivesAndKPIs | undefined,
     highlightsData: incomingHighlightes | undefined;
@@ -91,16 +82,13 @@ function CampaignDetails({
   }
 
   return (
-    <Wrapper ref={ref}>
+    <Wrapper>
       <Column gap='10px' style={{ width: "100%" }}>
         <CampaignBanner />
         <ReferralLinksCard />
         {incentivesBonusKPIsData && highlightsData ? (
           <>
-            <IncentivesKPI
-              data={incentivesBonusKPIsData}
-              isOverflow={isOverflow}
-            />
+            <IncentivesKPI data={incentivesBonusKPIsData} />
             <Highlights data={highlightsData} />
           </>
         ) : (

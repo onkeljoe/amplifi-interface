@@ -70,15 +70,19 @@ const StyledBox = styled.div`
   box-sizing: border-box;
 `;
 
-export default function IncentivesKPI(props: {
-  data: IncentivesAndKPIs;
-  isOverflow: boolean | undefined;
-}) {
-  const column: boolean = props.isOverflow ?? false;
+export default function IncentivesKPI(props: { data: IncentivesAndKPIs }) {
+  const ref = React.useRef<HTMLDivElement>(null);
+  let isOverflow: boolean | undefined;
+  if (ref.current) {
+    isOverflow = ref.current?.scrollWidth > ref.current?.clientWidth;
+  }
+  console.log(isOverflow, ref.current?.scrollWidth, ref.current?.clientWidth);
   return (
-    <MainWrapper>
+    <MainWrapper ref={ref}>
       <TwoBigBoxesWrapper
-        style={column ? { flexDirection: "column" } : { flexDirection: "row" }}
+        style={
+          isOverflow ? { flexDirection: "column" } : { flexDirection: "row" }
+        }
       >
         <IncentivesORKPIs data={props.data.incentives} name='incentives' />
         <IncentivesORKPIs data={props.data.bonus} name='bonus' />
