@@ -109,9 +109,9 @@ export function IncentivesORKPIs(props: {
   name: "incentives" | "KPIs" | "bonus";
 }) {
   const titles = {
-    incentives: "For each referral you recieve",
-    bonus: "Referrals bonus",
-    KPIs: "Referral is generated when user",
+    incentives: "Promoter Incentives",
+    bonus: "Promoters Offer",
+    KPIs: "Events & Actions - KPIs",
   };
 
   return (

@@ -90,7 +90,7 @@ export function LightQuestionHelper({ text }: { text: string }) {
   );
 }
 
-export function Info({ data }: { data: InfoBox }) {
+export function Info({ data }: { data: string }) {
   const [show, setShow] = useState<boolean>(false);
 
   const toggle = useCallback(() => {
@@ -99,7 +99,7 @@ export function Info({ data }: { data: InfoBox }) {
 
   return (
     <CampaignTooltip data={data} show={show}>
-      <InfoIcon size={13} cursor='pointer' onClick={toggle} />
+      <InfoIcon size={20} cursor='pointer' onClick={toggle} />
     </CampaignTooltip>
   );
 }

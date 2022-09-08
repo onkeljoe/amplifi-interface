@@ -16,7 +16,7 @@ interface TooltipProps extends Omit<PopoverProps, "content"> {
 }
 
 interface CampaignTooltipProps extends Omit<PopoverProps, "content"> {
-  data: InfoBox;
+  data: string;
 }
 
 export default function Tooltip({ text, ...rest }: TooltipProps) {
@@ -40,20 +40,17 @@ export function MouseoverTooltip({
     </Tooltip>
   );
 }
+// function DangerousHTML(props: any) {
+//   return <div dangerouslySetInnerHTML={{ __html: props.data }}></div>;
+// }
 
 export function CampaignTooltip({ data, ...rest }: CampaignTooltipProps) {
+  console.log("fishbag:", data);
   return (
     <Popover
       content={
         <TooltipContainer>
-          {data.startText ? data.startText : null}
-          {data.link ? (
-            <span color='#FFD6CC'>
-              <a href={data.link.url} target='_blank' rel='noreferrer'>
-                {data.link.text}
-              </a>
-            </span>
-          ) : null}
+          <div dangerouslySetInnerHTML={{ __html: data }}></div>
         </TooltipContainer>
       }
       {...rest}

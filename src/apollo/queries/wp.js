@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client'
 export const NAVIGATION_QUERY = gql`
   query Menus($slug: String!) {
     menus(where: { slug: $slug }, first: 5) {
@@ -21,7 +21,7 @@ export const NAVIGATION_QUERY = gql`
       }
     }
   }
-`;
+`
 
 export const URI_QUERY = gql`
   query getNodeByUri($uri: String!) {
@@ -81,46 +81,26 @@ export const URI_QUERY = gql`
             payoutKey
             subText
             type
+            infoBox
           }
           incentivesbonuskpis {
             incentives {
               icon
               text
-              extraInfo {
-                startText
-                link {
-                  url
-                  text
-                }
-                endText
-              }
+              extraInfo
             }
             bonus {
               icon
               text
-              extraInfo {
-                startText
-                link {
-                  url
-                  text
-                }
-                endText
-              }
+              extraInfo
             }
             kPIs {
               text
-              extraInfo {
-                startText
-                link {
-                  url
-                  text
-                }
-                endText
-              }
+              extraInfo
             }
           }
         }
       }
     }
   }
-`;
+`
