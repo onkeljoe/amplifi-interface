@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import Popover, { PopoverProps } from "../Popover";
-import { InfoBox } from "../campaigns/typesIncentivesKPIs";
 
 const TooltipContainer = styled.div`
   width: 228px;

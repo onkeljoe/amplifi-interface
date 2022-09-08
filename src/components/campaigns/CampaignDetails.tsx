@@ -65,6 +65,7 @@ function CampaignDetails({
         {page &&
         page.data &&
         page.data.amplifiCampaignFields &&
+        page.data.amplifiCampaignFields.highlights &&
         page.data.amplifiCampaignFields.incentivesbonuskpis &&
         page.data.amplifiCampaignFields.incentivesbonuskpis.bonus &&
         page.data.amplifiCampaignFields.incentivesbonuskpis.kPIs &&

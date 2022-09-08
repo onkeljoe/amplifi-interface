@@ -53,7 +53,7 @@ export default function HighlightBox(props: {
               <TYPE.black fontWeight={500} fontSize={12}>
                 {data.mainText}
               </TYPE.black>
-              {data.infoBox && <Info data={data.infoBox} />}
+              {data.extraInfo && <Info data={data.extraInfo} />}
             </Row>
             <Row>
               <TYPE.custom fontWeight={500} fontSize='8px' color='#959595'>
@@ -77,7 +77,7 @@ export default function HighlightBox(props: {
               <TYPE.black fontWeight={500} fontSize={12}>
                 {data.mainText}
               </TYPE.black>
-              {data.infoBox && <Info data={data.infoBox} />}
+              {data.extraInfo && <Info data={data.extraInfo} />}
             </Row>
             <Row>
               <TYPE.custom fontWeight={500} fontSize='8px' color='#959595'>
