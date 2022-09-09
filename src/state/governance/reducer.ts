@@ -23,6 +23,7 @@ import LensLogo from "../../assets/svg/lens.svg";
 import AcrossLogo from "../../assets/svg/across.svg";
 import AlbertEthsteinLogo from "../../assets/images/albert-ethstein-logo.jpg";
 import { SerializedToken } from "./../user/actions";
+
 import {
   updateActiveProtocol,
   updateFilterActive,
