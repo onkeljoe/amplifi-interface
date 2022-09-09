@@ -19,6 +19,9 @@ import ChainBetLogo from "../../assets/images/ChainBetLogo.svg";
 import PoolLogo from "../../assets/images/pooltogether-icon.png";
 import PaladinLogo from "../../assets/images/paladin.jpg";
 import ArgentLogo from "../../assets/images/argent-logo.svg";
+import LensLogo from "../../assets/svg/lens.svg";
+import AcrossLogo from "../../assets/svg/across.svg";
+import AlbertEthsteinLogo from "../../assets/images/albert-ethstein-logo.jpg";
 import { SerializedToken } from "./../user/actions";
 
 import {
@@ -125,8 +128,8 @@ export const AMPLIFI_GOVERNANCE: GovernanceInfo = {
   id: "AMPLIFI",
   name: "AmpliFi",
   logo: AmpliFiLogo,
-  primaryColor: "#383838",
-  secondaryColor: "#B0B0B0",
+  primaryColor: "#ff3700",
+  secondaryColor: "#ffbc7d",
   token: serializeToken(AMPLIFI),
   governanceAlphaAddresses: [],
   governanceAddressBravo: UNI_GOVERNANCE_ADDRESS_BRAVO,
@@ -484,20 +487,69 @@ export const ARGENT_GOVERNANCE: GovernanceInfo = {
   social: "@ArgentHQ",
 };
 
-// mapping for routing
-export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = {
-  CRE8R: CRE8R_GOVERNANCE,
-  // DEVO: DEVO_GOVERNANCE, //demo
-  BilliDrop: BILLI_GOVERNANCE, //demo
-  ACWI: ACWI_GOVERNANCE, //demo
-  GMX: GMX_GOVERNANCE, //demo
-  BET: CHAINBET_GOVERNANCE, //demo
-  POOL: POOL_TOGETHER_GOVERNANCE, //demo
-  AMPLIFI: AMPLIFI_GOVERNANCE,
-  PALADIN: PALADIN_GOVERNANCE,
-  ARGENT: ARGENT_GOVERNANCE,
-  connect: CONNECT_CONFIG,
+export const LENS_GOVERNANCE_ADDRESS =
+  "0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d"; // polygon contract for interactions
+export const LENS_GOVERNANCE: GovernanceInfo = {
+  id: "LENS",
+  name: "Lens Governance",
+  logo: LensLogo,
+  primaryColor: "#67981a",
+  secondaryColor: "#abfe2c",
+  token: serializeToken(ENS), //placeholder
+  governanceAlphaAddresses: [LENS_GOVERNANCE_ADDRESS], // polygon contract for interactions
+  social: "@LensProtocol",
 };
+
+export const ACROSS_GOVERNANCE_ADDRESS =
+  "0x7dB69eb9F52eD773E9b03f5068A1ea0275b2fD9d"; // LPTokenFactory
+export const ACROSS_GOVERNANCE: GovernanceInfo = {
+  id: "ACROSS",
+  name: "Across Governance",
+  logo: AcrossLogo,
+  primaryColor: "#419582",
+  secondaryColor: "#6cf9d8",
+  token: serializeToken(ENS), //placeholder
+  governanceAlphaAddresses: [ACROSS_GOVERNANCE_ADDRESS], // LPTokenFactory
+  social: "@AcrossProtocol",
+};
+
+export const ALBERT_ETHSTEIN_GOVERNANCE_ADDRESS =
+  "0x7dB69eb9F52eD773E9b03f5068A1ea0275b2fD9d"; // LPTokenFactory
+export const ALBERT_ETHSTEIN_GOVERNANCE: GovernanceInfo = {
+  id: "ALBERT-ETHSTEIN",
+  name: "Albert Ethstein Governance",
+  logo: AlbertEthsteinLogo,
+  primaryColor: "#232688",
+  secondaryColor: "#EDEDFF",
+  token: serializeToken(ENS), //placeholder
+  governanceAlphaAddresses: [ACROSS_GOVERNANCE_ADDRESS], // LPTokenFactory
+  social: "@EthsteinA",
+};
+
+// mapping for routing
+export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = process.env
+  .REACT_APP_USE_DEMO
+  ? {
+      AMPLIFI: AMPLIFI_GOVERNANCE,
+      CRE8R: CRE8R_GOVERNANCE,
+      DEVO: DEVO_GOVERNANCE, //demo
+      BilliDrop: BILLI_GOVERNANCE, //demo
+      ACWI: ACWI_GOVERNANCE, //demo
+      GMX: GMX_GOVERNANCE, //demo
+      BET: CHAINBET_GOVERNANCE, //demo
+      POOL: POOL_TOGETHER_GOVERNANCE, //demo
+      PALADIN: PALADIN_GOVERNANCE,
+      ARGENT: ARGENT_GOVERNANCE,
+      LENS: LENS_GOVERNANCE,
+      ACROSS: ACROSS_GOVERNANCE,
+      "ALBERT-ETHSTEIN": ALBERT_ETHSTEIN_GOVERNANCE,
+      connect: CONNECT_CONFIG,
+    }
+  : {
+      AMPLIFI: AMPLIFI_GOVERNANCE,
+      CRE8R: CRE8R_GOVERNANCE,
+      BilliDrop: BILLI_GOVERNANCE,
+    };
 
 export const FETCHING_INTERVAL = 50;
 

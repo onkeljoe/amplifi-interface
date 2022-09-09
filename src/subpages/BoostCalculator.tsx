@@ -9,15 +9,28 @@ import useCRE8RPrice from "hooks/useCRE8RPrice";
 import styled from "styled-components";
 import { nFormatter } from "utils/format";
 import { calcProjectedPayouts } from "./data/projectedPayouts";
-import useBribe, { BLOCKNUMBER } from "./hooks/useBribe";
+import useBribe from "./hooks/useBribe";
 import { calcChange, formatChange } from "./math";
 
-const AMP_PRICE_USD = 0.001666666667;
-const PAYOUT_PER_TOTAL_PERCENT_USD = 664.34;
+const {
+  PREV_BLOCKNUMBER,
+  CURR_BLOCKNUMBER,
+  AMP_PRICE_USD,
+  PAYOUT_PER_TOTAL_PERCENT_USD,
+  DATE_START,
+  PROPOSAL_ID,
+} = {
+  PREV_BLOCKNUMBER: 45482115,
+  CURR_BLOCKNUMBER: 46000928,
+  AMP_PRICE_USD: 0.01,
+  PAYOUT_PER_TOTAL_PERCENT_USD: 32032.9 / 100,
+  DATE_START: "Sep 1, 2022 3:00:00 GMT-07:00",
+  PROPOSAL_ID:
+    "0xa043b7eea5b8714c80f8c7c0caf7b6246e3ee20f1474ce717ee3301d848bed2d",
+};
 
 const hub = "https://hub.snapshot.org"; // or https://testnet.snapshot.org for testnet
-const lastPayoutUri =
-  "https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-45482115.json";
+const lastPayoutUri = `https://raw.githubusercontent.com/CRE8RDAO/booosted-bribes/master/payouts/out/bribe-payouts-${PREV_BLOCKNUMBER}.json`;
 const client = new snapshot.Client712(hub);
 
 const Table = styled.table`
@@ -65,12 +78,12 @@ function BoostCalculator() {
     cre8rScore: pastCS,
     beetsScore: pastBS,
     beetsScoreBreakdown,
-  } = useBribe(account); //has a blocknumber default
+  } = useBribe(account, PREV_BLOCKNUMBER); //has a blocknumber default
   const {
     cre8rScore: currentCS,
     beetsScore: currentBS,
     cre8rScoreBreakdown,
-  } = useBribe(account, BLOCKNUMBER); // what year would this be?
+  } = useBribe(account, CURR_BLOCKNUMBER); // what year would this be?
   const cre8rChange =
     pastCS && (currentCS || currentCS == 0) && calcChange(pastCS, currentCS);
   const beetsChange =
@@ -78,8 +91,8 @@ function BoostCalculator() {
   const [lastPayout, setLastPayout] = useState([]);
 
   const accountLastPayout: any =
-    lastPayout && lastPayout.filter((i: any) => i.address == account)[0];
-
+    lastPayout && lastPayout.find((i: any) => i.address == account);
+  console.log(accountLastPayout);
   let projectedPayout;
   if (account && beetsScoreBreakdown && pastCS && currentCS && cre8rPrice) {
     projectedPayout = calcProjectedPayouts(
@@ -103,11 +116,10 @@ function BoostCalculator() {
     (beetsChange || beetsChange == 0);
   const activeText = "Vote 100% For CRE8R In F-Major";
   const countdownText = useCountdown(
-    "Sep 2, 2022 3:00:00 GMT-07:00",
+    DATE_START,
     "Vote 100% For CRE8R In F-Major"
   );
-  const active = activeText !== countdownText;
-
+  const active = activeText === countdownText;
   useEffect(() => {
     axios.get(lastPayoutUri).then((res) => {
       if (res.status === 200) {
@@ -144,8 +156,7 @@ function BoostCalculator() {
               (client as any)
                 .vote(library as any, account, {
                   space: "beets.eth",
-                  proposal:
-                    "0xf161196029cb7848d69154c87884de87c5c7a6d41686c9e7346bdc39d3620325",
+                  proposal: PROPOSAL_ID,
                   type: "weighted",
                   choice: { "43": 1 },
                 })
@@ -293,11 +304,13 @@ function BoostCalculator() {
                   {accountLastPayout &&
                     cre8rPrice &&
                     `($${nFormatter(
-                      accountLastPayout.lastWeekPayoutInCRE8R * cre8rPrice,
+                      accountLastPayout.payoutCre8r * cre8rPrice,
                       1
                     )})`}
                 </p>
-                {currentCS &&
+                {projectedPayout &&
+                  !projectedPayout.debug[0].boostedBribe &&
+                  currentCS &&
                   pastCS &&
                   cre8rPrice &&
                   accountLastPayout &&
@@ -444,10 +457,10 @@ function BoostCalculator() {
               <td></td>
             </tr>
           </Table>
-          <div>Last Holdings Block Number: {BLOCKNUMBER}</div>
+          <div>Last Holdings Block Number: {PREV_BLOCKNUMBER}</div>
           <div>
             <div>
-              <h1>Your Stats at Block Number: {BLOCKNUMBER}</h1>
+              <h1>Your Stats at Block Number: {PREV_BLOCKNUMBER}</h1>
             </div>
             <div>
               Your CRE8R Holdings across Fantom Pools and Vaults:{" "}
@@ -469,7 +482,7 @@ function BoostCalculator() {
             <div>
               Your CRE8R Holdings across Fantom Pools and Vaults:{" "}
               {(cre8rChange || cre8rChange == 0) && currentCS && (
-                <span style={{ color: cre8rChange > 0 ? "green" : "red" }}>
+                <span style={{ color: cre8rChange >= 0 ? "green" : "red" }}>
                   ${nFormatter(currentCS, 1)} {`(${formatChange(cre8rChange)})`}
                 </span>
               )}
@@ -477,7 +490,7 @@ function BoostCalculator() {
             <div>
               Your Beets VP:{" "}
               {(beetsChange || beetsChange == 0) && currentBS && (
-                <span style={{ color: beetsChange > 0 ? "green" : "red" }}>
+                <span style={{ color: beetsChange >= 0 ? "green" : "red" }}>
                   {" "}
                   ${nFormatter(currentBS, 1)} {`(${formatChange(beetsChange)})`}
                 </span>

@@ -9,7 +9,7 @@ const CopyButton = styled(Button)<{ numOfLinks?: number }>`
   border-radius: 12px;
   border: 1px solid;
   border-color: ${({ theme }) => theme.primary1};
-  max-height: 65px;
+  height: 65px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,7 +26,7 @@ const CopyButton = styled(Button)<{ numOfLinks?: number }>`
   :hover {
     background-color: ${({ theme }) => theme.secondary1};
     color: ${({ theme }) => theme.primary1};
-    svg {
+    svg.fillHover {
       fill: ${({ theme }) => theme.primary1};
     }
   }
@@ -62,7 +62,7 @@ const Copy = styled(LinkStyledButton)<{
     color: #ffbc7d;
   }
   text-decoration: none;
-  span span svg {
+  svg {
     fill: #ff3700;
   }
 `;
@@ -135,7 +135,7 @@ export const CopyBtn = (props: {
       ) : (
         <TransactionStatusText>
           <CopyIconWrapper>
-            <CopyIcon size={"20"} />
+            <CopyIcon size={"20"} className='fillHover' />
           </CopyIconWrapper>
           Copy your unique link &amp; start earning
         </TransactionStatusText>
