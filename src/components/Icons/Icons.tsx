@@ -117,7 +117,7 @@ export function TokenLogo(props: {
         >
           <g
             transform='translate(0.000000,494.000000) scale(0.100000,-0.100000)'
-            fill='#fff'
+            fill='#000'
             stroke='none'
           >
             <path
