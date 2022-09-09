@@ -43,7 +43,7 @@ const SiteWrapper = styled.div<{
   overflow: auto;
 
   ${({ theme }) => theme.mediaWidth.upToLarge`
-    grid-template-columns: 1fr 376px;
+    grid-template-columns: 1fr;
   `};
 
   ${({ expandedOverview }) =>

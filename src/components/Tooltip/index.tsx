@@ -68,3 +68,11 @@ export function CampaignTooltip({
     />
   );
 }
+
+interface ProfileTooltipProps extends Omit<PopoverProps, "content"> {
+  Component: React.FunctionComponent;
+}
+
+export function ProfileTooltip({ Component, ...rest }: ProfileTooltipProps) {
+  return <Popover content={<Component />} {...rest} />;
+}

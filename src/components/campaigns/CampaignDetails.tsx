@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { LoadingRows } from "components/Loader";
 import Tabs from "components/Tabs";
 import { useCampaign } from "hooks/useCampaign";

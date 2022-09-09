@@ -21,6 +21,7 @@ function useAutoAnimate(options = {}) {
     if (element.current instanceof HTMLElement)
       //@ts-ignore
       setController(autoAnimate(element.current, options));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return [element, setEnabled];
 }

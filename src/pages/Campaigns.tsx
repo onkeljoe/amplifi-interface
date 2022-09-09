@@ -6,7 +6,7 @@ import { BodyWrapper, MediumHeaderWrapper } from "./AppBody";
 import { useActiveProtocol } from "../state/governance/hooks";
 import Column, { AutoColumn } from "../components/Column";
 import { Above1080Only, Below1080Only } from "../theme/components";
-import { RowBetween, RowFixed } from "../components/Row";
+import Row, { RowBetween, RowFixed } from "../components/Row";
 import { WrappedListLogo } from "../components/governance/styled";
 import Dropdown from "../components/governance/Dropdown";
 import Tabs from "../components/governance/Tabs";
@@ -15,6 +15,7 @@ import CampaignList from "components/campaigns/CampaignList";
 import CampaignDetails from "components/campaigns/CampaignDetails";
 import { useActiveCampaign } from "state/campaigns/hooks";
 import CRE8RPriceCard from "components/CRE8RPriceCard";
+import { ProfilePopUp } from "components/Profile";
 
 export default function Amplifi({
   match: {
@@ -56,7 +57,10 @@ export default function Amplifi({
                     )}
                   </AutoColumn>
                 </RowFixed>
-                <CRE8RPriceCard />
+                <Row width='unset' gap='1rem'>
+                  <ProfilePopUp />
+                  <CRE8RPriceCard />
+                </Row>
               </RowBetween>
             </Above1080Only>
             <Below1080Only>

@@ -45,7 +45,7 @@ const MobileWrapper = styled(Row)`
   `}
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   `}
 `;
 
@@ -54,6 +54,9 @@ const BoxesWrapper = styled(Row)`
   width: unset;
   ${({ theme }) => theme.mediaWidth.upToSmall`
   justify-content: center;
+  `}
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+  width: 100%;
   `}
 `;
 
@@ -68,17 +71,29 @@ const StyledBox = styled.div`
   white-space: nowrap;
   min-height: 34px;
   box-sizing: border-box;
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+  width: 100%;
+  justify-content: center;
+  `}
+`;
+
+const ANDWrapper = styled.div`
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+display: none;
+`}
 `;
 
 export default function IncentivesKPI(props: { data: IncentivesAndKPIs }) {
   const [isOverflow, setIsOverflow] = React.useState<boolean>(false);
   const ref = React.useRef<HTMLDivElement>(null);
   React.useLayoutEffect(() => {
-    if (ref.current) {
-      setIsOverflow(ref.current?.scrollWidth > ref.current?.clientWidth);
-    }
+    const checkOverflow = () => {
+      if (ref.current) {
+        setIsOverflow(ref.current?.scrollWidth > ref.current?.clientWidth);
+      }
+    };
+    checkOverflow();
   }, [props.data]);
-  console.log(isOverflow, ref.current?.scrollWidth, ref.current?.clientWidth);
   return (
     <MainWrapper ref={ref}>
       <TwoBigBoxesWrapper
@@ -103,16 +118,18 @@ function renderAND(arr: Array<Box>, i: number) {
     return;
   }
   return (
-    <TYPE.custom color='#959595' fontSize={12}>
-      AND
-    </TYPE.custom>
+    <ANDWrapper>
+      <TYPE.custom color='#959595' fontSize={12}>
+        AND
+      </TYPE.custom>
+    </ANDWrapper>
   );
 }
 
 const Boxes = (props: { data: Array<Box> }) => (
   <>
     {props.data.map((each, i, arr) => (
-      <BoxesWrapper key={each.icon}>
+      <BoxesWrapper key={i}>
         <StyledBox>
           {each.icon && (
             <TokenLogo
