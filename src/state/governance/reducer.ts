@@ -21,7 +21,9 @@ import PaladinLogo from "../../assets/images/paladin.jpg";
 import ArgentLogo from "../../assets/images/argent-logo.svg";
 import LensLogo from "../../assets/svg/lens.svg";
 import AcrossLogo from "../../assets/svg/across.svg";
+import AlbertEthsteinLogo from "../../assets/images/albert-ethstein-logo.jpg";
 import { SerializedToken } from "./../user/actions";
+
 import {
   updateActiveProtocol,
   updateFilterActive,
@@ -511,29 +513,44 @@ export const ACROSS_GOVERNANCE: GovernanceInfo = {
   social: "@AcrossProtocol",
 };
 
+export const ALBERT_ETHSTEIN_GOVERNANCE_ADDRESS =
+  "0x7dB69eb9F52eD773E9b03f5068A1ea0275b2fD9d"; // LPTokenFactory
+export const ALBERT_ETHSTEIN_GOVERNANCE: GovernanceInfo = {
+  id: "ALBERT-ETHSTEIN",
+  name: "Albert Ethstein Governance",
+  logo: AlbertEthsteinLogo,
+  primaryColor: "#232688",
+  secondaryColor: "#EDEDFF",
+  token: serializeToken(ENS), //placeholder
+  governanceAlphaAddresses: [ACROSS_GOVERNANCE_ADDRESS], // LPTokenFactory
+  social: "@EthsteinA",
+};
+
 // mapping for routing
-export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } =
-  process.env.REACT_APP_USE_DEMO === "TRUE"
-    ? {
-        AMPLIFI: AMPLIFI_GOVERNANCE,
-        CRE8R: CRE8R_GOVERNANCE,
-        DEVO: DEVO_GOVERNANCE, //demo
-        BilliDrop: BILLI_GOVERNANCE, //demo
-        ACWI: ACWI_GOVERNANCE, //demo
-        GMX: GMX_GOVERNANCE, //demo
-        BET: CHAINBET_GOVERNANCE, //demo
-        POOL: POOL_TOGETHER_GOVERNANCE, //demo
-        PALADIN: PALADIN_GOVERNANCE,
-        ARGENT: ARGENT_GOVERNANCE,
-        LENS: LENS_GOVERNANCE,
-        ACROSS: ACROSS_GOVERNANCE,
-        connect: CONNECT_CONFIG,
-      }
-    : {
-        AMPLIFI: AMPLIFI_GOVERNANCE,
-        CRE8R: CRE8R_GOVERNANCE,
-        BilliDrop: BILLI_GOVERNANCE,
-      };
+
+export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = process.env
+  .REACT_APP_USE_DEMO
+  ? {
+      AMPLIFI: AMPLIFI_GOVERNANCE,
+      CRE8R: CRE8R_GOVERNANCE,
+      DEVO: DEVO_GOVERNANCE, //demo
+      BilliDrop: BILLI_GOVERNANCE, //demo
+      ACWI: ACWI_GOVERNANCE, //demo
+      GMX: GMX_GOVERNANCE, //demo
+      BET: CHAINBET_GOVERNANCE, //demo
+      POOL: POOL_TOGETHER_GOVERNANCE, //demo
+      PALADIN: PALADIN_GOVERNANCE,
+      ARGENT: ARGENT_GOVERNANCE,
+      LENS: LENS_GOVERNANCE,
+      ACROSS: ACROSS_GOVERNANCE,
+      "ALBERT-ETHSTEIN": ALBERT_ETHSTEIN_GOVERNANCE,
+      connect: CONNECT_CONFIG,
+    }
+  : {
+      AMPLIFI: AMPLIFI_GOVERNANCE,
+      CRE8R: CRE8R_GOVERNANCE,
+      BilliDrop: BILLI_GOVERNANCE,
+    };
 
 export const FETCHING_INTERVAL = 50;
 

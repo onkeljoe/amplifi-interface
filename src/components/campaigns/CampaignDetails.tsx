@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { LoadingRows } from "components/Loader";
 import Tabs from "components/Tabs";
 import { useCampaign } from "hooks/useCampaign";
@@ -21,6 +21,7 @@ import {
   IncentivesAndKPIs,
 } from "../../components/campaigns/typesIncentivesKPIs";
 import { useActiveCampaign } from "state/campaigns/hooks";
+import { useAutoAnimate } from "hooks/useAutoAnimate";
 
 const Wrapper = styled.div<{ backgroundColor?: string }>``;
 
@@ -80,6 +81,7 @@ function CampaignDetails({
     incentivesBonusKPIsData = activeCampaign.iak;
     highlightsData = activeCampaign.highlights;
   }
+  const [parent] = useAutoAnimate();
 
   return (
     <Wrapper>
@@ -108,36 +110,53 @@ function CampaignDetails({
             />
           </div>
         )}
-        {page && (
-          <>
-            {page.type === "SubPage" ? (
-              <>
-                {(() => {
-                  const Component = page.data.component;
-                  return <Component />;
-                })()}
-              </>
-            ) : page.type === "WPACFPage" ? (
-              <CampaignOverview />
-            ) : (
-              <>
-                {/* <Break /> */}
-                {!page || !page.data ? (
-                  <LoadingRows>
-                    <div />
-                    <div />
-                    <div />
-                    <div />
-                  </LoadingRows>
-                ) : (
-                  // WPContentPage
-                  <CampaignContent content={page.data.content} />
-                )}
-              </>
-            )}
-          </>
-        )}
-        {page && page.error && <div>Error loading content</div>}
+        <div ref={parent}>
+          {page ? (
+            <>
+              {page.type === "SubPage" ? (
+                <>
+                  {(() => {
+                    const Component = page.data.component;
+                    return <Component />;
+                  })()}
+                </>
+              ) : page.type === "WPACFPage" ? (
+                <CampaignOverview />
+              ) : (
+                <>
+                  {/* <Break /> */}
+                  {!page || !page.data ? (
+                    <LoadingRows>
+                      <div />
+                      <div />
+                      <div />
+                      <div />
+                    </LoadingRows>
+                  ) : (
+                    // WPContentPage
+                    <CampaignContent content={page.data.content} />
+                  )}
+                </>
+              )}
+            </>
+          ) : (
+            <LoadingRows>
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+            </LoadingRows>
+          )}
+          {page && page.error && <div>Error loading content</div>}
+        </div>
       </Column>
       {/* </ProposalInfo> */}
     </Wrapper>

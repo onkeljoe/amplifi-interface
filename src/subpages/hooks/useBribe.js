@@ -9,7 +9,6 @@ import {
 
 //todo- refactor this into ts
 const BEETS = "beets.eth";
-export const BLOCKNUMBER = 46000928;
 const CRE8R = "cre8r.eth";
 
 export const strategiesToUSDConverter = {
