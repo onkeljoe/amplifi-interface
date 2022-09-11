@@ -550,6 +550,7 @@ export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = process.env
       AMPLIFI: AMPLIFI_GOVERNANCE,
       CRE8R: CRE8R_GOVERNANCE,
       BilliDrop: BILLI_GOVERNANCE,
+      "ALBERT-ETHSTEIN": ALBERT_ETHSTEIN_GOVERNANCE,
     };
 
 export const FETCHING_INTERVAL = 50;

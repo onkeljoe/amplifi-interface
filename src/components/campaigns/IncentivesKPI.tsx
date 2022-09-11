@@ -30,9 +30,9 @@ const MobileWrapper = styled(Row)`
 const ThreeBigBoxesWrapper = styled.div`
   display: flex;
   gap: 12px;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-  flex-wrap: wrap;
-  `}
+  @media (max-width: 1080px) {
+    flex-wrap: wrap;
+  }
 `;
 
 const Wrapper = styled.div`
