@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Row } from "components/Row";
 import { TYPE } from "theme";
 import { TokenLogo } from "components/Icons/Icons";
 import { Info } from "components/QuestionHelper";
@@ -13,18 +12,6 @@ const MainWrapper = styled.div`
   @media (max-width: 2200px) {
     flex-direction: column;
   }
-`;
-const MobileWrapper = styled(Row)`
-  //  this is the wrapper for the mobile view
-  gap: 12px;
-  background-color: #0bc811;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-  justify-content: center;
-  `}
-  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-  flex-direction: column;
-  align-items: center;
-  `}
 `;
 
 const ThreeBigBoxesWrapper = styled.div`
@@ -105,7 +92,7 @@ const IconAndText = styled.div`
 `;
 
 export default function IncentivesKPI(props: { data: IncentivesAndKPIs }) {
-  const [isOverflow, setIsOverflow] = React.useState<boolean>(false);
+  const [, setIsOverflow] = React.useState<boolean>(false);
   const ref = React.useRef<HTMLDivElement>(null);
   React.useLayoutEffect(() => {
     const checkOverflow = () => {
@@ -128,7 +115,7 @@ export default function IncentivesKPI(props: { data: IncentivesAndKPIs }) {
 
 const Boxes = (props: { data: Array<Box> }) => (
   <BoxesWrapper style={{ flexFlow: "row wrap" }}>
-    {props.data.map((each, i, arr) => (
+    {props.data.map((each, i) => (
       <StyledBox key={i}>
         <IconAndText>
           {each.icon && (
