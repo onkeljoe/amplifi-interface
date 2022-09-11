@@ -92,13 +92,6 @@ const Above1080Only = styled.div`
   }
 `;
 
-const AboveLarge = styled.div`
-  display: initial;
-  @media (max-width: 1480px) {
-    display: none;
-  }
-`;
-
 const MobileWrapper = styled.div`
   display: none;
   @media (max-width: 1080px) {
@@ -363,9 +356,6 @@ export default function Profile() {
           </RowBetween>
         </Card>
       </MobileWrapper>
-      <AboveLarge>
-        <ProfileContent />
-      </AboveLarge>
     </>
   );
 }

@@ -9,7 +9,7 @@ import { RowFixed } from "../components/Row";
 import { useProtocolUpdate } from "../hooks/useProtocolUpdate";
 import { useActiveProtocol } from "../state/governance/hooks";
 import { TYPE } from "../theme";
-import { BodyWrapper, MediumHeaderWrapper } from "./AppBody";
+import { BodyWrapper } from "./AppBody";
 
 import { dataToTotalFormat } from "components/campaigns/utils/dataConverter";
 import { Above1080Only, Below1080Only } from "../theme/components";
@@ -27,7 +27,7 @@ export default function Payouts({
   return (
     <BodyWrapper>
       <AutoColumn gap='1rem'>
-        <MediumHeaderWrapper>
+        <>
           <AutoColumn gap='sm'>
             <Above1080Only>
               <RowFixed>
@@ -46,7 +46,7 @@ export default function Payouts({
             </Below1080Only>
             <Tabs />
           </AutoColumn>
-        </MediumHeaderWrapper>
+        </>
         <PayoutList
           title={"Top Payouts"}
           // todo: require ipfs gateway in config

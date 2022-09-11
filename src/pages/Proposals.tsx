@@ -1,5 +1,5 @@
 import React from "react";
-import { BodyWrapper, MediumHeaderWrapper } from "./AppBody";
+import { BodyWrapper } from "./AppBody";
 import { useAllProposals, useActiveProtocol } from "../state/governance/hooks";
 import ProposalList from "../components/governance/ProposalList";
 import { RouteComponentProps } from "react-router-dom";
@@ -32,7 +32,7 @@ export default function Proposals({
   return (
     <BodyWrapper>
       <AutoColumn gap='1rem'>
-        <MediumHeaderWrapper>
+        <>
           <AutoColumn gap='sm'>
             <Above1080Only>
               <RowFixed>
@@ -51,7 +51,7 @@ export default function Proposals({
             </Below1080Only>
             <Tabs />
           </AutoColumn>
-        </MediumHeaderWrapper>
+        </>
         {chainId === ChainId.MAINNET ? (
           <ProposalList allProposals={topProposals} />
         ) : (

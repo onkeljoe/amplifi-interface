@@ -54,7 +54,7 @@ const LandingWrapper = styled.div`
   overflow: scroll;
   @media (min-width: 1081px) {
     padding: 0;
-    padding-left: 88px;
+    padding-left: 15px;
     padding-right: 9px;
     width: 100%;
   }

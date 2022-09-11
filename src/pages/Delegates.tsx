@@ -1,5 +1,5 @@
 import React from "react";
-import { BodyWrapper, MediumHeaderWrapper } from "./AppBody";
+import { BodyWrapper } from "./AppBody";
 import DelegateList from "../components/governance/DelegateList";
 import { RouteComponentProps } from "react-router-dom";
 import { useActiveWeb3React } from "../hooks";
@@ -32,7 +32,7 @@ export default function Delegates({
   return (
     <BodyWrapper>
       <AutoColumn gap='1rem'>
-        <MediumHeaderWrapper>
+        <>
           <AutoColumn gap='sm'>
             <Above1080Only>
               <RowFixed>
@@ -51,7 +51,7 @@ export default function Delegates({
             </Below1080Only>
             <Tabs />
           </AutoColumn>
-        </MediumHeaderWrapper>
+        </>
         {chainId === ChainId.MAINNET ? (
           <DelegateList hideZero={false} />
         ) : (
