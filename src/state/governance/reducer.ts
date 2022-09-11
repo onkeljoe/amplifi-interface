@@ -517,7 +517,7 @@ export const ALBERT_ETHSTEIN_GOVERNANCE_ADDRESS =
   "0x7dB69eb9F52eD773E9b03f5068A1ea0275b2fD9d"; // LPTokenFactory
 export const ALBERT_ETHSTEIN_GOVERNANCE: GovernanceInfo = {
   id: "ALBERT-ETHSTEIN",
-  name: "Albert Ethstein Governance",
+  name: "Albert Ethstein",
   logo: AlbertEthsteinLogo,
   primaryColor: "#232688",
   secondaryColor: "#EDEDFF",
