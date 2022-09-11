@@ -41,13 +41,18 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column; // this makes the heading and the orange boxes stack :)
   // align-items: stretch; // this is making them full width!!
-  background: linear-gradient(90deg, #008552 0%, #9ebd13 100%);
+  /* background-over: linear-gradient(90deg, #008552 0%, #9ebd13 100%); */
+  /* background-image: url(https://www.toptal.com/designers/subtlepatterns/uploads/circuit.png); */
+  background-color: #fe3700 !important;
+
+  background-image: url("https://www.transparenttextures.com/patterns/maze-white.png");
+
   gap: 9px;
   padding: 15px 13px;
   /* border: 2px solid #959595;*/
   border-radius: 10px;
   flex: 50%;
-  background-color: #ffffff;
+
   ${({ theme }) => theme.mediaWidth.upToSmall`
   flex: 100%;
   align-items: center;
@@ -78,10 +83,10 @@ const StyledBox = styled.div`
   align-content: stretch;
   /* width: 300px; */
   box-sizing: border-box;
-  /* background-color: #6d6d6d !important; */
+  /* background-color: #FFBC7D !important; */
   // css gradient
 
-  background-color: #ffffff;
+  background-color: #ffbc7d76;
   flex-grow: 1;
   flex-basis: 100%;
   justify-content: space-between;
@@ -96,7 +101,7 @@ const IconAndText = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: black;
+  color: #000000;
 `;
 
 export default function IncentivesKPI(props: { data: IncentivesAndKPIs }) {
@@ -136,7 +141,7 @@ const Boxes = (props: { data: Array<Box> }) => (
               }
             />
           )}
-          <TYPE.custom color='#000000' fontSize={12}>
+          <TYPE.custom color='#000000' fontSize={13}>
             {each.text}
           </TYPE.custom>
         </IconAndText>
@@ -159,7 +164,7 @@ export function IncentivesORKPIs(props: {
   return (
     <Wrapper>
       {/* todo: add color to color scheme */}
-      <TYPE.custom color='#ffffff' fontSize={12}>
+      <TYPE.custom color='#000000' fontSize={15} fontWeight={600}>
         {titles[props.name]}
       </TYPE.custom>
 
