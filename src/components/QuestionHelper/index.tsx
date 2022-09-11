@@ -106,6 +106,7 @@ export function Info({ data }: { data: string }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          color: "black",
         }}
       />
     </CampaignTooltip>

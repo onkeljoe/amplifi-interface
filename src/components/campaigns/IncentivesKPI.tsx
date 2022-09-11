@@ -14,8 +14,20 @@ const MainWrapper = styled.div`
     flex-direction: column;
   }
 `;
+const MobileWrapper = styled(Row)`
+  //  this is the wrapper for the mobile view
+  gap: 12px;
+  background-color: #0bc811;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  justify-content: center;
+  `}
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+  flex-direction: column;
+  align-items: center;
+  `}
+`;
 
-const TwoBigBoxesWrapper = styled.div`
+const ThreeBigBoxesWrapper = styled.div`
   display: flex;
   gap: 12px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
@@ -24,63 +36,72 @@ const TwoBigBoxesWrapper = styled.div`
 `;
 
 const Wrapper = styled.div`
+  // this is the main wrapper for all of the orange boxes
+  // what is this?
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: column; // this makes the heading and the orange boxes stack :)
+  // align-items: stretch; // this is making them full width!!
+  /* background-over: linear-gradient(90deg, #008552 0%, #9ebd13 100%); */
+  /* background-image: url(https://www.toptal.com/designers/subtlepatterns/uploads/circuit.png); */
+  background-color: #fe3700 !important;
+
+  background-image: url("https://www.transparenttextures.com/patterns/maze-white.png");
+
   gap: 9px;
-  padding: 15px 20px;
-  border: 2px solid #959595;
-  border-radius: 26px;
+  padding: 15px 13px;
+  /* border: 2px solid #959595;*/
+  border-radius: 10px;
   flex: 50%;
+
   ${({ theme }) => theme.mediaWidth.upToSmall`
   flex: 100%;
   align-items: center;
   `}
 `;
 
-const MobileWrapper = styled(Row)`
-  gap: 12px;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-  justify-content: center;
-  `}
-  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-  flex-direction: column;
-  align-items: center;
-  `}
-`;
-
-const BoxesWrapper = styled(Row)`
-  gap: 12px;
-  width: unset;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-  justify-content: center;
-  `}
-  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-  width: 100%;
-  `}
+const BoxesWrapper = styled.div`
+  // this is wrapping every box :( which is not really what we
+  display: flex;
+  flex-flow: row wrap;
+  gap: 2px;
+  justify-content: space-between;
+  flex: 1;
+  flex-basis: 100%;
+  /* align-items: stretch;
+  align-content: stretch; */
 `;
 
 const StyledBox = styled.div`
+  // this is the orange rounded box BUT there are other wrappers around it causing issues?
   background-color: ${({ theme }) => theme.primary1};
   color: ${({ theme }) => theme.white};
   display: flex;
-  gap: 7px;
-  align-items: center;
   padding: 7px 12px;
-  border-radius: 59px;
+  border-radius: 10px;
   white-space: nowrap;
-  min-height: 34px;
+  align-items: center;
+  align-content: stretch;
+  /* width: 300px; */
   box-sizing: border-box;
+  /* background-color: #FFBC7D !important; */
+  // css gradient
+
+  background-color: #ffbc7d76;
+  flex-grow: 1;
+  flex-basis: 100%;
+  justify-content: space-between;
+  /* flex-grow: 1; */
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-  width: 100%;
-  justify-content: center;
-  `}
+    justify-content: space-between;
+  `};
 `;
 
-const ANDWrapper = styled.div`
-  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-display: none;
-`}
+const IconAndText = styled.div`
+  gap: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #000000;
 `;
 
 export default function IncentivesKPI(props: { data: IncentivesAndKPIs }) {
@@ -96,41 +117,20 @@ export default function IncentivesKPI(props: { data: IncentivesAndKPIs }) {
   }, [props.data]);
   return (
     <MainWrapper ref={ref}>
-      <TwoBigBoxesWrapper
-        style={
-          isOverflow ? { flexDirection: "column" } : { flexDirection: "row" }
-        }
-      >
+      <ThreeBigBoxesWrapper style={{ flexDirection: "row" }}>
         <IncentivesORKPIs data={props.data.incentives} name='incentives' />
         <IncentivesORKPIs data={props.data.bonus} name='bonus' />
-      </TwoBigBoxesWrapper>
-      <IncentivesORKPIs data={props.data.kPIs} name='KPIs' />
+        <IncentivesORKPIs data={props.data.kPIs} name='KPIs' />
+      </ThreeBigBoxesWrapper>
     </MainWrapper>
   );
 }
 
-// checks if AND word needed or is it an end of the array
-function renderAND(arr: Array<Box>, i: number) {
-  if (arr.length === 1) {
-    return;
-  }
-  if (!arr[i + 1]) {
-    return;
-  }
-  return (
-    <ANDWrapper>
-      <TYPE.custom color='#959595' fontSize={12}>
-        AND
-      </TYPE.custom>
-    </ANDWrapper>
-  );
-}
-
 const Boxes = (props: { data: Array<Box> }) => (
-  <>
+  <BoxesWrapper style={{ flexFlow: "row wrap" }}>
     {props.data.map((each, i, arr) => (
-      <BoxesWrapper key={i}>
-        <StyledBox>
+      <StyledBox key={i}>
+        <IconAndText>
           {each.icon && (
             <TokenLogo
               name={each.icon}
@@ -141,15 +141,14 @@ const Boxes = (props: { data: Array<Box> }) => (
               }
             />
           )}
-          <TYPE.custom color='#ffffff' fontSize={12}>
+          <TYPE.custom color='#000000' fontSize={13}>
             {each.text}
           </TYPE.custom>
-          {each.extraInfo && <Info data={each.extraInfo} />}
-        </StyledBox>
-        {renderAND(arr, i)}
-      </BoxesWrapper>
+        </IconAndText>
+        {each.extraInfo && <Info data={each.extraInfo} />}
+      </StyledBox>
     ))}
-  </>
+  </BoxesWrapper>
 );
 
 export function IncentivesORKPIs(props: {
@@ -157,20 +156,19 @@ export function IncentivesORKPIs(props: {
   name: "incentives" | "KPIs" | "bonus";
 }) {
   const titles = {
-    incentives: "Promoter Incentives",
-    bonus: "Promoters Offer",
-    KPIs: "Events & Actions - KPIs",
+    incentives: "Promoter Incentives 💸",
+    bonus: "Promoters Offer 🤝",
+    KPIs: "Events & Actions - KPIs 🎯",
   };
 
   return (
     <Wrapper>
       {/* todo: add color to color scheme */}
-      <TYPE.custom color='#959595' fontSize={12}>
+      <TYPE.custom color='#000000' fontSize={15} fontWeight={600}>
         {titles[props.name]}
       </TYPE.custom>
-      <MobileWrapper>
-        <Boxes data={props.data} />
-      </MobileWrapper>
+
+      <Boxes data={props.data} />
     </Wrapper>
   );
 }
