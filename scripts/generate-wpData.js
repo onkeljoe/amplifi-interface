@@ -21,7 +21,8 @@ query Menus($slug: String!) {
     }
   }
 }
-`
+`;
+
 const URI_QUERY = `
 
 query getNodeByUri($uri: String!) {
@@ -75,15 +76,48 @@ query getNodeByUri($uri: String!) {
         secondarybudgetticker
         snapshotId
         snapshotProposal
+        highlights {
+          mainText
+          payoutTokens
+          payoutKey
+          subText
+          type
+          extraInfo
+          iconImage {
+            link
+          }
+        }
+        incentivesbonuskpis {
+          incentives {
+            icon
+            text
+            extraInfo
+            iconImage {
+              link
+            }
+          }
+          bonus {
+            icon
+            text
+            extraInfo
+            iconImage {
+              link
+            }
+          }
+          kPIs {
+            text
+            extraInfo
+          }
+        }
       }
     }
   }
 }
 
-`
-const fetch = require('cross-fetch');
-const fs = require('fs');
-const menuName = 'Amplifi'
+`;
+const fetch = require("cross-fetch");
+const fs = require("fs");
+const menuName = "Amplifi";
 // type NavResponse = any
 // type UriResponse = any
 // export type WpData = {
@@ -93,48 +127,45 @@ const menuName = 'Amplifi'
 //     }
 // }
 
-console.log('Prefetching wp data...')
+console.log("Prefetching wp data...");
 
 const wp = {
   nav: undefined,
-  uris: {}
-}
+  uris: {},
+};
 
-async function query (query, variables) {
+async function query(query, variables) {
   return fetch(`https://cre8r.vip/graphql`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       variables: variables,
       query: query,
     }),
-  }).then(result => result.json())
+  }).then((result) => result.json());
 }
 
-query(NAVIGATION_QUERY, {slug: menuName})
-  .then(result => {
-    wp.nav = result
-    const head = wp.nav.data.menus.nodes[0]
-    console.log(`Found menu ${head.name}, ${head.id}. Fetching menu items...`)
-    const menuItems = head.menuItems.nodes
-    const menuItemsPromises = menuItems.map(({uri}) => {
-      return query(URI_QUERY, { uri: uri })
-    })
-
-    Promise.allSettled(menuItemsPromises).then(uriResults => {
-        console.log(uriResults)
-      for (let i = 0; i < uriResults.length; i++) {
-        wp.uris[menuItems[i].uri] = uriResults[i].value // promise.allSettled returns an object {value, fullfilled}
-      }
-      console.log(wp)
-      fs.writeFile('./src/wp-data.json', JSON.stringify(wp), err => {
-        if (err) {
-          console.error('Error writing wp data', err);
-        } else {
-          console.log('Wp data successfully prefetched.');
-        }
-      });
-    })
-
-    
+query(NAVIGATION_QUERY, { slug: menuName }).then((result) => {
+  wp.nav = result;
+  const head = wp.nav.data.menus.nodes[0];
+  console.log(`Found menu ${head.name}, ${head.id}. Fetching menu items...`);
+  const menuItems = head.menuItems.nodes;
+  const menuItemsPromises = menuItems.map(({ uri }) => {
+    return query(URI_QUERY, { uri: uri });
   });
+
+  Promise.allSettled(menuItemsPromises).then((uriResults) => {
+    console.log(uriResults);
+    for (let i = 0; i < uriResults.length; i++) {
+      wp.uris[menuItems[i].uri] = uriResults[i].value; // promise.allSettled returns an object {value, fullfilled}
+    }
+    console.log(wp);
+    fs.writeFile("./src/wp-data.json", JSON.stringify(wp), (err) => {
+      if (err) {
+        console.error("Error writing wp data", err);
+      } else {
+        console.log("Wp data successfully prefetched.");
+      }
+    });
+  });
+});
