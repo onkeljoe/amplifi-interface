@@ -4,7 +4,6 @@ import { RowBetween } from "components/Row";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import { TYPE } from "theme";
-import { StyledInternalLink } from "../../theme";
 import { AutoColumn } from "components/Column";
 import { EmptyWrapper } from "components/governance/styled";
 import { useCampaign } from "hooks/useCampaign";
@@ -28,6 +27,26 @@ const ProposalItem = styled.div`
   :hover {
     cursor: pointer;
     opacity: 0.7;
+  }
+`;
+
+const LinkStyledText = styled.div`
+  text-decoration: none;
+  cursor: pointer;
+  color: ${({ theme }) => theme.primary1};
+  font-weight: 400;
+
+  :hover {
+    text-decoration: underline;
+  }
+
+  :focus {
+    outline: none;
+    text-decoration: underline;
+  }
+
+  :active {
+    text-decoration: none;
   }
 `;
 
@@ -77,9 +96,7 @@ function CampaignList({
                   <ProposalItem key={v.id} as={Link} to={uriToRouteMap[v.uri]}>
                     <RowBetween>
                       <ResponsiveText mr='10px'>{v.title}</ResponsiveText>
-                      <StyledInternalLink to={uriToRouteMap[v.uri]}>
-                        View Campaign
-                      </StyledInternalLink>
+                      <LinkStyledText>View Campaign</LinkStyledText>
                     </RowBetween>
                     <Break />
                   </ProposalItem>

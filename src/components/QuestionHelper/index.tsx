@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
-import { HelpCircle as Question } from "react-feather";
+import { HelpCircle as Question, Info as InfoIcon } from "react-feather";
 import styled from "styled-components";
-import Tooltip from "../Tooltip";
+import Tooltip, { CampaignTooltip } from "../Tooltip";
 
 const QuestionWrapper = styled.div`
   display: flex;
@@ -86,5 +86,29 @@ export function LightQuestionHelper({ text }: { text: string }) {
         </LightQuestionWrapper>
       </Tooltip>
     </span>
+  );
+}
+
+export function Info({ data }: { data: string }) {
+  const [show, setShow] = useState<boolean>(false);
+
+  const toggle = useCallback(() => {
+    setShow(!show);
+  }, [show]);
+
+  return (
+    <CampaignTooltip data={data} show={show} setShow={setShow}>
+      <InfoIcon
+        size={20}
+        cursor='pointer'
+        onClick={toggle}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "black",
+        }}
+      />
+    </CampaignTooltip>
   );
 }

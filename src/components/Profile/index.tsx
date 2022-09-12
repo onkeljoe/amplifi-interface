@@ -27,6 +27,8 @@ import { lighten } from "polished";
 import VoteContent from "./VoteContent";
 import WalletSummary from "./WalletSummary";
 import MysteryAmplifiCard from "components/MysteryAmplifiCard";
+import { ProfileTooltip } from "components/Tooltip";
+import useOnClickOutside from "hooks/useClickOutside";
 
 const SectionWrapper = styled.div`
   width: 100%;
@@ -354,9 +356,188 @@ export default function Profile() {
           </RowBetween>
         </Card>
       </MobileWrapper>
-      <Above1080Only>
-        <ProfileContent />
-      </Above1080Only>
     </>
+  );
+}
+
+const ProfileButton = styled.div`
+  color: ${({ theme }) => theme.black};
+  cursor: pointer;
+  background: ${({ theme }) => theme.bg2};
+  text-decoration: none;
+  padding: 9px;
+  font-size: 14px;
+  border-radius: 12px;
+  height: 38px;
+`;
+
+// refactor for DRY code (component above uses all the stuff below this line)
+export function ProfilePopUp() {
+  const [show, setShow] = useState<boolean>(false);
+
+  const toggle = React.useCallback(() => {
+    setShow(!show);
+  }, [show]);
+
+  const profileContentRef = React.useRef(null);
+  const profileButtonEl = React.useRef(null);
+  useOnClickOutside(profileContentRef, (e: Event) => {
+    if (e.target === profileButtonEl.current) {
+      return;
+    } else {
+      setShow(false);
+    }
+  });
+
+  const { account } = useActiveWeb3React();
+  const [activeProtocol] = useActiveProtocol();
+
+  // UI views
+  const toggleWalletModal = useToggleModal(ApplicationModal.WALLET);
+
+  // toggle modal for twitter verification
+  const [showTwitterFlow, setShowTwitterFlow] = useState<boolean>(false);
+
+  // get any verified handles for this user + timestamps they were created at
+  const [twitterAccount] = useTwitterAccount(); // logged in account
+  const verifiedHandleEntry = useVerifiedHandle(account);
+
+  const loadingVerifiedHandles = verifiedHandleEntry === null;
+
+  // on redirect from twitter, if signed in, not verified, and no loading, show modal
+  const [loaded, setLoaded] = useState(false);
+  const { username: usernameQuery } = useParsedQueryString();
+  useEffect(() => {
+    if (
+      twitterAccount &&
+      !verifiedHandleEntry &&
+      !loadingVerifiedHandles &&
+      !loaded &&
+      usernameQuery
+    ) {
+      setShowTwitterFlow(true);
+      setLoaded(true);
+    }
+  }, [
+    loadingVerifiedHandles,
+    twitterAccount,
+    loaded,
+    usernameQuery,
+    verifiedHandleEntry,
+    setShowTwitterFlow,
+  ]);
+
+  const ConnectPitch = ({ stageText }: { stageText: string }) => (
+    <TYPE.blue fontSize='12px' paddingTop={"10px"}>
+      Connect your{` ${stageText} `} to view your{" "}
+      <StyledInternalLink
+        to={"/campaigns/amplifi/amplifi-publisher-airdrop"}
+        style={{
+          textDecoration: "underline",
+          color: "black",
+        }}
+      >
+        airdrop
+      </StyledInternalLink>{" "}
+      💰
+    </TYPE.blue>
+  );
+
+  const ProfileContent = () => (
+    <>
+      <Modal
+        isOpen={showTwitterFlow}
+        onDismiss={() => setShowTwitterFlow(false)}
+      >
+        <TwitterFlow onDismiss={() => setShowTwitterFlow(false)} />
+      </Modal>
+      <SectionWrapper ref={profileContentRef} style={{ width: "330px" }}>
+        {!account ? (
+          <>
+            <TYPE.body
+              fontWeight={500}
+              fontSize='14px'
+              color={activeProtocol?.primaryColor}
+              mb='1rem'
+            >
+              <ConnectPitch stageText='Wallet and Twitter' />
+            </TYPE.body>
+            {activeProtocol && (
+              <ButtonCustom
+                color={activeProtocol?.primaryColor}
+                bgColor={activeProtocol?.secondaryColor}
+                style={{
+                  fontWeight: 500,
+                  fontSize: "16px",
+                }}
+                onClick={() => toggleWalletModal()}
+              >
+                Connect Wallet
+              </ButtonCustom>
+            )}
+          </>
+        ) : (
+          <AutoColumn gap='16px'>
+            {!verifiedHandleEntry && account ? (
+              !twitterAccount ? (
+                <WhiteCard>
+                  <RowFlat>
+                    <MysteryAmplifiCard width={"140px"} />
+                    <div style={{ width: "5px" }} />
+                    <TwitterLoginButton text='Add a public identity' />
+                  </RowFlat>
+                  <ConnectPitch stageText={"Twitter"} />
+                </WhiteCard>
+              ) : (
+                <TwitterButton
+                  onClick={() => {
+                    ReactGA.event({
+                      category: "Social",
+                      action: "Start Link",
+                      label: "Not linked",
+                    });
+                    setShowTwitterFlow(true);
+                  }}
+                >
+                  <RowBetween>
+                    <TYPE.white fontSize='14px'>
+                      Add a public identity
+                    </TYPE.white>
+                    <TwitterLogo src={TwitterIcon} />
+                  </RowBetween>
+                </TwitterButton>
+              )
+            ) : null}
+            {account && verifiedHandleEntry && (
+              <WhiteCard>
+                <RowFlat>
+                  <MysteryAmplifiCard />
+                  <AirdropGreyBox />
+                  <AirdropGreyBox />
+                </RowFlat>
+              </WhiteCard>
+            )}
+            <WalletSummary />
+            <TYPE.main mb='16px'>
+              Your{" "}
+              <span style={{ color: activeProtocol?.primaryColor }}>
+                {" "}
+                {activeProtocol?.name}
+              </span>{" "}
+              breakdown
+            </TYPE.main>
+            <VoteContent />
+          </AutoColumn>
+        )}
+      </SectionWrapper>
+    </>
+  );
+
+  return (
+    <ProfileTooltip Component={ProfileContent} show={show} placement='bottom'>
+      <ProfileButton onClick={toggle} ref={profileButtonEl}>
+        Profile
+      </ProfileButton>
+    </ProfileTooltip>
   );
 }

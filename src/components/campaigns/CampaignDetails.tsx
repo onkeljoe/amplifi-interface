@@ -13,7 +13,15 @@ import Column, { AutoColumn } from "../Column";
 import CampaignContent from "./CampaignContent";
 import CampaignOverview from "./CampaignOverview";
 import CampaignBanner from "./CampaignBanner";
+import IncentivesKPI from "./IncentivesKPI";
+import Highlights from "./Highlights";
 import ReferralLinksCard from "components/ReferralLinksCard";
+import {
+  incomingHighlightes,
+  IncentivesAndKPIs,
+} from "../../components/campaigns/typesIncentivesKPIs";
+import { useActiveCampaign } from "state/campaigns/hooks";
+import { useAutoAnimate } from "hooks/useAutoAnimate";
 
 const Wrapper = styled.div<{ backgroundColor?: string }>``;
 
@@ -37,6 +45,8 @@ function CampaignDetails({
   // if valid protocol id passed in, update global active protocol
   const dispatch = useDispatch<AppDispatch>();
   const [, setActiveProtocol] = useActiveProtocol();
+  const [activeCampaign] = useActiveCampaign();
+
   useEffect(() => {
     if (protocolID && Object.keys(SUPPORTED_PROTOCOLS).includes(protocolID)) {
       setActiveProtocol(SUPPORTED_PROTOCOLS[protocolID]);
@@ -49,12 +59,43 @@ function CampaignDetails({
     campaignID
   );
 
+  let incentivesBonusKPIsData: IncentivesAndKPIs | undefined,
+    highlightsData: incomingHighlightes | undefined;
+  if (
+    page &&
+    page.data &&
+    page.data.amplifiCampaignFields &&
+    page.data.amplifiCampaignFields.highlights &&
+    page.data.amplifiCampaignFields.incentivesbonuskpis &&
+    page.data.amplifiCampaignFields.incentivesbonuskpis.kPIs &&
+    page.data.amplifiCampaignFields.incentivesbonuskpis.incentives
+  ) {
+    incentivesBonusKPIsData =
+      page.data.amplifiCampaignFields.incentivesbonuskpis;
+    highlightsData = page.data.amplifiCampaignFields.highlights;
+  } else if (
+    activeCampaign &&
+    activeCampaign.iak &&
+    activeCampaign.highlights
+  ) {
+    incentivesBonusKPIsData = activeCampaign.iak;
+    highlightsData = activeCampaign.highlights;
+  }
+  const [parent] = useAutoAnimate();
+
   return (
     <Wrapper>
       <Column gap='10px' style={{ width: "100%" }}>
         <CampaignBanner />
         <ReferralLinksCard />
-        <CampaignContent />
+        {incentivesBonusKPIsData && highlightsData ? (
+          <>
+            <IncentivesKPI data={incentivesBonusKPIsData} />
+            <Highlights data={highlightsData} />
+          </>
+        ) : (
+          <CampaignContent />
+        )}
         {amplifiCampaignsTabData.length > 0 && (
           <div style={{ paddingBottom: 10 }}>
             <Tabs
@@ -69,36 +110,53 @@ function CampaignDetails({
             />
           </div>
         )}
-        {page && (
-          <>
-            {page.type === "SubPage" ? (
-              <>
-                {(() => {
-                  const Component = page.data.component;
-                  return <Component />;
-                })()}
-              </>
-            ) : page.type === "WPACFPage" ? (
-              <CampaignOverview />
-            ) : (
-              <>
-                {/* <Break /> */}
-                {!page || !page.data ? (
-                  <LoadingRows>
-                    <div />
-                    <div />
-                    <div />
-                    <div />
-                  </LoadingRows>
-                ) : (
-                  // WPContentPage
-                  <CampaignContent content={page.data.content} />
-                )}
-              </>
-            )}
-          </>
-        )}
-        {page && page.error && <div>Error loading content</div>}
+        <div ref={parent}>
+          {page ? (
+            <>
+              {page.type === "SubPage" ? (
+                <>
+                  {(() => {
+                    const Component = page.data.component;
+                    return <Component />;
+                  })()}
+                </>
+              ) : page.type === "WPACFPage" ? (
+                <CampaignOverview />
+              ) : (
+                <>
+                  {/* <Break /> */}
+                  {!page || !page.data ? (
+                    <LoadingRows>
+                      <div />
+                      <div />
+                      <div />
+                      <div />
+                    </LoadingRows>
+                  ) : (
+                    // WPContentPage
+                    <CampaignContent content={page.data.content} />
+                  )}
+                </>
+              )}
+            </>
+          ) : (
+            <LoadingRows>
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+            </LoadingRows>
+          )}
+          {page && page.error && <div>Error loading content</div>}
+        </div>
       </Column>
       {/* </ProposalInfo> */}
     </Wrapper>
@@ -106,3 +164,111 @@ function CampaignDetails({
 }
 
 export default withRouter(CampaignDetails);
+
+// const amplifiIandK: IncentivesAndKPIs = {
+//   incentives: [
+//     {
+//       icon: "ETH",
+//       text: "5%",
+//     },
+//     {
+//       icon: "AMP",
+//       text: "matching $AMP",
+//     },
+//   ],
+//   bonus: [
+//     {
+//       icon: "AMP",
+//       text: "2.5% $AMP",
+//     },
+//   ],
+//   KPIs: [
+//     {
+//       text: "deposits ETH to Juicebox",
+//     },
+//     {
+//       text: "payouts happen monthly",
+//       extraInfo: {
+//         startText: "Every 2 juicebox cycles",
+//       },
+//     },
+//   ],
+// };
+
+// const amplifiHighlights: Array<Money | Calendar | Referree> = [
+//   {
+//     type: "money",
+//     subText: "Currently Paid out",
+//     mainText: "~$10k",
+//     payoutKey: "payoutkey",
+//     payoutTokens: ["USDC", "AMP"],
+//   },
+//   {
+//     type: "calendar",
+//     subText: "~48 hours after snapshot vote",
+//     mainText: "Every 2 weeks",
+//     infoBox: {
+//       startText: "some calendar info",
+//     },
+//   },
+// ];
+
+// const billidropIandK: IncentivesAndKPIs = {
+//   incentives: [
+//     {
+//       icon: "USDC",
+//       text: "$60",
+//     },
+//     {
+//       icon: "AMP",
+//       text: "$60",
+//     },
+//   ],
+//   bonus: [
+//     {
+//       icon: "AMP",
+//       text: "$60",
+//     },
+//   ],
+//   KPIs: [
+//     {
+//       text: "referee mints an NFT",
+//       extraInfo: {
+//         startText: "When an NFT is minted via referral link",
+//       },
+//     },
+//   ],
+// };
+
+// const billidropHighlights: Array<Money | Calendar | Referree> = [
+//   {
+//     type: "money",
+//     subText: "Currently Paid out",
+//     mainText: "~$10k",
+//     payoutKey: "payoutkey",
+//     payoutTokens: ["USDC", "AMP"],
+//   },
+//   {
+//     type: "calendar",
+//     subText: "~48 hours after snapshot vote",
+//     mainText: "Every 2 weeks",
+//     infoBox: {
+//       startText: "some calendar info",
+//     },
+//   },
+// ];
+// const protocolsIAndK: {
+//   [protocolID: string]: {
+//     ik: IncentivesAndKPIs;
+//     highlights: Array<Money | Calendar | Referree>;
+//   };
+// } = {
+//   AMPLIFI: {
+//     ik: amplifiIandK,
+//     highlights: amplifiHighlights,
+//   },
+//   BilliDrop: {
+//     ik: billidropIandK,
+//     highlights: billidropHighlights,
+//   },
+// };

@@ -1,16 +1,25 @@
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import Popover, { PopoverProps } from "../Popover";
+import { X } from "react-feather";
 
 const TooltipContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 228px;
   padding: 0.6rem 1rem;
   line-height: 150%;
   font-weight: 400;
+  font-size: 12px;
 `;
 
 interface TooltipProps extends Omit<PopoverProps, "content"> {
   text: string;
+}
+
+interface CampaignTooltipProps extends Omit<PopoverProps, "content"> {
+  data: string;
+  setShow: (value: boolean) => void;
 }
 
 export default function Tooltip({ text, ...rest }: TooltipProps) {
@@ -33,4 +42,37 @@ export function MouseoverTooltip({
       </div>
     </Tooltip>
   );
+}
+// function DangerousHTML(props: any) {
+//   return <div dangerouslySetInnerHTML={{ __html: props.data }}></div>;
+// }
+
+export function CampaignTooltip({
+  data,
+  setShow,
+  ...rest
+}: CampaignTooltipProps) {
+  return (
+    <Popover
+      content={
+        <TooltipContainer>
+          <X
+            onClick={() => setShow(false)}
+            cursor='pointer'
+            style={{ alignSelf: "flex-end" }}
+          />
+          <div dangerouslySetInnerHTML={{ __html: data }}></div>
+        </TooltipContainer>
+      }
+      {...rest}
+    />
+  );
+}
+
+interface ProfileTooltipProps extends Omit<PopoverProps, "content"> {
+  Component: React.FunctionComponent;
+}
+
+export function ProfileTooltip({ Component, ...rest }: ProfileTooltipProps) {
+  return <Popover content={<Component />} {...rest} />;
 }

@@ -1,12 +1,12 @@
 import React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { useProtocolUpdate } from "../hooks/useProtocolUpdate";
-import { BodyWrapper, MediumHeaderWrapper } from "./AppBody";
+import { BodyWrapper } from "./AppBody";
 // import { useActiveWeb3React } from '../hooks'
 import { useActiveProtocol } from "../state/governance/hooks";
 import Column, { AutoColumn } from "../components/Column";
 import { Above1080Only, Below1080Only } from "../theme/components";
-import { RowBetween, RowFixed } from "../components/Row";
+import Row, { RowBetween, RowFixed } from "../components/Row";
 import { WrappedListLogo } from "../components/governance/styled";
 import Dropdown from "../components/governance/Dropdown";
 import Tabs from "../components/governance/Tabs";
@@ -15,6 +15,7 @@ import CampaignList from "components/campaigns/CampaignList";
 import CampaignDetails from "components/campaigns/CampaignDetails";
 import { useActiveCampaign } from "state/campaigns/hooks";
 import CRE8RPriceCard from "components/CRE8RPriceCard";
+import { ProfilePopUp } from "components/Profile";
 
 export default function Amplifi({
   match: {
@@ -31,40 +32,41 @@ export default function Amplifi({
   return (
     <BodyWrapper>
       <Column gap='1rem'>
-        <MediumHeaderWrapper>
-          <AutoColumn gap='sm'>
-            <Above1080Only>
-              <RowBetween>
-                <RowFixed>
-                  <WrappedListLogo src={activeProtocol?.logo} />
-                  <AutoColumn>
-                    <TYPE.mediumHeader
+        <AutoColumn gap='sm'>
+          <Above1080Only>
+            <RowBetween>
+              <RowFixed>
+                <WrappedListLogo src={activeProtocol?.logo} />
+                <AutoColumn>
+                  <TYPE.mediumHeader
+                    ml='8px'
+                    fontWeight={600}
+                    color={activeProtocol?.primaryColor}
+                  >
+                    {activeProtocol?.name}
+                  </TYPE.mediumHeader>
+                  {campaignID && (
+                    <TYPE.small
                       ml='8px'
                       fontWeight={600}
                       color={activeProtocol?.primaryColor}
                     >
-                      {activeProtocol?.name}
-                    </TYPE.mediumHeader>
-                    {campaignID && (
-                      <TYPE.small
-                        ml='8px'
-                        fontWeight={600}
-                        color={activeProtocol?.primaryColor}
-                      >
-                        {activeCampaign?.title}
-                      </TYPE.small>
-                    )}
-                  </AutoColumn>
-                </RowFixed>
+                      {activeCampaign?.title}
+                    </TYPE.small>
+                  )}
+                </AutoColumn>
+              </RowFixed>
+              <Row width='unset' gap='1rem'>
+                <ProfilePopUp />
                 <CRE8RPriceCard />
-              </RowBetween>
-            </Above1080Only>
-            <Below1080Only>
-              <Dropdown />
-            </Below1080Only>
-            <Tabs />
-          </AutoColumn>
-        </MediumHeaderWrapper>
+              </Row>
+            </RowBetween>
+          </Above1080Only>
+          <Below1080Only>
+            <Dropdown />
+          </Below1080Only>
+          <Tabs />
+        </AutoColumn>
         <Column>{campaignID ? <CampaignDetails /> : <CampaignList />}</Column>
       </Column>
     </BodyWrapper>

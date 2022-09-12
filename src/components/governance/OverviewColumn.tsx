@@ -12,7 +12,7 @@ export const OVERVIEW_EXPANSION_WIDTH = 99;
 const Wrapper = styled.div<{ backgroundColor?: string; expanded?: boolean }>`
   margin-left: 70px;
   padding: 2rem;
-  border-right: 1px solid ${({ backgroundColor }) => backgroundColor};
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
   transform: translateX(-${OVERVIEW_EXPANSION_WIDTH}px);
   transition: transform 0.2s;
 

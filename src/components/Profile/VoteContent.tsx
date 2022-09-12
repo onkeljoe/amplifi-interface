@@ -117,7 +117,7 @@ export default function VoteContent() {
       {!isBeetsCampaign ? (
         <>
           {isInCampaign
-            ? "This campaign currently does not having an metrics to show."
+            ? "This campaign currently does not have any metrics to show."
             : "Please view a campaign to view your rewards."}
         </>
       ) : (

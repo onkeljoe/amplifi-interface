@@ -3,9 +3,6 @@ import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import toast from "components/Toast";
 import styled from "styled-components";
 import GoogleAnalyticsReporter from "../components/analytics/GoogleAnalyticsReporter";
-import OverviewColumn, {
-  OVERVIEW_EXPANSION_WIDTH,
-} from "../components/governance/OverviewColumn";
 import ProposalDetails from "../components/governance/ProposalDetails";
 import Polling from "../components/Header/Polling";
 import SideMenu from "../components/Menu/SideMenu";
@@ -28,34 +25,17 @@ import Proposals from "./Proposals";
 import Payouts from "./Payouts";
 import PayoutInfo from "./PayoutInfo";
 import Landing from "./Landing";
-
-const FIRST_2_COLS_WIDTH = 320;
+import DiscordBot from "../components/discord/DiscordBot";
 
 const SiteWrapper = styled.div<{
-  expandedOverview?: boolean;
   isLanding?: boolean;
 }>`
   height: 100vh;
   width: 100%;
   display: grid;
-  grid-template-columns: ${FIRST_2_COLS_WIDTH - OVERVIEW_EXPANSION_WIDTH}px 1fr 200px;
+  grid-template-columns: 1fr;
   overflow: auto;
 
-  ${({ theme }) => theme.mediaWidth.upToLarge`
-    grid-template-columns: 1fr 376px;
-  `};
-
-  ${({ expandedOverview }) =>
-    expandedOverview &&
-    `
-  grid-template-columns: ${FIRST_2_COLS_WIDTH}px 1fr 376px;
-  `};
-
-  ${({ isLanding }) =>
-    isLanding &&
-    `
-  grid-template-columns: 1fr !important;
-  `};
   @media (max-width: 1080px) {
     display: flex;
     flex-flow: column;
@@ -70,6 +50,7 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   padding: 2rem;
+  padding-left: 112px;
   align-items: center;
   flex: 1;
   overflow-y: auto;
@@ -78,7 +59,8 @@ const ContentWrapper = styled.div`
 
   @media (max-width: 1080px) {
     padding-top: 1rem;
-    padding-bottom: 120px;
+    padding-bottom: 1rem;
+    padding-left: 2rem;
   }
 
   ::-webkit-scrollbar {
@@ -107,7 +89,6 @@ function TopLevelModals() {
 
 export default function App() {
   const identityOnlyFlow = identityOnlyPath(useLocation().pathname);
-  const [expandedOverview, setExpandedOverview] = React.useState(true);
   const { pathname } = useLocation();
   const isLanding = pathname === "/";
   // console.log(isLanding); no console.log
@@ -117,14 +98,8 @@ export default function App() {
       <Route component={DarkModeQueryParamReader} />
       <Route component={TwitterAccountQueryParamReader} />
       {!identityOnlyFlow && (
-        <SiteWrapper expandedOverview={expandedOverview} isLanding={isLanding}>
+        <SiteWrapper isLanding={isLanding}>
           <SideMenu />
-          {!isLanding && (
-            <OverviewColumn
-              expanded={expandedOverview}
-              onToggleExpand={() => setExpandedOverview(!expandedOverview)}
-            />
-          )}
           <ContentWrapper>
             <Web3Status />
             <Popups landing={isLanding} />
@@ -219,6 +194,7 @@ export default function App() {
         </div>
       )}
       <toast.Toaster />
+      <DiscordBot />
     </Suspense>
   );
 }

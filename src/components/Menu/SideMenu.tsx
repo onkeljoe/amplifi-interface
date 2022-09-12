@@ -16,6 +16,7 @@ import Logo from "../../assets/svg/AmpliFi.svg";
 import { Break } from "../../pages/DelegateInfo";
 import { useActiveProtocol } from "../../state/governance/hooks";
 import { SUPPORTED_PROTOCOLS } from "../../state/governance/reducer";
+import useOnClickOutside from "hooks/useClickOutside";
 
 const Wrapper = styled.div<{ open: boolean }>`
   height: 100vh;
@@ -127,8 +128,10 @@ export default function SideMenu(): JSX.Element {
   const [open, setOpen] = useState(false);
   const [faqOpen, setfaqOpen] = useState(false);
   const [activeProtocol] = useActiveProtocol();
+  const ref = React.useRef(null);
+  useOnClickOutside(ref, () => closeBoth());
   function closeBoth() {
-    setOpen(!open);
+    setOpen(false);
     setfaqOpen(false);
   }
   const preventClickPropagration = useCallback(
@@ -226,7 +229,7 @@ export default function SideMenu(): JSX.Element {
           </MobileFAQWrapper>
         )}
       </MobileHeader>
-      <Wrapper open={open} onClick={() => !open && setOpen(!open)}>
+      <Wrapper open={open} onClick={() => !open && setOpen(!open)} ref={ref}>
         <AutoColumn gap='24px'>
           <div style={{ padding: "0px 5px 55px 5px", height: "28px" }}>
             {!open ? (
@@ -309,7 +312,11 @@ export default function SideMenu(): JSX.Element {
               padding: "0 1.25rem",
             }}
           >
-            <StyledInternalLink to='/' onClick={preventClickPropagration}>
+            <StyledInternalLink
+              to='/'
+              onClick={preventClickPropagration}
+              style={{ width: "fit-content" }}
+            >
               <Home size={20} style={{ stroke: "black" }} />
             </StyledInternalLink>
             <ExternalLink
@@ -319,6 +326,7 @@ export default function SideMenu(): JSX.Element {
                 color: "#000",
                 gap: 12,
                 padding: 0,
+                width: "fit-content",
               }}
             >
               <GitHub size={20} />

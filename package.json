@@ -1,6 +1,6 @@
 {
-  "name": "@uniswap/interface",
-  "description": "Uniswap Interface",
+  "name": "@amplifi/interface",
+  "description": "Amplifi Interface",
   "homepage": ".",
   "private": true,
   "devDependencies": {
@@ -134,6 +134,7 @@
     "@apollo/client": "^3.6.9",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.9.3",
+    "@formkit/auto-animate": "^1.0.0-beta.3",
     "@mui/lab": "^5.0.0-alpha.87",
     "@mui/material": "^5.8.5",
     "@mui/styled-engine-sc": "^5.8.0",
