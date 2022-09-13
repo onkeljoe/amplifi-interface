@@ -547,7 +547,6 @@ export const SUPPORTED_PROTOCOLS: { [id: string]: GovernanceInfo } = process.env
       connect: CONNECT_CONFIG,
     }
   : {
-      AMPLIFI: AMPLIFI_GOVERNANCE,
       CRE8R: CRE8R_GOVERNANCE,
       BilliDrop: BILLI_GOVERNANCE,
       "ALBERT-ETHSTEIN": ALBERT_ETHSTEIN_GOVERNANCE,
